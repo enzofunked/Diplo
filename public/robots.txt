@@ -1,0 +1,57 @@
+# Robots.txt pour Diplo Scanner
+# https://diplo-scanner.com/robots.txt
+
+User-agent: *
+Allow: /
+
+# Pages principales
+Allow: /
+Allow: /french
+Allow: /swiss
+Allow: /history
+Allow: /terms
+
+# Ressources statiques
+Allow: /favicon.ico
+Allow: /manifest.json
+Allow: /og-image.jpg
+Allow: /twitter-image.jpg
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.svg
+Allow: /*.webp
+
+# Sitemap
+Sitemap: https://diplo-scanner.com/sitemap.xml
+
+# Crawl-delay pour éviter la surcharge
+Crawl-delay: 1
+
+# Directives spécifiques pour les moteurs de recherche
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 2
+
+# Bloquer les bots indésirables
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+# Informations de contact
+# Contact: contact@diplo-scanner.com
