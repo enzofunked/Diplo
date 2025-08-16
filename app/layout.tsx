@@ -73,12 +73,12 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/favicons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon.ico", sizes: "32x32", type: "image/x-icon" },
-      { url: "/app-icon-256-new.png", sizes: "96x96", type: "image/png" },
+      { url: "/favicons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicons/favicon-96x96.png", sizes: "96x96", type: "image/png" },
       { url: "/app-icon-256-new.png", sizes: "144x144", type: "image/png" },
       { url: "/app-icon-256-new.png", sizes: "192x192", type: "image/png" },
     ],
-    shortcut: "/favicon.ico",
+    shortcut: "/favicons/favicon-32x32.png",
     apple: "/app-icon-256-new.png",
   },
   verification: {
@@ -98,9 +98,10 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <head>
-        {/* Favicon configuration */}
+        {/* Favicon configuration - Multiple sizes for optimal compatibility */}
         <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="96x96" href="/favicons/favicon-96x96.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/app-icon-256-new.png" />
 
         {/* Microsoft tile configuration */}
