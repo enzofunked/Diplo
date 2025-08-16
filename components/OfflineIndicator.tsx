@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { AlertCircle, Wifi, WifiOff, Download, RefreshCw, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Card, CardContent } from "@/components/ui/card"
 import { swManager } from "@/utils/sw-registration"
 
 export default function OfflineIndicator() {
@@ -14,7 +15,7 @@ export default function OfflineIndicator() {
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null)
   const [showOfflineReady, setShowOfflineReady] = useState(false)
   const [isUpdating, setIsUpdating] = useState(false)
-  const [showOfflineAlert, setShowOfflineAlert] = useState(false)
+  const [showIndicator, setShowIndicator] = useState(false)
 
   useEffect(() => {
     // Vérifier si on est côté client
@@ -22,12 +23,12 @@ export default function OfflineIndicator() {
 
     // État initial
     setIsOnline(navigator.onLine)
-    setShowOfflineAlert(!navigator.onLine)
+    setShowIndicator(!navigator.onLine)
 
     // Écouter les changements de connexion
     const handleConnectionChange = (event: CustomEvent) => {
       setIsOnline(event.detail.online)
-      setShowOfflineAlert(!event.detail.online)
+      setShowIndicator(!event.detail.online)
     }
 
     // Écouter les mises à jour du Service Worker
@@ -53,12 +54,13 @@ export default function OfflineIndicator() {
 
     const handleOnline = () => {
       setIsOnline(true)
-      setShowOfflineAlert(false)
+      setShowIndicator(true)
+      setTimeout(() => setShowIndicator(false), 3000)
     }
 
     const handleOffline = () => {
       setIsOnline(false)
-      setShowOfflineAlert(true)
+      setShowIndicator(true)
     }
 
     window.addEventListener("connection-change", handleConnectionChange as EventListener)
@@ -129,7 +131,7 @@ export default function OfflineIndicator() {
     setShowUpdateNotification(false)
   }
 
-  if (!showOfflineAlert) return null
+  if (!showIndicator && isOnline) return null
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 space-y-2 p-2">
@@ -224,14 +226,25 @@ export default function OfflineIndicator() {
       )}
 
       {/* Offline Alert */}
-      {showOfflineAlert && (
-        <div className="fixed bottom-4 left-4 z-50 md:left-auto md:right-4 md:w-80">
-          <Alert variant="destructive" className="bg-red-50 border-red-200">
-            <WifiOff className="h-4 w-4" />
-            <AlertDescription>Vous êtes hors ligne. Certaines fonctionnalités peuvent être limitées.</AlertDescription>
-          </Alert>
-        </div>
-      )}
+      <div className="fixed top-4 right-4 z-50">
+        <Card className={`shadow-lg ${isOnline ? "bg-green-50 border-green-200" : "bg-red-50 border-red-200"}`}>
+          <CardContent className="p-3">
+            <div className="flex items-center gap-2">
+              {isOnline ? (
+                <>
+                  <Wifi className="w-4 h-4 text-green-600" />
+                  <span className="text-sm text-green-700 font-medium">Connexion rétablie</span>
+                </>
+              ) : (
+                <>
+                  <WifiOff className="w-4 h-4 text-red-600" />
+                  <span className="text-sm text-red-700 font-medium">Hors ligne</span>
+                </>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   )
 }

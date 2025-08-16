@@ -31,7 +31,6 @@ export default function CameraCapture({ system, onResult, onError, onBack }: Cam
 
   const startCamera = async () => {
     try {
-      // Vérifier si les APIs sont disponibles
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
         throw new Error("Caméra non supportée par ce navigateur")
       }
@@ -93,7 +92,6 @@ export default function CameraCapture({ system, onResult, onError, onBack }: Cam
         throw new Error("Impossible de créer le contexte canvas")
       }
 
-      // Capturer l'image
       canvas.width = video.videoWidth
       canvas.height = video.videoHeight
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
@@ -101,18 +99,16 @@ export default function CameraCapture({ system, onResult, onError, onBack }: Cam
       // Simuler l'analyse OCR (2 secondes)
       await new Promise((resolve) => setTimeout(resolve, 2000))
 
-      // Générer un exemple de plaque réaliste pour la démo
       let plateText: string
       let validationResult: any
 
       if (system === "french") {
-        // Exemples de plaques françaises réelles
         const frenchExamples = [
           "5 CD 1234", // Allemagne
           "6 CMD 12", // États-Unis (Ambassadeur)
           "26 CD 5678", // Chine
           "45 C 123.75", // Grande-Bretagne (Consulat)
-          "32 CD 9876", // France (rare mais possible)
+          "32 CD 9876", // France
           "107 CD 4567", // Italie
           "1 CMD 01", // Vatican (Ambassadeur)
           "78 C 456.12", // Espagne (Consulat)
@@ -120,7 +116,6 @@ export default function CameraCapture({ system, onResult, onError, onBack }: Cam
         plateText = frenchExamples[Math.floor(Math.random() * frenchExamples.length)]
         validationResult = validateFrenchPlate(plateText)
       } else {
-        // Exemples de plaques suisses réelles
         const swissExamples = [
           "001 123", // Allemagne
           "032 456", // France
@@ -154,140 +149,144 @@ export default function CameraCapture({ system, onResult, onError, onBack }: Cam
 
   if (hasPermission === false) {
     return (
-      <div className="space-y-4">
-        <div className="flex items-center gap-2">
-          <Button variant="ghost" size="sm" onClick={onBack}>
-            <X className="w-4 h-4" />
-          </Button>
-          <h2 className="font-semibold">Erreur caméra</h2>
-        </div>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+        <div className="container mx-auto px-4 py-8">
+          <div className="max-w-4xl mx-auto">
+            <div className="space-y-4">
+              <div className="flex items-center gap-2">
+                <Button variant="ghost" size="sm" onClick={onBack}>
+                  <X className="w-4 h-4" />
+                </Button>
+                <h2 className="font-semibold">Erreur caméra</h2>
+              </div>
 
-        <Card>
-          <CardContent className="p-6 text-center">
-            <div className="text-red-600 mb-4">
-              <Camera className="w-12 h-12 mx-auto mb-2" />
-              <h3 className="font-semibold">Accès caméra requis</h3>
+              <Card>
+                <CardContent className="p-6 text-center">
+                  <div className="text-red-600 mb-4">
+                    <Camera className="w-12 h-12 mx-auto mb-2" />
+                    <h3 className="font-semibold">Accès caméra requis</h3>
+                  </div>
+                  <p className="text-muted-foreground mb-4">
+                    Pour scanner une plaque, nous avons besoin d'accéder à votre caméra.
+                  </p>
+                  <div className="space-y-2 text-sm text-left bg-muted/50 p-4 rounded-lg">
+                    <p>
+                      <strong>Pour autoriser l'accès :</strong>
+                    </p>
+                    <p>1. Cliquez sur l'icône de caméra dans la barre d'adresse</p>
+                    <p>2. Sélectionnez "Autoriser"</p>
+                    <p>3. Rechargez la page</p>
+                  </div>
+                  <Button onClick={startCamera} className="mt-4">
+                    Réessayer
+                  </Button>
+                </CardContent>
+              </Card>
             </div>
-            <p className="text-muted-foreground mb-4">
-              Pour scanner une plaque, nous avons besoin d'accéder à votre caméra.
-            </p>
-            <div className="space-y-2 text-sm text-left bg-muted/50 p-4 rounded-lg">
-              <p>
-                <strong>Pour autoriser l'accès :</strong>
-              </p>
-              <p>1. Cliquez sur l'icône de caméra dans la barre d'adresse</p>
-              <p>2. Sélectionnez "Autoriser"</p>
-              <p>3. Rechargez la page</p>
-            </div>
-            <Button onClick={startCamera} className="mt-4">
-              Réessayer
-            </Button>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     )
   }
 
   return (
-    <div className="space-y-4">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <Button variant="ghost" size="sm" onClick={onBack}>
-          <X className="w-4 h-4 mr-2" />
-          Fermer
-        </Button>
-        <h2 className="font-semibold">Scanner {system === "french" ? "français" : "suisse"}</h2>
-        <Button variant="ghost" size="sm" onClick={switchCamera} disabled={!stream}>
-          <RotateCcw className="w-4 h-4" />
-        </Button>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <Button variant="ghost" size="sm" onClick={onBack}>
+                <X className="w-4 h-4 mr-2" />
+                Fermer
+              </Button>
+              <h2 className="font-semibold">Scanner {system === "french" ? "français" : "suisse"}</h2>
+              <Button variant="ghost" size="sm" onClick={switchCamera} disabled={!stream}>
+                <RotateCcw className="w-4 h-4" />
+              </Button>
+            </div>
 
-      {/* Caméra */}
-      <Card>
-        <CardContent className="p-4">
-          <div className="relative aspect-video bg-black rounded-lg overflow-hidden">
-            {stream ? (
-              <>
-                <video ref={videoRef} autoPlay playsInline muted className="w-full h-full object-cover" />
+            <Card>
+              <CardContent className="p-4">
+                <div className="relative aspect-video bg-black rounded-lg overflow-hidden">
+                  {stream ? (
+                    <>
+                      <video ref={videoRef} autoPlay playsInline muted className="w-full h-full object-cover" />
 
-                {/* Cadre de visée */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div
-                    className={`border-2 ${
-                      system === "french" ? "border-green-400" : "border-red-400"
-                    } rounded-lg bg-transparent`}
-                    style={{ width: "80%", height: "40%" }}
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div
+                          className={`border-2 ${
+                            system === "french" ? "border-green-400" : "border-red-400"
+                          } rounded-lg bg-transparent`}
+                          style={{ width: "80%", height: "40%" }}
+                        >
+                          <div className="w-full h-full border border-white/30 rounded-lg flex items-center justify-center">
+                            <span className="text-white text-sm bg-black/70 px-3 py-1 rounded">
+                              Positionnez la plaque ici
+                            </span>
+                          </div>
+
+                          <div className="absolute -top-1 -left-1 w-4 h-4 border-l-2 border-t-2 border-white"></div>
+                          <div className="absolute -top-1 -right-1 w-4 h-4 border-r-2 border-t-2 border-white"></div>
+                          <div className="absolute -bottom-1 -left-1 w-4 h-4 border-l-2 border-b-2 border-white"></div>
+                          <div className="absolute -bottom-1 -right-1 w-4 h-4 border-r-2 border-b-2 border-white"></div>
+                        </div>
+                      </div>
+
+                      {isCapturing && (
+                        <div className="absolute inset-0 bg-white/20 flex items-center justify-center">
+                          <div className="bg-black/80 text-white px-6 py-3 rounded-lg flex items-center gap-3">
+                            <Loader2 className="w-5 h-5 animate-spin" />
+                            <span>Analyse en cours...</span>
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <div className="text-white text-center">
+                        <Loader2 className="w-8 h-8 animate-spin mx-auto mb-2" />
+                        <p>Chargement de la caméra...</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <canvas ref={canvasRef} className="hidden" />
+
+                <div className="mt-4 text-center">
+                  <Button
+                    onClick={captureAndAnalyze}
+                    disabled={isCapturing || !stream}
+                    size="lg"
+                    className={`${
+                      system === "french" ? "bg-green-600 hover:bg-green-700" : "bg-red-600 hover:bg-red-700"
+                    } min-w-[200px]`}
                   >
-                    <div className="w-full h-full border border-white/30 rounded-lg flex items-center justify-center">
-                      <span className="text-white text-sm bg-black/70 px-3 py-1 rounded">
-                        Positionnez la plaque ici
-                      </span>
-                    </div>
-
-                    {/* Coins du cadre */}
-                    <div className="absolute -top-1 -left-1 w-4 h-4 border-l-2 border-t-2 border-white"></div>
-                    <div className="absolute -top-1 -right-1 w-4 h-4 border-r-2 border-t-2 border-white"></div>
-                    <div className="absolute -bottom-1 -left-1 w-4 h-4 border-l-2 border-b-2 border-white"></div>
-                    <div className="absolute -bottom-1 -right-1 w-4 h-4 border-r-2 border-b-2 border-white"></div>
-                  </div>
+                    {isCapturing ? (
+                      <>
+                        <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                        Analyse...
+                      </>
+                    ) : (
+                      <>
+                        <Camera className="w-5 h-5 mr-2" />
+                        Capturer
+                      </>
+                    )}
+                  </Button>
                 </div>
 
-                {/* Overlay de capture */}
-                {isCapturing && (
-                  <div className="absolute inset-0 bg-white/20 flex items-center justify-center">
-                    <div className="bg-black/80 text-white px-6 py-3 rounded-lg flex items-center gap-3">
-                      <Loader2 className="w-5 h-5 animate-spin" />
-                      <span>Analyse en cours...</span>
-                    </div>
-                  </div>
-                )}
-              </>
-            ) : (
-              <div className="w-full h-full flex items-center justify-center">
-                <div className="text-white text-center">
-                  <Loader2 className="w-8 h-8 animate-spin mx-auto mb-2" />
-                  <p>Chargement de la caméra...</p>
+                <div className="mt-4 text-xs text-muted-foreground text-center space-y-1">
+                  <p>• Assurez-vous que la plaque est bien éclairée</p>
+                  <p>• Positionnez la plaque dans le cadre {system === "french" ? "vert" : "rouge"}</p>
+                  <p>• Tenez l'appareil stable pendant la capture</p>
+                  <p>• La plaque doit être nette et lisible</p>
                 </div>
-              </div>
-            )}
+              </CardContent>
+            </Card>
           </div>
-
-          {/* Canvas caché pour la capture */}
-          <canvas ref={canvasRef} className="hidden" />
-
-          {/* Bouton de capture */}
-          <div className="mt-4 text-center">
-            <Button
-              onClick={captureAndAnalyze}
-              disabled={isCapturing || !stream}
-              size="lg"
-              className={`${
-                system === "french" ? "bg-green-600 hover:bg-green-700" : "bg-red-600 hover:bg-red-700"
-              } min-w-[200px]`}
-            >
-              {isCapturing ? (
-                <>
-                  <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                  Analyse...
-                </>
-              ) : (
-                <>
-                  <Camera className="w-5 h-5 mr-2" />
-                  Capturer
-                </>
-              )}
-            </Button>
-          </div>
-
-          {/* Instructions */}
-          <div className="mt-4 text-xs text-muted-foreground text-center space-y-1">
-            <p>• Assurez-vous que la plaque est bien éclairée</p>
-            <p>• Positionnez la plaque dans le cadre {system === "french" ? "vert" : "rouge"}</p>
-            <p>• Tenez l'appareil stable pendant la capture</p>
-            <p>• La plaque doit être nette et lisible</p>
-          </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   )
 }

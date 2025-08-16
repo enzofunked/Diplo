@@ -4,7 +4,6 @@ import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Cookie, X } from "lucide-react"
-import Link from "next/link"
 
 export default function CookieConsent() {
   const [showConsent, setShowConsent] = useState(false)
@@ -29,30 +28,31 @@ export default function CookieConsent() {
   if (!showConsent) return null
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-4">
-      <Card className="mx-auto max-w-4xl shadow-lg">
+    <div className="fixed bottom-4 left-4 right-4 z-50 md:left-auto md:right-4 md:max-w-md">
+      <Card className="border-2 border-blue-200 shadow-lg">
         <CardContent className="p-4">
           <div className="flex items-start gap-3">
-            <Cookie className="w-5 h-5 text-amber-600 mt-1 flex-shrink-0" />
+            <Cookie className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
             <div className="flex-1">
-              <h3 className="font-semibold text-sm mb-1">Cookies et données locales</h3>
-              <p className="text-xs text-muted-foreground mb-3">
-                Nous utilisons le stockage local pour sauvegarder votre historique et vos favoris. Aucune donnée n'est
-                envoyée à des serveurs externes.{" "}
-                <Link href="/cookies" className="underline hover:no-underline">
-                  En savoir plus
-                </Link>
+              <h3 className="font-semibold text-sm mb-2">Cookies et confidentialité</h3>
+              <p className="text-xs text-gray-600 mb-3">
+                Nous utilisons des cookies pour améliorer votre expérience et sauvegarder vos préférences localement.
               </p>
               <div className="flex gap-2">
-                <Button onClick={acceptCookies} size="sm" className="text-xs">
+                <Button onClick={acceptCookies} size="sm" className="text-xs px-3 py-1">
                   Accepter
                 </Button>
-                <Button onClick={declineCookies} variant="outline" size="sm" className="text-xs bg-transparent">
+                <Button
+                  onClick={declineCookies}
+                  variant="outline"
+                  size="sm"
+                  className="text-xs px-3 py-1 bg-transparent"
+                >
                   Refuser
                 </Button>
               </div>
             </div>
-            <Button variant="ghost" size="sm" onClick={declineCookies} className="p-1">
+            <Button onClick={declineCookies} variant="ghost" size="sm" className="p-1 h-auto w-auto flex-shrink-0">
               <X className="w-4 h-4" />
             </Button>
           </div>

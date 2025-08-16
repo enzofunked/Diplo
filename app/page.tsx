@@ -1,309 +1,323 @@
 "use client"
 
 import { useState } from "react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
-import { Search, History, HelpCircle, Shield, Globe, ExternalLink, Info } from "lucide-react"
-import Link from "next/link"
-import CookieConsent from "../components/CookieConsent"
-import OfflineIndicator from "../components/OfflineIndicator"
-
+import { Input } from "@/components/ui/input"
+import { Camera, Search, History, BookOpen, Globe, Users, ExternalLink } from "lucide-react"
 import SystemSelector from "../components/SystemSelector"
-import EnhancedFrenchScanner from "../components/EnhancedFrenchScanner"
-import SwissScanner from "../components/SwissScanner"
 import CameraScanner from "../components/CameraScanner"
+import HistoryView from "../components/HistoryView"
 import FrenchPlateResult from "../components/FrenchPlateResult"
 import SwissPlateResult from "../components/SwissPlateResult"
-import HistoryView from "../components/HistoryView"
-import { useHistory } from "../hooks/useHistory"
-import { useFavorites } from "../hooks/useFavorites"
 import { validateFrenchPlate } from "../utils/french-plate-validator"
 import { validateSwissPlate } from "../utils/swiss-plate-validator"
+import { useHistory } from "../hooks/useHistory"
+import { useFavorites } from "../hooks/useFavorites"
+import Link from "next/link"
 
-type System = "french" | "swiss" | null
-type View = "scanner" | "camera" | "history"
+type SystemType = "french" | "swiss"
+type ViewType = "scanner" | "history" | "camera"
 
 export default function HomePage() {
-  const [selectedSystem, setSelectedSystem] = useState<System>(null)
-  const [currentView, setCurrentView] = useState<View>("scanner")
-  const [isScanning, setIsScanning] = useState(false)
-  const [result, setResult] = useState<any>(null)
-  const [scannedPlate, setScannedPlate] = useState("")
+  const [selectedSystem, setSelectedSystem] = useState<SystemType>("french")
+  const [currentView, setCurrentView] = useState<ViewType>("scanner")
+  const [plateNumber, setPlateNumber] = useState("")
+  const [scannedPlate, setScannedPlate] = useState<any>(null)
+  const [scanError, setScanError] = useState<string | null>(null)
 
-  const { addToHistory } = useHistory()
-  const { favorites, addToFavorites, removeFromFavorites } = useFavorites()
+  const { addEntry, history } = useHistory()
+  const { addFavorite, removeFavorite, isFavorite } = useFavorites()
 
-  const handleScan = async (plateText: string) => {
-    setIsScanning(true)
-    setResult(null)
-    setScannedPlate(plateText)
-
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      let scanResult
-      if (selectedSystem === "french") {
-        scanResult = validateFrenchPlate(plateText)
-      } else if (selectedSystem === "swiss") {
-        scanResult = validateSwissPlate(plateText)
-      }
-
-      if (scanResult) {
-        const historyEntry = {
-          id: Date.now().toString(),
-          plateText: plateText.toUpperCase(),
-          result: scanResult,
-          timestamp: new Date(),
-          system: selectedSystem,
-        }
-
-        addToHistory(historyEntry)
-        setResult(scanResult)
-      } else {
-        setResult({
-          isValid: false,
-          error: `Format de plaque ${selectedSystem === "french" ? "française" : "suisse"} non reconnu`,
-        })
-      }
-    } catch (error) {
-      setResult({
-        isValid: false,
-        error: "Erreur lors de l'analyse de la plaque",
-      })
-    } finally {
-      setIsScanning(false)
+  const handleScan = () => {
+    if (!plateNumber.trim()) {
+      setScanError("Veuillez saisir un numéro de plaque")
+      return
     }
-  }
 
-  const handleSystemSelect = (system: System) => {
-    setSelectedSystem(system)
-  }
+    setScanError(null)
+    let result
 
-  const handleBack = () => {
-    setSelectedSystem(null)
-    setResult(null)
-  }
+    if (selectedSystem === "french") {
+      result = validateFrenchPlate(plateNumber.trim())
+    } else {
+      result = validateSwissPlate(plateNumber.trim())
+    }
 
-  const handleViewChange = (view: View) => {
-    setCurrentView(view)
-    setResult(null)
+    if (result.isValid) {
+      const entry = {
+        id: Date.now().toString(),
+        plateNumber: plateNumber.trim(),
+        system: selectedSystem,
+        result,
+        timestamp: new Date(),
+      }
+
+      setScannedPlate(entry)
+      addEntry(entry)
+      setPlateNumber("")
+    } else {
+      setScanError(result.error || "Format de plaque invalide")
+    }
   }
 
   const handleCameraResult = (result: any, plateText: string) => {
-    const historyEntry = {
+    const entry = {
       id: Date.now().toString(),
-      plateText: plateText.toUpperCase(),
-      result: result,
-      timestamp: new Date(),
+      plateNumber: plateText,
       system: selectedSystem,
+      result,
+      timestamp: new Date(),
     }
 
-    addToHistory(historyEntry)
-    setResult(result)
-    setScannedPlate(plateText)
+    setScannedPlate(entry)
+    addEntry(entry)
     setCurrentView("scanner")
   }
 
-  const renderCurrentView = () => {
-    switch (currentView) {
-      case "camera":
-        return (
-          <CameraScanner
-            system={selectedSystem!}
-            onResult={handleCameraResult}
-            onBack={() => setCurrentView("scanner")}
-          />
-        )
-      case "history":
-        return <HistoryView onScan={handleScan} />
-      default:
-        return selectedSystem === "french" ? (
-          <EnhancedFrenchScanner
-            onScan={handleScan}
-            isScanning={isScanning}
-            onSwitchToCamera={() => setCurrentView("camera")}
-          />
-        ) : (
-          <SwissScanner onScan={handleScan} isScanning={isScanning} onSwitchToCamera={() => setCurrentView("camera")} />
-        )
+  const handleToggleFavorite = (entry: any) => {
+    if (isFavorite(entry.id)) {
+      removeFavorite(entry.id)
+    } else {
+      addFavorite(entry)
     }
+  }
+
+  const handleRescan = (entry: any) => {
+    setPlateNumber(entry.plateNumber)
+    setSelectedSystem(entry.system)
+    setScannedPlate(entry)
+    setCurrentView("scanner")
+  }
+
+  if (currentView === "camera") {
+    return (
+      <CameraScanner system={selectedSystem} onResult={handleCameraResult} onBack={() => setCurrentView("scanner")} />
+    )
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="p-3 bg-gradient-to-r from-blue-600 to-green-600 rounded-xl">
-              <Search className="w-8 h-8 text-white" />
-            </div>
-            <div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
-                Diplo Scanner
-              </h1>
-              <p className="text-gray-600 text-sm">Scanner de plaques diplomatiques</p>
-            </div>
-          </div>
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">🔍 Diplo Scanner</h1>
+          <p className="text-lg text-gray-600 mb-6">Scanner de plaques diplomatiques France & Suisse</p>
 
-          <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
-            <Globe className="w-4 h-4" />
-            <span>France & Suisse</span>
-            <Badge variant="secondary" className="text-xs">
-              Gratuit
-            </Badge>
+          {/* Navigation */}
+          <div className="flex justify-center gap-4 mb-6">
+            <Button
+              variant={currentView === "scanner" ? "default" : "outline"}
+              onClick={() => setCurrentView("scanner")}
+              className="flex items-center gap-2"
+            >
+              <Search className="h-4 w-4" />
+              Scanner
+            </Button>
+            <Button
+              variant={currentView === "history" ? "default" : "outline"}
+              onClick={() => setCurrentView("history")}
+              className="flex items-center gap-2"
+            >
+              <History className="h-4 w-4" />
+              Historique ({history.length})
+            </Button>
           </div>
         </div>
 
-        {/* Navigation */}
-        {currentView !== "camera" && (
-          <div className="flex justify-center mb-6">
-            <div className="flex gap-1 p-1 bg-gray-100 rounded-lg">
-              <Button
-                variant={currentView === "scanner" ? "default" : "ghost"}
-                size="sm"
-                onClick={() => handleViewChange("scanner")}
-                className="flex items-center gap-2"
-              >
-                <Search className="w-4 h-4" />
-                Scanner
-              </Button>
-              <Button
-                variant={currentView === "history" ? "default" : "ghost"}
-                size="sm"
-                onClick={() => handleViewChange("history")}
-                className="flex items-center gap-2"
-              >
-                <History className="w-4 h-4" />
-                Historique
-              </Button>
-            </div>
-          </div>
-        )}
+        {currentView === "scanner" ? (
+          <div className="max-w-4xl mx-auto">
+            {/* System Selector */}
+            <Card className="mb-6">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Globe className="h-5 w-5" />
+                  Système de plaques
+                </CardTitle>
+                <CardDescription>Sélectionnez le pays pour analyser la plaque diplomatique</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <SystemSelector selectedSystem={selectedSystem} onSystemChange={setSelectedSystem} />
+              </CardContent>
+            </Card>
 
-        {/* System Selector */}
-        {!selectedSystem && currentView === "scanner" && (
-          <div className="mb-6">
-            <SystemSelector onSystemSelect={handleSystemSelect} />
-          </div>
-        )}
+            {/* Scanner */}
+            <Card className="mb-6">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Search className="h-5 w-5" />
+                  Scanner une plaque
+                </CardTitle>
+                <CardDescription>Saisissez le numéro ou utilisez la caméra pour scanner</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex gap-2">
+                  <Input
+                    placeholder={
+                      selectedSystem === "french" ? "Ex: 5 CD 1234 ou 45 C 123.75" : "Ex: 001 123 ou 032 456"
+                    }
+                    value={plateNumber}
+                    onChange={(e) => setPlateNumber(e.target.value)}
+                    onKeyPress={(e) => e.key === "Enter" && handleScan()}
+                    className="flex-1"
+                  />
+                  <Button onClick={handleScan} className="px-6">
+                    <Search className="h-4 w-4 mr-2" />
+                    Scanner
+                  </Button>
+                </div>
 
-        {/* Main Content */}
-        {selectedSystem && (
-          <div className="space-y-6">
-            {renderCurrentView()}
+                <div className="flex justify-center">
+                  <Button
+                    variant="outline"
+                    onClick={() => setCurrentView("camera")}
+                    className="flex items-center gap-2"
+                  >
+                    <Camera className="h-4 w-4" />
+                    Scanner avec caméra
+                  </Button>
+                </div>
+
+                {scanError && <div className="text-red-600 text-sm mt-2">{scanError}</div>}
+              </CardContent>
+            </Card>
 
             {/* Results */}
-            {result && result.isValid !== false && (
-              <div className="space-y-4">
+            {scannedPlate && (
+              <div className="mb-6">
                 {selectedSystem === "french" ? (
-                  <FrenchPlateResult result={result} scannedPlate={scannedPlate} onBack={handleBack} />
+                  <FrenchPlateResult
+                    result={scannedPlate.result.match}
+                    scannedPlate={scannedPlate.plateNumber}
+                    onBack={() => setScannedPlate(null)}
+                  />
                 ) : (
-                  <SwissPlateResult result={result} scannedPlate={scannedPlate} onBack={handleBack} />
+                  <SwissPlateResult
+                    result={scannedPlate.result.match}
+                    scannedPlate={scannedPlate.plateNumber}
+                    onBack={() => setScannedPlate(null)}
+                  />
                 )}
               </div>
             )}
 
-            {/* Error Results */}
-            {result && result.isValid === false && (
-              <Card className="border-red-200 bg-red-50">
-                <CardContent className="p-4">
-                  <div className="text-center">
-                    <div className="text-red-600 font-medium mb-2">Plaque non reconnue</div>
-                    <p className="text-red-700 text-sm">{result.error}</p>
-                    <Button onClick={handleBack} className="mt-4 bg-transparent" variant="outline">
-                      Essayer à nouveau
+            {/* Quick Links */}
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-lg">
+                    <BookOpen className="h-5 w-5" />
+                    Guides et informations
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-green-50 hover:bg-green-100 transition-colors">
+                    <Link href="/french/guide" className="flex items-center justify-between w-full">
+                      <div>
+                        <div className="font-medium">🇫🇷 Guide France</div>
+                        <div className="text-sm text-gray-600">Système français</div>
+                      </div>
+                      <ExternalLink className="h-4 w-4" />
+                    </Link>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => {
+                        setSelectedSystem("french")
+                        setCurrentView("camera")
+                      }}
+                      className="ml-2 p-2"
+                      title="Scanner une plaque française avec la caméra"
+                    >
+                      📸
+                    </Button>
+                  </div>
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-red-50 hover:bg-red-100 transition-colors">
+                    <Link href="/swiss/guide" className="flex items-center justify-between w-full">
+                      <div>
+                        <div className="font-medium">🇨🇭 Guide Suisse</div>
+                        <div className="text-sm text-gray-600">Système suisse</div>
+                      </div>
+                      <ExternalLink className="h-4 w-4" />
+                    </Link>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => {
+                        setSelectedSystem("swiss")
+                        setCurrentView("camera")
+                      }}
+                      className="ml-2 p-2"
+                      title="Scanner une plaque suisse avec la caméra"
+                    >
+                      📸
                     </Button>
                   </div>
                 </CardContent>
               </Card>
-            )}
-          </div>
-        )}
 
-        {/* Quick Links */}
-        {currentView === "scanner" && !result && (
-          <div className="mt-12 space-y-6">
-            <Separator />
-
-            <div className="text-center">
-              <h3 className="text-lg font-semibold mb-4 flex items-center justify-center gap-2">
-                <Info className="w-5 h-5" />
-                Guides et informations
-              </h3>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Link href="/qu-est-ce-qu-une-plaque-diplomatique">
-                  <Card className="hover:shadow-md transition-shadow cursor-pointer">
-                    <CardContent className="p-4">
-                      <div className="flex items-center gap-3">
-                        <div className="p-2 bg-blue-100 rounded-lg">
-                          <HelpCircle className="w-5 h-5 text-blue-600" />
-                        </div>
-                        <div className="text-left">
-                          <h4 className="font-medium">Qu'est-ce qu'une plaque diplomatique ?</h4>
-                          <p className="text-sm text-gray-600">Guide complet</p>
-                        </div>
-                        <ExternalLink className="w-4 h-4 text-gray-400 ml-auto" />
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-
-                <Link href="/privileges-immunites-plaques-diplomatiques">
-                  <Card className="hover:shadow-md transition-shadow cursor-pointer">
-                    <CardContent className="p-4">
-                      <div className="flex items-center gap-3">
-                        <div className="p-2 bg-green-100 rounded-lg">
-                          <Shield className="w-5 h-5 text-green-600" />
-                        </div>
-                        <div className="text-left">
-                          <h4 className="font-medium">Privilèges et immunités</h4>
-                          <p className="text-sm text-gray-600">Droits diplomatiques</p>
-                        </div>
-                        <ExternalLink className="w-4 h-4 text-gray-400 ml-auto" />
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-              </div>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-lg">
+                    <Users className="h-5 w-5" />
+                    Codes pays
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <Link
+                    href="/french/codes"
+                    className="flex items-center justify-between p-3 rounded-lg bg-blue-50 hover:bg-blue-100 transition-colors"
+                  >
+                    <div>
+                      <div className="font-medium">🇫🇷 Codes français</div>
+                      <div className="text-sm text-gray-600">Liste complète</div>
+                    </div>
+                    <ExternalLink className="h-4 w-4" />
+                  </Link>
+                  <Link
+                    href="/swiss/codes"
+                    className="flex items-center justify-between p-3 rounded-lg bg-orange-50 hover:bg-orange-100 transition-colors"
+                  >
+                    <div>
+                      <div className="font-medium">🇨🇭 Codes suisses</div>
+                      <div className="text-sm text-gray-600">Liste complète</div>
+                    </div>
+                    <ExternalLink className="h-4 w-4" />
+                  </Link>
+                </CardContent>
+              </Card>
             </div>
           </div>
+        ) : (
+          <HistoryView
+            history={history}
+            onRescan={handleRescan}
+            onToggleFavorite={handleToggleFavorite}
+            isFavorite={isFavorite}
+          />
         )}
 
         {/* Footer */}
-        <footer className="mt-16 pt-8 border-t border-gray-200">
-          <div className="text-center space-y-4">
-            <div className="flex justify-center gap-6 text-sm">
-              <Link href="/help" className="text-gray-600 hover:text-gray-900 flex items-center gap-1">
-                <HelpCircle className="w-4 h-4" />
+        <footer className="mt-12 pt-8 border-t border-gray-200">
+          <div className="text-center text-gray-600">
+            <div className="flex justify-center gap-6 mb-4">
+              <Link href="/help" className="hover:text-blue-600 transition-colors">
                 Aide
               </Link>
-              <Link href="/about" className="text-gray-600 hover:text-gray-900">
-                À propos
+              <Link href="/terms" className="hover:text-blue-600 transition-colors">
+                Conditions
               </Link>
-              <Link href="/faq-plaques-diplomatiques" className="text-gray-600 hover:text-gray-900">
-                FAQ
-              </Link>
-              <Link href="/terms" className="text-gray-600 hover:text-gray-900">
-                CGU
-              </Link>
-              <Link href="/cookies" className="text-gray-600 hover:text-gray-900">
+              <Link href="/cookies" className="hover:text-blue-600 transition-colors">
                 Cookies
               </Link>
+              <Link href="/faq-plaques-diplomatiques" className="hover:text-blue-600 transition-colors">
+                FAQ
+              </Link>
             </div>
-
-            <div className="text-xs text-gray-500">
-              <p>© 2024 Diplo Scanner. Outil éducatif basé sur des sources officielles.</p>
-              <p className="mt-1">Données issues du Ministère des Affaires étrangères français et du DFAE suisse.</p>
-            </div>
+            <p className="text-sm">© 2024 🔍 Diplo Scanner - Scanner de plaques diplomatiques</p>
           </div>
         </footer>
       </div>
-      <CookieConsent />
-      <OfflineIndicator />
     </div>
   )
 }

@@ -2,61 +2,60 @@
 
 import { useState, useEffect } from "react"
 
-export interface FavoriteEntry {
+interface FavoriteEntry {
   id: string
-  plateText: string
+  plateNumber: string
+  system: "french" | "swiss"
   result: any
   timestamp: Date
-  system: "french" | "swiss"
 }
 
 export function useFavorites() {
   const [favorites, setFavorites] = useState<FavoriteEntry[]>([])
 
   useEffect(() => {
-    const stored = localStorage.getItem("diplo-scanner-favorites")
-    if (stored) {
+    const savedFavorites = localStorage.getItem("diplo-scanner-favorites")
+    if (savedFavorites) {
       try {
-        const parsed = JSON.parse(stored)
-        setFavorites(parsed.map((f: any) => ({ ...f, timestamp: new Date(f.timestamp) })))
+        const parsed = JSON.parse(savedFavorites)
+        setFavorites(
+          parsed.map((entry: any) => ({
+            ...entry,
+            timestamp: new Date(entry.timestamp),
+          })),
+        )
       } catch (error) {
-        console.error("Erreur lors du chargement des favoris:", error)
+        console.error("Error parsing favorites:", error)
       }
     }
   }, [])
 
-  const addToFavorites = (plateText: string, result: any, system: "french" | "swiss"): boolean => {
-    const exists = favorites.some((f) => f.plateText === plateText.trim().toUpperCase())
-    if (exists) return false
-
-    const newFavorite: FavoriteEntry = {
-      id: Date.now().toString(),
-      plateText: plateText.trim().toUpperCase(),
-      result,
-      timestamp: new Date(),
-      system,
-    }
-
-    const updated = [...favorites, newFavorite]
-    setFavorites(updated)
-    localStorage.setItem("diplo-scanner-favorites", JSON.stringify(updated))
-    return true
+  const addFavorite = (entry: FavoriteEntry) => {
+    const newFavorites = [entry, ...favorites]
+    setFavorites(newFavorites)
+    localStorage.setItem("diplo-scanner-favorites", JSON.stringify(newFavorites))
   }
 
-  const removeFromFavorites = (id: string) => {
-    const updated = favorites.filter((f) => f.id !== id)
-    setFavorites(updated)
-    localStorage.setItem("diplo-scanner-favorites", JSON.stringify(updated))
+  const removeFavorite = (id: string) => {
+    const newFavorites = favorites.filter((entry) => entry.id !== id)
+    setFavorites(newFavorites)
+    localStorage.setItem("diplo-scanner-favorites", JSON.stringify(newFavorites))
   }
 
-  const isFavorite = (plateText: string): boolean => {
-    return favorites.some((f) => f.plateText === plateText.trim().toUpperCase())
+  const isFavorite = (id: string) => {
+    return favorites.some((entry) => entry.id === id)
+  }
+
+  const clearFavorites = () => {
+    setFavorites([])
+    localStorage.removeItem("diplo-scanner-favorites")
   }
 
   return {
     favorites,
-    addToFavorites,
-    removeFromFavorites,
+    addFavorite,
+    removeFavorite,
     isFavorite,
+    clearFavorites,
   }
 }
