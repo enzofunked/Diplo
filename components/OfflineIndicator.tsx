@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { swManager } from "@/utils/sw-registration"
 
-export function OfflineIndicator() {
+export default function OfflineIndicator() {
   const [isOnline, setIsOnline] = useState(true)
   const [showUpdateNotification, setShowUpdateNotification] = useState(false)
   const [updateVersion, setUpdateVersion] = useState<string>("")
@@ -14,6 +14,7 @@ export function OfflineIndicator() {
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null)
   const [showOfflineReady, setShowOfflineReady] = useState(false)
   const [isUpdating, setIsUpdating] = useState(false)
+  const [showOfflineAlert, setShowOfflineAlert] = useState(false)
 
   useEffect(() => {
     // Vérifier si on est côté client
@@ -21,10 +22,12 @@ export function OfflineIndicator() {
 
     // État initial
     setIsOnline(navigator.onLine)
+    setShowOfflineAlert(!navigator.onLine)
 
     // Écouter les changements de connexion
     const handleConnectionChange = (event: CustomEvent) => {
       setIsOnline(event.detail.online)
+      setShowOfflineAlert(!event.detail.online)
     }
 
     // Écouter les mises à jour du Service Worker
@@ -48,16 +51,30 @@ export function OfflineIndicator() {
       setIsInstallable(true)
     }
 
+    const handleOnline = () => {
+      setIsOnline(true)
+      setShowOfflineAlert(false)
+    }
+
+    const handleOffline = () => {
+      setIsOnline(false)
+      setShowOfflineAlert(true)
+    }
+
     window.addEventListener("connection-change", handleConnectionChange as EventListener)
     window.addEventListener("sw-update-available", handleUpdateAvailable as EventListener)
     window.addEventListener("sw-offline-ready", handleOfflineReady)
     window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt)
+    window.addEventListener("online", handleOnline)
+    window.addEventListener("offline", handleOffline)
 
     return () => {
       window.removeEventListener("connection-change", handleConnectionChange as EventListener)
       window.removeEventListener("sw-update-available", handleUpdateAvailable as EventListener)
       window.removeEventListener("sw-offline-ready", handleOfflineReady)
       window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt)
+      window.removeEventListener("online", handleOnline)
+      window.removeEventListener("offline", handleOffline)
     }
   }, [])
 
@@ -111,6 +128,8 @@ export function OfflineIndicator() {
   const dismissUpdate = () => {
     setShowUpdateNotification(false)
   }
+
+  if (!showOfflineAlert) return null
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50 space-y-2 p-2">
@@ -201,6 +220,16 @@ export function OfflineIndicator() {
             <RefreshCw className="h-3 w-3 mr-1" />
             Vérifier MAJ
           </Button>
+        </div>
+      )}
+
+      {/* Offline Alert */}
+      {showOfflineAlert && (
+        <div className="fixed bottom-4 left-4 z-50 md:left-auto md:right-4 md:w-80">
+          <Alert variant="destructive" className="bg-red-50 border-red-200">
+            <WifiOff className="h-4 w-4" />
+            <AlertDescription>Vous êtes hors ligne. Certaines fonctionnalités peuvent être limitées.</AlertDescription>
+          </Alert>
         </div>
       )}
     </div>

@@ -21,6 +21,12 @@ export interface FrenchPlateMatch {
   confidence: number
 }
 
+export interface FrenchValidationResult {
+  isValid: boolean
+  match?: FrenchPlateMatch
+  error?: string
+}
+
 const STATUS_DESCRIPTIONS = {
   C: "Corps consulaire (personnel d'un consulat)",
   CD: "Corps diplomatique (diplomates et membres d'ambassade)",
@@ -127,6 +133,29 @@ export function validateFrenchDiplomaticPlate(plateText: string): FrenchPlateMat
   return result
 }
 
+// Nouvelle fonction avec le nom attendu par CameraScanner
+export function validateFrenchPlate(plateText: string): FrenchValidationResult {
+  try {
+    const match = validateFrenchDiplomaticPlate(plateText)
+    if (match) {
+      return {
+        isValid: true,
+        match,
+      }
+    } else {
+      return {
+        isValid: false,
+        error: "Format de plaque française non reconnu",
+      }
+    }
+  } catch (error) {
+    return {
+      isValid: false,
+      error: "Erreur lors de la validation de la plaque",
+    }
+  }
+}
+
 export function generateFrenchPlateExamples(): string[] {
   return [
     "5 CD 1234", // Allemagne - Corps diplomatique
@@ -142,6 +171,7 @@ export function generateFrenchPlateExamples(): string[] {
   ]
 }
 
+// FONCTION MANQUANTE - Ajout de getPlateColorInfo
 export function getPlateColorInfo(colorScheme: "orange" | "white"): {
   background: string
   textColor: string

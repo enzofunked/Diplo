@@ -1,83 +1,61 @@
 import { swissDiplomaticCodes, type SwissDiplomaticCode } from "../data/swiss-diplomatic-codes"
 
-export interface SwissPlateComponents {
-  statusPrefix: string // CD, CC, AT
-  canton?: string // BE, GE, etc.
-  serialNumber: string // ex: 9
-  identificationCode: string // ex: 1
-}
-
-export interface SwissPlateInfo {
-  statusDescription: string
-  missionType: string
-  plateColor: "blue" | "green" | "white"
-  privileges: string[]
-}
-
 export interface SwissPlateMatch {
   country: SwissDiplomaticCode
-  plateComponents: SwissPlateComponents
-  plateInfo: SwissPlateInfo
+  plateComponents: {
+    countryCode: string
+    serialNumber: string
+    suffix?: string
+  }
+  plateInfo: {
+    statusDescription: string
+    missionType: string
+    plateColor: string
+    privileges: string[]
+  }
   confidence: number
-  isSwissCode: true
 }
 
-const STATUS_PREFIXES = {
-  CD: {
-    description: "Corps Diplomatique",
-    missionType: "Mission diplomatique",
-    plateColor: "green" as const,
-    privileges: [
-      "Immunité diplomatique complète",
-      "Exonération fiscale et douanière",
-      "Exemption contrôles techniques",
-      "Immunité de juridiction",
-    ],
-  },
-  CC: {
-    description: "Corps Consulaire",
-    missionType: "Poste consulaire",
-    plateColor: "white" as const,
-    privileges: [
-      "Immunité consulaire",
-      "Exonération fiscale limitée",
-      "Exemption contrôles techniques",
-      "Immunité fonctionnelle",
-    ],
-  },
-  AT: {
-    description: "Personnel Administratif et Technique",
-    missionType: "Personnel de soutien",
-    plateColor: "white" as const,
-    privileges: ["Immunité fonctionnelle limitée", "Exonération fiscale partielle", "Exemption contrôles techniques"],
-  },
+export interface SwissValidationResult {
+  isValid: boolean
+  match?: SwissPlateMatch
+  error?: string
 }
 
-export function parseSwissPlate(plateText: string): SwissPlateComponents | null {
+const SWISS_PLATE_INFO = {
+  statusDescription: "Mission diplomatique ou consulaire",
+  missionType: "Représentation officielle",
+  plateColor: "Fond blanc, caractères noirs",
+  privileges: [
+    "Immunité diplomatique selon statut",
+    "Exemption de certaines taxes",
+    "Facilités de circulation",
+    "Protection consulaire",
+  ],
+}
+
+export function parseSwissPlate(
+  plateText: string,
+): { countryCode: string; serialNumber: string; suffix?: string } | null {
   const cleanPlate = plateText
     .trim()
     .toUpperCase()
-    .replace(/[^A-Z0-9\s•·.]/g, '') 
-    .replace(/\s+/g, ' ') 
+    .replace(/[^A-Z0-9]/g, "")
 
-  // =======================================================
-  // MODIFICATION : La regex accepte un espace OU un point comme séparateur
-  // (?:\s*[•·.]\s*|\s+) signifie : (un point avec des espaces autour) OU (un ou plusieurs espaces)
-  // =======================================================
-  const swissRegex = /^(CD|CC|AT)\s*([A-Z]{2})?\s*(\d{1,3})(?:\s*[•·.]\s*|\s+)(\d{1,3})$/
+  // Format suisse: CODE_PAYS + NUMERO + SUFFIXE_OPTIONNEL
+  const swissRegex = /^(\d{2,3})(\d{1,4})([A-Z]{1,2})?$/
   const match = cleanPlate.match(swissRegex)
 
   if (!match) {
     return null
   }
 
-  const [, statusPrefix, canton, serialNumber, identificationCode] = match
+  const [, countryCode, serialNumber, suffix] = match
 
   return {
-    statusPrefix,
-    canton: canton || undefined,
+    countryCode,
     serialNumber,
-    identificationCode,
+    suffix,
   }
 }
 
@@ -87,43 +65,48 @@ export function validateSwissDiplomaticPlate(plateText: string): SwissPlateMatch
     return null
   }
 
-  const country = swissDiplomaticCodes.find((c) => c.code === components.identificationCode)
+  const country = swissDiplomaticCodes.find((c) => c.code === components.countryCode)
   if (!country) {
     return null
-  }
-
-  const statusInfo = STATUS_PREFIXES[components.statusPrefix as keyof typeof STATUS_PREFIXES]
-  if (!statusInfo) {
-    return null
-  }
-
-  let plateColor = statusInfo.plateColor
-  if (components.statusPrefix === "CD" && country.type === "organization") {
-    plateColor = "blue"
-  }
-
-  const plateInfo: SwissPlateInfo = {
-    ...statusInfo,
-    plateColor,
   }
 
   return {
     country,
     plateComponents: components,
-    plateInfo,
+    plateInfo: SWISS_PLATE_INFO,
     confidence: 0.95,
-    isSwissCode: true,
+  }
+}
+
+// Fonction avec le nom attendu par CameraScanner
+export function validateSwissPlate(plateText: string): SwissValidationResult {
+  try {
+    const match = validateSwissDiplomaticPlate(plateText)
+    if (match) {
+      return {
+        isValid: true,
+        match,
+      }
+    } else {
+      return {
+        isValid: false,
+        error: "Format de plaque suisse non reconnu",
+      }
+    }
+  } catch (error) {
+    return {
+      isValid: false,
+      error: "Erreur lors de la validation de la plaque",
+    }
   }
 }
 
 export function generateSwissPlateExamples(): string[] {
-  const examples = [
-    "CD BE 9 • 1", 
-    "AT GE 39 • 107",
-    "CD 51 • 1", 
-    "CC 32 • 1", 
-    "CD 73 • 1", 
-    "AT 105 • 2",
+  return [
+    "001 123", // Allemagne
+    "032 456", // France
+    "107 789", // Italie
+    "156 234", // Autriche
+    "203 567", // Espagne
   ]
-  return examples
 }

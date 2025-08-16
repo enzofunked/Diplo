@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Type } from "lucide-react"
+import { Type, Camera } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
@@ -10,9 +10,10 @@ import { generateSwissPlateExamples } from "../utils/swiss-plate-validator"
 interface SwissScannerProps {
   onScan: (plateText: string) => void
   isScanning: boolean
+  onSwitchToCamera?: () => void
 }
 
-export default function SwissScanner({ onScan, isScanning }: SwissScannerProps) {
+export default function SwissScanner({ onScan, isScanning, onSwitchToCamera }: SwissScannerProps) {
   const [manualInput, setManualInput] = useState("")
 
   const handleManualSubmit = () => {
@@ -56,6 +57,18 @@ export default function SwissScanner({ onScan, isScanning }: SwissScannerProps) 
           >
             {isScanning ? "Analyse..." : "Identifier"}
           </Button>
+
+          {/* Bouton caméra */}
+          {onSwitchToCamera && (
+            <Button
+              onClick={onSwitchToCamera}
+              variant="outline"
+              className="w-full flex items-center gap-2 border-red-200 hover:bg-red-50 bg-transparent"
+            >
+              <Camera className="w-4 h-4" />
+              Scanner avec caméra
+            </Button>
+          )}
 
           <div id="swiss-examples-section" className="text-xs text-muted-foreground pt-2">
             <p id="swiss-examples-title" className="font-medium mb-2 flex items-center gap-1">
