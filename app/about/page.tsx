@@ -120,7 +120,7 @@ export default function AboutPage() {
                 <div className="space-y-2">
                   <p className="text-sm">🔒 Aucune donnée personnelle collectée</p>
                   <p className="text-sm">🏠 Historique stocké localement sur votre appareil</p>
-                  <p className="text-sm">🚫 Aucun tracking de véhicule diplomatique  </p>
+                  <p className="text-sm">🚫 Aucun tracking de véhicule diplomatique </p>
                   <p className="text-sm">⚡ Fonctionne hors ligne après la première visite</p>
                 </div>
               </CardContent>
@@ -138,6 +138,13 @@ export default function AboutPage() {
                 <p className="text-sm text-muted-foreground">
                   Les mises à jour sont automatiques et incluent de nouveaux codes diplomatiques et améliorations.
                 </p>
+                <div className="pt-2 border-t border-gray-200">
+                  <Link href="/sources">
+                    <button className="text-sm text-blue-600 hover:text-blue-800 transition-colors underline">
+                      📚 Consulter nos sources et références
+                    </button>
+                  </Link>
+                </div>
               </CardContent>
             </Card>
           </div>

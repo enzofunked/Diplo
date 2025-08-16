@@ -84,6 +84,18 @@ export default function FAQPage() {
           q: "Peut-on scanner une plaque avec Diplo Scanner ?",
           a: "Oui ! Diplo Scanner peut identifier automatiquement les plaques françaises et suisses. Il suffit de prendre une photo ou saisir le texte pour obtenir les informations sur le pays et le statut.",
         },
+        {
+          q: "Pourquoi certaines plaques ont-elles des formats différents ?",
+          a: "Les formats varient selon l'époque d'émission et le type de véhicule. Les anciennes plaques françaises étaient plus petites, les plaques pour motos ont un format spécial, et certains véhicules officiels ont des plaques surdimensionnées pour la visibilité.",
+        },
+        {
+          q: "Comment distinguer une vraie plaque d'une fausse ?",
+          a: "Les vraies plaques ont des caractéristiques de sécurité : matériaux réfléchissants spéciaux, polices de caractères officielles, hologrammes ou filigranes, numéros de série cachés, et sont enregistrées dans les bases officielles.",
+        },
+        {
+          q: "Que signifient les lettres après les chiffres sur certaines plaques ?",
+          a: "Les lettres supplémentaires indiquent souvent le type de véhicule ou le statut spécial : 'A' pour les véhicules de l'ambassadeur, 'T' pour les véhicules techniques, 'S' pour les véhicules de service, etc.",
+        },
       ],
     },
     {
@@ -111,6 +123,22 @@ export default function FAQPage() {
           q: "Les privilèges sont-ils valables dans tous les pays ?",
           a: "Les privilèges sont valables dans le pays d'accréditation uniquement. Un diplomate français en Allemagne a des privilèges en Allemagne, mais pas en Italie s'il y voyage en tant que touriste.",
         },
+        {
+          q: "Un diplomate peut-il refuser un alcootest ?",
+          a: "Techniquement oui pour les CD, mais cela créerait un incident diplomatique majeur. En pratique, les diplomates coopèrent généralement. En cas de refus, l'affaire est transmise au ministère des Affaires étrangères et peut entraîner l'expulsion.",
+        },
+        {
+          q: "Les privilèges s'appliquent-ils aux véhicules de location ?",
+          a: "Non, les privilèges sont liés à la plaque, pas à la personne. Un diplomate conduisant un véhicule de location normal n'a pas d'immunité pour ce véhicule. Il doit utiliser son passeport diplomatique pour prouver son statut.",
+        },
+        {
+          q: "Que se passe-t-il en cas d'accident grave avec un véhicule diplomatique ?",
+          a: "L'immunité ne protège pas contre les conséquences civiles graves. Le diplomate ou sa mission doit généralement indemniser les victimes. En cas de délit de fuite ou d'homicide, la personne peut être déclarée persona non grata.",
+        },
+        {
+          q: "Les anciens diplomates gardent-ils leurs privilèges ?",
+          a: "Non, les privilèges cessent immédiatement à la fin de la mission. Les plaques doivent être restituées et les anciens diplomates n'ont plus aucune immunité. Seuls les diplomates en activité bénéficient de ces privilèges.",
+        },
       ],
     },
     {
@@ -137,6 +165,22 @@ export default function FAQPage() {
         {
           q: "Les véhicules diplomatiques peuvent-ils être saisis ?",
           a: "Très rarement et seulement dans des cas exceptionnels (sécurité nationale, crimes graves). La saisie nécessite généralement l'accord du ministère des Affaires étrangères et peut créer un incident diplomatique.",
+        },
+        {
+          q: "Comment la police vérifie-t-elle la validité d'une plaque diplomatique ?",
+          a: "La police consulte une base de données sécurisée mise à jour par le ministère des Affaires étrangères. Cette base contient tous les véhicules diplomatiques actifs, leurs propriétaires, et la validité des privilèges.",
+        },
+        {
+          q: "Un véhicule diplomatique peut-il être immobilisé ?",
+          a: "Très rarement et seulement pour des raisons de sécurité publique immédiate (véhicule dangereux, suspicion d'attentat). L'immobilisation nécessite l'autorisation d'un haut responsable et doit être levée rapidement.",
+        },
+        {
+          q: "Les radars automatiques flashent-ils les plaques diplomatiques ?",
+          a: "Oui, les radars flashent tous les véhicules. Mais les amendes pour excès de vitesse des véhicules CD sont généralement annulées administrativement. Pour les CC, cela dépend du statut exact du conducteur.",
+        },
+        {
+          q: "Peut-on suivre un véhicule diplomatique suspect ?",
+          a: "Oui, la surveillance discrète est autorisée pour des raisons de sécurité. Mais les perquisitions, écoutes ou filatures intrusives nécessitent des autorisations spéciales du ministère de l'Intérieur et des Affaires étrangères.",
         },
       ],
     },
@@ -194,6 +238,87 @@ export default function FAQPage() {
         },
       ],
     },
+    {
+      category: "🏛️ Procédures administratives",
+      icon: Users,
+      color: "indigo",
+      questions: [
+        {
+          q: "Comment obtenir une plaque diplomatique en France ?",
+          a: "La demande se fait via l'ambassade du pays d'origine auprès du ministère des Affaires étrangères français. Il faut fournir : accréditation officielle, justificatifs d'identité, certificat d'immatriculation du véhicule, et payer les frais administratifs.",
+        },
+        {
+          q: "Combien coûte une plaque diplomatique ?",
+          a: "En France : environ 150-200€ pour l'émission, plus 50€/an de redevance. En Suisse : 200-300 CHF selon le canton. Ces frais couvrent la fabrication sécurisée et la gestion administrative.",
+        },
+        {
+          q: "Peut-on transférer une plaque d'un véhicule à un autre ?",
+          a: "Oui, mais cela nécessite une procédure administrative. Il faut déclarer le changement de véhicule, fournir les nouveaux papiers, et parfois changer physiquement la plaque si le format n'est pas compatible.",
+        },
+        {
+          q: "Que faire en cas de vol de plaque diplomatique ?",
+          a: "Déclarer immédiatement le vol à la police ET au ministère des Affaires étrangères. La plaque volée est immédiatement invalidée dans les bases de données pour éviter les usages frauduleux. Une nouvelle plaque est émise rapidement.",
+        },
+        {
+          q: "Les plaques diplomatiques ont-elles un contrôle technique spécial ?",
+          a: "Non, les véhicules diplomatiques suivent les mêmes règles de contrôle technique que les autres. Cependant, les centres agréés peuvent avoir des procédures spéciales pour respecter l'inviolabilité du véhicule.",
+        },
+      ],
+    },
+    {
+      category: "⚖️ Aspects juridiques avancés",
+      icon: AlertTriangle,
+      color: "amber",
+      questions: [
+        {
+          q: "Un diplomate peut-il être poursuivi après la fin de sa mission ?",
+          a: "Pour les actes commis dans l'exercice de ses fonctions : non, l'immunité est permanente. Pour les actes privés commis pendant sa mission : oui, mais seulement après la fin de l'immunité. Pour les crimes graves : cela dépend des accords bilatéraux.",
+        },
+        {
+          q: "Comment fonctionne la réciprocité diplomatique ?",
+          a: "Si un pays traite mal les diplomates français, la France peut appliquer les mêmes restrictions aux diplomates de ce pays. Cela inclut les privilèges de circulation, stationnement, et même l'émission de nouvelles plaques.",
+        },
+        {
+          q: "Que se passe-t-il en cas de guerre ou rupture diplomatique ?",
+          a: "Les diplomates ont 24-48h pour quitter le pays. Leurs véhicules peuvent être escortés jusqu'à la frontière. Les plaques sont généralement détruites ou restituées. Les biens diplomatiques sont protégés par un pays tiers.",
+        },
+        {
+          q: "Un État peut-il refuser d'émettre une plaque diplomatique ?",
+          a: "Oui, si le diplomate n'est pas persona grata, si les relations sont tendues, ou si les accords de réciprocité ne sont pas respectés. C'est un outil de pression diplomatique subtil mais efficace.",
+        },
+        {
+          q: "Les organisations terroristes peuvent-elles avoir des plaques diplomatiques ?",
+          a: "Absolument pas. Seuls les États reconnus et les organisations internationales officielles peuvent avoir des représentations diplomatiques. Les listes sont strictement contrôlées par l'ONU et les ministères des Affaires étrangères.",
+        },
+      ],
+    },
+    {
+      category: "🌐 Cas internationaux spéciaux",
+      icon: Globe,
+      color: "teal",
+      questions: [
+        {
+          q: "Comment fonctionnent les plaques diplomatiques à l'ONU ?",
+          a: "À New York : plaques spéciales 'UN' avec codes pays. À Genève : système suisse AT avec codes spéciaux. À Vienne : système autrichien. Chaque siège de l'ONU a ses propres règles selon le pays hôte.",
+        },
+        {
+          q: "Les plaques Vatican sont-elles reconnues partout ?",
+          a: "Le Vatican émet ses propres plaques 'SCV' (Stato della Città del Vaticano). Elles sont reconnues dans la plupart des pays catholiques et en Europe, mais pas universellement. Le statut dépend des relations diplomatiques bilatérales.",
+        },
+        {
+          q: "Comment ça marche pour les pays sans relations diplomatiques ?",
+          a: "Les pays sans relations directes utilisent des 'sections d'intérêts' hébergées dans l'ambassade d'un pays tiers. Par exemple, les intérêts américains à Cuba étaient gérés par la Suisse. Les plaques portent le code du pays hôte.",
+        },
+        {
+          q: "Que se passe-t-il avec les micro-États ?",
+          a: "Monaco, Saint-Marin, Liechtenstein ont souvent des accords spéciaux avec leurs voisins. Leurs 'diplomates' peuvent avoir des plaques du pays hôte avec mentions spéciales, ou des facilités particulières sans plaques diplomatiques complètes.",
+        },
+        {
+          q: "Les plaques diplomatiques fonctionnent-elles en temps de pandémie ?",
+          a: "Les privilèges restent valables, mais les diplomates doivent respecter les mesures sanitaires comme les quarantaines. Pendant COVID-19, beaucoup ont accepté volontairement les restrictions pour la santé publique.",
+        },
+      ],
+    },
   ]
 
   const getColorClasses = (color: string) => {
@@ -203,6 +328,9 @@ export default function FAQPage() {
       orange: "border-orange-200 bg-orange-50 text-orange-800",
       red: "border-red-200 bg-red-50 text-red-800",
       purple: "border-purple-200 bg-purple-50 text-purple-800",
+      indigo: "border-indigo-200 bg-indigo-50 text-indigo-800",
+      amber: "border-amber-200 bg-amber-50 text-amber-800",
+      teal: "border-teal-200 bg-teal-50 text-teal-800",
     }
     return colors[color as keyof typeof colors] || colors.blue
   }
@@ -243,7 +371,7 @@ export default function FAQPage() {
           {/* Statistiques */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto mb-8">
             <div className="text-center">
-              <div className="text-3xl font-bold text-blue-600">25+</div>
+              <div className="text-3xl font-bold text-blue-600">40+</div>
               <div className="text-sm text-gray-600">Questions répondues</div>
             </div>
             <div className="text-center">
