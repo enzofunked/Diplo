@@ -72,8 +72,8 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   icons: {
     icon: [
+      { url: "/favicons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       { url: "/favicon.ico", sizes: "32x32", type: "image/x-icon" },
-      { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
       { url: "/app-icon-256-new.png", sizes: "96x96", type: "image/png" },
       { url: "/app-icon-256-new.png", sizes: "144x144", type: "image/png" },
       { url: "/app-icon-256-new.png", sizes: "192x192", type: "image/png" },
@@ -98,10 +98,14 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <head>
-        {/* Favicon optimisé pour Google */}
-        <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+        {/* Favicon configuration */}
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/app-icon-256-new.png" />
+
+        {/* Microsoft tile configuration */}
+        <meta name="msapplication-TileColor" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff" />
 
         {/* Google Tag Manager */}
         <Script
