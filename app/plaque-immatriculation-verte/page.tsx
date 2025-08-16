@@ -151,6 +151,21 @@ export default function PlaqueImmatriculationVertePage() {
           </Card>
         </section>
 
+        {/* Exemple de plaque diplomatique */}
+        <div className="text-center mb-8">
+          <img
+            src="/images/exemple-plaque-diplomatique-verte-francaise-cd.png"
+            alt="Exemple réel de plaque diplomatique française verte avec code CD - plaque d'immatriculation 62 CD 138 sur fond vert avec caractères orange, typique des véhicules diplomatiques français"
+            width={600}
+            height={200}
+            loading="lazy"
+            className="mx-auto rounded-lg shadow-lg max-w-full h-auto"
+          />
+          <p className="text-sm text-gray-600 mt-3 italic">
+            Exemple d'une plaque diplomatique française verte avec le code CD (Corps Diplomatique) ; code pays (Japon)
+          </p>
+        </div>
+
         {/* Types de plaques vertes */}
         <section className="mb-12">
           <h2 className="text-3xl font-bold text-center mb-8">Les différents types de plaques vertes</h2>
@@ -345,15 +360,15 @@ export default function PlaqueImmatriculationVertePage() {
                   <ul className="space-y-3 text-gray-700">
                     <li className="flex items-start">
                       <span className="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                      <strong>Distinction visuelle :</strong> Séparer les véhicules spéciaux des véhicules civils
+                      Distinction visuelle : Séparer les véhicules spéciaux des véhicules civils
                     </li>
                     <li className="flex items-start">
                       <span className="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                      <strong>Tradition diplomatique :</strong> Couleur choisie dans les années 1960
+                      Tradition diplomatique : Couleur choisie dans les années 1960
                     </li>
                     <li className="flex items-start">
                       <span className="w-2 h-2 bg-green-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                      <strong>Reconnaissance internationale :</strong> Standard adopté par plusieurs pays
+                      Reconnaissance internationale : Standard adopté par plusieurs pays
                     </li>
                   </ul>
                 </div>
@@ -363,15 +378,15 @@ export default function PlaqueImmatriculationVertePage() {
                   <ul className="space-y-3 text-gray-700">
                     <li className="flex items-start">
                       <span className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                      <strong>Identification rapide :</strong> Forces de l'ordre reconnaissent immédiatement
+                      Identification rapide : Forces de l'ordre reconnaissent immédiatement
                     </li>
                     <li className="flex items-start">
                       <span className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                      <strong>Contrôles facilités :</strong> Statut spécial visible de loin
+                      Contrôles facilités : Statut spécial visible de loin
                     </li>
                     <li className="flex items-start">
                       <span className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
-                      <strong>Sécurité renforcée :</strong> Protection des personnalités diplomatiques
+                      Sécurité renforcée : Protection des personnalités diplomatiques
                     </li>
                   </ul>
                 </div>

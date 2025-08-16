@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -29,10 +30,10 @@ export const metadata: Metadata = {
     url: "https://diplo-scanner.com/comment-lire-une-plaque-diplomatique-francaise",
     images: [
       {
-        url: "/french-diplomatic-guide.png",
+        url: "/images/exemple-plaque-diplomatique-francaise.png",
         width: 1200,
         height: 630,
-        alt: "Guide pour lire les plaques diplomatiques françaises",
+        alt: "Exemple de plaque diplomatique française avec explications détaillées - 5 CD 1234 Allemagne",
       },
     ],
   },
@@ -40,7 +41,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Comment lire une plaque diplomatique française ? | Guide détaillé",
     description: "Apprenez à déchiffrer facilement les plaques diplomatiques françaises avec notre guide complet.",
-    images: ["/french-diplomatic-guide.png"],
+    images: ["/images/exemple-plaque-diplomatique-francaise.png"],
   },
   alternates: {
     canonical: "/comment-lire-une-plaque-diplomatique-francaise",
@@ -86,10 +87,33 @@ export default function FrenchDiplomaticGuidePage() {
           </p>
         </div>
 
+        {/* Featured Image - Optimized for SEO */}
+        <section className="mb-12">
+          <Card className="overflow-hidden">
+            <CardContent className="p-0">
+              <figure className="relative">
+                <Image
+                  src="/images/exemple-plaque-diplomatique-francaise.png"
+                  alt="Exemple détaillé d'une plaque diplomatique française 5 CD 1234 avec explications : 5 = code Allemagne, CD = Corps Diplomatique, 1234 = numéro véhicule"
+                  width={1200}
+                  height={800}
+                  className="w-full h-auto"
+                  priority
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+                />
+                <figcaption className="p-4 bg-gray-50 text-sm text-gray-700 text-center">
+                  <strong>Exemple pratique :</strong> Plaque diplomatique française 5 CD 1234 - Véhicule du corps
+                  diplomatique allemand (code pays 5)
+                </figcaption>
+              </figure>
+            </CardContent>
+          </Card>
+        </section>
+
         {/* CTA Banner */}
         <Card className="mb-12 bg-gradient-to-r from-green-600 to-teal-600 text-white">
           <CardContent className="p-8 text-center">
-            <h2 className="text-2xl font-bold mb-4">Identifiez une plaques displomatique avec notre scanner</h2>
+            <h2 className="text-2xl font-bold mb-4">Identifiez une plaque diplomatique avec notre scanner</h2>
             <p className="text-lg mb-6 opacity-90">
               Utilisez notre outil gratuit pour identifier instantanément les plaques diplomatiques françaises
             </p>

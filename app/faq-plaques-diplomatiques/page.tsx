@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "FAQ : Tout savoir sur les plaques diplomatiques | Questions fréquentes 2024",
     description:
-      "Réponses complètes aux questions fréquentes sur les plaques diplomatiques CD, CC, CMD. Privilèges, identification, circulation, règlementation.",
+      "Réponses complètes aux questions fréquentes sur les plaques diplomatiques CD, CC, CMD. Privilèges, circulation, règlementation.",
     url: "https://diplo-scanner.com/faq-plaques-diplomatiques",
     siteName: "Diplo Scanner",
     images: [
@@ -254,6 +254,21 @@ export default function FAQPage() {
               <div className="text-3xl font-bold text-purple-600">2</div>
               <div className="text-sm text-gray-600">Systèmes couverts</div>
             </div>
+          </div>
+
+          {/* Image SEO optimisée */}
+          <div className="max-w-md mx-auto mb-8">
+            <img
+              src="/images/faq-plaques-diplomatiques-questions-reponses.png"
+              alt="FAQ plaques diplomatiques - Questions et réponses sur les plaques CD, CC, CMD, AT pour corps diplomatique et consulaire France Suisse"
+              width={400}
+              height={300}
+              className="w-full h-auto rounded-lg shadow-lg"
+              loading="lazy"
+            />
+            <p className="text-sm text-gray-600 mt-3 italic">
+              Questions fréquentes sur l'identification et les privilèges des plaques diplomatiques
+            </p>
           </div>
         </section>
 

@@ -4,7 +4,7 @@ console.log("📅 Build Date:", new Date().toISOString())
 console.log("✅ Features Check:")
 
 // Vérifier si les favoris sont disponibles
-const checkFavorites = () => {
+function checkFavorites() {
   const favoritesButton = document.getElementById("favorites-button")
   console.log("⭐ Favoris Button:", favoritesButton ? "✅ Present" : "❌ Missing")
 

@@ -277,6 +277,27 @@ export default function PrivilegesImmunitesPage() {
               </Card>
             </section>
 
+            {/* Image SEO optimisée */}
+            <section className="mb-16">
+              <div className="container mx-auto max-w-4xl">
+                <div className="text-center">
+                  <img
+                    src="/images/justice-balance-immunites-diplomatiques.png"
+                    alt="Balance de la justice symbolisant les immunités et privilèges diplomatiques accordés aux plaques CD, CC et CMD selon la Convention de Vienne sur les relations diplomatiques"
+                    width={400}
+                    height={400}
+                    loading="lazy"
+                    className="mx-auto mb-6 max-w-sm w-full h-auto"
+                  />
+                  <p className="text-gray-600 text-sm italic max-w-2xl mx-auto">
+                    La balance de la justice illustre l'équilibre entre les privilèges diplomatiques et les
+                    responsabilités internationales. Les immunités accordées aux détenteurs de plaques diplomatiques
+                    reposent sur les principes du droit international et de la réciprocité entre États.
+                  </p>
+                </div>
+              </div>
+            </section>
+
             {/* Types de plaques et privilèges */}
             <section className="mb-16">
               <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Privilèges selon le type de plaque</h2>
