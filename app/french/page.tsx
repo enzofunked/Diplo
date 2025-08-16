@@ -70,6 +70,9 @@ export default function FrenchPage() {
               <Link href="/help">
                 <button className="text-xs text-gray-500 hover:text-gray-700 transition-colors underline">Aide</button>
               </Link>
+              <Link href="/faq-plaques-diplomatiques">
+                <button className="text-xs text-gray-500 hover:text-gray-700 transition-colors underline">FAQ</button>
+              </Link>
             </div>
           </div>
         </footer>
@@ -142,6 +145,9 @@ export default function FrenchPage() {
             </Link>
             <Link href="/help">
               <button className="text-xs text-gray-500 hover:text-gray-700 transition-colors underline">Aide</button>
+            </Link>
+            <Link href="/faq-plaques-diplomatiques">
+              <button className="text-xs text-gray-500 hover:text-gray-700 transition-colors underline">FAQ</button>
             </Link>
           </div>
         </div>
