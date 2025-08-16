@@ -71,7 +71,13 @@ export const metadata: Metadata = {
   },
   manifest: "/manifest.json",
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico", sizes: "32x32", type: "image/x-icon" },
+      { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
+      { url: "/app-icon-256-new.png", sizes: "96x96", type: "image/png" },
+      { url: "/app-icon-256-new.png", sizes: "144x144", type: "image/png" },
+      { url: "/app-icon-256-new.png", sizes: "192x192", type: "image/png" },
+    ],
     shortcut: "/favicon.ico",
     apple: "/app-icon-256-new.png",
   },
@@ -92,6 +98,11 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <head>
+        {/* Favicon optimisé pour Google */}
+        <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/app-icon-256-new.png" />
+
         {/* Google Tag Manager */}
         <Script
           id="gtm-script"
