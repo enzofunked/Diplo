@@ -1,57 +1,52 @@
-# Robots.txt pour Diplo Scanner
-# https://diplo-scanner.com/robots.txt
-
 User-agent: *
-Allow: /
-
-# Pages principales
 Allow: /
 Allow: /french
 Allow: /swiss
-Allow: /history
+Allow: /qu-est-ce-qu-une-plaque-diplomatique
+Allow: /comment-lire-une-plaque-diplomatique-francaise
+Allow: /comment-lire-une-plaque-diplomatique-suisse
+Allow: /liste-codes-pays-plaques-diplomatiques-francaises
+Allow: /codes-diplomatiques-suisses
+Allow: /privileges-immunites-plaques-diplomatiques
+Allow: /plaque-immatriculation-verte
+Allow: /plaque-verte-et-orange
+Allow: /couleur-des-plaques-diplomatiques
+Allow: /plaques-diplomatiques-liste-complete
+Allow: /faq-plaques-diplomatiques
+Allow: /french/guide
+Allow: /swiss/guide
+Allow: /french/codes
+Allow: /swiss/codes
+Allow: /about
+Allow: /sources
+Allow: /help
 Allow: /terms
+Allow: /cookies
+Allow: /history
+Allow: /favorites
 
-# Ressources statiques
-Allow: /favicon.ico
-Allow: /manifest.json
-Allow: /og-image.jpg
-Allow: /twitter-image.jpg
-Allow: /*.png
-Allow: /*.jpg
-Allow: /*.svg
-Allow: /*.webp
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.json$
+Disallow: /*?*utm_*
+Disallow: /*?*fbclid*
+Disallow: /*?*gclid*
 
-# Sitemap
+# Optimisation du budget d'exploration
+Crawl-delay: 0.5
+
+# Sitemap pour faciliter l'exploration
 Sitemap: https://diplo-scanner.com/sitemap.xml
 
-# Crawl-delay pour éviter la surcharge
-Crawl-delay: 1
+# Pages prioritaires pour l'indexation
+# Accueil et pages principales
+# /
+# /french
+# /swiss
 
-# Directives spécifiques pour les moteurs de recherche
-User-agent: Googlebot
-Allow: /
-Crawl-delay: 0
-
-User-agent: Bingbot
-Allow: /
-Crawl-delay: 1
-
-User-agent: Slurp
-Allow: /
-Crawl-delay: 2
-
-# Bloquer les bots indésirables
-User-agent: AhrefsBot
-Disallow: /
-
-User-agent: MJ12bot
-Disallow: /
-
-User-agent: DotBot
-Disallow: /
-
-User-agent: SemrushBot
-Disallow: /
-
-# Informations de contact
-# Contact: contact@diplo-scanner.com
+# Pages SEO importantes
+# /qu-est-ce-qu-une-plaque-diplomatique
+# /comment-lire-une-plaque-diplomatique-francaise
+# /comment-lire-une-plaque-diplomatique-suisse
