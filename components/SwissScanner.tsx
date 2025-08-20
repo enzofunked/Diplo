@@ -10,10 +10,10 @@ import { generateSwissPlateExamples } from "../utils/swiss-plate-validator"
 interface SwissScannerProps {
   onScan: (plateText: string) => void
   isScanning: boolean
-  onSwitchToCamera?: () => void
+  onCameraClick?: () => void
 }
 
-export default function SwissScanner({ onScan, isScanning, onSwitchToCamera }: SwissScannerProps) {
+export default function SwissScanner({ onScan, isScanning, onCameraClick }: SwissScannerProps) {
   const [manualInput, setManualInput] = useState("")
 
   const handleManualSubmit = () => {
@@ -38,15 +38,27 @@ export default function SwissScanner({ onScan, isScanning, onSwitchToCamera }: S
               <Type className="w-4 h-4" />
               Saisir la plaque manuellement
             </label>
-            <Input
-              id="swiss-manual-input"
-              value={manualInput}
-              onChange={(e) => setManualInput(e.target.value.toUpperCase())}
-              placeholder="Ex: CD GE 9 • 32 ou cd ge 9 32"
-              className="text-center text-lg font-mono"
-              onKeyPress={(e) => e.key === "Enter" && handleManualSubmit()}
-              disabled={isScanning}
-            />
+            <div className="flex gap-2">
+              <Input
+                id="swiss-manual-input"
+                value={manualInput}
+                onChange={(e) => setManualInput(e.target.value.toUpperCase())}
+                placeholder="Ex: CD GE 9 • 32 ou cd ge 9 32"
+                className="text-center text-lg font-mono flex-1"
+                onKeyPress={(e) => e.key === "Enter" && handleManualSubmit()}
+                disabled={isScanning}
+              />
+              {onCameraClick && (
+                <Button
+                  variant="outline"
+                  disabled={true}
+                  className="border-red-200 bg-gray-100 text-gray-400 text-sm px-3 cursor-not-allowed"
+                  title="Bientôt disponible"
+                >
+                  <Camera className="w-4 h-4" />
+                </Button>
+              )}
+            </div>
           </div>
           <Button
             id="swiss-manual-submit-button"
@@ -57,18 +69,6 @@ export default function SwissScanner({ onScan, isScanning, onSwitchToCamera }: S
           >
             {isScanning ? "Analyse..." : "Identifier"}
           </Button>
-
-          {/* Bouton caméra */}
-          {onSwitchToCamera && (
-            <Button
-              onClick={onSwitchToCamera}
-              variant="outline"
-              className="w-full flex items-center gap-2 border-red-200 hover:bg-red-50 bg-transparent"
-            >
-              <Camera className="w-4 h-4" />
-              Scanner avec caméra
-            </Button>
-          )}
 
           <div id="swiss-examples-section" className="text-xs text-muted-foreground pt-2">
             <p id="swiss-examples-title" className="font-medium mb-2 flex items-center gap-1">

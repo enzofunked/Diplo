@@ -9,11 +9,13 @@ import FrenchPlateResult from "../../components/FrenchPlateResult"
 import type { FrenchPlateMatch } from "../../utils/french-plate-validator"
 import { useHistory } from "../../hooks/useHistory"
 import EnhancedFrenchScanner from "../../components/EnhancedFrenchScanner"
+import PlateScanner from "../../components/PlateScanner"
 
 export default function FrenchPage() {
   const [scanResult, setScanResult] = useState<FrenchPlateMatch | null>(null)
   const [scannedPlate, setScannedPlate] = useState("")
   const [isScanning, setIsScanning] = useState(false)
+  const [showCameraModal, setShowCameraModal] = useState(false)
   const { addToHistory } = useHistory()
 
   const handleScan = async (plateText: string) => {
@@ -36,6 +38,13 @@ export default function FrenchPage() {
     } finally {
       setIsScanning(false)
     }
+  }
+
+  const handleCameraResult = (plateText: string, result: FrenchPlateMatch) => {
+    setShowCameraModal(false)
+    setScanResult(result)
+    setScannedPlate(plateText)
+    addToHistory(plateText, result, "french")
   }
 
   if (scanResult) {
@@ -104,7 +113,13 @@ export default function FrenchPage() {
             </div>
           </div>
 
-          <EnhancedFrenchScanner onScan={handleScan} isScanning={isScanning} />
+          <div className="space-y-4">
+            <EnhancedFrenchScanner
+              onScan={handleScan}
+              isScanning={isScanning}
+              onCameraClick={() => setShowCameraModal(true)}
+            />
+          </div>
 
           <div className="grid grid-cols-2 gap-3">
             <Link href="/french/guide">
@@ -128,6 +143,10 @@ export default function FrenchPage() {
           </div>
         </div>
       </div>
+
+      {showCameraModal && (
+        <PlateScanner onResult={handleCameraResult} onClose={() => setShowCameraModal(false)} system="french" />
+      )}
 
       <footer className="bg-white/60 border-t border-gray-200 py-4 w-full">
         <div className="text-center space-y-2">

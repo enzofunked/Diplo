@@ -1,59 +1,94 @@
-import Tesseract from "tesseract.js"
+"use client"
 
-export async function performOCR(imageData: string): Promise<string> {
-  try {
-    console.log("🔍 Début de l'OCR...")
+import { createWorker, type Worker } from "tesseract.js"
 
-    const {
-      data: { text },
-    } = await Tesseract.recognize(imageData, "fra", {
-      logger: (m) => {
-        if (m.status === "recognizing text") {
-          console.log(`OCR Progress: ${Math.round(m.progress * 100)}%`)
-        }
-      },
-    })
+export interface OCRResult {
+  text: string
+  confidence: number
+  words: Array<{
+    text: string
+    confidence: number
+    bbox: {
+      x0: number
+      y0: number
+      x1: number
+      y1: number
+    }
+  }>
+}
 
-    console.log("📝 Texte brut OCR:", text)
+class OCRService {
+  private worker: Worker | null = null
+  private isInitialized = false
 
-    // Nettoyer et formater le texte
-    const cleanedText = cleanOCRText(text)
-    console.log("✨ Texte nettoyé:", cleanedText)
+  async initialize(): Promise<void> {
+    if (this.isInitialized) return
 
-    return cleanedText
-  } catch (error) {
-    console.error("❌ Erreur OCR:", error)
-    throw new Error("Erreur lors de la reconnaissance de texte")
+    try {
+      this.worker = await createWorker("fra", 1, {
+        logger: (m) => console.log("OCR:", m),
+      })
+
+      await this.worker.setParameters({
+        tessedit_char_whitelist: "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ .",
+        tessedit_pageseg_mode: "7", // Single text line
+        preserve_interword_spaces: "1",
+        tessedit_do_invert: "0",
+        // Paramètres spécifiques pour améliorer la reconnaissance
+        classify_bln_numeric_mode: "1",
+        textord_really_old_xheight: "1",
+        textord_min_xheight: "10",
+      })
+
+      this.isInitialized = true
+      console.log("✅ OCR initialisé avec succès")
+    } catch (error) {
+      console.error("❌ Erreur d'initialisation OCR:", error)
+      throw error
+    }
+  }
+
+  async recognizeText(imageData: string): Promise<OCRResult> {
+    if (!this.worker || !this.isInitialized) {
+      await this.initialize()
+    }
+
+    if (!this.worker) {
+      throw new Error("OCR worker non disponible")
+    }
+
+    try {
+      console.log("🔍 Début reconnaissance OCR...")
+      const {
+        data: { text, confidence, words },
+      } = await this.worker.recognize(imageData)
+
+      console.log("📝 Texte détecté:", text)
+      console.log("🎯 Confiance:", confidence)
+
+      return {
+        text: text.trim().toUpperCase(),
+        confidence: confidence / 100,
+        words: words.map((word) => ({
+          text: word.text.toUpperCase(),
+          confidence: word.confidence / 100,
+          bbox: word.bbox,
+        })),
+      }
+    } catch (error) {
+      console.error("❌ Erreur OCR:", error)
+      throw error
+    }
+  }
+
+  async terminate(): Promise<void> {
+    if (this.worker) {
+      await this.worker.terminate()
+      this.worker = null
+      this.isInitialized = false
+      console.log("🔚 OCR terminé")
+    }
   }
 }
 
-function cleanOCRText(text: string): string {
-  return (
-    text
-      .trim()
-      .toUpperCase()
-      // Supprimer les caractères indésirables
-      .replace(/[^\w\s.-]/g, "")
-      // Normaliser les espaces
-      .replace(/\s+/g, " ")
-      // Corrections communes OCR
-      .replace(/0/g, "O") // Zéro vers O si nécessaire
-      .replace(/1/g, "I") // 1 vers I si dans un contexte de lettres
-      .replace(/5/g, "S") // 5 vers S si dans un contexte de lettres
-      .trim()
-  )
-}
-
-export async function initializeOCR(): Promise<void> {
-  try {
-    console.log("🚀 Initialisation de Tesseract...")
-    // Pré-charger Tesseract pour améliorer les performances
-    await Tesseract.recognize(
-      "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==",
-      "fra",
-    )
-    console.log("✅ Tesseract initialisé")
-  } catch (error) {
-    console.warn("⚠️ Erreur d'initialisation Tesseract:", error)
-  }
-}
+export const ocrService = new OCRService()

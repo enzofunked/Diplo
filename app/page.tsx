@@ -1,323 +1,423 @@
 "use client"
 
 import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Info, History, BookOpen, ArrowLeft, Star } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Camera, Search, History, BookOpen, Globe, Users, ExternalLink } from "lucide-react"
-import SystemSelector from "../components/SystemSelector"
-import CameraScanner from "../components/CameraScanner"
-import HistoryView from "../components/HistoryView"
+import EnhancedFrenchScanner from "../components/EnhancedFrenchScanner"
 import FrenchPlateResult from "../components/FrenchPlateResult"
+import FrenchSystemInfo from "../components/FrenchSystemInfo"
+import TermsOfService from "../components/TermsOfService"
+import type { FrenchPlateMatch } from "../utils/french-plate-validator"
+import HistoryView from "../components/HistoryView"
+import FavoritesView from "../components/FavoritesView"
+import { useHistory, type HistoryEntry } from "../hooks/useHistory"
+import { useFavorites, type FavoriteEntry } from "../hooks/useFavorites"
+import SwissScanner from "../components/SwissScanner"
 import SwissPlateResult from "../components/SwissPlateResult"
-import { validateFrenchPlate } from "../utils/french-plate-validator"
-import { validateSwissPlate } from "../utils/swiss-plate-validator"
-import { useHistory } from "../hooks/useHistory"
-import { useFavorites } from "../hooks/useFavorites"
+import SystemSelector from "../components/SystemSelector"
+import { validateDiplomaticPlate, isSwissPlate } from "../utils/plateValidator"
+import type { SwissPlateMatch } from "../utils/swiss-plate-validator"
+import SwissSystemInfo from "../components/SwissSystemInfo"
+import SwissCodeList from "../components/SwissCodeList"
+import FrenchCodeList from "../components/FrenchCodeList"
 import Link from "next/link"
 
-type SystemType = "french" | "swiss"
-type ViewType = "scanner" | "history" | "camera"
+type AppState =
+  | "home"
+  | "french"
+  | "swiss"
+  | "result"
+  | "about"
+  | "system-info"
+  | "history"
+  | "favorites"
+  | "terms"
+  | "swiss-system-info"
+  | "swiss-codes"
+  | "french-codes"
 
-export default function HomePage() {
-  const [selectedSystem, setSelectedSystem] = useState<SystemType>("french")
-  const [currentView, setCurrentView] = useState<ViewType>("scanner")
-  const [plateNumber, setPlateNumber] = useState("")
-  const [scannedPlate, setScannedPlate] = useState<any>(null)
-  const [scanError, setScanError] = useState<string | null>(null)
+// Fonction pour envoyer des événements à Google Tag Manager
+const sendGTMEvent = (eventName: string, parameters: Record<string, any> = {}) => {
+  if (typeof window !== "undefined" && window.dataLayer) {
+    window.dataLayer.push({
+      event: eventName,
+      ...parameters,
+    })
+  }
+}
 
-  const { addEntry, history } = useHistory()
-  const { addFavorite, removeFavorite, isFavorite } = useFavorites()
+export default function DiploScanner() {
+  const [currentState, setCurrentState] = useState<AppState>("home")
+  const [selectedSystem, setSelectedSystem] = useState<"french" | "swiss" | null>(null)
+  const [scanResult, setScanResult] = useState<FrenchPlateMatch | SwissPlateMatch | null>(null)
+  const [scannedPlate, setScannedPlate] = useState("")
+  const [isScanning, setIsScanning] = useState(false)
+  const { addToHistory } = useHistory()
+  const { favorites } = useFavorites()
 
-  const handleScan = () => {
-    if (!plateNumber.trim()) {
-      setScanError("Veuillez saisir un numéro de plaque")
-      return
-    }
+  const handleSystemSelect = (system: "french" | "swiss") => {
+    setSelectedSystem(system)
+    setCurrentState(system)
 
-    setScanError(null)
-    let result
+    // Envoyer événement GTM
+    sendGTMEvent("system_selected", {
+      system_type: system,
+      timestamp: new Date().toISOString(),
+    })
+  }
 
-    if (selectedSystem === "french") {
-      result = validateFrenchPlate(plateNumber.trim())
-    } else {
-      result = validateSwissPlate(plateNumber.trim())
-    }
+  const handleScan = async (plateText: string) => {
+    if (!selectedSystem) return
+    setIsScanning(true)
+    setScannedPlate(plateText)
 
-    if (result.isValid) {
-      const entry = {
-        id: Date.now().toString(),
-        plateNumber: plateNumber.trim(),
-        system: selectedSystem,
-        result,
-        timestamp: new Date(),
+    // Envoyer événement GTM pour le scan
+    sendGTMEvent("plate_scan_attempt", {
+      system_type: selectedSystem,
+      plate_text: plateText,
+      timestamp: new Date().toISOString(),
+    })
+
+    try {
+      // @ts-ignore
+      const result = validateDiplomaticPlate(plateText, selectedSystem)
+
+      if (result) {
+        setScanResult(result)
+        setCurrentState("result")
+        addToHistory(plateText, result, selectedSystem)
+
+        // Envoyer événement GTM pour le succès
+        sendGTMEvent("plate_scan_success", {
+          system_type: selectedSystem,
+          plate_text: plateText,
+          country_code: result.country?.code,
+          country_name: result.country?.name,
+          timestamp: new Date().toISOString(),
+        })
+      } else {
+        alert(`Plaque non reconnue: "${plateText}"\n\nVérifiez le format.`)
+        addToHistory(plateText, null, selectedSystem)
+
+        // Envoyer événement GTM pour l'échec
+        sendGTMEvent("plate_scan_failure", {
+          system_type: selectedSystem,
+          plate_text: plateText,
+          error_type: "not_recognized",
+          timestamp: new Date().toISOString(),
+        })
       }
+    } catch (error) {
+      console.error("Erreur validation:", error)
+      alert("Erreur lors de l'analyse. Réessayez.")
 
-      setScannedPlate(entry)
-      addEntry(entry)
-      setPlateNumber("")
+      // Envoyer événement GTM pour l'erreur
+      sendGTMEvent("plate_scan_error", {
+        system_type: selectedSystem,
+        plate_text: plateText,
+        error_type: "validation_error",
+        error_message: error instanceof Error ? error.message : "Unknown error",
+        timestamp: new Date().toISOString(),
+      })
+    } finally {
+      setIsScanning(false)
+    }
+  }
+
+  const handleBack = () => {
+    const previousState = currentState
+
+    if (
+      [
+        "about",
+        "system-info",
+        "history",
+        "favorites",
+        "terms",
+        "swiss-system-info",
+        "swiss-codes",
+        "french-codes",
+      ].includes(currentState) &&
+      selectedSystem
+    ) {
+      setCurrentState(selectedSystem)
+    } else if (currentState === "result" && selectedSystem) {
+      setCurrentState(selectedSystem)
     } else {
-      setScanError(result.error || "Format de plaque invalide")
+      setCurrentState("home")
+      setSelectedSystem(null)
     }
+    setScanResult(null)
+    setScannedPlate("")
+
+    // Envoyer événement GTM pour la navigation
+    sendGTMEvent("navigation_back", {
+      from_state: previousState,
+      to_state: selectedSystem || "home",
+      timestamp: new Date().toISOString(),
+    })
   }
 
-  const handleCameraResult = (result: any, plateText: string) => {
-    const entry = {
-      id: Date.now().toString(),
-      plateNumber: plateText,
-      system: selectedSystem,
-      result,
-      timestamp: new Date(),
-    }
+  const handleHistoryEntrySelect = (entry: HistoryEntry) => {
+    if (entry.result) {
+      setScanResult(entry.result)
+      setScannedPlate(entry.plateText)
+      setSelectedSystem(entry.system)
+      setCurrentState("result")
 
-    setScannedPlate(entry)
-    addEntry(entry)
-    setCurrentView("scanner")
-  }
-
-  const handleToggleFavorite = (entry: any) => {
-    if (isFavorite(entry.id)) {
-      removeFavorite(entry.id)
+      // Envoyer événement GTM
+      sendGTMEvent("history_entry_selected", {
+        system_type: entry.system,
+        plate_text: entry.plateText,
+        timestamp: new Date().toISOString(),
+      })
     } else {
-      addFavorite(entry)
+      alert(`La plaque "${entry.plateText}" n'a pas été reconnue.`)
     }
   }
 
-  const handleRescan = (entry: any) => {
-    setPlateNumber(entry.plateNumber)
+  const handleFavoriteEntrySelect = (entry: FavoriteEntry) => {
+    setScanResult(entry.result)
+    setScannedPlate(entry.plateText)
     setSelectedSystem(entry.system)
-    setScannedPlate(entry)
-    setCurrentView("scanner")
+    setCurrentState("result")
+
+    // Envoyer événement GTM
+    sendGTMEvent("favorite_entry_selected", {
+      system_type: entry.system,
+      plate_text: entry.plateText,
+      timestamp: new Date().toISOString(),
+    })
   }
 
-  if (currentView === "camera") {
-    return (
-      <CameraScanner system={selectedSystem} onResult={handleCameraResult} onBack={() => setCurrentView("scanner")} />
-    )
+  const handleStateChange = (newState: AppState) => {
+    const previousState = currentState
+    setCurrentState(newState)
+
+    // Envoyer événement GTM pour le changement d'état
+    sendGTMEvent("state_change", {
+      from_state: previousState,
+      to_state: newState,
+      system_type: selectedSystem,
+      timestamp: new Date().toISOString(),
+    })
+  }
+
+  const renderContent = () => {
+    switch (currentState) {
+      case "home":
+        return (
+          <div id="home-container" className="space-y-6">
+            <SystemSelector onSelectSystem={handleSystemSelect} />
+
+            <div id="navigation-buttons" className="grid grid-cols-2 gap-3">
+              <Link href="/history">
+                <Button
+                  id="history-button"
+                  variant="outline"
+                  className="w-full flex items-center justify-center gap-2 border-gray-300 hover:bg-gray-100 bg-white"
+                >
+                  <History className="w-4 h-4" />
+                  Historique
+                </Button>
+              </Link>
+              <Button
+                id="favorites-button"
+                variant="outline"
+                onClick={() => handleStateChange("favorites")}
+                className="w-full flex items-center justify-center gap-2 border-yellow-300 hover:bg-yellow-50 bg-white"
+              >
+                <Star className="w-4 h-4" />
+                Favoris
+              </Button>
+            </div>
+            <div id="offline-indicator" className="text-center">
+              <div
+                id="offline-badge"
+                className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-100 border border-blue-300 rounded-md text-sm text-blue-800"
+              >
+                📱 Fonctionne sans internet
+              </div>
+            </div>
+          </div>
+        )
+
+      case "french":
+        return (
+          <div id="french-scanner-container" className="space-y-6">
+            <div id="french-header" className="flex items-center gap-2">
+              <Button id="french-back-button" variant="ghost" size="sm" onClick={handleBack}>
+                <ArrowLeft className="w-4 h-4" />
+              </Button>
+              <div className="flex items-center gap-2">
+                <span className="text-2xl">🇫🇷</span>
+                <h2 id="french-title" className="text-lg font-semibold">
+                  Scanner français
+                </h2>
+              </div>
+            </div>
+            <EnhancedFrenchScanner onScan={handleScan} isScanning={isScanning} />
+            <div id="french-actions" className="grid grid-cols-2 gap-3">
+              <Button
+                id="french-decode-button"
+                variant="outline"
+                onClick={() => handleStateChange("system-info")}
+                className="flex items-center gap-2 border-green-200 hover:bg-green-50"
+              >
+                <Info className="w-4 h-4" /> Décoder les plaques
+              </Button>
+              <Button
+                id="french-codes-button"
+                variant="outline"
+                onClick={() => handleStateChange("french-codes")}
+                className="flex items-center gap-2 border-green-200 hover:bg-green-50"
+              >
+                <BookOpen className="w-4 h-4" /> Tous les codes
+              </Button>
+            </div>
+          </div>
+        )
+
+      case "swiss":
+        return (
+          <div id="swiss-scanner-container" className="space-y-6">
+            <div id="swiss-header" className="flex items-center gap-2">
+              <Button id="swiss-back-button" variant="ghost" size="sm" onClick={handleBack}>
+                <ArrowLeft className="w-4 h-4" />
+              </Button>
+              <div className="flex items-center gap-2">
+                <span className="text-2xl">🇨🇭</span>
+                <h2 id="swiss-title" className="text-lg font-semibold">
+                  Scanner suisse
+                </h2>
+              </div>
+            </div>
+            <SwissScanner onScan={handleScan} isScanning={isScanning} />
+            <div id="swiss-actions" className="grid grid-cols-2 gap-3">
+              <Button
+                id="swiss-decode-button"
+                variant="outline"
+                onClick={() => handleStateChange("swiss-system-info")}
+                className="flex items-center gap-2 border-red-200 hover:bg-red-50"
+              >
+                <Info className="w-4 h-4" /> Décoder les plaques
+              </Button>
+              <Button
+                id="swiss-codes-button"
+                variant="outline"
+                onClick={() => handleStateChange("swiss-codes")}
+                className="flex items-center gap-2 border-red-200 hover:bg-red-50"
+              >
+                <BookOpen className="w-4 h-4" /> Tous les codes
+              </Button>
+            </div>
+          </div>
+        )
+      case "result":
+        return scanResult ? (
+          <div id="result-container">
+            {isSwissPlate(scanResult) ? (
+              <SwissPlateResult result={scanResult} scannedPlate={scannedPlate} onBack={handleBack} />
+            ) : (
+              <FrenchPlateResult
+                result={scanResult as FrenchPlateMatch}
+                scannedPlate={scannedPlate}
+                onBack={handleBack}
+              />
+            )}
+          </div>
+        ) : null
+      case "system-info":
+        return <FrenchSystemInfo onBack={handleBack} />
+      case "swiss-system-info":
+        return <SwissSystemInfo onBack={handleBack} />
+      case "swiss-codes":
+        return <SwissCodeList onBack={handleBack} />
+      case "french-codes":
+        return <FrenchCodeList onBack={handleBack} />
+      case "terms":
+        return <TermsOfService onBack={handleBack} />
+      case "about":
+        return <FrenchCodeList onBack={handleBack} />
+      case "history":
+        return <HistoryView onBack={handleBack} onSelectEntry={handleHistoryEntrySelect} />
+      case "favorites":
+        return <FavoritesView onBack={handleBack} onSelectEntry={handleFavoriteEntrySelect} />
+
+      default:
+        return null
+    }
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">🔍 Diplo Scanner</h1>
-          <p className="text-lg text-gray-600 mb-6">Scanner de plaques diplomatiques France & Suisse</p>
+    <div id="app-container" className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div id="main-container" className="container max-w-md mx-auto p-4">
+        <div id="header" className="text-center mb-8 pt-8">
+          <div id="logo-container" className="flex items-center justify-center gap-2 mb-2">
+            <div id="logo-icon" className="text-3xl">
+              🌍
+            </div>
+            <h1 id="app-title" className="text-3xl font-bold text-blue-900">
+              Diplo Scanner
+            </h1>
+          </div>
+          <p id="app-subtitle" className="text-blue-700">
+            Plaques diplomatiques France & Suisse
+          </p>
+        </div>
+        <div id="content-container" className="pb-8">
+          {renderContent()}
+        </div>
+      </div>
 
-          {/* Navigation */}
-          <div className="flex justify-center gap-4 mb-6">
-            <Button
-              variant={currentView === "scanner" ? "default" : "outline"}
-              onClick={() => setCurrentView("scanner")}
-              className="flex items-center gap-2"
-            >
-              <Search className="h-4 w-4" />
-              Scanner
-            </Button>
-            <Button
-              variant={currentView === "history" ? "default" : "outline"}
-              onClick={() => setCurrentView("history")}
-              className="flex items-center gap-2"
-            >
-              <History className="h-4 w-4" />
-              Historique ({history.length})
-            </Button>
+      <footer id="footer" className="bg-white/60 border-t border-gray-200 py-4 mt-auto">
+        <div id="footer-content" className="text-center space-y-2">
+          <p id="footer-tagline" className="text-xs text-gray-500">
+            Fait avec ❤️
+          </p>
+          <div id="footer-links" className="flex justify-center gap-4">
+            <Link href="/terms">
+              <button
+                id="footer-terms-link"
+                className="text-xs text-gray-500 hover:text-gray-700 transition-colors underline"
+              >
+                Conditions d'Utilisation
+              </button>
+            </Link>
+            <Link href="/about">
+              <button
+                id="footer-about-link"
+                className="text-xs text-gray-500 hover:text-gray-700 transition-colors underline"
+              >
+                À propos
+              </button>
+            </Link>
+            <Link href="/help">
+              <button
+                id="footer-help-link"
+                className="text-xs text-gray-500 hover:text-gray-700 transition-colors underline"
+              >
+                Aide
+              </button>
+            </Link>
+            <Link href="/faq-plaques-diplomatiques">
+              <button
+                id="footer-faq-link"
+                className="text-xs text-gray-500 hover:text-gray-700 transition-colors underline"
+              >
+                FAQ
+              </button>
+            </Link>
           </div>
         </div>
-
-        {currentView === "scanner" ? (
-          <div className="max-w-4xl mx-auto">
-            {/* System Selector */}
-            <Card className="mb-6">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Globe className="h-5 w-5" />
-                  Système de plaques
-                </CardTitle>
-                <CardDescription>Sélectionnez le pays pour analyser la plaque diplomatique</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <SystemSelector selectedSystem={selectedSystem} onSystemChange={setSelectedSystem} />
-              </CardContent>
-            </Card>
-
-            {/* Scanner */}
-            <Card className="mb-6">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Search className="h-5 w-5" />
-                  Scanner une plaque
-                </CardTitle>
-                <CardDescription>Saisissez le numéro ou utilisez la caméra pour scanner</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex gap-2">
-                  <Input
-                    placeholder={
-                      selectedSystem === "french" ? "Ex: 5 CD 1234 ou 45 C 123.75" : "Ex: 001 123 ou 032 456"
-                    }
-                    value={plateNumber}
-                    onChange={(e) => setPlateNumber(e.target.value)}
-                    onKeyPress={(e) => e.key === "Enter" && handleScan()}
-                    className="flex-1"
-                  />
-                  <Button onClick={handleScan} className="px-6">
-                    <Search className="h-4 w-4 mr-2" />
-                    Scanner
-                  </Button>
-                </div>
-
-                <div className="flex justify-center">
-                  <Button
-                    variant="outline"
-                    onClick={() => setCurrentView("camera")}
-                    className="flex items-center gap-2"
-                  >
-                    <Camera className="h-4 w-4" />
-                    Scanner avec caméra
-                  </Button>
-                </div>
-
-                {scanError && <div className="text-red-600 text-sm mt-2">{scanError}</div>}
-              </CardContent>
-            </Card>
-
-            {/* Results */}
-            {scannedPlate && (
-              <div className="mb-6">
-                {selectedSystem === "french" ? (
-                  <FrenchPlateResult
-                    result={scannedPlate.result.match}
-                    scannedPlate={scannedPlate.plateNumber}
-                    onBack={() => setScannedPlate(null)}
-                  />
-                ) : (
-                  <SwissPlateResult
-                    result={scannedPlate.result.match}
-                    scannedPlate={scannedPlate.plateNumber}
-                    onBack={() => setScannedPlate(null)}
-                  />
-                )}
-              </div>
-            )}
-
-            {/* Quick Links */}
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-lg">
-                    <BookOpen className="h-5 w-5" />
-                    Guides et informations
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="flex items-center justify-between p-3 rounded-lg bg-green-50 hover:bg-green-100 transition-colors">
-                    <Link href="/french/guide" className="flex items-center justify-between w-full">
-                      <div>
-                        <div className="font-medium">🇫🇷 Guide France</div>
-                        <div className="text-sm text-gray-600">Système français</div>
-                      </div>
-                      <ExternalLink className="h-4 w-4" />
-                    </Link>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => {
-                        setSelectedSystem("french")
-                        setCurrentView("camera")
-                      }}
-                      className="ml-2 p-2"
-                      title="Scanner une plaque française avec la caméra"
-                    >
-                      📸
-                    </Button>
-                  </div>
-                  <div className="flex items-center justify-between p-3 rounded-lg bg-red-50 hover:bg-red-100 transition-colors">
-                    <Link href="/swiss/guide" className="flex items-center justify-between w-full">
-                      <div>
-                        <div className="font-medium">🇨🇭 Guide Suisse</div>
-                        <div className="text-sm text-gray-600">Système suisse</div>
-                      </div>
-                      <ExternalLink className="h-4 w-4" />
-                    </Link>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => {
-                        setSelectedSystem("swiss")
-                        setCurrentView("camera")
-                      }}
-                      className="ml-2 p-2"
-                      title="Scanner une plaque suisse avec la caméra"
-                    >
-                      📸
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-lg">
-                    <Users className="h-5 w-5" />
-                    Codes pays
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <Link
-                    href="/french/codes"
-                    className="flex items-center justify-between p-3 rounded-lg bg-blue-50 hover:bg-blue-100 transition-colors"
-                  >
-                    <div>
-                      <div className="font-medium">🇫🇷 Codes français</div>
-                      <div className="text-sm text-gray-600">Liste complète</div>
-                    </div>
-                    <ExternalLink className="h-4 w-4" />
-                  </Link>
-                  <Link
-                    href="/swiss/codes"
-                    className="flex items-center justify-between p-3 rounded-lg bg-orange-50 hover:bg-orange-100 transition-colors"
-                  >
-                    <div>
-                      <div className="font-medium">🇨🇭 Codes suisses</div>
-                      <div className="text-sm text-gray-600">Liste complète</div>
-                    </div>
-                    <ExternalLink className="h-4 w-4" />
-                  </Link>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        ) : (
-          <HistoryView
-            history={history}
-            onRescan={handleRescan}
-            onToggleFavorite={handleToggleFavorite}
-            isFavorite={isFavorite}
-          />
-        )}
-
-        {/* Footer */}
-        <footer className="mt-12 pt-8 border-t border-gray-200">
-          <div className="text-center text-gray-600">
-            <div className="flex justify-center gap-6 mb-4">
-              <Link href="/help" className="hover:text-blue-600 transition-colors">
-                Aide
-              </Link>
-              <Link href="/terms" className="hover:text-blue-600 transition-colors">
-                Conditions
-              </Link>
-              <Link href="/cookies" className="hover:text-blue-600 transition-colors">
-                Cookies
-              </Link>
-              <Link href="/faq-plaques-diplomatiques" className="hover:text-blue-600 transition-colors">
-                FAQ
-              </Link>
-            </div>
-            <p className="text-sm">© 2024 🔍 Diplo Scanner - Scanner de plaques diplomatiques</p>
-          </div>
-        </footer>
-      </div>
+      </footer>
     </div>
   )
+}
+
+// Déclaration TypeScript pour window.dataLayer
+declare global {
+  interface Window {
+    dataLayer: any[]
+  }
 }

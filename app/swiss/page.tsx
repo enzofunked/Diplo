@@ -9,11 +9,13 @@ import SwissPlateResult from "../../components/SwissPlateResult"
 import type { SwissPlateMatch } from "../../utils/swiss-plate-validator"
 import { useHistory } from "../../hooks/useHistory"
 import SwissScanner from "../../components/SwissScanner"
+import PlateScanner from "../../components/PlateScanner"
 
 export default function SwissPage() {
   const [scanResult, setScanResult] = useState<SwissPlateMatch | null>(null)
   const [scannedPlate, setScannedPlate] = useState("")
   const [isScanning, setIsScanning] = useState(false)
+  const [showCameraModal, setShowCameraModal] = useState(false)
   const { addToHistory } = useHistory()
 
   const handleScan = async (plateText: string) => {
@@ -36,6 +38,13 @@ export default function SwissPage() {
     } finally {
       setIsScanning(false)
     }
+  }
+
+  const handleCameraResult = (plateText: string, result: SwissPlateMatch) => {
+    setShowCameraModal(false)
+    setScanResult(result)
+    setScannedPlate(plateText)
+    addToHistory(plateText, result, "swiss")
   }
 
   if (scanResult) {
@@ -104,7 +113,9 @@ export default function SwissPage() {
             </div>
           </div>
 
-          <SwissScanner onScan={handleScan} isScanning={isScanning} />
+          <div className="space-y-4">
+            <SwissScanner onScan={handleScan} isScanning={isScanning} onCameraClick={() => setShowCameraModal(true)} />
+          </div>
 
           <div className="grid grid-cols-2 gap-3">
             <Link href="/swiss/guide">
@@ -128,6 +139,10 @@ export default function SwissPage() {
           </div>
         </div>
       </div>
+
+      {showCameraModal && (
+        <PlateScanner onResult={handleCameraResult} onClose={() => setShowCameraModal(false)} system="swiss" />
+      )}
 
       <footer className="bg-white/60 border-t border-gray-200 py-4 w-full">
         <div className="text-center space-y-2">
