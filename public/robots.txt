@@ -13,40 +13,14 @@ Allow: /plaque-verte-et-orange
 Allow: /couleur-des-plaques-diplomatiques
 Allow: /plaques-diplomatiques-liste-complete
 Allow: /faq-plaques-diplomatiques
-Allow: /french/guide
-Allow: /swiss/guide
-Allow: /french/codes
-Allow: /swiss/codes
-Allow: /about
-Allow: /sources
-Allow: /help
-Allow: /terms
-Allow: /cookies
-Allow: /history
-Allow: /favorites
 
 Disallow: /api/
 Disallow: /_next/
 Disallow: /admin/
 Disallow: /private/
 Disallow: /*.json$
-Disallow: /*?*utm_*
-Disallow: /*?*fbclid*
-Disallow: /*?*gclid*
+Disallow: /*?*
 
-# Optimisation du budget d'exploration
 Crawl-delay: 0.5
 
-# Sitemap pour faciliter l'exploration
 Sitemap: https://diplo-scanner.com/sitemap.xml
-
-# Pages prioritaires pour l'indexation
-# Accueil et pages principales
-# /
-# /french
-# /swiss
-
-# Pages SEO importantes
-# /qu-est-ce-qu-une-plaque-diplomatique
-# /comment-lire-une-plaque-diplomatique-francaise
-# /comment-lire-une-plaque-diplomatique-suisse

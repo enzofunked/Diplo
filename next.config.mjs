@@ -1,12 +1,21 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Optimisations pour l'exploration Google
-  experimental: {
-    optimizeCss: true,
-    optimizePackageImports: ['lucide-react']
-  },
+  // Configuration de base
+  trailingSlash: false,
+  poweredByHeader: false,
+  compress: true,
+  generateEtags: true,
   
-  // Headers pour améliorer l'exploration et réduire la charge serveur
+  // Configuration des images
+  images: {
+    formats: ['image/webp', 'image/avif'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    minimumCacheTTL: 86400,
+    unoptimized: true,
+  },
+
+  // Headers pour l'optimisation SEO et performance
   async headers() {
     return [
       {
@@ -34,7 +43,6 @@ const nextConfig = {
           }
         ]
       },
-      // Headers spécifiques pour le sitemap
       {
         source: '/sitemap.xml',
         headers: [
@@ -48,7 +56,6 @@ const nextConfig = {
           }
         ]
       },
-      // Headers pour les assets statiques
       {
         source: '/favicon.ico',
         headers: [
@@ -79,29 +86,7 @@ const nextConfig = {
     ]
   },
 
-  // Configuration des images pour réduire la charge
-  images: {
-    formats: ['image/webp', 'image/avif'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 86400,
-    unoptimized: true,
-  },
-
-  // Optimisations de build pour réduire la taille
-  swcMinify: true,
-  compress: true,
-  
-  // Configuration PWA
-  trailingSlash: false,
-  
-  // Optimisations serveur
-  poweredByHeader: false,
-  
-  // Configuration pour l'exploration
-  generateEtags: true,
-  
-  // Pas de redirections pour éviter les chaînes
+  // Pas de redirections
   async redirects() {
     return []
   },
@@ -116,7 +101,12 @@ const nextConfig = {
     ]
   },
 
-  // Webpack optimizations
+  // Configuration expérimentale (uniquement les options supportées)
+  experimental: {
+    optimizePackageImports: ['lucide-react']
+  },
+
+  // Configuration Webpack simplifiée
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.resolve.fallback = {
@@ -127,12 +117,10 @@ const nextConfig = {
     return config
   },
 
-  // ESLint configuration
+  // Configuration ESLint et TypeScript
   eslint: {
     ignoreDuringBuilds: true,
   },
-
-  // TypeScript configuration
   typescript: {
     ignoreBuildErrors: true,
   },

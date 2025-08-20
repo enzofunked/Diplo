@@ -1,68 +1,72 @@
 import { NextResponse } from "next/server"
 
-const BASE_URL = "https://diplo-scanner.com"
-
-// Pages prioritaires pour l'indexation
-const PRIORITY_PAGES = [
-  { url: "", priority: "1.0", changefreq: "daily" },
-  { url: "/french", priority: "0.9", changefreq: "weekly" },
-  { url: "/swiss", priority: "0.9", changefreq: "weekly" },
-  { url: "/qu-est-ce-qu-une-plaque-diplomatique", priority: "0.8", changefreq: "monthly" },
-  { url: "/comment-lire-une-plaque-diplomatique-francaise", priority: "0.8", changefreq: "monthly" },
-  { url: "/comment-lire-une-plaque-diplomatique-suisse", priority: "0.8", changefreq: "monthly" },
-]
-
-// Pages secondaires
-const SECONDARY_PAGES = [
-  { url: "/liste-codes-pays-plaques-diplomatiques-francaises", priority: "0.7", changefreq: "monthly" },
-  { url: "/codes-diplomatiques-suisses", priority: "0.7", changefreq: "monthly" },
-  { url: "/privileges-immunites-plaques-diplomatiques", priority: "0.6", changefreq: "monthly" },
-  { url: "/plaque-immatriculation-verte", priority: "0.6", changefreq: "monthly" },
-  { url: "/plaque-verte-et-orange", priority: "0.6", changefreq: "monthly" },
-  { url: "/couleur-des-plaques-diplomatiques", priority: "0.6", changefreq: "monthly" },
-  { url: "/plaques-diplomatiques-liste-complete", priority: "0.6", changefreq: "monthly" },
-  { url: "/faq-plaques-diplomatiques", priority: "0.6", changefreq: "monthly" },
-]
-
-// Pages utilitaires
-const UTILITY_PAGES = [
-  { url: "/french/guide", priority: "0.5", changefreq: "monthly" },
-  { url: "/swiss/guide", priority: "0.5", changefreq: "monthly" },
-  { url: "/french/codes", priority: "0.5", changefreq: "monthly" },
-  { url: "/swiss/codes", priority: "0.5", changefreq: "monthly" },
-  { url: "/about", priority: "0.4", changefreq: "yearly" },
-  { url: "/sources", priority: "0.4", changefreq: "yearly" },
-  { url: "/help", priority: "0.4", changefreq: "monthly" },
-  { url: "/terms", priority: "0.3", changefreq: "yearly" },
-  { url: "/cookies", priority: "0.3", changefreq: "yearly" },
-  { url: "/history", priority: "0.3", changefreq: "never" },
-  { url: "/favorites", priority: "0.3", changefreq: "never" },
-]
-
 export async function GET() {
-  const allPages = [...PRIORITY_PAGES, ...SECONDARY_PAGES, ...UTILITY_PAGES]
-  const currentDate = new Date().toISOString().split("T")[0]
+  const baseUrl = "https://diplo-scanner.com"
+  const currentDate = new Date().toISOString()
+
+  const urls = [
+    // Pages principales (priorité maximale)
+    { url: `${baseUrl}/`, priority: "1.0", changefreq: "daily" },
+    { url: `${baseUrl}/french`, priority: "0.9", changefreq: "weekly" },
+    { url: `${baseUrl}/swiss`, priority: "0.9", changefreq: "weekly" },
+
+    // Pages SEO importantes
+    { url: `${baseUrl}/qu-est-ce-qu-une-plaque-diplomatique`, priority: "0.8", changefreq: "monthly" },
+    { url: `${baseUrl}/comment-lire-une-plaque-diplomatique-francaise`, priority: "0.8", changefreq: "monthly" },
+    { url: `${baseUrl}/comment-lire-une-plaque-diplomatique-suisse`, priority: "0.8", changefreq: "monthly" },
+
+    // Pages de codes
+    { url: `${baseUrl}/liste-codes-pays-plaques-diplomatiques-francaises`, priority: "0.7", changefreq: "monthly" },
+    { url: `${baseUrl}/codes-diplomatiques-suisses`, priority: "0.7", changefreq: "monthly" },
+
+    // Pages informatives
+    { url: `${baseUrl}/privileges-immunites-plaques-diplomatiques`, priority: "0.6", changefreq: "monthly" },
+    { url: `${baseUrl}/plaque-immatriculation-verte`, priority: "0.6", changefreq: "monthly" },
+    { url: `${baseUrl}/plaque-verte-et-orange`, priority: "0.6", changefreq: "monthly" },
+    { url: `${baseUrl}/couleur-des-plaques-diplomatiques`, priority: "0.6", changefreq: "monthly" },
+    { url: `${baseUrl}/plaques-diplomatiques-liste-complete`, priority: "0.6", changefreq: "monthly" },
+    { url: `${baseUrl}/faq-plaques-diplomatiques`, priority: "0.6", changefreq: "monthly" },
+
+    // Pages guides
+    { url: `${baseUrl}/french/guide`, priority: "0.5", changefreq: "monthly" },
+    { url: `${baseUrl}/swiss/guide`, priority: "0.5", changefreq: "monthly" },
+    { url: `${baseUrl}/french/codes`, priority: "0.5", changefreq: "monthly" },
+    { url: `${baseUrl}/swiss/codes`, priority: "0.5", changefreq: "monthly" },
+
+    // Pages utilitaires
+    { url: `${baseUrl}/history`, priority: "0.4", changefreq: "weekly" },
+    { url: `${baseUrl}/favorites`, priority: "0.4", changefreq: "weekly" },
+    { url: `${baseUrl}/help`, priority: "0.4", changefreq: "monthly" },
+
+    // Pages informatives
+    { url: `${baseUrl}/about`, priority: "0.3", changefreq: "monthly" },
+    { url: `${baseUrl}/sources`, priority: "0.3", changefreq: "monthly" },
+
+    // Pages légales
+    { url: `${baseUrl}/terms`, priority: "0.2", changefreq: "yearly" },
+    { url: `${baseUrl}/cookies`, priority: "0.2", changefreq: "yearly" },
+  ]
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${allPages
+${urls
   .map(
-    (page) => `  <url>
-    <loc>${BASE_URL}${page.url}</loc>
+    ({ url, priority, changefreq }) => `  <url>
+    <loc>${url}</loc>
     <lastmod>${currentDate}</lastmod>
-    <changefreq>${page.changefreq}</changefreq>
-    <priority>${page.priority}</priority>
+    <changefreq>${changefreq}</changefreq>
+    <priority>${priority}</priority>
   </url>`,
   )
   .join("\n")}
 </urlset>`
 
   return new NextResponse(sitemap, {
-    status: 200,
     headers: {
       "Content-Type": "application/xml",
-      "Cache-Control": "public, max-age=86400, s-maxage=86400",
-      "X-Sitemap-URLs": allPages.length.toString(),
+      "Cache-Control": "public, max-age=86400",
+      "X-Total-URLs": urls.length.toString(),
+      "X-Priority-Pages": "6",
       "X-Generated": currentDate,
     },
   })

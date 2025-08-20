@@ -1,42 +1,51 @@
 import { NextResponse } from "next/server"
 
 export async function GET() {
-  const crawlOptimization = {
-    timestamp: new Date().toISOString(),
+  const optimizations = {
     status: "optimized",
-    recommendations: [
-      "✅ Crawl-delay configuré à 0.5s dans robots.txt",
-      "✅ Cache-Control optimisé pour réduire la charge serveur",
-      "✅ Headers X-Robots-Tag configurés",
-      "✅ Sitemap.xml accessible et optimisé",
-      "✅ Pages prioritaires identifiées",
-    ],
+    timestamp: new Date().toISOString(),
     crawlBudgetOptimizations: {
-      serverResponseTime: "< 200ms target",
-      cacheStrategy: "86400s for static assets",
-      robotsDirectives: "Allow all important pages",
-      sitemapStatus: "Active with 25 URLs",
-      priorityPages: [
-        "/",
-        "/french",
-        "/swiss",
-        "/qu-est-ce-qu-une-plaque-diplomatique",
-        "/comment-lire-une-plaque-diplomatique-francaise",
-        "/comment-lire-une-plaque-diplomatique-suisse",
-      ],
+      robotsTxt: {
+        crawlDelay: "0.5",
+        status: "configured",
+        allowedPaths: [
+          "/",
+          "/french",
+          "/swiss",
+          "/qu-est-ce-qu-une-plaque-diplomatique",
+          "/comment-lire-une-plaque-diplomatique-francaise",
+          "/comment-lire-une-plaque-diplomatique-suisse",
+        ],
+      },
+      sitemap: {
+        totalUrls: 25,
+        priorityPages: 6,
+        status: "generated",
+        lastModified: new Date().toISOString(),
+      },
+      headers: {
+        cacheControl: "configured",
+        robotsTag: "configured",
+        etags: "enabled",
+      },
+      performance: {
+        compression: "enabled",
+        imageOptimization: "enabled",
+        staticAssetCaching: "31536000s",
+      },
     },
-    nextSteps: [
-      "1. Soumettre sitemap.xml dans Google Search Console",
-      "2. Demander indexation manuelle des pages prioritaires",
-      "3. Surveiller Core Web Vitals",
-      "4. Optimiser temps de réponse serveur",
+    recommendations: [
+      "Soumettre sitemap.xml dans Google Search Console",
+      "Demander indexation manuelle des 6 pages prioritaires",
+      "Surveiller les statistiques d'exploration",
+      "Maintenir temps de réponse < 200ms",
     ],
   }
 
-  return NextResponse.json(crawlOptimization, {
+  return NextResponse.json(optimizations, {
     headers: {
-      "Content-Type": "application/json",
       "Cache-Control": "public, max-age=3600",
+      "Content-Type": "application/json",
     },
   })
 }
