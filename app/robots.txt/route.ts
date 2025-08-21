@@ -36,6 +36,10 @@ Disallow: /*.json$
 Disallow: /*?*utm_*
 Disallow: /*?*fbclid*
 Disallow: /*?*gclid*
+Disallow: /manifest.json
+Disallow: /sw.js
+Disallow: /offline.html
+Disallow: /version-check.js
 
 Crawl-delay: 0.5
 
