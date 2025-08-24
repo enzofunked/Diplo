@@ -2,112 +2,67 @@ import { type NextRequest, NextResponse } from "next/server"
 
 export async function POST(request: NextRequest) {
   try {
-    const { url } = await request.json()
+    const { urls } = await request.json()
 
-    if (!url || !url.startsWith("https://diplo-scanner.com/")) {
-      return NextResponse.json({ error: "URL invalide" }, { status: 400 })
+    if (!urls || !Array.isArray(urls)) {
+      return NextResponse.json({ error: "URLs array is required" }, { status: 400 })
     }
 
-    // Simulation de soumission à Google Search Console
-    // En production, vous devriez utiliser l'API Google Search Console
-    const submissionData = {
-      url,
-      timestamp: new Date().toISOString(),
-      status: "submitted",
-      message: "URL soumise pour indexation",
-    }
+    const results = []
 
-    console.log("Soumission URL à Google:", submissionData)
+    for (const url of urls) {
+      try {
+        // Simulation de soumission à Google (en production, utilisez l'API Google Search Console)
+        const result = {
+          url,
+          status: "submitted",
+          timestamp: new Date().toISOString(),
+          message: "URL submitted for indexing",
+        }
+        results.push(result)
+      } catch (error) {
+        results.push({
+          url,
+          status: "error",
+          error: error instanceof Error ? error.message : "Unknown error",
+        })
+      }
+    }
 
     return NextResponse.json({
       success: true,
-      data: submissionData,
-      instructions: [
-        "1. Connectez-vous à Google Search Console",
-        "2. Allez dans 'Inspection d'URL'",
-        "3. Saisissez l'URL à indexer",
-        "4. Cliquez sur 'Demander une indexation'",
-      ],
+      results,
+      total: urls.length,
+      submitted: results.filter((r) => r.status === "submitted").length,
+      errors: results.filter((r) => r.status === "error").length,
     })
   } catch (error) {
-    console.error("Erreur soumission:", error)
-    return NextResponse.json({ error: "Erreur lors de la soumission" }, { status: 500 })
+    return NextResponse.json(
+      { error: "Internal server error", message: error instanceof Error ? error.message : "Unknown error" },
+      { status: 500 },
+    )
   }
 }
 
 export async function GET() {
-  const allUrls = [
-    "/",
-    "/french",
-    "/swiss",
-    "/qu-est-ce-qu-une-plaque-diplomatique",
-    "/comment-lire-une-plaque-diplomatique-francaise",
-    "/comment-lire-une-plaque-diplomatique-suisse",
-    "/liste-codes-pays-plaques-diplomatiques-francaises",
-    "/codes-diplomatiques-suisses",
-    "/privileges-immunites-plaques-diplomatiques",
-    "/plaque-immatriculation-verte",
-    "/plaque-verte-et-orange",
-    "/couleur-des-plaques-diplomatiques",
-    "/plaques-diplomatiques-liste-complete",
-    "/faq-plaques-diplomatiques",
+  const priorityUrls = [
+    "https://diplo-scanner.com/",
+    "https://diplo-scanner.com/french",
+    "https://diplo-scanner.com/swiss",
+    "https://diplo-scanner.com/qu-est-ce-qu-une-plaque-diplomatique",
+    "https://diplo-scanner.com/comment-lire-une-plaque-diplomatique-francaise",
+    "https://diplo-scanner.com/comment-lire-une-plaque-diplomatique-suisse",
+    "https://diplo-scanner.com/liste-codes-pays-plaques-diplomatiques-francaises",
+    "https://diplo-scanner.com/codes-diplomatiques-suisses",
+    "https://diplo-scanner.com/privileges-immunites-plaques-diplomatiques",
+    "https://diplo-scanner.com/plaque-immatriculation-verte",
+    "https://diplo-scanner.com/plaque-verte-et-orange",
   ]
 
-  const submissionPlan = {
-    total_urls: allUrls.length,
-    priority_order: [
-      {
-        priority: "HAUTE",
-        urls: [
-          "/comment-lire-une-plaque-diplomatique-suisse",
-          "/comment-lire-une-plaque-diplomatique-francaise",
-          "/qu-est-ce-qu-une-plaque-diplomatique",
-        ],
-        reason: "Pages de contenu principal avec fort potentiel SEO",
-      },
-      {
-        priority: "MOYENNE",
-        urls: [
-          "/liste-codes-pays-plaques-diplomatiques-francaises",
-          "/codes-diplomatiques-suisses",
-          "/plaque-immatriculation-verte",
-        ],
-        reason: "Pages de référence importantes",
-      },
-      {
-        priority: "NORMALE",
-        urls: ["/french", "/swiss", "/faq-plaques-diplomatiques", "/privileges-immunites-plaques-diplomatiques"],
-        reason: "Pages fonctionnelles et informatives",
-      },
-    ],
-    daily_submission_plan: [
-      {
-        day: 1,
-        urls: [
-          "/comment-lire-une-plaque-diplomatique-suisse",
-          "/comment-lire-une-plaque-diplomatique-francaise",
-          "/qu-est-ce-qu-une-plaque-diplomatique",
-        ],
-      },
-      {
-        day: 2,
-        urls: [
-          "/liste-codes-pays-plaques-diplomatiques-francaises",
-          "/codes-diplomatiques-suisses",
-          "/plaque-immatriculation-verte",
-        ],
-      },
-      {
-        day: 3,
-        urls: ["/french", "/swiss", "/faq-plaques-diplomatiques"],
-      },
-    ],
-    instructions: "Soumettre maximum 3 URLs par jour pour éviter les limites Google",
-  }
-
   return NextResponse.json({
-    success: true,
-    message: "Plan de soumission complet pour Google Search Console",
-    data: submissionPlan,
+    message: "Priority URLs for Google submission",
+    urls: priorityUrls,
+    count: priorityUrls.length,
+    instructions: "POST to this endpoint with { urls: [...] } to submit URLs",
   })
 }

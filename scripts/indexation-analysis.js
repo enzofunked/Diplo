@@ -1,71 +1,229 @@
 #!/usr/bin/env node
 
-console.log("🔍 ANALYSE DE L'INDEXATION - MANIFEST.JSON")
-console.log("=".repeat(50))
+const https = require("https")
+const fs = require("fs")
+const path = require("path")
 
-console.log("\n❌ MANIFEST.JSON NE DOIT PAS ÊTRE INDEXÉ")
-console.log("=====================================")
+const baseUrl = "https://diplo-scanner.com"
 
-const reasons = [
-  "📱 Fichier technique PWA (Progressive Web App)",
-  "🔧 Configuration JSON, pas de contenu utilisateur",
-  "🚫 Aucune valeur SEO pour les moteurs de recherche",
-  "💸 Gaspille le budget d'exploration Google",
-  "🔄 Peut créer du contenu dupliqué",
+// Pages avec problèmes d'indexation identifiés
+const problematicUrls = [
+  "/liste-codes-pays-plaques-diplomatiques-francaises",
+  "/codes-diplomatiques-suisses",
+  "/privileges-immunites-plaques-diplomatiques",
+  "/plaque-immatriculation-verte",
+  "/plaque-verte-et-orange",
+  "/comment-lire-une-plaque-diplomatique-francaise",
+  "/comment-lire-une-plaque-diplomatique-suisse",
+  "/qu-est-ce-qu-une-plaque-diplomatique",
+  "/swiss",
+  "/french",
 ]
 
-reasons.forEach((reason, index) => {
-  console.log(`${index + 1}. ${reason}`)
-})
+async function analyzeUrl(url) {
+  return new Promise((resolve) => {
+    const req = https.request(
+      url,
+      {
+        method: "GET",
+        headers: {
+          "User-Agent": "Mozilla/5.0 (compatible; DiploScanner-Indexation-Bot/1.0)",
+        },
+      },
+      (res) => {
+        let data = ""
+        res.on("data", (chunk) => {
+          data += chunk
+        })
 
-console.log("\n✅ CONFIGURATION ACTUELLE CORRECTE:")
-console.log("==================================")
-console.log("✅ robots.txt bloque /*.json$ (inclut manifest.json)")
-console.log("✅ Headers appropriés configurés")
-console.log("✅ Accessible pour les navigateurs PWA")
-console.log("✅ Bloqué pour l'indexation Google")
+        res.on("end", () => {
+          // Analyse basique du contenu
+          const analysis = {
+            url,
+            status: res.statusCode,
+            headers: {
+              "content-type": res.headers["content-type"],
+              "content-length": res.headers["content-length"],
+              "cache-control": res.headers["cache-control"],
+              "x-robots-tag": res.headers["x-robots-tag"],
+            },
+            content: {
+              hasTitle: data.includes("<title>"),
+              hasMetaDescription: data.includes('name="description"'),
+              hasCanonical: data.includes('rel="canonical"'),
+              hasStructuredData: data.includes('"@type"'),
+              hasH1: data.includes("<h1"),
+              wordCount: data.split(/\s+/).length,
+              hasInternalLinks: data.includes('href="/'),
+            },
+            seo: {
+              titleLength: 0,
+              metaDescriptionLength: 0,
+              hasOpenGraph: data.includes('property="og:'),
+              hasTwitterCard: data.includes('name="twitter:'),
+            },
+          }
 
-console.log("\n🎯 FICHIERS QUI NE DOIVENT PAS ÊTRE INDEXÉS:")
-console.log("==========================================")
-const technicalFiles = [
-  "/manifest.json - Configuration PWA",
-  "/sw.js - Service Worker",
-  "/offline.html - Page hors ligne",
-  "/version-check.js - Script technique",
-  "/robots.txt - Directives robots",
-  "/_next/* - Assets Next.js",
-  "/api/* - Routes API",
-]
+          // Extraction du titre
+          const titleMatch = data.match(/<title[^>]*>([^<]+)<\/title>/i)
+          if (titleMatch) {
+            analysis.seo.titleLength = titleMatch[1].length
+          }
 
-technicalFiles.forEach((file) => {
-  console.log(`❌ ${file}`)
-})
+          // Extraction de la meta description
+          const metaMatch = data.match(/<meta[^>]*name="description"[^>]*content="([^"]*)"[^>]*>/i)
+          if (metaMatch) {
+            analysis.seo.metaDescriptionLength = metaMatch[1].length
+          }
 
-console.log("\n📄 PAGES À INDEXER EN PRIORITÉ:")
-console.log("==============================")
-const priorityPages = [
-  "/ - Page d'accueil",
-  "/french - Scanner français",
-  "/swiss - Scanner suisse",
-  "/qu-est-ce-qu-une-plaque-diplomatique - Guide principal",
-  "/comment-lire-une-plaque-diplomatique-francaise - Guide FR",
-  "/comment-lire-une-plaque-diplomatique-suisse - Guide CH",
-]
+          resolve(analysis)
+        })
+      },
+    )
 
-priorityPages.forEach((page) => {
-  console.log(`✅ ${page}`)
-})
+    req.on("error", (error) => {
+      resolve({
+        url,
+        status: "ERROR",
+        error: error.message,
+      })
+    })
 
-console.log("\n💡 ACTIONS RECOMMANDÉES:")
-console.log("=======================")
-console.log("1. 🚫 NE PAS soumettre manifest.json à Google")
-console.log("2. ✅ Garder la configuration robots.txt actuelle")
-console.log("3. 📋 Soumettre uniquement les vraies pages de contenu")
-console.log("4. 📊 Surveiller l'indexation des pages importantes")
-console.log("5. ⚡ Optimiser les Core Web Vitals")
+    req.end()
+  })
+}
 
-console.log("\n🎯 RÉSULTAT:")
-console.log("============")
-console.log("✅ manifest.json correctement exclu de l'indexation")
-console.log("✅ Budget d'exploration préservé pour les vraies pages")
-console.log("✅ Configuration PWA maintenue")
+async function analyzeAllProblematicUrls() {
+  console.log("🔍 ANALYSE D'INDEXATION - PAGES PROBLÉMATIQUES")
+  console.log("=".repeat(55))
+
+  const results = []
+
+  for (const urlPath of problematicUrls) {
+    const fullUrl = `${baseUrl}${urlPath}`
+    console.log(`\nAnalyse: ${fullUrl}`)
+
+    const analysis = await analyzeUrl(fullUrl)
+    results.push(analysis)
+
+    if (analysis.status === 200) {
+      console.log(`✅ Status: ${analysis.status}`)
+      console.log(`📝 Titre: ${analysis.seo.titleLength} caractères`)
+      console.log(`📄 Meta description: ${analysis.seo.metaDescriptionLength} caractères`)
+      console.log(`🔗 Canonical: ${analysis.content.hasCanonical ? "✅" : "❌"}`)
+      console.log(`📊 Structured data: ${analysis.content.hasStructuredData ? "✅" : "❌"}`)
+      console.log(`🔍 Mots: ~${Math.round(analysis.content.wordCount / 10) * 10}`)
+    } else {
+      console.log(`❌ Status: ${analysis.status}`)
+      if (analysis.error) {
+        console.log(`❌ Erreur: ${analysis.error}`)
+      }
+    }
+  }
+
+  return results
+}
+
+function generateIndexationReport(results) {
+  console.log("\n📊 RAPPORT D'INDEXATION:")
+  console.log("=".repeat(30))
+
+  const summary = {
+    total: results.length,
+    success: results.filter((r) => r.status === 200).length,
+    errors: results.filter((r) => r.status !== 200).length,
+    seoIssues: [],
+    recommendations: [],
+  }
+
+  // Analyse des problèmes SEO
+  results.forEach((result) => {
+    if (result.status === 200) {
+      if (result.seo.titleLength === 0) {
+        summary.seoIssues.push(`${result.url}: Titre manquant`)
+      } else if (result.seo.titleLength > 60) {
+        summary.seoIssues.push(`${result.url}: Titre trop long (${result.seo.titleLength} caractères)`)
+      }
+
+      if (result.seo.metaDescriptionLength === 0) {
+        summary.seoIssues.push(`${result.url}: Meta description manquante`)
+      } else if (result.seo.metaDescriptionLength > 160) {
+        summary.seoIssues.push(
+          `${result.url}: Meta description trop longue (${result.seo.metaDescriptionLength} caractères)`,
+        )
+      }
+
+      if (!result.content.hasCanonical) {
+        summary.seoIssues.push(`${result.url}: URL canonique manquante`)
+      }
+
+      if (!result.content.hasStructuredData) {
+        summary.seoIssues.push(`${result.url}: Structured data manquantes`)
+      }
+    }
+  })
+
+  // Recommandations
+  if (summary.seoIssues.length > 0) {
+    summary.recommendations.push("Corriger les problèmes SEO identifiés")
+  }
+  summary.recommendations.push("Soumettre le sitemap à Google Search Console")
+  summary.recommendations.push("Demander l'indexation manuelle des pages")
+  summary.recommendations.push("Améliorer les liens internes")
+  summary.recommendations.push("Optimiser les Core Web Vitals")
+
+  console.log(`📈 Pages analysées: ${summary.total}`)
+  console.log(`✅ Pages OK: ${summary.success}`)
+  console.log(`❌ Pages en erreur: ${summary.errors}`)
+  console.log(`⚠️  Problèmes SEO: ${summary.seoIssues.length}`)
+
+  if (summary.seoIssues.length > 0) {
+    console.log("\n⚠️  PROBLÈMES SEO DÉTECTÉS:")
+    summary.seoIssues.forEach((issue) => console.log(`   • ${issue}`))
+  }
+
+  console.log("\n🚀 RECOMMANDATIONS:")
+  summary.recommendations.forEach((rec, index) => console.log(`   ${index + 1}. ${rec}`))
+
+  return summary
+}
+
+async function main() {
+  try {
+    // Analyse de toutes les URLs problématiques
+    const results = await analyzeAllProblematicUrls()
+
+    // Génération du rapport
+    const summary = generateIndexationReport(results)
+
+    // Sauvegarde du rapport détaillé
+    const reportPath = path.join(process.cwd(), "indexation-analysis-report.json")
+    fs.writeFileSync(
+      reportPath,
+      JSON.stringify(
+        {
+          timestamp: new Date().toISOString(),
+          summary,
+          detailedResults: results,
+        },
+        null,
+        2,
+      ),
+    )
+
+    console.log(`\n💾 Rapport détaillé sauvegardé: ${reportPath}`)
+    console.log("\n🎯 Prochaines étapes:")
+    console.log("1. Corriger les problèmes SEO identifiés")
+    console.log("2. Redéployer le site avec les corrections")
+    console.log("3. Soumettre le sitemap mis à jour")
+    console.log("4. Demander l'indexation dans Google Search Console")
+  } catch (error) {
+    console.error("❌ Erreur lors de l'analyse:", error.message)
+  }
+}
+
+if (require.main === module) {
+  main()
+}
+
+module.exports = { analyzeUrl, problematicUrls }

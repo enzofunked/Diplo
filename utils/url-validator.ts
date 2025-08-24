@@ -229,3 +229,109 @@ export function generateSafeURLs(baseUrl: string, paths: string[]): string[] {
 
   return safeUrls
 }
+
+/**
+ * Vérifie si une URL est valide
+ */
+export function isValidUrl(url: string): boolean {
+  try {
+    new URL(url)
+    return true
+  } catch {
+    return false
+  }
+}
+
+/**
+ * Normalise une URL en supprimant les paramètres de tracking et le trailing slash
+ */
+export function normalizeUrl(url: string): string {
+  try {
+    const urlObj = new URL(url)
+
+    // Supprimer les trailing slashes (sauf pour la racine)
+    if (urlObj.pathname !== "/" && urlObj.pathname.endsWith("/")) {
+      urlObj.pathname = urlObj.pathname.slice(0, -1)
+    }
+
+    // Supprimer les paramètres de tracking
+    const paramsToRemove = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "fbclid", "gclid"]
+    paramsToRemove.forEach((param) => {
+      urlObj.searchParams.delete(param)
+    })
+
+    // Supprimer le fragment si vide
+    if (urlObj.hash === "#") {
+      urlObj.hash = ""
+    }
+
+    return urlObj.toString()
+  } catch {
+    return url
+  }
+}
+
+/**
+ * Obtient le domaine d'une URL
+ */
+export function getDomainFromUrl(url: string): string | null {
+  try {
+    const urlObj = new URL(url)
+    return urlObj.hostname
+  } catch {
+    return null
+  }
+}
+
+/**
+ * Vérifie si une URL est interne à un domaine de base
+ */
+export function isInternalUrl(url: string, baseUrl = "https://diplo-scanner.com"): boolean {
+  try {
+    const urlObj = new URL(url)
+    const baseUrlObj = new URL(baseUrl)
+    return urlObj.hostname === baseUrlObj.hostname
+  } catch {
+    return false
+  }
+}
+
+/**
+ * Génère une URL canonique
+ */
+export function getCanonicalUrl(url: string, baseUrl = "https://diplo-scanner.com"): string {
+  try {
+    const urlObj = new URL(url, baseUrl)
+    return normalizeUrl(urlObj.toString())
+  } catch {
+    return url
+  }
+}
+
+/**
+ * Vérifie si une URL est valide pour DiploScanner
+ */
+export function validateDiploScannerUrl(url: string): boolean {
+  if (!isValidUrl(url)) {
+    return false
+  }
+
+  try {
+    const urlObj = new URL(url)
+    return urlObj.hostname === "diplo-scanner.com" || urlObj.hostname === "www.diplo-scanner.com"
+  } catch {
+    return false
+  }
+}
+
+/**
+ * Extrait le chemin d'une URL
+ */
+export function extractPathFromUrl(url: string): string {
+  try {
+    const urlObj = new URL(url)
+    return urlObj.pathname
+  } catch {
+    return url
+  }
+}
