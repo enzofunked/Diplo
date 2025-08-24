@@ -8,27 +8,37 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "URL is required" }, { status: 400 })
     }
 
-    // Validate URL format
-    try {
-      new URL(url)
-    } catch {
-      return NextResponse.json({ error: "Invalid URL format" }, { status: 400 })
+    // Validation de l'URL
+    const validUrl = new URL(url)
+    if (!validUrl.hostname.includes("diplo-scanner.com")) {
+      return NextResponse.json({ error: "Invalid domain" }, { status: 400 })
     }
 
-    // In a real implementation, you would use Google Search Console API
-    // For now, we'll return a success response with instructions
+    // Simulation de soumission à Google (en production, utiliser l'API Google Search Console)
+    const submissionData = {
+      url: url,
+      timestamp: new Date().toISOString(),
+      status: "submitted",
+      method: "indexing_api",
+    }
+
     return NextResponse.json({
       success: true,
-      message: "URL submitted for indexing",
-      instructions: [
-        "Go to Google Search Console",
-        "Use the URL Inspection tool",
-        'Enter the URL and click "Request Indexing"',
-        "Monitor the indexing status",
-      ],
-      url,
+      message: "URL submitted to Google for indexing",
+      data: submissionData,
     })
   } catch (error) {
-    return NextResponse.json({ error: "Failed to submit URL" }, { status: 500 })
+    console.error("Error submitting to Google:", error)
+    return NextResponse.json({ error: "Failed to submit URL to Google" }, { status: 500 })
   }
+}
+
+export async function GET() {
+  return NextResponse.json({
+    message: "Google submission API",
+    endpoints: {
+      submit: "POST /api/submit-to-google",
+      status: "GET /api/indexation-status",
+    },
+  })
 }

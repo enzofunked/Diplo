@@ -133,7 +133,6 @@ const nextConfig = {
 
   // Optimisations de compilation
   experimental: {
-    optimizeCss: true,
     optimizePackageImports: ['lucide-react'],
   },
 

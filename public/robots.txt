@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
+
+# Pages importantes à indexer en priorité
 Allow: /french
 Allow: /swiss
 Allow: /qu-est-ce-qu-une-plaque-diplomatique
@@ -7,20 +9,22 @@ Allow: /comment-lire-une-plaque-diplomatique-francaise
 Allow: /comment-lire-une-plaque-diplomatique-suisse
 Allow: /liste-codes-pays-plaques-diplomatiques-francaises
 Allow: /codes-diplomatiques-suisses
+Allow: /privileges-immunites-plaques-diplomatiques
 Allow: /plaque-immatriculation-verte
 Allow: /plaque-verte-et-orange
 Allow: /couleur-des-plaques-diplomatiques
-Allow: /privileges-immunites-plaques-diplomatiques
-Allow: /faq-plaques-diplomatiques
 Allow: /plaques-diplomatiques-liste-complete
+Allow: /faq-plaques-diplomatiques
 
+# Fichiers techniques à ne pas indexer
 Disallow: /api/
 Disallow: /_next/
 Disallow: /version-check.js
-Disallow: /submit-urls
-Disallow: /history
-Disallow: /favorites
+Disallow: /sw.js
+Disallow: /offline.html
 
+# Optimisation du budget de crawl
 Crawl-delay: 0.1
 
+# Sitemap
 Sitemap: https://diplo-scanner.com/api/sitemap
