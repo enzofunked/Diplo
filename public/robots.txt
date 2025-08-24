@@ -2,25 +2,30 @@ User-agent: *
 Allow: /
 Allow: /french
 Allow: /swiss
-Allow: /qu-est-ce-qu-une-plaque-diplomatique
-Allow: /comment-lire-une-plaque-diplomatique-francaise
-Allow: /comment-lire-une-plaque-diplomatique-suisse
 Allow: /liste-codes-pays-plaques-diplomatiques-francaises
 Allow: /codes-diplomatiques-suisses
 Allow: /privileges-immunites-plaques-diplomatiques
 Allow: /plaque-immatriculation-verte
 Allow: /plaque-verte-et-orange
-Allow: /couleur-des-plaques-diplomatiques
-Allow: /plaques-diplomatiques-liste-complete
+Allow: /comment-lire-une-plaque-diplomatique-francaise
+Allow: /comment-lire-une-plaque-diplomatique-suisse
+Allow: /qu-est-ce-qu-une-plaque-diplomatique
 Allow: /faq-plaques-diplomatiques
+Allow: /plaques-diplomatiques-liste-complete
+Allow: /couleur-des-plaques-diplomatiques
+Allow: /history
+Allow: /favorites
+Allow: /help
+Allow: /about
+Allow: /sources
+Allow: /terms
+Allow: /cookies
 
 Disallow: /api/
+Disallow: /version-check.js
 Disallow: /_next/
-Disallow: /admin/
-Disallow: /private/
-Disallow: /*.json$
-Disallow: /*?*
+Disallow: /sw.js
 
-Crawl-delay: 0.5
+Sitemap: https://diplo-scanner.com/api/sitemap
 
-Sitemap: https://diplo-scanner.com/sitemap.xml
+Crawl-delay: 0.1

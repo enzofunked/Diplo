@@ -235,7 +235,8 @@ export function generateSafeURLs(baseUrl: string, paths: string[]): string[] {
  */
 export function validateUrl(url: string): boolean {
   try {
-    new URL(url)
+    const fullUrl = url.startsWith("http") ? url : `https://diplo-scanner.com${url}`
+    new URL(fullUrl)
     return true
   } catch {
     return false
@@ -247,16 +248,21 @@ export function validateUrl(url: string): boolean {
  */
 export function normalizeUrl(url: string): string {
   try {
-    const urlObj = new URL(url)
+    // Supprimer les trailing slashes
+    const normalized = url.replace(/\/+$/, "")
 
-    // Remove trailing slash except for root
-    if (urlObj.pathname !== "/" && urlObj.pathname.endsWith("/")) {
-      urlObj.pathname = urlObj.pathname.slice(0, -1)
+    // Supprimer les paramètres de tracking
+    const trackingParams = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "fbclid", "gclid"]
+    const urlObj = new URL(normalized.startsWith("http") ? normalized : `https://diplo-scanner.com${normalized}`)
+
+    trackingParams.forEach((param) => {
+      urlObj.searchParams.delete(param)
+    })
+
+    // Retourner seulement le pathname pour les URLs internes
+    if (urlObj.hostname === "diplo-scanner.com") {
+      return urlObj.pathname === "/" ? "/" : urlObj.pathname
     }
-
-    // Remove common tracking parameters
-    const trackingParams = ["utm_source", "utm_medium", "utm_campaign", "fbclid", "gclid"]
-    trackingParams.forEach((param) => urlObj.searchParams.delete(param))
 
     return urlObj.toString()
   } catch {
@@ -279,11 +285,10 @@ export function getDomainFromUrl(url: string): string | null {
 /**
  * Vérifie si une URL est interne à un domaine de base
  */
-export function isInternalUrl(url: string, baseUrl = "https://diplo-scanner.com"): boolean {
+export function isInternalUrl(url: string): boolean {
   try {
-    const urlObj = new URL(url)
-    const baseUrlObj = new URL(baseUrl)
-    return urlObj.hostname === baseUrlObj.hostname
+    const urlObj = new URL(url.startsWith("http") ? url : `https://diplo-scanner.com${url}`)
+    return urlObj.hostname === "diplo-scanner.com"
   } catch {
     return false
   }
@@ -292,9 +297,9 @@ export function isInternalUrl(url: string, baseUrl = "https://diplo-scanner.com"
 /**
  * Génère une URL canonique
  */
-export function getCanonicalUrl(url: string): string {
-  const normalized = normalizeUrl(url)
-  return normalized.toLowerCase()
+export function getCanonicalUrl(path: string): string {
+  const normalized = normalizeUrl(path)
+  return `https://diplo-scanner.com${normalized}`
 }
 
 /**
