@@ -18,7 +18,7 @@ interface CookiePreferences {
   marketing: boolean
 }
 
-const CookieConsent = () => {
+export default function CookieConsent() {
   const [showBanner, setShowBanner] = useState(false)
   const [showDetails, setShowDetails] = useState(false)
   const [preferences, setPreferences] = useState<CookiePreferences>({
@@ -344,5 +344,3 @@ const CookieConsent = () => {
     </>
   )
 }
-
-export default CookieConsent
