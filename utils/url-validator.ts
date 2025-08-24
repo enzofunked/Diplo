@@ -233,7 +233,7 @@ export function generateSafeURLs(baseUrl: string, paths: string[]): string[] {
 /**
  * Vérifie si une URL est valide
  */
-export function isValidUrl(url: string): boolean {
+export function validateUrl(url: string): boolean {
   try {
     new URL(url)
     return true
@@ -249,21 +249,14 @@ export function normalizeUrl(url: string): string {
   try {
     const urlObj = new URL(url)
 
-    // Supprimer les trailing slashes (sauf pour la racine)
+    // Remove trailing slash except for root
     if (urlObj.pathname !== "/" && urlObj.pathname.endsWith("/")) {
       urlObj.pathname = urlObj.pathname.slice(0, -1)
     }
 
-    // Supprimer les paramètres de tracking
-    const paramsToRemove = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "fbclid", "gclid"]
-    paramsToRemove.forEach((param) => {
-      urlObj.searchParams.delete(param)
-    })
-
-    // Supprimer le fragment si vide
-    if (urlObj.hash === "#") {
-      urlObj.hash = ""
-    }
+    // Remove common tracking parameters
+    const trackingParams = ["utm_source", "utm_medium", "utm_campaign", "fbclid", "gclid"]
+    trackingParams.forEach((param) => urlObj.searchParams.delete(param))
 
     return urlObj.toString()
   } catch {
@@ -299,20 +292,16 @@ export function isInternalUrl(url: string, baseUrl = "https://diplo-scanner.com"
 /**
  * Génère une URL canonique
  */
-export function getCanonicalUrl(url: string, baseUrl = "https://diplo-scanner.com"): string {
-  try {
-    const urlObj = new URL(url, baseUrl)
-    return normalizeUrl(urlObj.toString())
-  } catch {
-    return url
-  }
+export function getCanonicalUrl(url: string): string {
+  const normalized = normalizeUrl(url)
+  return normalized.toLowerCase()
 }
 
 /**
  * Vérifie si une URL est valide pour DiploScanner
  */
 export function validateDiploScannerUrl(url: string): boolean {
-  if (!isValidUrl(url)) {
+  if (!validateUrl(url)) {
     return false
   }
 

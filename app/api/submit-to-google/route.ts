@@ -8,39 +8,21 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "URLs array is required" }, { status: 400 })
     }
 
-    const results = []
-
-    for (const url of urls) {
-      try {
-        // Simulation de soumission à Google (en production, utilisez l'API Google Search Console)
-        const result = {
-          url,
-          status: "submitted",
-          timestamp: new Date().toISOString(),
-          message: "URL submitted for indexing",
-        }
-        results.push(result)
-      } catch (error) {
-        results.push({
-          url,
-          status: "error",
-          error: error instanceof Error ? error.message : "Unknown error",
-        })
-      }
-    }
+    // Simulation de soumission (remplacer par vraie API Google)
+    const results = urls.map((url) => ({
+      url,
+      status: "submitted",
+      timestamp: new Date().toISOString(),
+    }))
 
     return NextResponse.json({
       success: true,
+      message: `${urls.length} URLs submitted successfully`,
       results,
-      total: urls.length,
-      submitted: results.filter((r) => r.status === "submitted").length,
-      errors: results.filter((r) => r.status === "error").length,
     })
   } catch (error) {
-    return NextResponse.json(
-      { error: "Internal server error", message: error instanceof Error ? error.message : "Unknown error" },
-      { status: 500 },
-    )
+    console.error("Submit to Google error:", error)
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
   }
 }
 
@@ -60,9 +42,8 @@ export async function GET() {
   ]
 
   return NextResponse.json({
-    message: "Priority URLs for Google submission",
     urls: priorityUrls,
-    count: priorityUrls.length,
-    instructions: "POST to this endpoint with { urls: [...] } to submit URLs",
+    total: priorityUrls.length,
+    message: "Priority URLs for Google submission",
   })
 }

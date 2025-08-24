@@ -1,160 +1,90 @@
-#!/usr/bin/env node
-
-const https = require("https")
-const http = require("http")
-
-const baseUrl = "https://diplo-scanner.com"
-
-// Toutes les URLs importantes du site
-const allUrls = [
-  "/",
-  "/french",
-  "/swiss",
-  "/qu-est-ce-qu-une-plaque-diplomatique",
-  "/comment-lire-une-plaque-diplomatique-francaise",
-  "/comment-lire-une-plaque-diplomatique-suisse",
-  "/liste-codes-pays-plaques-diplomatiques-francaises",
-  "/codes-diplomatiques-suisses",
-  "/privileges-immunites-plaques-diplomatiques",
-  "/plaque-immatriculation-verte",
-  "/plaque-verte-et-orange",
-  "/couleur-des-plaques-diplomatiques",
-  "/plaques-diplomatiques-liste-complete",
-  "/faq-plaques-diplomatiques",
-  "/french/guide",
-  "/swiss/guide",
-  "/french/codes",
-  "/swiss/codes",
-  "/about",
-  "/help",
-  "/terms",
-  "/cookies",
-  "/history",
-  "/favorites",
+const urls = [
+  "https://diplo-scanner.com/",
+  "https://diplo-scanner.com/french",
+  "https://diplo-scanner.com/swiss",
+  "https://diplo-scanner.com/qu-est-ce-qu-une-plaque-diplomatique",
+  "https://diplo-scanner.com/comment-lire-une-plaque-diplomatique-francaise",
+  "https://diplo-scanner.com/comment-lire-une-plaque-diplomatique-suisse",
+  "https://diplo-scanner.com/liste-codes-pays-plaques-diplomatiques-francaises",
+  "https://diplo-scanner.com/codes-diplomatiques-suisses",
+  "https://diplo-scanner.com/privileges-immunites-plaques-diplomatiques",
+  "https://diplo-scanner.com/plaque-immatriculation-verte",
+  "https://diplo-scanner.com/plaque-verte-et-orange",
+  "https://diplo-scanner.com/faq-plaques-diplomatiques",
+  "https://diplo-scanner.com/plaques-diplomatiques-liste-complete",
+  "https://diplo-scanner.com/couleur-des-plaques-diplomatiques",
+  "https://diplo-scanner.com/history",
+  "https://diplo-scanner.com/favorites",
+  "https://diplo-scanner.com/help",
+  "https://diplo-scanner.com/about",
+  "https://diplo-scanner.com/terms",
+  "https://diplo-scanner.com/cookies",
+  "https://diplo-scanner.com/sources",
+  "https://diplo-scanner.com/submit-urls",
+  "https://diplo-scanner.com/api/sitemap",
+  "https://diplo-scanner.com/robots.txt",
 ]
 
-function checkUrl(url) {
-  return new Promise((resolve) => {
-    const protocol = url.startsWith("https:") ? https : http
-
-    const req = protocol.request(
+async function checkUrl(url) {
+  try {
+    const response = await fetch(url, { method: "HEAD" })
+    return {
       url,
-      {
-        method: "HEAD",
-        headers: {
-          "User-Agent": "Diplo-Scanner-Bot/1.0 (URL Check)",
-        },
-        timeout: 10000,
-      },
-      (res) => {
-        resolve({
-          url,
-          status: res.statusCode,
-          statusMessage: res.statusMessage,
-          headers: {
-            "content-type": res.headers["content-type"],
-            "cache-control": res.headers["cache-control"],
-            "x-robots-tag": res.headers["x-robots-tag"],
-            location: res.headers.location,
-          },
-          redirected: res.statusCode >= 300 && res.statusCode < 400,
-        })
-      },
-    )
-
-    req.on("error", (error) => {
-      resolve({
-        url,
-        status: "ERROR",
-        error: error.message,
-      })
-    })
-
-    req.on("timeout", () => {
-      req.destroy()
-      resolve({
-        url,
-        status: "TIMEOUT",
-        error: "Request timeout",
-      })
-    })
-
-    req.end()
-  })
+      status: response.status,
+      ok: response.ok,
+      redirected: response.redirected,
+      finalUrl: response.url,
+    }
+  } catch (error) {
+    return {
+      url,
+      status: 0,
+      ok: false,
+      error: error.message,
+    }
+  }
 }
 
 async function checkAllUrls() {
-  console.log("🔍 Vérification de toutes les URLs du site...\n")
+  console.log("🔍 Checking all URLs...\n")
 
   const results = []
-  let successCount = 0
-  let redirectCount = 0
-  let errorCount = 0
 
-  for (const path of allUrls) {
-    const fullUrl = `${baseUrl}${path}`
-    console.log(`Vérification: ${fullUrl}`)
-
-    const result = await checkUrl(fullUrl)
+  for (const url of urls) {
+    const result = await checkUrl(url)
     results.push(result)
 
-    if (result.status === 200) {
-      console.log(`✅ ${result.status} - OK`)
-      successCount++
-    } else if (result.status >= 300 && result.status < 400) {
-      console.log(`🔄 ${result.status} - Redirection vers: ${result.headers.location}`)
-      redirectCount++
-    } else if (result.status >= 400) {
-      console.log(`❌ ${result.status} - ${result.statusMessage}`)
-      errorCount++
-    } else {
-      console.log(`⚠️  ${result.status} - ${result.error}`)
-      errorCount++
-    }
-
-    console.log("")
+    const status = result.ok ? "✅" : "❌"
+    const redirectInfo = result.redirected ? ` → ${result.finalUrl}` : ""
+    console.log(`${status} ${result.status} - ${result.url}${redirectInfo}`)
   }
 
-  // Résumé détaillé
-  console.log("📊 RÉSUMÉ COMPLET:")
-  console.log("=".repeat(60))
-  console.log(`Total des URLs vérifiées: ${results.length}`)
-  console.log(`✅ Succès (200): ${successCount}`)
-  console.log(`🔄 Redirections: ${redirectCount}`)
-  console.log(`❌ Erreurs: ${errorCount}`)
+  console.log("\n📊 Summary:")
+  const okCount = results.filter((r) => r.ok).length
+  const errorCount = results.filter((r) => !r.ok).length
+  const redirectCount = results.filter((r) => r.redirected).length
 
-  // Détail des redirections
-  const redirections = results.filter((r) => r.redirected)
-  if (redirections.length > 0) {
-    console.log("\n🔄 REDIRECTIONS DÉTECTÉES:")
-    redirections.forEach((r) => {
-      console.log(`   ${r.url} → ${r.headers.location} (${r.status})`)
-    })
+  console.log(`✅ OK: ${okCount}`)
+  console.log(`❌ Errors: ${errorCount}`)
+  console.log(`🔄 Redirects: ${redirectCount}`)
+
+  if (errorCount > 0) {
+    console.log("\n❌ Errors found:")
+    results
+      .filter((r) => !r.ok)
+      .forEach((r) => {
+        console.log(`- ${r.url}: ${r.error || `HTTP ${r.status}`}`)
+      })
   }
 
-  // Détail des erreurs
-  const errors = results.filter((r) => r.status >= 400 || r.status === "ERROR" || r.status === "TIMEOUT")
-  if (errors.length > 0) {
-    console.log("\n❌ ERREURS DÉTECTÉES:")
-    errors.forEach((r) => {
-      console.log(`   ${r.url}: ${r.status} - ${r.error || r.statusMessage}`)
-    })
+  if (redirectCount > 0) {
+    console.log("\n🔄 Redirects:")
+    results
+      .filter((r) => r.redirected)
+      .forEach((r) => {
+        console.log(`- ${r.url} → ${r.finalUrl}`)
+      })
   }
-
-  // Recommandations
-  console.log("\n🚀 RECOMMANDATIONS:")
-  console.log("1. Corrigez toutes les erreurs 4xx et 5xx")
-  console.log("2. Vérifiez que les redirections sont nécessaires")
-  console.log("3. Assurez-vous que les redirections sont des 301 (permanentes)")
-  console.log("4. Soumettez le sitemap à Google Search Console")
-  console.log("5. Demandez l'indexation des pages importantes")
-
-  return results
 }
 
-// Exécution
-if (require.main === module) {
-  checkAllUrls().catch(console.error)
-}
-
-module.exports = { checkAllUrls, allUrls }
+checkAllUrls().catch(console.error)
