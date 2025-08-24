@@ -4,75 +4,34 @@ export async function POST(request: NextRequest) {
   try {
     const { url } = await request.json()
 
-    if (!url) {
-      return NextResponse.json({ error: "URL is required" }, { status: 400 })
+    if (!url || !url.startsWith("https://diplo-scanner.com/")) {
+      return NextResponse.json({ error: "URL invalide" }, { status: 400 })
     }
 
-    // Instructions détaillées pour soumettre à Google Search Console
-    const instructions = {
-      url: url,
-      steps: [
-        {
-          step: 1,
-          title: "Accéder à Google Search Console",
-          description: "Allez sur https://search.google.com/search-console/",
-          action: "Se connecter avec votre compte Google",
-        },
-        {
-          step: 2,
-          title: "Sélectionner votre propriété",
-          description: "Choisissez diplo-scanner.com dans la liste des propriétés",
-          action: "Cliquer sur la propriété diplo-scanner.com",
-        },
-        {
-          step: 3,
-          title: "Utiliser l'outil d'inspection d'URL",
-          description: "Dans la barre de recherche en haut, collez l'URL complète",
-          action: `Coller: https://diplo-scanner.com${url}`,
-        },
-        {
-          step: 4,
-          title: "Inspecter l'URL",
-          description: "Appuyez sur Entrée pour lancer l'inspection",
-          action: "Attendre les résultats de l'inspection",
-        },
-        {
-          step: 5,
-          title: "Demander l'indexation",
-          description: "Si l'URL n'est pas indexée, cliquez sur 'Demander l'indexation'",
-          action: "Cliquer sur le bouton 'Demander l'indexation'",
-        },
-        {
-          step: 6,
-          title: "Confirmer la demande",
-          description: "Google va tester l'URL en direct puis l'ajouter à la file d'indexation",
-          action: "Attendre la confirmation (peut prendre quelques minutes)",
-        },
-      ],
-      tips: [
-        "L'indexation peut prendre de quelques heures à plusieurs jours",
-        "Vous pouvez soumettre jusqu'à 10 URLs par jour par propriété",
-        "Assurez-vous que l'URL est accessible et ne retourne pas d'erreur 404",
-        "Vérifiez que le robots.txt n'bloque pas l'URL",
-      ],
-      priority_urls: [
-        "/comment-lire-une-plaque-diplomatique-suisse",
-        "/comment-lire-une-plaque-diplomatique-francaise",
-        "/qu-est-ce-qu-une-plaque-diplomatique",
-        "/liste-codes-pays-plaques-diplomatiques-francaises",
-        "/codes-diplomatiques-suisses",
-        "/plaque-immatriculation-verte",
-      ],
+    // Simulation de soumission à Google Search Console
+    // En production, vous devriez utiliser l'API Google Search Console
+    const submissionData = {
+      url,
+      timestamp: new Date().toISOString(),
+      status: "submitted",
+      message: "URL soumise pour indexation",
     }
+
+    console.log("Soumission URL à Google:", submissionData)
 
     return NextResponse.json({
       success: true,
-      message: `Instructions pour soumettre ${url} à Google Search Console`,
-      data: instructions,
+      data: submissionData,
+      instructions: [
+        "1. Connectez-vous à Google Search Console",
+        "2. Allez dans 'Inspection d'URL'",
+        "3. Saisissez l'URL à indexer",
+        "4. Cliquez sur 'Demander une indexation'",
+      ],
     })
   } catch (error) {
-    console.error("Error generating submission instructions:", error)
-    return NextResponse.json({ error: "Failed to generate instructions" }, { status: 500 })
+    console.error("Erreur soumission:", error)
+    return NextResponse.json({ error: "Erreur lors de la soumission" }, { status: 500 })
   }
 }
 

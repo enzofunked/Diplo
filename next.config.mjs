@@ -1,112 +1,143 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Configuration de base
+  // Optimisations SEO et performance
   trailingSlash: false,
   poweredByHeader: false,
   compress: true,
-  generateEtags: true,
   
-  // Configuration des images
-  images: {
-    formats: ['image/webp', 'image/avif'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 86400,
-    unoptimized: true,
-  },
-
-  // Headers pour l'optimisation SEO et performance
+  // Headers de sécurité et SEO
   async headers() {
     return [
       {
         source: '/(.*)',
         headers: [
           {
-            key: 'X-Robots-Tag',
-            value: 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1'
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on'
           },
           {
-            key: 'Cache-Control',
-            value: 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400'
+            key: 'Strict-Transport-Security',
+            value: 'max-age=63072000; includeSubDomains; preload'
           },
           {
             key: 'X-Content-Type-Options',
             value: 'nosniff'
           },
           {
-            key: 'X-Frame-Options',
-            value: 'DENY'
-          },
-          {
             key: 'Referrer-Policy',
-            value: 'origin-when-cross-origin'
+            value: 'strict-origin-when-cross-origin'
           }
-        ]
+        ],
       },
+      // Headers spécifiques pour les pages importantes
       {
-        source: '/sitemap.xml',
+        source: '/(liste-codes-pays-plaques-diplomatiques-francaises|codes-diplomatiques-suisses|privileges-immunites-plaques-diplomatiques|plaque-immatriculation-verte|plaque-verte-et-orange|comment-lire-une-plaque-diplomatique-francaise|comment-lire-une-plaque-diplomatique-suisse|qu-est-ce-qu-une-plaque-diplomatique|swiss|french)',
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=86400'
+            value: 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400'
           },
           {
-            key: 'Content-Type',
-            value: 'application/xml'
+            key: 'X-Robots-Tag',
+            value: 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1'
           }
-        ]
-      },
-      {
-        source: '/favicon.ico',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable'
-          }
-        ]
-      },
-      {
-        source: '/favicons/(.*)',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable'
-          }
-        ]
-      },
-      {
-        source: '/images/(.*)',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable'
-          }
-        ]
+        ],
       }
     ]
   },
 
-  // Pas de redirections
+  // Redirections 301 permanentes
   async redirects() {
-    return []
-  },
-
-  // Rewrites pour le sitemap
-  async rewrites() {
     return [
       {
-        source: '/sitemap.xml',
-        destination: '/api/sitemap',
+        source: '/scanner',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/scan',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/home',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/index',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/french-scanner',
+        destination: '/french',
+        permanent: true,
+      },
+      {
+        source: '/swiss-scanner',
+        destination: '/swiss',
+        permanent: true,
+      },
+      {
+        source: '/french-codes',
+        destination: '/liste-codes-pays-plaques-diplomatiques-francaises',
+        permanent: true,
+      },
+      {
+        source: '/swiss-codes',
+        destination: '/codes-diplomatiques-suisses',
+        permanent: true,
+      },
+      {
+        source: '/diplomatic-guide',
+        destination: '/qu-est-ce-qu-une-plaque-diplomatique',
+        permanent: true,
+      },
+      {
+        source: '/french-guide',
+        destination: '/comment-lire-une-plaque-diplomatique-francaise',
+        permanent: true,
+      },
+      {
+        source: '/swiss-guide',
+        destination: '/comment-lire-une-plaque-diplomatique-suisse',
+        permanent: true,
+      },
+      {
+        source: '/privileges',
+        destination: '/privileges-immunites-plaques-diplomatiques',
+        permanent: true,
+      },
+      {
+        source: '/green-plates',
+        destination: '/plaque-immatriculation-verte',
+        permanent: true,
+      },
+      {
+        source: '/green-orange',
+        destination: '/plaque-verte-et-orange',
+        permanent: true,
       },
     ]
   },
 
-  // Configuration expérimentale (uniquement les options supportées)
-  experimental: {
-    optimizePackageImports: ['lucide-react']
+  // Optimisations d'images
+  images: {
+    formats: ['image/webp', 'image/avif'],
+    minimumCacheTTL: 60,
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    unoptimized: true,
   },
 
-  // Configuration Webpack simplifiée
+  // Optimisations de compilation
+  experimental: {
+    optimizeCss: true,
+    optimizePackageImports: ['lucide-react'],
+  },
+
+  // Configuration PWA
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.resolve.fallback = {
@@ -117,7 +148,7 @@ const nextConfig = {
     return config
   },
 
-  // Configuration ESLint et TypeScript
+  // ESLint et TypeScript configurations
   eslint: {
     ignoreDuringBuilds: true,
   },
