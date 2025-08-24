@@ -27,3 +27,11 @@ export async function POST() {
     )
   }
 }
+
+export async function GET() {
+  return NextResponse.json({
+    sitemapUrl: "https://diplo-scanner.com/api/sitemap",
+    instructions: "POST to this endpoint to submit sitemap to search engines",
+    lastSubmission: new Date().toISOString(),
+  })
+}

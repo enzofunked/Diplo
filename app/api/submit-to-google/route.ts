@@ -49,3 +49,25 @@ export async function POST(request: NextRequest) {
     )
   }
 }
+
+export async function GET() {
+  const priorityUrls = [
+    "https://diplo-scanner.com/",
+    "https://diplo-scanner.com/french",
+    "https://diplo-scanner.com/swiss",
+    "https://diplo-scanner.com/qu-est-ce-qu-une-plaque-diplomatique",
+    "https://diplo-scanner.com/comment-lire-une-plaque-diplomatique-francaise",
+    "https://diplo-scanner.com/comment-lire-une-plaque-diplomatique-suisse",
+    "https://diplo-scanner.com/liste-codes-pays-plaques-diplomatiques-francaises",
+    "https://diplo-scanner.com/codes-diplomatiques-suisses",
+    "https://diplo-scanner.com/privileges-immunites-plaques-diplomatiques",
+    "https://diplo-scanner.com/plaque-immatriculation-verte",
+    "https://diplo-scanner.com/plaque-verte-et-orange",
+  ]
+
+  return NextResponse.json({
+    urls: priorityUrls,
+    total: priorityUrls.length,
+    message: "Priority URLs for Google submission",
+  })
+}
