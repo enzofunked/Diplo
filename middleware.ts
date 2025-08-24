@@ -4,12 +4,10 @@ import type { NextRequest } from "next/server"
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // Redirections 301 permanentes pour corriger les erreurs de redirection
+  // Permanent redirects for SEO optimization
   const redirects: Record<string, string> = {
     "/scanner": "/",
     "/scan": "/",
-    "/home": "/",
-    "/index": "/",
     "/french-scanner": "/french",
     "/swiss-scanner": "/swiss",
     "/french-codes": "/liste-codes-pays-plaques-diplomatiques-francaises",
@@ -20,6 +18,14 @@ export function middleware(request: NextRequest) {
     "/privileges": "/privileges-immunites-plaques-diplomatiques",
     "/green-plates": "/plaque-immatriculation-verte",
     "/green-orange": "/plaque-verte-et-orange",
+    "/diplomatic-plates": "/qu-est-ce-qu-une-plaque-diplomatique",
+    "/french-plates": "/comment-lire-une-plaque-diplomatique-francaise",
+    "/swiss-plates": "/comment-lire-une-plaque-diplomatique-suisse",
+    "/codes-france": "/liste-codes-pays-plaques-diplomatiques-francaises",
+    "/codes-suisse": "/codes-diplomatiques-suisses",
+    "/plaque-verte": "/plaque-immatriculation-verte",
+    "/faq": "/faq-plaques-diplomatiques",
+    "/complete-list": "/plaques-diplomatiques-liste-complete",
   }
 
   // Vérifier les redirections
@@ -52,12 +58,14 @@ export function middleware(request: NextRequest) {
     "/comment-lire-une-plaque-diplomatique-francaise",
     "/comment-lire-une-plaque-diplomatique-suisse",
     "/qu-est-ce-qu-une-plaque-diplomatique",
+    "/faq-plaques-diplomatiques",
+    "/plaques-diplomatiques-liste-complete",
   ]
 
   if (importantPages.includes(pathname)) {
     // Headers pour l'indexation optimale
-    response.headers.set("X-Robots-Tag", "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1")
-    response.headers.set("Cache-Control", "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400")
+    response.headers.set("X-Robots-Tag", "index, follow, max-snippet:-1, max-image-preview:large")
+    response.headers.set("Cache-Control", "public, max-age=3600, s-maxage=3600")
   }
 
   // Headers de sécurité et performance
@@ -78,7 +86,12 @@ export const config = {
      * - favicon.ico (favicon file)
      * - sw.js (service worker)
      * - manifest.json (PWA manifest)
+     * - robots.txt (robots file)
+     * - sitemap.xml (sitemap file)
+     * - offline.html (offline page)
+     * - images (image directory)
+     * - favicons (favicon directory)
      */
-    "/((?!api|_next/static|_next/image|favicon.ico|sw.js|manifest.json|robots.txt).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|manifest.json|sw.js|offline.html|images|favicons).*)",
   ],
 }

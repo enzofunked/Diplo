@@ -4,34 +4,21 @@ export async function POST() {
   try {
     const sitemapUrl = "https://diplo-scanner.com/api/sitemap"
 
-    // En production, ici on ferait un appel à l'API Google Search Console
-    // pour soumettre le sitemap automatiquement
-
-    const result = {
+    // In a real implementation, you would submit to Google Search Console API
+    // For now, we'll return instructions
+    return NextResponse.json({
       success: true,
+      message: "Sitemap submission prepared",
       sitemapUrl,
-      submittedAt: new Date().toISOString(),
-      status: "submitted",
-      message: "Sitemap submitted to search engines",
-    }
-
-    return NextResponse.json(result)
+      instructions: [
+        "Go to Google Search Console",
+        "Navigate to Sitemaps section",
+        "Add new sitemap: /api/sitemap",
+        "Submit and monitor status",
+      ],
+      submissionTime: new Date().toISOString(),
+    })
   } catch (error) {
-    return NextResponse.json(
-      {
-        success: false,
-        error: "Failed to submit sitemap",
-        message: error instanceof Error ? error.message : "Unknown error",
-      },
-      { status: 500 },
-    )
+    return NextResponse.json({ error: "Failed to submit sitemap" }, { status: 500 })
   }
-}
-
-export async function GET() {
-  return NextResponse.json({
-    sitemapUrl: "https://diplo-scanner.com/api/sitemap",
-    instructions: "POST to this endpoint to submit sitemap to search engines",
-    lastSubmission: new Date().toISOString(),
-  })
 }

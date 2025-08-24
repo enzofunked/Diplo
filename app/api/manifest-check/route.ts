@@ -2,41 +2,40 @@ import { NextResponse } from "next/server"
 
 export async function GET() {
   try {
-    const manifestCheck = {
-      manifestUrl: "/manifest.json",
-      status: "valid",
-      pwaCompliant: true,
-      checks: {
-        name: { status: "pass", value: "Diplo Scanner" },
-        shortName: { status: "pass", value: "DiploScan" },
-        description: { status: "pass", value: "Scanner de plaques diplomatiques" },
-        startUrl: { status: "pass", value: "/" },
-        display: { status: "pass", value: "standalone" },
-        backgroundColor: { status: "pass", value: "#ffffff" },
-        themeColor: { status: "pass", value: "#0f766e" },
-        icons: {
-          status: "pass",
-          count: 4,
-          sizes: ["192x192", "256x256", "384x384", "512x512"],
-        },
-        serviceWorker: { status: "pass", registered: true },
-      },
-      recommendations: [
-        "All PWA requirements met",
-        "Icons available in multiple sizes",
-        "Service worker registered",
-        "Offline functionality enabled",
-      ],
-      lastChecked: new Date().toISOString(),
+    const manifestUrl = "https://diplo-scanner.com/manifest.json"
+
+    const response = await fetch(manifestUrl)
+    const manifest = await response.json()
+
+    const checks = {
+      manifestExists: response.ok,
+      hasName: !!manifest.name,
+      hasShortName: !!manifest.short_name,
+      hasIcons: !!manifest.icons && manifest.icons.length > 0,
+      hasStartUrl: !!manifest.start_url,
+      hasDisplay: !!manifest.display,
+      hasThemeColor: !!manifest.theme_color,
+      hasBackgroundColor: !!manifest.background_color,
     }
 
-    return NextResponse.json(manifestCheck)
+    const score = Object.values(checks).filter(Boolean).length
+    const maxScore = Object.keys(checks).length
+
+    return NextResponse.json({
+      manifest,
+      checks,
+      score: `${score}/${maxScore}`,
+      percentage: Math.round((score / maxScore) * 100),
+      status: score === maxScore ? "perfect" : score >= maxScore * 0.8 ? "good" : "needs_improvement",
+    })
   } catch (error) {
     return NextResponse.json(
       {
-        status: "error",
         error: "Failed to check manifest",
-        message: error instanceof Error ? error.message : "Unknown error",
+        checks: { manifestExists: false },
+        score: "0/8",
+        percentage: 0,
+        status: "error",
       },
       { status: 500 },
     )

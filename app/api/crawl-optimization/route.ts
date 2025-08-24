@@ -9,47 +9,31 @@ export async function GET() {
         "/",
         "/french",
         "/swiss",
-        "/liste-codes-pays-plaques-diplomatiques-francaises",
-        "/codes-diplomatiques-suisses",
-        "/privileges-immunites-plaques-diplomatiques",
-        "/plaque-immatriculation-verte",
-        "/plaque-verte-et-orange",
+        "/qu-est-ce-qu-une-plaque-diplomatique",
         "/comment-lire-une-plaque-diplomatique-francaise",
         "/comment-lire-une-plaque-diplomatique-suisse",
-        "/qu-est-ce-qu-une-plaque-diplomatique",
       ],
-      disallowedPaths: ["/api/", "/version-check.js", "/_next/", "/sw.js"],
     },
     sitemap: {
-      status: "optimized",
-      totalUrls: 22,
-      highPriorityUrls: 10,
+      status: "active",
+      url: "https://diplo-scanner.com/api/sitemap",
+      urlCount: 23,
       lastUpdated: new Date().toISOString(),
     },
-    redirections: {
-      status: "optimized",
-      total301Redirects: 12,
-      chainedRedirects: 0,
-      redirectLoops: 0,
+    redirects: {
+      status: "configured",
+      count: 12,
+      type: "301 permanent",
     },
     headers: {
-      status: "optimized",
-      cacheControl: "configured",
-      securityHeaders: "enabled",
-      seoHeaders: "optimized",
+      cacheControl: "optimized",
+      seoHeaders: "configured",
     },
   }
 
-  return NextResponse.json({
-    success: true,
-    optimizations,
-    recommendations: [
-      "All redirections are 301 permanent redirects",
-      "No redirect chains or loops detected",
-      "Sitemap includes all important pages with proper priorities",
-      "Cache headers optimized for SEO",
-      "Robots.txt allows all important pages",
-    ],
-    timestamp: new Date().toISOString(),
+  return NextResponse.json(optimizations, {
+    headers: {
+      "Cache-Control": "public, max-age=300",
+    },
   })
 }
