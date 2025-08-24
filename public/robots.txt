@@ -1,7 +1,5 @@
 User-agent: *
 Allow: /
-
-# Pages importantes à indexer en priorité
 Allow: /french
 Allow: /swiss
 Allow: /qu-est-ce-qu-une-plaque-diplomatique
@@ -15,16 +13,19 @@ Allow: /plaque-verte-et-orange
 Allow: /couleur-des-plaques-diplomatiques
 Allow: /plaques-diplomatiques-liste-complete
 Allow: /faq-plaques-diplomatiques
+Allow: /history
+Allow: /favorites
+Allow: /help
+Allow: /about
+Allow: /sources
+Allow: /terms
+Allow: /cookies
 
-# Fichiers techniques à ne pas indexer
 Disallow: /api/
 Disallow: /_next/
 Disallow: /version-check.js
-Disallow: /sw.js
-Disallow: /offline.html
+Disallow: /submit-urls
 
-# Optimisation du budget de crawl
 Crawl-delay: 0.1
 
-# Sitemap
 Sitemap: https://diplo-scanner.com/api/sitemap
