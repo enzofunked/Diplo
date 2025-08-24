@@ -56,7 +56,7 @@ export const metadata: Metadata = {
       "Scanner gratuit de plaques diplomatiques françaises et suisses. Identifiez instantanément les pays et organisations.",
     images: [
       {
-        url: "/app-icon-256-new.png",
+        url: "https://diplo-scanner.com/app-icon-256-new.png",
         width: 256,
         height: 256,
         alt: "Diplo Scanner - Scanner de Plaques Diplomatiques",
@@ -68,18 +68,18 @@ export const metadata: Metadata = {
     title: "Diplo Scanner - Scanner de Plaques Diplomatiques",
     description:
       "Scanner gratuit de plaques diplomatiques françaises et suisses. Identifiez instantanément les pays et organisations.",
-    images: ["/app-icon-256-new.png"],
+    images: ["https://diplo-scanner.com/app-icon-256-new.png"],
   },
   manifest: "/manifest.json",
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.ico", sizes: "48x48", type: "image/x-icon" },
       { url: "/favicons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       { url: "/favicons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
       { url: "/favicons/favicon-96x96.png", sizes: "96x96", type: "image/png" },
     ],
-    shortcut: "/favicons/favicon-32x32.png",
-    apple: "/app-icon-256-new.png",
+    shortcut: [{ url: "/favicon.ico", sizes: "48x48", type: "image/x-icon" }],
+    apple: [{ url: "/app-icon-256-new.png", sizes: "256x256", type: "image/png" }],
   },
   verification: {
     google: "your-google-verification-code",
@@ -117,22 +117,28 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <head>
-        {/* URL canonique absolue pour éviter les redirections */}
+        {/* URL canonique absolue */}
         <link rel="canonical" href="https://diplo-scanner.com" />
 
-        {/* Preconnect pour éviter les redirections DNS */}
+        {/* Preconnect pour optimiser les performances */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
 
-        {/* Favicon configuration - URLs absolues pour éviter les redirections */}
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="96x96" href="/favicons/favicon-96x96.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/app-icon-256-new.png" />
+        {/* Configuration Favicon optimisée - URLs absolues */}
+        <link rel="icon" type="image/x-icon" href="https://diplo-scanner.com/favicon.ico" sizes="48x48" />
+        <link rel="icon" type="image/png" sizes="16x16" href="https://diplo-scanner.com/favicons/favicon-16x16.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="https://diplo-scanner.com/favicons/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="96x96" href="https://diplo-scanner.com/favicons/favicon-96x96.png" />
+
+        {/* Apple Touch Icon */}
+        <link rel="apple-touch-icon" sizes="256x256" href="https://diplo-scanner.com/app-icon-256-new.png" />
+
+        {/* Shortcut icon */}
+        <link rel="shortcut icon" type="image/x-icon" href="https://diplo-scanner.com/favicon.ico" />
 
         {/* Microsoft tile configuration */}
         <meta name="msapplication-TileColor" content="#0f766e" />
+        <meta name="msapplication-TileImage" content="https://diplo-scanner.com/app-icon-256-new.png" />
         <meta name="theme-color" content="#0f766e" />
 
         {/* PWA meta tags */}

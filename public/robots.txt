@@ -7,24 +7,17 @@ Allow: /comment-lire-une-plaque-diplomatique-francaise
 Allow: /comment-lire-une-plaque-diplomatique-suisse
 Allow: /liste-codes-pays-plaques-diplomatiques-francaises
 Allow: /codes-diplomatiques-suisses
-Allow: /privileges-immunites-plaques-diplomatiques
 Allow: /plaque-immatriculation-verte
 Allow: /plaque-verte-et-orange
+Allow: /privileges-immunites-plaques-diplomatiques
+Allow: /faq-plaques-diplomatiques
 Allow: /couleur-des-plaques-diplomatiques
 Allow: /plaques-diplomatiques-liste-complete
-Allow: /faq-plaques-diplomatiques
-Allow: /history
-Allow: /favorites
-Allow: /help
-Allow: /about
-Allow: /sources
-Allow: /terms
-Allow: /cookies
 
 Disallow: /api/
 Disallow: /_next/
 Disallow: /version-check.js
-Disallow: /submit-urls
+Disallow: /sw.js
 
 Crawl-delay: 0.1
 

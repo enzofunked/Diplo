@@ -2,19 +2,9 @@ import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 
 export function middleware(request: NextRequest) {
-  const url = request.nextUrl.clone()
-  const pathname = url.pathname
+  const { pathname } = request.nextUrl
 
-  // Headers SEO optimisés pour toutes les réponses
-  const response = NextResponse.next()
-
-  // Headers de sécurité et SEO
-  response.headers.set("X-Robots-Tag", "index, follow")
-  response.headers.set("X-Content-Type-Options", "nosniff")
-  response.headers.set("X-Frame-Options", "DENY")
-  response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin")
-
-  // Redirections 301 permanentes pour éviter les boucles
+  // Redirections 301 permanentes pour corriger les erreurs de redirection
   const redirects: Record<string, string> = {
     "/scanner": "/",
     "/scan": "/",
@@ -34,39 +24,35 @@ export function middleware(request: NextRequest) {
 
   // Vérifier les redirections
   if (redirects[pathname]) {
-    const redirectUrl = new URL(redirects[pathname], request.url)
-    return NextResponse.redirect(redirectUrl, 301)
+    const url = request.nextUrl.clone()
+    url.pathname = redirects[pathname]
+    return NextResponse.redirect(url, 301)
   }
 
   // Supprimer les trailing slashes (sauf pour la racine)
   if (pathname !== "/" && pathname.endsWith("/")) {
+    const url = request.nextUrl.clone()
     url.pathname = pathname.slice(0, -1)
     return NextResponse.redirect(url, 301)
   }
 
-  // Normaliser les URLs avec des paramètres inutiles
-  if (url.search.includes("utm_") || url.search.includes("fbclid") || url.search.includes("gclid")) {
-    const cleanUrl = new URL(request.url)
-    const params = new URLSearchParams(cleanUrl.search)
+  // Headers SEO optimisés pour toutes les pages importantes
+  const response = NextResponse.next()
 
-    // Supprimer les paramètres de tracking
-    params.delete("utm_source")
-    params.delete("utm_medium")
-    params.delete("utm_campaign")
-    params.delete("utm_content")
-    params.delete("utm_term")
-    params.delete("fbclid")
-    params.delete("gclid")
+  // Headers de sécurité et SEO
+  response.headers.set("X-Robots-Tag", "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1")
+  response.headers.set("X-Content-Type-Options", "nosniff")
+  response.headers.set("X-Frame-Options", "DENY")
+  response.headers.set("Referrer-Policy", "origin-when-cross-origin")
 
-    cleanUrl.search = params.toString()
-    return NextResponse.redirect(cleanUrl, 301)
+  // Cache headers pour les ressources statiques
+  if (pathname.startsWith("/favicon") || pathname.includes(".ico") || pathname.includes(".png")) {
+    response.headers.set("Cache-Control", "public, max-age=31536000, immutable")
   }
 
   return response
 }
 
 export const config = {
-  matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|manifest.json|sw.js|offline.html).*)",
-  ],
+  matcher: ["/((?!api|_next/static|_next/image|sw.js|manifest.json|robots.txt|sitemap.xml).*)"],
 }
