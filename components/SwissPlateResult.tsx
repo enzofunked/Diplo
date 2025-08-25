@@ -132,12 +132,34 @@ export default function SwissPlateResult({ result, scannedPlate, onBack }: Swiss
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
                 <span className="text-red-700">Préfixe de statut:</span>
-                <span className="font-mono bg-white px-2 py-1 rounded">{result.plateComponents.statusPrefix}</span>
+                <span className="font-mono bg-white px-2 py-1 rounded">
+                  {result.plateComponents.statusPrefix} -{" "}
+                  {result.plateComponents.statusPrefix === "CD"
+                    ? "Corps diplomatique"
+                    : result.plateComponents.statusPrefix === "AT"
+                      ? "Attaché technique"
+                      : "Consulat"}
+                </span>
               </div>
               {result.plateComponents.canton && (
                 <div className="flex justify-between">
                   <span className="text-red-700">Canton:</span>
-                  <span className="font-mono bg-white px-2 py-1 rounded">{result.plateComponents.canton}</span>
+                  <span className="font-mono bg-white px-2 py-1 rounded">
+                    {result.plateComponents.canton} -{" "}
+                    {result.plateComponents.canton === "GE"
+                      ? "Genève"
+                      : result.plateComponents.canton === "BE"
+                        ? "Berne"
+                        : result.plateComponents.canton === "VD"
+                          ? "Vaud"
+                          : result.plateComponents.canton === "VS"
+                            ? "Valais"
+                            : result.plateComponents.canton === "TI"
+                              ? "Tessin"
+                              : result.plateComponents.canton === "ZH"
+                                ? "Zurich"
+                                : result.plateComponents.canton}
+                  </span>
                 </div>
               )}
               <div className="flex justify-between">
@@ -147,7 +169,7 @@ export default function SwissPlateResult({ result, scannedPlate, onBack }: Swiss
               <div className="flex justify-between">
                 <span className="text-red-700">Code d'identification:</span>
                 <span className="font-mono bg-white px-2 py-1 rounded">
-                  {result.plateComponents.identificationCode}
+                  {result.plateComponents.identificationCode} - {result.country.countryName}
                 </span>
               </div>
             </div>

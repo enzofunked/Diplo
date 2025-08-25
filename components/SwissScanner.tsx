@@ -75,18 +75,22 @@ export default function SwissScanner({ onScan, isScanning, onCameraClick }: Swis
               💡 Exemples :
             </p>
             <div id="swiss-examples-buttons" className="flex gap-2 overflow-x-auto pb-1">
-              {examples.slice(0, 3).map((example, index) => (
-                <Button
-                  key={example}
-                  id={`swiss-example-button-${index}`}
-                  variant="outline"
-                  size="sm"
-                  className="text-xs h-7 px-2 font-mono whitespace-nowrap bg-white/50 hover:bg-white"
-                  onClick={() => handleExampleClick(example)}
-                >
-                  {example}
-                </Button>
-              ))}
+              {examples.slice(0, 3).map((example, index) => {
+                // Override the 3rd example (index 2)
+                const displayExample = index === 2 ? "CD BE 51 • 62" : example
+                return (
+                  <Button
+                    key={example}
+                    id={`swiss-example-button-${index}`}
+                    variant="outline"
+                    size="sm"
+                    className="text-xs h-7 px-2 font-mono whitespace-nowrap bg-white/50 hover:bg-white"
+                    onClick={() => handleExampleClick(displayExample)}
+                  >
+                    {displayExample}
+                  </Button>
+                )
+              })}
             </div>
           </div>
         </CardContent>
