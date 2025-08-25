@@ -137,6 +137,65 @@ export default function SwissPage() {
               </Button>
             </Link>
           </div>
+
+          {/* SEO Content Section */}
+          <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 mb-6 shadow-sm">
+            <h2 className="text-xl font-semibold text-blue-900 mb-4">
+              Identification des Plaques Diplomatiques Suisses
+            </h2>
+            <div className="space-y-4 text-sm text-gray-700">
+              <p>
+                Découvrez l'origine des <strong>véhicules diplomatiques suisses</strong> grâce à notre outil de
+                reconnaissance avancé. Identifiez instantanément les missions diplomatiques présentes en Suisse en
+                analysant leurs plaques d'immatriculation spéciales.
+              </p>
+
+              <h3 className="text-lg font-medium text-blue-800 mt-6 mb-3">Le système diplomatique suisse expliqué</h3>
+              <p>
+                La Suisse, en tant que siège de nombreuses organisations internationales, utilise un système de
+                <strong> plaques diplomatiques</strong> très structuré. Chaque plaque commence par "CD" (Corps
+                Diplomatique), indique le canton d'enregistrement (GE pour Genève, BE pour Berne), puis affiche un
+                numéro unique et un code pays spécifique.
+              </p>
+
+              <h3 className="text-lg font-medium text-blue-800 mt-6 mb-3">Fonctionnalités de notre scanner</h3>
+              <div className="grid grid-cols-1 gap-3">
+                <div className="flex items-start gap-3">
+                  <span className="text-red-600 font-bold">📱</span>
+                  <div>
+                    <strong>Saisie simple et rapide</strong> : Entrez le numéro de plaque pour une identification
+                    instantanée
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-red-600 font-bold">🔍</span>
+                  <div>
+                    <strong>Reconnaissance instantanée</strong> : Résultats immédiats avec détails complets
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-red-600 font-bold">🌍</span>
+                  <div>
+                    <strong>Base de données complète</strong> : Tous les codes pays diplomatiques suisses
+                  </div>
+                </div>
+              </div>
+
+              <h3 className="text-lg font-medium text-blue-800 mt-6 mb-3">Genève et Berne : centres diplomatiques</h3>
+              <p>
+                La plupart des <strong>plaques diplomatiques suisses</strong> sont enregistrées à Genève (GE) ou Berne
+                (BE), reflétant l'importance de ces villes dans les relations internationales. Genève abrite de
+                nombreuses organisations internationales, tandis que Berne est la capitale fédérale suisse.
+              </p>
+
+              <h3 className="text-lg font-medium text-blue-800 mt-6 mb-3">Utilisation pratique</h3>
+              <p>
+                Notre outil est parfait pour les professionnels du secteur diplomatique, les journalistes, les étudiants
+                en relations internationales, ou simplement les curieux souhaitant comprendre la présence diplomatique
+                en Suisse. L'identification se fait en toute discrétion et dans le respect des protocoles.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 

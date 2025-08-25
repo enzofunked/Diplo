@@ -141,6 +141,38 @@ export default function FrenchPage() {
               </Button>
             </Link>
           </div>
+
+          {/* SEO Content Section */}
+          <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 mt-6 shadow-sm">
+            <h2 className="text-xl font-semibold text-blue-900 mb-4">Scanner de Plaques Diplomatiques Françaises</h2>
+            <div className="space-y-4 text-sm text-gray-700">
+              <p>
+                Notre scanner de plaques diplomatiques françaises vous permet d'identifier instantanément les véhicules
+                diplomatiques circulant en France. Grâce à notre technologie de reconnaissance optique avancée, analysez
+                facilement les plaques CD (Corps Diplomatique) et CMD (Chef de Mission Diplomatique).
+              </p>
+              <p>
+                Les plaques diplomatiques françaises suivent un système de codification spécifique établi par le
+                Ministère des Affaires Étrangères. Chaque plaque contient des informations précieuses sur le pays
+                d'origine, le statut diplomatique et la mission représentée.
+              </p>
+              <div className="bg-blue-50 p-4 rounded-lg">
+                <h3 className="font-medium text-blue-800 mb-2">Fonctionnalités de notre scanner :</h3>
+                <ul className="list-disc list-inside space-y-1 text-blue-700">
+                  
+                  <li>Saisie manuelle pour vérification</li>
+                  <li>Base de données complète des codes pays</li>
+                  <li>Historique des recherches</li>
+                  <li>Interface optimisée mobile</li>
+                </ul>
+              </div>
+              <p>
+                Que vous soyez professionnel de la sécurité, étudiant en relations internationales, ou simplement
+                curieux des véhicules diplomatiques, notre outil vous fournit des informations précises et actualisées
+                sur les plaques d'immatriculation diplomatiques françaises.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
