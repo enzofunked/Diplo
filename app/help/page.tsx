@@ -134,7 +134,7 @@ export default function HelpPage() {
                   Si vous ne trouvez pas la réponse à votre question, n'hésitez pas à nous contacter.
                 </p>
                 <div className="space-y-2">
-                  <p className="text-xs text-muted-foreground">📧 Email : support@diplo-scanner.com</p>
+                  <p className="text-xs text-muted-foreground">📧 Email : contact@diplo-scanner.com</p>
                   <p className="text-xs text-muted-foreground">🕒 Réponse sous 24h en moyenne</p>
                 </div>
               </CardContent>
