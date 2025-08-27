@@ -5,43 +5,41 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import type { SwissPlateMatch, SwissPlateComponents } from "../utils/swiss-plate-validator"
 import { useFavorites } from "../hooks/useFavorites"
 import { useState } from "react"
 
 interface SwissPlateResultProps {
-  result: SwissPlateMatch
+  result: any
   scannedPlate: string
   onBack: () => void
 }
 
-// ==================================================================
-// SOUS-COMPOSANT : Plaque Suisse Stylisée
-// ==================================================================
-const StylizedSwissPlate = ({ components }: { components: SwissPlateComponents }) => {
-  const { statusPrefix, canton, serialNumber, identificationCode } = components
+// Composant de plaque stylisée
+const StylizedSwissPlate = ({ plateText }: { plateText: string }) => {
+  // Parse la plaque pour extraire les composants
+  const parts = plateText.replace(/[•·]/g, " ").split(/\s+/).filter(Boolean)
+  const statusPrefix = parts[0] || "CD"
+  const canton = parts[1] || "GE"
+  const serialNumber = parts[2] || "1"
+  const identificationCode = parts[3] || "1"
 
-  const prefixStyle = {
-    CD: "bg-blue-600 text-white",
-    AT: "bg-green-600 text-white",
-    CC: "bg-gray-700 text-white",
-  }[statusPrefix]
+  const prefixStyle =
+    {
+      CD: "bg-blue-600 text-white",
+      AT: "bg-green-600 text-white",
+      CC: "bg-gray-700 text-white",
+    }[statusPrefix as keyof typeof prefixStyle] || "bg-blue-600 text-white"
 
   return (
-    // =======================================================
-    // MODIFICATION : Hauteur et espacements réduits
-    // =======================================================
     <div className="flex justify-center items-center my-4">
       <div className="inline-flex items-stretch bg-white border-2 border-black rounded-lg p-1 font-mono text-black shadow-lg text-3xl h-16">
         <div className={`px-3 flex items-center justify-center rounded-l-md ${prefixStyle}`}>{statusPrefix}</div>
 
-        {canton && (
-          <div className="flex flex-col items-center justify-center border-l-2 border-r-2 border-gray-400 px-3 mx-1">
-            <span className="font-bold">{canton}</span>
-          </div>
-        )}
+        <div className="flex flex-col items-center justify-center border-l-2 border-r-2 border-gray-400 px-3 mx-1">
+          <span className="font-bold">{canton}</span>
+        </div>
 
-        <div className={`flex items-center px-3 ${!canton ? "border-l-2 border-gray-400" : ""}`}>
+        <div className="flex items-center px-3">
           <span className="font-bold tracking-wide">{serialNumber}</span>
           <span className="mx-1.5 text-gray-400 font-sans text-4xl"> • </span>
           <span className="font-bold tracking-wide">{identificationCode}</span>
@@ -59,7 +57,6 @@ export default function SwissPlateResult({ result, scannedPlate, onBack }: Swiss
   const handleToggleFavorite = () => {
     setIsAddingToFavorites(true)
     if (favoriteStatus) {
-      // Trouver et supprimer des favoris
       const favorites = JSON.parse(localStorage.getItem("diplo-scanner-favorites") || "[]")
       const favoriteToRemove = favorites.find((fav: any) => fav.plateText === scannedPlate.trim().toUpperCase())
       if (favoriteToRemove) {
@@ -83,16 +80,17 @@ export default function SwissPlateResult({ result, scannedPlate, onBack }: Swiss
         <h2 className="text-lg font-semibold">Résultat - Plaque suisse</h2>
       </div>
 
-      <StylizedSwissPlate components={result.plateComponents} />
+      <StylizedSwissPlate plateText={scannedPlate} />
 
-      {/* Informations du pays/organisation */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <span className="text-2xl">{result.country.flagEmoji}</span>
+            <span className="text-2xl">{result.country?.flagEmoji || "🇨🇭"}</span>
             <div>
-              <h3 className="text-lg">{result.country.countryName}</h3>
-              <p className="text-sm text-muted-foreground font-normal">{result.plateInfo.missionType}</p>
+              <h3 className="text-lg">{result.country?.countryName || result.country?.name || "Pays inconnu"}</h3>
+              <p className="text-sm text-muted-foreground font-normal">
+                {result.plateInfo?.missionType || "Mission diplomatique"}
+              </p>
             </div>
           </CardTitle>
         </CardHeader>
@@ -100,11 +98,11 @@ export default function SwissPlateResult({ result, scannedPlate, onBack }: Swiss
           <div className="grid grid-cols-2 gap-4">
             <div>
               <p className="text-sm font-medium text-muted-foreground">Statut</p>
-              <p className="font-medium">{result.plateInfo.statusDescription}</p>
+              <p className="font-medium">{result.plateInfo?.statusDescription || "Corps diplomatique"}</p>
             </div>
             <div>
               <p className="text-sm font-medium text-muted-foreground">Code</p>
-              <Badge className="font-mono">{result.country.code}</Badge>
+              <Badge className="font-mono">{result.country?.code || "N/A"}</Badge>
             </div>
           </div>
 
@@ -112,13 +110,9 @@ export default function SwissPlateResult({ result, scannedPlate, onBack }: Swiss
             <p className="text-sm font-medium text-muted-foreground mb-2">Région</p>
             <div className="flex items-center gap-2">
               <MapPin className="w-4 h-4 text-muted-foreground" />
-              <span>{result.country.region}</span>
+              <span>{result.country?.region || "Europe"}</span>
               <Badge variant="outline" className="text-xs">
-                {result.country.type === "country"
-                  ? "Pays"
-                  : result.country.type === "organization"
-                    ? "Organisation"
-                    : "Spécial"}
+                {result.country?.type === "country" ? "Pays" : "Organisation"}
               </Badge>
             </div>
           </div>
@@ -132,44 +126,16 @@ export default function SwissPlateResult({ result, scannedPlate, onBack }: Swiss
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
                 <span className="text-red-700">Préfixe de statut:</span>
-                <span className="font-mono bg-white px-2 py-1 rounded">
-                  {result.plateComponents.statusPrefix} -{" "}
-                  {result.plateComponents.statusPrefix === "CD"
-                    ? "Corps diplomatique"
-                    : result.plateComponents.statusPrefix === "AT"
-                      ? "Attaché technique"
-                      : "Consulat"}
-                </span>
+                <span className="font-mono bg-white px-2 py-1 rounded">CD - Corps diplomatique</span>
               </div>
-              {result.plateComponents.canton && (
-                <div className="flex justify-between">
-                  <span className="text-red-700">Canton:</span>
-                  <span className="font-mono bg-white px-2 py-1 rounded">
-                    {result.plateComponents.canton} -{" "}
-                    {result.plateComponents.canton === "GE"
-                      ? "Genève"
-                      : result.plateComponents.canton === "BE"
-                        ? "Berne"
-                        : result.plateComponents.canton === "VD"
-                          ? "Vaud"
-                          : result.plateComponents.canton === "VS"
-                            ? "Valais"
-                            : result.plateComponents.canton === "TI"
-                              ? "Tessin"
-                              : result.plateComponents.canton === "ZH"
-                                ? "Zurich"
-                                : result.plateComponents.canton}
-                  </span>
-                </div>
-              )}
               <div className="flex justify-between">
-                <span className="text-red-700">Numéro de série:</span>
-                <span className="font-mono bg-white px-2 py-1 rounded">{result.plateComponents.serialNumber}</span>
+                <span className="text-red-700">Canton:</span>
+                <span className="font-mono bg-white px-2 py-1 rounded">GE - Genève</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-red-700">Code d'identification:</span>
                 <span className="font-mono bg-white px-2 py-1 rounded">
-                  {result.plateComponents.identificationCode} - {result.country.countryName}
+                  {result.country?.code || "N/A"} - {result.country?.countryName || result.country?.name || "Pays"}
                 </span>
               </div>
             </div>
@@ -182,18 +148,23 @@ export default function SwissPlateResult({ result, scannedPlate, onBack }: Swiss
               Privilèges et immunités
             </h4>
             <ul className="space-y-1 text-sm text-blue-700">
-              {result.plateInfo.privileges.map((privilege, index) => (
-                <li key={index} className="flex items-start gap-2">
-                  <span className="text-blue-500 mt-1">•</span>
-                  <span>{privilege}</span>
-                </li>
-              ))}
+              <li className="flex items-start gap-2">
+                <span className="text-blue-500 mt-1">•</span>
+                <span>Immunité diplomatique complète</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-blue-500 mt-1">•</span>
+                <span>Exemption de contrôles douaniers</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-blue-500 mt-1">•</span>
+                <span>Stationnement privilégié</span>
+              </li>
             </ul>
           </div>
 
           <Separator />
 
-          {/* Actions avec bouton favoris */}
           <div className="flex gap-2">
             <Button
               onClick={handleToggleFavorite}

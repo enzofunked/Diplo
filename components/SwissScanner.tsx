@@ -5,12 +5,16 @@ import { Type, Camera } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
-import { generateSwissPlateExamples } from "../utils/swiss-plate-validator"
 
 interface SwissScannerProps {
   onScan: (plateText: string) => void
   isScanning: boolean
   onCameraClick?: () => void
+}
+
+// Fonction pour générer des exemples de plaques suisses
+const generateSwissPlateExamples = () => {
+  return ["CD GE 12 • 34", "CD BE 56 • 78", "CD BE 51 • 62"]
 }
 
 export default function SwissScanner({ onScan, isScanning, onCameraClick }: SwissScannerProps) {
@@ -75,22 +79,18 @@ export default function SwissScanner({ onScan, isScanning, onCameraClick }: Swis
               💡 Exemples :
             </p>
             <div id="swiss-examples-buttons" className="flex gap-2 overflow-x-auto pb-1">
-              {examples.slice(0, 3).map((example, index) => {
-                // Override the 3rd example (index 2)
-                const displayExample = index === 2 ? "CD BE 51 • 62" : example
-                return (
-                  <Button
-                    key={example}
-                    id={`swiss-example-button-${index}`}
-                    variant="outline"
-                    size="sm"
-                    className="text-xs h-7 px-2 font-mono whitespace-nowrap bg-white/50 hover:bg-white"
-                    onClick={() => handleExampleClick(displayExample)}
-                  >
-                    {displayExample}
-                  </Button>
-                )
-              })}
+              {examples.map((example, index) => (
+                <Button
+                  key={example}
+                  id={`swiss-example-button-${index}`}
+                  variant="outline"
+                  size="sm"
+                  className="text-xs h-7 px-2 font-mono whitespace-nowrap bg-white/50 hover:bg-white"
+                  onClick={() => handleExampleClick(example)}
+                >
+                  {example}
+                </Button>
+              ))}
             </div>
           </div>
         </CardContent>

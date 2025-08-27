@@ -19,7 +19,6 @@ export async function GET() {
     { url: `${baseUrl}/couleur-des-plaques-diplomatiques`, priority: 0.6, changefreq: "monthly" },
     { url: `${baseUrl}/plaques-diplomatiques-liste-complete`, priority: 0.6, changefreq: "monthly" },
     { url: `${baseUrl}/history`, priority: 0.4, changefreq: "never" },
-    { url: `${baseUrl}/favorites`, priority: 0.4, changefreq: "never" },
     { url: `${baseUrl}/help`, priority: 0.5, changefreq: "monthly" },
     { url: `${baseUrl}/about`, priority: 0.4, changefreq: "yearly" },
     { url: `${baseUrl}/sources`, priority: 0.4, changefreq: "yearly" },
