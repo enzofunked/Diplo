@@ -58,7 +58,7 @@ export default function SystemSelector({ onSelectSystem }: SystemSelectorProps) 
     <div id="system-selector" className="space-y-6">
       <div id="system-selector-header" className="text-center">
         <h2 id="system-selector-title" className="text-2xl font-bold text-gray-900 mb-2">
-          Choisissez le système
+          Scanner de plaques diplomatiques françaises et suisses
         </h2>
         <p id="system-selector-subtitle" className="text-gray-600">
           Sélectionnez le type de plaque diplomatique à identifier
