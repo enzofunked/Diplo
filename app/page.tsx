@@ -239,11 +239,13 @@ export default function DiploScanner() {
                 📱 Fonctionne sans internet
               </div>
             </div>
+
+            {/* Section principale avec contenu SEO optimisé */}
             <div className="mt-6 px-4 py-4 bg-white/80 rounded-lg border border-blue-200">
               <h2 className="text-lg font-semibold text-blue-900 mb-3 text-center">
                 Scanner de Plaque Diplomatique France & Suisse
               </h2>
-              <p className="text-sm text-gray-700 leading-relaxed text-center">
+              <p className="text-sm text-gray-700 leading-relaxed text-center mb-4">
                 <strong>Identifiez instantanément les plaques diplomatiques françaises et suisses</strong> avec notre
                 scanner gratuit. Découvrez le pays d'origine, le code diplomatique et les informations détaillées de
                 chaque plaque CD. Notre outil reconnaît automatiquement les{" "}
@@ -251,6 +253,26 @@ export default function DiploScanner() {
                 <strong>plaques diplomatiques suisses</strong> de Genève et Berne. Scanner plaque diplomatique en ligne,
                 identification pays plaque CD, décodage plaque corps diplomatique - tout en un seul clic ! Fonctionne
                 sans internet une fois chargé.
+              </p>
+            </div>
+
+            {/* Nouveau paragraphe SEO optimisé */}
+            <div className="mt-4 px-4 py-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg border border-green-200">
+              <h3 className="text-md font-semibold text-green-900 mb-3 text-center">
+                🔍 Le Meilleur Scanner de Plaque Diplomatique Gratuit
+              </h3>
+              <p className="text-sm text-gray-700 leading-relaxed text-justify">
+                Vous cherchez un <strong>scanner de plaque diplomatique française</strong> fiable et gratuit ? Diplo
+                Scanner est l'outil de référence pour <strong>identifier les plaques CD françaises</strong> et
+                <strong>décoder les plaques diplomatiques suisses</strong>. Notre{" "}
+                <strong>scanner plaque diplomatique en ligne</strong>
+                reconnaît instantanément plus de 200 codes diplomatiques officiels. Que vous soyez professionnel de la
+                sécurité, étudiant en relations internationales, ou simple curieux, notre{" "}
+                <strong className="font-bold">outil d'identification plaque diplomatique </strong>
+                vous permet de <strong>scanner une plaque CD</strong> en quelques secondes. Compatible avec les
+                <strong> plaques vertes françaises</strong>, les <strong> plaques orange CMD</strong>, et les
+                <strong> plaques diplomatiques genevoises</strong>. Essayez dès maintenant notre
+                <strong> scanner gratuit plaque diplomatique</strong> - aucune inscription requise !
               </p>
             </div>
           </div>
