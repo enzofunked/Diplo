@@ -264,8 +264,8 @@ export default function DiploScanner() {
               <p className="text-sm text-gray-700 leading-relaxed text-justify">
                 Vous cherchez un <strong>scanner de plaque diplomatique française</strong> fiable et gratuit ? Diplo
                 Scanner est l'outil de référence pour <strong>identifier les plaques CD françaises</strong> et
-                <strong>décoder les plaques diplomatiques suisses</strong>. Notre{" "}
-                <strong>scanner plaque diplomatique en ligne</strong>
+                <strong> décoder les plaques diplomatiques suisses</strong>. Notre{" "}
+                <strong>scanner plaque diplomatique en ligne </strong>
                 reconnaît instantanément plus de 200 codes diplomatiques officiels. Que vous soyez professionnel de la
                 sécurité, étudiant en relations internationales, ou simple curieux, notre{" "}
                 <strong className="font-bold">outil d'identification plaque diplomatique </strong>
