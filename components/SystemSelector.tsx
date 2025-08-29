@@ -77,7 +77,7 @@ export default function SystemSelector({ onSelectSystem }: SystemSelectorProps) 
                   <span id="french-flag" className="text-2xl">
                     🇫🇷
                   </span>
-                  Système français
+                  Plaques CD françaises
                 </h3>
                 <p id="french-system-description" className="text-sm text-green-600 mb-3">
                   Plaques vertes avec codes numériques
@@ -111,7 +111,7 @@ export default function SystemSelector({ onSelectSystem }: SystemSelectorProps) 
                   <span id="swiss-flag" className="text-2xl">
                     🇨🇭
                   </span>
-                  Système suisse
+                  Plaques CD suisses
                 </h3>
                 <p id="swiss-system-description" className="text-sm text-red-600 mb-3">
                   Plaques avec statuts et blasons cantonaux
