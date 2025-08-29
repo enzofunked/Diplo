@@ -1,5 +1,17 @@
 User-agent: *
 Allow: /
+
+# Pages non-indexées
+Disallow: /french/guide
+Disallow: /french/codes
+Disallow: /swiss/guide
+Disallow: /swiss/codes
+
+# Fichiers système
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+
 Allow: /french
 Allow: /swiss
 Allow: /qu-est-ce-qu-une-plaque-diplomatique
@@ -14,11 +26,9 @@ Allow: /faq-plaques-diplomatiques
 Allow: /couleur-des-plaques-diplomatiques
 Allow: /plaques-diplomatiques-liste-complete
 
-Disallow: /api/
-Disallow: /_next/
 Disallow: /version-check.js
 Disallow: /sw.js
 
 Crawl-delay: 0.1
 
-Sitemap: https://diplo-scanner.com/api/sitemap
+Sitemap: https://diplo-scanner.com/sitemap.xml

@@ -24,10 +24,7 @@ export async function GET() {
     { url: `${baseUrl}/sources`, priority: 0.4, changefreq: "yearly" },
     { url: `${baseUrl}/terms`, priority: 0.3, changefreq: "yearly" },
     { url: `${baseUrl}/cookies`, priority: 0.3, changefreq: "yearly" },
-    { url: `${baseUrl}/french/guide`, priority: 0.5, changefreq: "monthly" },
-    { url: `${baseUrl}/swiss/guide`, priority: 0.5, changefreq: "monthly" },
-    { url: `${baseUrl}/french/codes`, priority: 0.5, changefreq: "monthly" },
-    { url: `${baseUrl}/swiss/codes`, priority: 0.5, changefreq: "monthly" },
+    // Pages supprimées du sitemap : /french/guide, /french/codes, /swiss/guide, /swiss/codes
   ]
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

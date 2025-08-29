@@ -100,12 +100,13 @@ export default function FrenchDiplomaticCodesListPageClient() {
             Guide France
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-            Liste complète des codes pays sur les plaques{" "}
-            <span className="text-blue-600">diplomatiques françaises</span>
+            <span className="text-blue-600">Plaque diplomatique numéro pays</span> : Liste complète des codes{" "}
+            <span className="text-blue-600">diplomatiques français</span>
           </h1>
           <p className="text-xl text-gray-600 mb-8 leading-relaxed max-w-3xl mx-auto">
-            Référence exhaustive de tous les codes pays utilisés sur les plaques diplomatiques françaises : système
-            1-199, codes étendus 200+, organisations internationales et codes spéciaux.
+            <strong>Plaque diplomatique liste pays</strong> : Référence exhaustive de tous les numéros et codes pays
+            utilisés sur les plaques diplomatiques françaises. Système 1-199, codes étendus 200+, organisations
+            internationales et codes spéciaux avec équivalences complètes.
           </p>
         </div>
 
@@ -122,13 +123,13 @@ export default function FrenchDiplomaticCodesListPageClient() {
             <Alert className="border-blue-200 bg-blue-50">
               <Info className="h-4 w-4 text-blue-600" />
               <AlertDescription className="text-blue-700">
-                <strong>Règle simple :</strong> Code étendu = Code original + 200. Exemple : Allemagne = 5 ou 205 (même
-                pays, deux codes valides).
+                <strong>Règle simple pour les numéros pays plaque diplomatique :</strong> Code étendu = Code original +
+                200. Exemple : Allemagne = 5 ou 205 (même pays, deux codes valides).
                 <br />
                 <br />
-                <strong>Pourquoi deux systèmes ?</strong> Le système original (1-199) créé en 1920 était saturé. Avec la
-                décolonisation des années 1960-80 et l'indépendance de nombreux pays, la France a créé le système étendu
-                (200+) pour les nouveaux États tout en conservant les codes historiques.
+                <strong>Pourquoi deux systèmes de numérotation ?</strong> Le système original (1-199) créé en 1920 était
+                saturé. Avec la décolonisation des années 1960-80 et l'indépendance de nombreux pays, la France a créé
+                le système étendu (200+) pour les nouveaux États tout en conservant les codes historiques.
               </AlertDescription>
             </Alert>
           </CardContent>
@@ -146,7 +147,7 @@ export default function FrenchDiplomaticCodesListPageClient() {
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4" />
               <Input
-                placeholder="Rechercher un pays, code ou région..."
+                placeholder="Rechercher un numéro pays, code diplomatique ou région..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-10 border-blue-200 focus:border-blue-400"
@@ -434,10 +435,12 @@ export default function FrenchDiplomaticCodesListPageClient() {
         <Card className="mb-8 border-blue-200 bg-gradient-to-br from-blue-50 to-blue-100">
           <CardContent className="pt-8 pb-8">
             <div className="text-center">
-              <h2 className="text-2xl font-bold text-blue-700 mb-4">Identifier une plaque diplomatique française</h2>
+              <h2 className="text-2xl font-bold text-blue-700 mb-4">
+                Identifier le numéro pays d'une plaque diplomatique française
+              </h2>
               <p className="text-blue-600 mb-6">
-                Utilisez notre scanner intelligent pour identifier instantanément n'importe quelle plaque diplomatique
-                française.
+                Utilisez notre scanner intelligent pour identifier instantanément le numéro pays et tous les codes de
+                n'importe quelle plaque diplomatique française.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link href="/french">

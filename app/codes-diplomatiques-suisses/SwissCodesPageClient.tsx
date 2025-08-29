@@ -84,11 +84,13 @@ export default function SwissCodesPageClient() {
             Guide Suisse
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-            Liste complète des codes <span className="text-red-600">diplomatiques suisses</span>
+            Codes diplomatiques suisses : <span className="text-red-600">numéro pays plaque diplomatique</span>
           </h1>
           <p className="text-xl text-gray-600 mb-8 leading-relaxed max-w-3xl mx-auto">
-            Base de données exhaustive de tous les {swissDiplomaticCodes.length} codes diplomatiques utilisés en Suisse
-            :{countryCount} pays et territoires, {orgCount} organisations internationales basées à Genève et Berne.
+            Liste complète des numéros pays plaque diplomatique suisse : {swissDiplomaticCodes.length} codes
+            diplomatiques utilisés en Suisse avec {countryCount} pays et territoires, {orgCount} organisations
+            internationales basées à Genève et Berne. Identifiez facilement le code pays de n'importe quelle plaque CD
+            suisse.
           </p>
         </div>
 
@@ -112,6 +114,31 @@ export default function SwissCodesPageClient() {
                 <br />
                 <strong>Deux centres diplomatiques :</strong> Genève (organisations internationales) et Berne
                 (ambassades bilatérales).
+              </AlertDescription>
+            </Alert>
+          </CardContent>
+        </Card>
+
+        {/* Section mots-clés SEO */}
+        <Card className="mb-8 border-red-100">
+          <CardHeader className="bg-red-50">
+            <CardTitle className="flex items-center gap-2 text-red-700">
+              <Hash className="w-5 h-5" />
+              Identification numéro pays plaque diplomatique suisse
+            </CardTitle>
+            <CardDescription>Comment identifier le code pays d'une plaque diplomatique suisse</CardDescription>
+          </CardHeader>
+          <CardContent className="pt-6">
+            <Alert className="border-red-200 bg-red-50">
+              <Info className="h-4 w-4 text-red-600" />
+              <AlertDescription className="text-red-700">
+                <strong>Plaque diplomatique numéro pays :</strong> Chaque pays dispose d'un code numérique unique sur
+                les plaques diplomatiques suisses. Les codes 1-199 correspondent aux pays par ordre alphabétique, tandis
+                que les codes 400+ sont réservés aux organisations internationales.
+                <br />
+                <br />
+                <strong>Plaque CD suisse :</strong> Le format standard est [Canton] [Code pays]-[Numéro séquentiel]. Par
+                exemple, "BE 5-456" indique une plaque de l'ambassade d'Allemagne (code 5) à Berne.
               </AlertDescription>
             </Alert>
           </CardContent>
@@ -155,14 +182,14 @@ export default function SwissCodesPageClient() {
           <CardHeader className="bg-red-50">
             <CardTitle className="flex items-center gap-2 text-red-700">
               <Search className="w-5 h-5" />
-              Recherche dans {swissDiplomaticCodes.length} codes diplomatiques
+              Recherche numéro pays plaque diplomatique - {swissDiplomaticCodes.length} codes
             </CardTitle>
           </CardHeader>
           <CardContent className="pt-6">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4" />
               <Input
-                placeholder="Rechercher un pays, organisation ou code..."
+                placeholder="Rechercher un numéro pays, organisation ou code plaque diplomatique..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-10 border-red-200 focus:border-red-400"
@@ -192,12 +219,14 @@ export default function SwissCodesPageClient() {
           <CardHeader className="bg-red-50">
             <CardTitle className="flex items-center gap-2 text-red-700">
               <Globe className="w-5 h-5" />
-              {searchTerm ? `Résultats de recherche (${filteredCodes.length})` : "Tous les codes diplomatiques suisses"}
+              {searchTerm
+                ? `Résultats numéro pays (${filteredCodes.length})`
+                : "Liste complète numéro pays plaque diplomatique suisse"}
             </CardTitle>
             <CardDescription>
               {searchTerm
-                ? `Codes correspondant à "${searchTerm}"`
-                : "Liste exhaustive des pays et organisations internationales"}
+                ? `Codes plaque diplomatique correspondant à "${searchTerm}"`
+                : "Liste exhaustive des numéros pays et organisations internationales pour plaques diplomatiques suisses"}
             </CardDescription>
           </CardHeader>
           <CardContent className="pt-6">
