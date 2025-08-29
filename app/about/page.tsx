@@ -47,6 +47,30 @@ export default function AboutPage() {
               </CardContent>
             </Card>
 
+            <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <div className="text-2xl">📱</div>
+                  Essayez le scanner maintenant !
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <p className="text-sm">
+                  Identifiez instantanément n'importe quelle plaque diplomatique française ou suisse avec notre scanner
+                  intelligent.
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  Prenez une photo ou saisissez le numéro manuellement pour obtenir toutes les informations sur le pays
+                  et le statut diplomatique.
+                </p>
+                <div className="pt-2">
+                  <Link href="/">
+                    <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">🚀 Accéder au scanner</Button>
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
+
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">

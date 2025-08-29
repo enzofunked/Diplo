@@ -239,6 +239,20 @@ export default function DiploScanner() {
                 📱 Fonctionne sans internet
               </div>
             </div>
+            <div className="mt-6 px-4 py-4 bg-white/80 rounded-lg border border-blue-200">
+              <h2 className="text-lg font-semibold text-blue-900 mb-3 text-center">
+                Scanner de Plaque Diplomatique France & Suisse
+              </h2>
+              <p className="text-sm text-gray-700 leading-relaxed text-center">
+                <strong>Identifiez instantanément les plaques diplomatiques françaises et suisses</strong> avec notre
+                scanner gratuit. Découvrez le pays d'origine, le code diplomatique et les informations détaillées de
+                chaque plaque CD. Notre outil reconnaît automatiquement les{" "}
+                <strong>plaques diplomatiques françaises</strong> (format CD + numéro) et les{" "}
+                <strong>plaques diplomatiques suisses</strong> de Genève et Berne. Scanner plaque diplomatique en ligne,
+                identification pays plaque CD, décodage plaque corps diplomatique - tout en un seul clic ! Fonctionne
+                sans internet une fois chargé.
+              </p>
+            </div>
           </div>
         )
 
