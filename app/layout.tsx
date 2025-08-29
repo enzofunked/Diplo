@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Inter } from 'next/font/google'
 import "./globals.css"
 import { OfflineIndicator } from "../components/OfflineIndicator"
 import CookieConsent from "../components/CookieConsent"
@@ -117,9 +117,6 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <head>
-        {/* URL canonique absolue */}
-        <link rel="canonical" href="https://diplo-scanner.com" />
-
         {/* Preconnect pour optimiser les performances */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

@@ -1,9 +1,14 @@
-"use client"
-
-import { ArrowLeft, Info, Globe, Users, Shield } from "lucide-react"
+import type { Metadata } from "next"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import Link from "next/link"
+import { ArrowLeft, Info, Globe, Users, Shield } from "lucide-react"
+
+export const metadata: Metadata = {
+  title: "À propos - Diplo Scanner",
+  description:
+    "En savoir plus sur Diplo Scanner, notre mission, nos fonctionnalités et notre engagement envers la confidentialité et la sécurité des utilisateurs.",
+}
 
 export default function AboutPage() {
   return (
