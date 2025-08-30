@@ -11,13 +11,16 @@ const inter = Inter({ subsets: ["latin"], display: "swap" })
 export const metadata: Metadata = {
   metadataBase: new URL("https://diplo-scanner.com"),
   title: {
-    default: "Diplo Scanner - Scanner de Plaques Diplomatiques France & Suisse",
+    default: "Diplo Scanner – Scanner Plaques Diplomatiques France & Suisse",
     template: "%s | Diplo Scanner",
   },
   description:
     "Scanner gratuit de plaques diplomatiques françaises et suisses. Identifiez instantanément les pays et organisations avec notre outil en ligne.",
   keywords: [
     "plaque diplomatique",
+    "plaque diplomatique française",
+    "plaque diplomatique suisse",
+    "plaque diplomatique france",
     "scanner plaque",
     "plaque consulaire",
     "France",
