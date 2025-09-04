@@ -100,24 +100,6 @@ export default function SystemSelector({ onSelectSystem }: SystemSelectorProps) 
           </Card>
         </Link>
 
-        <div className="my-6">
-          <script
-            async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5475322044218525"
-            crossOrigin="anonymous"
-          ></script>
-          {/* bloc accueil horizontal*/}
-          <ins
-            className="adsbygoogle"
-            style={{ display: "block" }}
-            data-ad-client="ca-pub-5475322044218525"
-            data-ad-slot="9377647511"
-            data-ad-format="auto"
-            data-full-width-responsive="true"
-          ></ins>
-          <script>{`(adsbygoogle = window.adsbygoogle || []).push({});`}</script>
-        </div>
-
         <Link href="/swiss" className="block">
           <Card
             id="swiss-system-card"
