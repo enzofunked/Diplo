@@ -11,7 +11,7 @@ const inter = Inter({ subsets: ["latin"], display: "swap" })
 export const metadata: Metadata = {
   metadataBase: new URL("https://diplo-scanner.com"),
   title: {
-    default: "Diplo Scanner – Scanner Plaques Diplomatiques France & Suisse",
+    default: "Diplo Scanner – Scan Plaques Diplomatiques France & Suisse",
     template: "%s | Diplo Scanner",
   },
   description:
