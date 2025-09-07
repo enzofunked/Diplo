@@ -182,11 +182,7 @@ export default function PrivilegesImmunitesPage() {
             </div>
 
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-              Les privilèges et immunités liés aux
-              <span className="bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
-                {" "}
-                plaques diplomatiques
-              </span>
+              L'immunité diplomatique
             </h1>
 
             <p className="text-xl text-gray-600 mb-8 leading-relaxed max-w-3xl mx-auto">
@@ -238,26 +234,51 @@ export default function PrivilegesImmunitesPage() {
               <Card className="border-0 shadow-lg">
                 <CardContent className="p-8">
                   <div className="flex items-center space-x-3 mb-6">
-                    <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                      <BookOpen className="w-6 h-6 text-blue-600" />
-                    </div>
-                    <h2 className="text-3xl font-bold text-gray-900">Qu'est-ce que l'immunité diplomatique ?</h2>
+                    <h2 className="text-3xl font-bold text-gray-900">L’immunité diplomatique en France : fonctionnement, abus et portée</h2>
                   </div>
 
                   <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed">
-                    <p className="text-xl mb-6">
-                      <strong>L'immunité diplomatique</strong> est un principe fondamental du droit international qui
-                      protège les diplomates et leur permet d'exercer leurs fonctions sans ingérence de l'État hôte. Ces
-                      privilèges sont codifiés par la <strong>Convention de Vienne de 1961</strong> sur les relations
-                      diplomatiques.
-                    </p>
+                    <p><strong>L’immunité diplomatique</strong> intrigue et suscite parfois des débats passionnés dès que l’on aborde la <strong>protection des diplomates</strong>, les <strong>privilèges et immunités</strong> ou encore certains scandales inattendus. Pourtant, ce statut spécial ne sert pas uniquement à éviter les complications lors d’un contrôle routier. Derrière cette notion se cachent des règles précises, une logique internationale et des mécanismes de contrôle qui régulent les relations entre États sur le territoire français. Plongeons ensemble dans cet univers où inviolabilité rime avec responsabilité.</p>
 
-                    <p className="mb-6">
-                      Les <strong>plaques diplomatiques</strong> (CD, CC, CMD) ne sont pas de simples plaques
-                      d'immatriculation : elles sont le <strong>symbole visible</strong> de ces immunités et privilèges
-                      internationaux. Elles signalent aux autorités locales que le véhicule et ses occupants bénéficient
-                      d'un statut juridique particulier.
-                    </p>
+<h2>Immunité diplomatique : définition et fondements</h2>
+<p>Reconnaître à certains étrangers un niveau de <strong>protection élevé</strong> fait partie des traditions internationales depuis plusieurs siècles. L’<strong>immunité diplomatique</strong> trouve ses racines dans la nécessité de préserver la mission, la sécurité et la liberté d’action du personnel diplomatique étranger, sans risquer de subir des pressions injustifiées ou des poursuites judiciaires arbitraires.</p>
+<p>En France comme ailleurs, ces <strong>privilèges et immunités</strong> prennent leur source principale dans la <strong>convention de Vienne de 1961</strong>, pierre angulaire du droit international en matière de relations diplomatiques. Ce texte codifie le <strong>champ d’application</strong> des protections ainsi que leurs limites, imposant aux États-hôtes le devoir de respect envers les envoyés officiels tout en dessinant un cadre pour éviter les excès.</p>
+
+<h2>Le champ d’application et les limites de l’immunité diplomatique</h2>
+<p><strong>L’immunité diplomatique</strong> n’est pas une permission générale de contourner les lois locales. Elle s’applique avant tout au personnel des ambassades, à leur famille proche et à certaines <strong>missions diplomatiques</strong> spécifiques. Cette protection concerne à la fois <strong>l’inviolabilité du personnel diplomatique</strong> – c’est-à-dire l’impossibilité de l’arrêter ou de le détenir – et l’exemption de juridiction pénale, civile et administrative locale sous certaines conditions.</p>
+<p>Des restrictions existent néanmoins pour encadrer cette exemption. Un diplomate peut voir sa <strong>protection levée</strong> si son comportement déborde gravement les bornes fixées par la convention ou si l’État qu’il représente renonce explicitement à certains <strong>privilèges et immunités</strong>. Par ailleurs, des actes civils ou commerciaux réalisés à titre privé ne bénéficient pas toujours de cette inviolabilité — une nuance qui vise à limiter les <strong>abus et dérapages</strong> regrettés dans le passé.</p>
+
+<h2>Fonctionnement en pratique : exemples, contrôles et responsabilités</h2>
+<h3>Comment s’organise la protection des diplomates en France ?</h3>
+<p>Lorsqu’un diplomate, son conjoint ou ses enfants résident sur le sol français, leur quotidien est protégé par cette <strong>bulle réglementaire</strong>. Les forces de l’ordre n’ont pas le droit d’entrer dans leur domicile officiel ni de fouiller leur véhicule sans autorisation expresse. Ce principe vise à garantir leur libre exercice des fonctions, même lors de tensions diplomatiques. Au sein des ambassades ou consulats, <strong>l’inviolabilité</strong> s’étend également aux locaux, documents officiels et moyens de communication.</p>
+<p>Cette faveur « extraterritoriale » doit cependant être utilisée avec discernement. En contrepartie, la France attend de chaque représentation diplomatique ou consulaire le respect scrupuleux des lois et réglementations nationales. Les autorités françaises disposent d’ailleurs de moyens juridiques pour exercer une pression indirecte, comme la déclaration de <strong>persona non grata</strong> en cas de manquement grave.</p>
+
+<h3>Quelles sont les obligations réciproques et comment opère la levée de l’immunité ?</h3>
+<p><strong>L’immunité diplomatique</strong> fonctionne toujours selon un équilibre. Si un acte commis par un diplomate franchit le seuil du tolérable, son pays d’origine peut accepter que la France engage une action judiciaire. C’est ce que l’on appelle la <strong>levée de l’immunité</strong>, généralement réservée aux infractions graves.</p>
+<p>L’État accréditant peut aussi rappeler son agent fautif, mettant fin immédiatement à ses <strong>protections liées à la mission officielle</strong>. Le diplomate redevenu simple citoyen redevient pleinement justiciable devant les tribunaux français. Ces mécanismes de contrôle sont essentiels afin de conserver la confiance entre nations, même face à des <strong>abus isolés</strong>.</p>
+
+<h2>Immunité diplomatique et présidence : quelle situation en France ?</h2>
+<p>La situation du président bénéficie d’un autre type d’<strong>immunité</strong>, qui relève davantage du cadre institutionnel national. Mais lors de visites officielles à l’étranger, le chef de l’État français profite d’une <strong>protection similaire</strong> à celle offerte aux membres permanents des missions diplomatiques. Il ne peut être poursuivi, arrêté ou assigné devant une juridiction étrangère pendant la durée de sa mission officielle.</p>
+<p>Au sein même de l’État français, <strong>l’immunité du président</strong> a évolué au fil du temps. Une fois en dehors de la fonction, des poursuites restent possibles pour des agissements personnels ou postérieurs. Ce dispositif rappelle que le concept d’irresponsabilité n’est jamais absolu, y compris au sommet de l’État.</p>
+
+<h2>Abus et dérapages liés à l’immunité diplomatique</h2>
+<h3>Quels types d’abus ont déjà été constatés ?</h3>
+<p>Dans certains cas médiatisés, des diplomates ont profité de leur <strong>protection diplomatique</strong> pour contourner la justice française après des accidents de la route, des affaires familiales, voire des délits plus sérieux. Ces situations alimentent régulièrement le débat public autour des risques d’<strong>abus et dérapages</strong>, mettant en lumière la nécessité constante d’une réforme équilibrée du système.</p>
+<p>L’État d’accueil dispose pourtant d’instruments pour tempérer ces dérives. La demande de <strong>levée de l’immunité</strong> auprès du pays d’envoi reste fréquente si des preuves sérieuses émergent. Des exemples récents prouvent que la communauté internationale aspire désormais à moins de tolérance vis-à-vis des comportements inacceptables, même chez les représentants officiels.</p>
+
+<h3>Quels garde-fous limitent la tentation d’impunité ?</h3>
+<p>La <strong>convention de Vienne</strong> prévoit expressément que les usages privés, financiers ou commerciaux des diplomates ne relèvent pas toujours de <strong>l’immunité diplomatique</strong>. De plus, de nombreuses <strong>missions diplomatiques</strong> engagent strictement leurs membres sur le respect des lois locales afin d’éviter incidents et friction diplomatique. Ce rappel constant aux règles professionnelles aide à freiner les <strong>abus susceptibles de nuire</strong> à la réputation d’un État.</p>
+<p>L’opinion publique et la presse ont également un pouvoir indirect pour dissuader toute tentative d’utilisation indue de <strong>privilèges et immunités</strong>. Une vigilance accrue, alliée à des échanges transparents entre gouvernements, participe au maintien d’un juste équilibre entre efficacité diplomatique et responsabilité personnelle.</p>
+
+<h2>Principes-clés et fonctionnement global de l’immunité diplomatique</h2>
+<ul>
+<li><strong>Inviolabilité du personnel diplomatique</strong> : garantie absolue contre arrestation ou détention.</li>
+<li><strong>Exemption de juridiction locale</strong> : impossibilité pour les tribunaux nationaux d’entendre la plupart des affaires concernant des agents diplomatiques dans l’exercice de leurs fonctions officielles.</li>
+<li><strong>Levée possible en cas de faute grave</strong> : à l’initiative du pays représenté ou suite à un accord bilatéral exceptionnel.</li>
+<li><strong>Limites claires pour les activités privées</strong> : application stricte du droit local si l’acte sort du cadre professionnel ou officiel.</li>
+<li><strong>Rôle pivot de la convention de Vienne</strong> : référence majeure sur laquelle s’appuie toute la réglementation concernant missions diplomatiques et protection des diplomates.</li>
+</ul>
+<p>Cet équilibre fragile contribue à garder ouverts le dialogue et la diplomatie internationale, en garantissant simultanément la préservation de la souveraineté nationale et la paix entre États.</p>
 
                     <div className="bg-blue-50 border-l-4 border-blue-500 p-6 my-8">
                       <div className="flex items-start space-x-3">
@@ -300,7 +321,7 @@ export default function PrivilegesImmunitesPage() {
 
             {/* Types de plaques et privilèges */}
             <section className="mb-16">
-              <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Privilèges selon le type de plaque</h2>
+              <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center">Privilèges selon le type de plaque</h3>
 
               <div className="grid md:grid-cols-3 gap-6">
                 {/* Plaques CD */}
@@ -687,7 +708,7 @@ export default function PrivilegesImmunitesPage() {
 
             {/* FAQ */}
             <section className="mb-16">
-              <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Questions fréquentes</h2>
+              <h4 className="text-3xl font-bold text-gray-900 mb-8 text-center">Questions fréquentes</h4>
 
               <div className="space-y-6">
                 <Card className="border-0 shadow-lg">
