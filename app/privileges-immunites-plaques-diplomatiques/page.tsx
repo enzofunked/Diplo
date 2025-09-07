@@ -174,7 +174,7 @@ export default function PrivilegesImmunitesPage() {
         </header>
 
         {/* Hero Section */}
-        <section className="py-16 px-4">
+        <section className="py-5 px-4">
           <div className="container mx-auto max-w-4xl text-center">
             <div className="inline-flex items-center space-x-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
               <Shield className="w-4 h-4" />
@@ -238,9 +238,11 @@ export default function PrivilegesImmunitesPage() {
                   </div>
 
                   <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed">
+                  
                     <p><strong>L’immunité diplomatique</strong> intrigue et suscite parfois des débats passionnés dès que l’on aborde la <strong>protection des diplomates</strong>, les <strong>privilèges et immunités</strong> ou encore certains scandales inattendus. Pourtant, ce statut spécial ne sert pas uniquement à éviter les complications lors d’un contrôle routier. Derrière cette notion se cachent des règles précises, une logique internationale et des mécanismes de contrôle qui régulent les relations entre États sur le territoire français. Plongeons ensemble dans cet univers où inviolabilité rime avec responsabilité.</p>
 
 <h2>Immunité diplomatique : définition et fondements</h2>
+
 <p>Reconnaître à certains étrangers un niveau de <strong>protection élevé</strong> fait partie des traditions internationales depuis plusieurs siècles. L’<strong>immunité diplomatique</strong> trouve ses racines dans la nécessité de préserver la mission, la sécurité et la liberté d’action du personnel diplomatique étranger, sans risquer de subir des pressions injustifiées ou des poursuites judiciaires arbitraires.</p>
 <p>En France comme ailleurs, ces <strong>privilèges et immunités</strong> prennent leur source principale dans la <strong>convention de Vienne de 1961</strong>, pierre angulaire du droit international en matière de relations diplomatiques. Ce texte codifie le <strong>champ d’application</strong> des protections ainsi que leurs limites, imposant aux États-hôtes le devoir de respect envers les envoyés officiels tout en dessinant un cadre pour éviter les excès.</p>
 
@@ -258,19 +260,23 @@ export default function PrivilegesImmunitesPage() {
 <p>L’État accréditant peut aussi rappeler son agent fautif, mettant fin immédiatement à ses <strong>protections liées à la mission officielle</strong>. Le diplomate redevenu simple citoyen redevient pleinement justiciable devant les tribunaux français. Ces mécanismes de contrôle sont essentiels afin de conserver la confiance entre nations, même face à des <strong>abus isolés</strong>.</p>
 
 <h2>Immunité diplomatique et présidence : quelle situation en France ?</h2>
+
 <p>La situation du président bénéficie d’un autre type d’<strong>immunité</strong>, qui relève davantage du cadre institutionnel national. Mais lors de visites officielles à l’étranger, le chef de l’État français profite d’une <strong>protection similaire</strong> à celle offerte aux membres permanents des missions diplomatiques. Il ne peut être poursuivi, arrêté ou assigné devant une juridiction étrangère pendant la durée de sa mission officielle.</p>
 <p>Au sein même de l’État français, <strong>l’immunité du président</strong> a évolué au fil du temps. Une fois en dehors de la fonction, des poursuites restent possibles pour des agissements personnels ou postérieurs. Ce dispositif rappelle que le concept d’irresponsabilité n’est jamais absolu, y compris au sommet de l’État.</p>
 
 <h2>Abus et dérapages liés à l’immunité diplomatique</h2>
+
 <h3>Quels types d’abus ont déjà été constatés ?</h3>
 <p>Dans certains cas médiatisés, des diplomates ont profité de leur <strong>protection diplomatique</strong> pour contourner la justice française après des accidents de la route, des affaires familiales, voire des délits plus sérieux. Ces situations alimentent régulièrement le débat public autour des risques d’<strong>abus et dérapages</strong>, mettant en lumière la nécessité constante d’une réforme équilibrée du système.</p>
 <p>L’État d’accueil dispose pourtant d’instruments pour tempérer ces dérives. La demande de <strong>levée de l’immunité</strong> auprès du pays d’envoi reste fréquente si des preuves sérieuses émergent. Des exemples récents prouvent que la communauté internationale aspire désormais à moins de tolérance vis-à-vis des comportements inacceptables, même chez les représentants officiels.</p>
 
 <h3>Quels garde-fous limitent la tentation d’impunité ?</h3>
+
 <p>La <strong>convention de Vienne</strong> prévoit expressément que les usages privés, financiers ou commerciaux des diplomates ne relèvent pas toujours de <strong>l’immunité diplomatique</strong>. De plus, de nombreuses <strong>missions diplomatiques</strong> engagent strictement leurs membres sur le respect des lois locales afin d’éviter incidents et friction diplomatique. Ce rappel constant aux règles professionnelles aide à freiner les <strong>abus susceptibles de nuire</strong> à la réputation d’un État.</p>
 <p>L’opinion publique et la presse ont également un pouvoir indirect pour dissuader toute tentative d’utilisation indue de <strong>privilèges et immunités</strong>. Une vigilance accrue, alliée à des échanges transparents entre gouvernements, participe au maintien d’un juste équilibre entre efficacité diplomatique et responsabilité personnelle.</p>
 
 <h2>Principes-clés et fonctionnement global de l’immunité diplomatique</h2>
+
 <ul>
 <li><strong>Inviolabilité du personnel diplomatique</strong> : garantie absolue contre arrestation ou détention.</li>
 <li><strong>Exemption de juridiction locale</strong> : impossibilité pour les tribunaux nationaux d’entendre la plupart des affaires concernant des agents diplomatiques dans l’exercice de leurs fonctions officielles.</li>
