@@ -86,7 +86,6 @@ export default function FrenchDiplomaticGuidePage() {
             signification de chaque élément et identifiez instantanément le pays d'origine et le statut diplomatique.
           </p>
         </div>
-
         {/* Featured Image - Optimized for SEO */}
         <section className="mb-12">
           <Card className="overflow-hidden">
@@ -109,7 +108,6 @@ export default function FrenchDiplomaticGuidePage() {
             </CardContent>
           </Card>
         </section>
-
         {/* CTA Banner */}
         <Card className="mb-12 bg-gradient-to-r from-green-600 to-teal-600 text-white">
           <CardContent className="p-8 text-center">
@@ -137,7 +135,249 @@ export default function FrenchDiplomaticGuidePage() {
             </div>
           </CardContent>
         </Card>
+        {/* premier texte */}
+        <section className="mb-12">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center text-2xl">
+                <Globe className="mr-3 h-6 w-6 text-orange-600" />
+                Comprendre les plaques d'immatriculation vertes
+              </CardTitle>
+            </CardHeader>
 
+            <CardContent className="prose prose-orange max-w-none">
+              <div className="space-y-6">
+                <div>
+                  <h2 className="text-xl font-semibold mb-4">
+                    Comprendre les plaques d'immatriculation vertes : comment rechercher un code diplomatique
+                  </h2>
+                  <p className="text-gray-700 mb-4">
+                    Les <strong>plaques d'immatriculation vertes</strong> suscitent souvent la curiosité auprès des
+                    automobilistes et professionnels de la route. Inhabituelles sur nos routes, elles signalent pourtant
+                    un <strong>statut précis</strong> et confèrent à leur détenteur des{" "}
+                    <strong>privilèges singuliers</strong>. Pour toute personne amenée à croiser ou identifier ce type
+                    de plaque, bien comprendre son codage et sa signification représente un véritable atout, notamment
+                    lorsqu'il s'agit de <strong>rechercher un code diplomatique</strong> associé à un véhicule.
+                  </p>
+                  <p className="text-gray-700 mb-6">
+                    Voyons quels sont les <strong>codes visibles</strong> sur ces plaques, quelles informations ils
+                    livrent sur l'origine du véhicule et ses utilisateurs, ainsi que les avantages liés à ce type
+                    d'immatriculation. Ce guide vous aidera à reconnaître facilement une{" "}
+                    <strong>plaque diplomatique</strong> et à décoder ses éléments clés lors d'une recherche.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-semibold mb-3">Caractéristiques des plaques diplomatiques vertes</h3>
+                  <p className="text-gray-700 mb-4">
+                    Les <strong>plaques d'immatriculation vertes</strong> sont principalement réservées aux véhicules
+                    utilisés dans le cadre <strong>diplomatique</strong> ou <strong>consulaire</strong>. Ce format
+                    particulier permet aux autorités comme au grand public de distinguer rapidement ce type de voiture
+                    des autres grâce à une couleur spécifique et à des inscriptions distinctives.
+                  </p>
+                  <p className="text-gray-700 mb-4">
+                    En France, par exemple, la couleur <strong>verte jaspe</strong> est associée aux véhicules engageant
+                    une <strong>représentation internationale</strong>. Les inscriptions varient selon le statut du
+                    propriétaire : <strong>lettres orange</strong> pour les membres du{" "}
+                    <strong>corps diplomatique</strong>, <strong>lettres blanches</strong> pour les membres du personnel
+                    consulaire ou administratif. Ce contraste facilite une identification efficace en toutes
+                    circonstances.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-semibold mb-3">Organisation et signification des codes</h3>
+                  <p className="text-gray-700 mb-4">
+                    Chaque <strong>plaque verte</strong> comporte une <strong>structure normalisée</strong>, pensée pour
+                    délivrer plusieurs types d'informations essentielles. Apprendre à lire cette composition constitue
+                    la base pour retrouver un <strong>code pays</strong> ou distinguer le <strong>statut exact</strong>{" "}
+                    du porteur de la plaque.
+                  </p>
+                  <p className="text-gray-700 mb-2">La plupart des plaques comprennent trois parties essentielles :</p>
+                  <ul className="list-disc pl-6 mb-4 space-y-1 text-gray-700">
+                    <li>
+                      <strong>Un préfixe</strong> indiquant la nature du <strong>statut diplomatique</strong> (par
+                      exemple : CD pour Corps Diplomatique, C pour Consulaire, CMD pour Chef de Mission Diplomatique).
+                    </li>
+                    <li>
+                      <strong>Un numéro séquentiel</strong> attribué individuellement à chaque véhicule.
+                    </li>
+                    <li>
+                      <strong>Un code pays</strong> composé généralement de deux lettres désignant l'État ou l'
+                      <strong>organisation internationale</strong> représenté.
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="text-md font-semibold mb-3">Variations et exemples courants</h4>
+                  <p className="text-gray-700 mb-4">
+                    Il existe plusieurs dérivés selon la mission ou la fonction du titulaire. Par exemple, la lettre{" "}
+                    <strong>K</strong> indique un membre du <strong>personnel technique</strong>, tandis que des codes
+                    spécifiques comme <strong>E</strong>, <strong>N</strong>, <strong>S</strong> ou <strong>U</strong>{" "}
+                    informent sur l'appartenance à une <strong>organisation internationale</strong> (OCDE, OTAN, Conseil
+                    de l'Europe ou UNESCO).
+                  </p>
+                  <p className="text-gray-700 mb-4">
+                    Voici une configuration typique : « <strong>1234 CD XX</strong> ». Ici, 1234 identifie le véhicule,{" "}
+                    <strong>CD</strong> évoque le Corps Diplomatique, <strong>XX</strong> fait référence au pays
+                    accréditant. Un autre exemple : « 5 CMD 789 Z », où <strong>CMD</strong> marque le chef de mission
+                    diplomatique, 789 correspond à l'identification individuelle et <strong>Z</strong> précise une
+                    exonération fiscale.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="text-md font-semibold mb-3">Différences avec d'autres systèmes de plaques</h4>
+                  <p className="text-gray-700 mb-4">
+                    Contrairement aux <strong>plaques blanches classiques</strong>, qui n'indiquent ni fonction ni
+                    provenance spécifique, les <strong>plaques vertes</strong> transmettent systématiquement ces deux
+                    informations. Elles se démarquent aussi des <strong>plaques rouges</strong> (véhicules étrangers
+                    temporaires) ou des nouvelles plaques dédiées aux <strong>voitures électriques</strong>, désormais
+                    répandues dans certains pays européens.
+                  </p>
+                  <p className="text-gray-700 mb-4">
+                    Cette structuration spécialisée participe à la <strong>sécurité</strong> et à la{" "}
+                    <strong>transparence</strong> des déplacements internationaux sur le territoire hôte, tout en
+                    garantissant certains droits liés à la mission confiée.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-semibold mb-3">
+                    Démarches et intérêts pratiques de la recherche d'un code diplomatique
+                  </h3>
+                  <p className="text-gray-700 mb-4">
+                    Rechercher à qui appartient une <strong>plaque verte</strong> implique généralement d'identifier le{" "}
+                    <strong>code pays</strong> ou l'<strong>organisme international</strong> lié au véhicule. Cette
+                    étape s'avère essentielle pour les <strong>agents de sécurité</strong> ou les professionnels du
+                    stationnement, mais elle intéresse aussi le citoyen curieux ou l'étudiant en droit international.
+                  </p>
+                  <p className="text-gray-700 mb-4">
+                    L'identification commence toujours par la lecture attentive du <strong>préfixe</strong>, puis du{" "}
+                    <strong>code géographique/isopays</strong> figurant à la fin de la combinaison alphanumérique.
+                    Plusieurs listes officielles, mises à jour par le <strong>Ministère des Affaires étrangères</strong>
+                    , répertorient la correspondance complète entre les lettres présentes sur la plaque et les États ou
+                    organismes concernés.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="text-md font-semibold mb-3">Bénéfices liés au statut diplomatique</h4>
+                  <p className="text-gray-700 mb-2">
+                    Disposer d'une <strong>immatriculation verte</strong> offre divers avantages réglementaires et
+                    fiscaux. Parmi ceux-ci :
+                  </p>
+                  <ul className="list-disc pl-6 mb-4 space-y-1 text-gray-700">
+                    <li>
+                      <strong>L'immunité diplomatique</strong> limitant la juridiction locale sur le véhicule.
+                    </li>
+                    <li>
+                      <strong>L'exemption de certaines taxes</strong>, dont la TVA et les droits d'importation.
+                    </li>
+                    <li>
+                      <strong>La reconnaissance instantanée</strong> par les forces de l'ordre lors de contrôles.
+                    </li>
+                  </ul>
+                  <p className="text-gray-700 mb-4">
+                    Néanmoins, ces privilèges peuvent être suspendus ou retirés en cas de non-respect des règles, de
+                    vol, d'accidents graves ou de transfert de véhicule hors du cercle consulaire ou diplomatique
+                    autorisé.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="text-md font-semibold mb-3">Qui peut obtenir ce type de plaque ?</h4>
+                  <p className="text-gray-700 mb-4">
+                    Outre les <strong>ambassadeurs</strong> et les <strong>diplomates traditionnels</strong>, les
+                    membres de délégations permanentes auprès d'organisations internationales, des personnels
+                    administratifs attachés et parfois des <strong>organisations non gouvernementales</strong> dotées de
+                    missions officielles ont accès à ces plaques. Le processus d'enregistrement mobilise obligatoirement
+                    le <strong>Ministère des Affaires étrangères</strong> afin d'assurer la validité du statut.
+                  </p>
+                  <p className="text-gray-700 mb-4">
+                    Dans certains cas, des véhicules liés à des activités <strong>commerciales internationales</strong>{" "}
+                    peuvent également y prétendre, à condition que leur usage principal soit reconnu conforme à la
+                    mission diplomatique définie.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-semibold mb-3">Évolution, innovations et tendances récentes</h3>
+                  <p className="text-gray-700 mb-4">
+                    Le système d'attribution des <strong>plaques vertes</strong> connaît des évolutions régulières. À
+                    mesure que la <strong>mobilité internationale</strong> se complexifie et que la sécurité doit
+                    s'adapter à de nouveaux risques, le <strong>codage des plaques</strong> devient plus réfléchi. On
+                    observe l'émergence de <strong>nouveaux préfixes</strong>, notamment pour mieux distinguer des
+                    institutions internationales en expansion.
+                  </p>
+                  <p className="text-gray-700 mb-4">
+                    Avec le développement des <strong>technologies numériques</strong>, il est de plus en plus courant
+                    d'utiliser des outils ou bases de données en ligne pour vérifier instantanément à quelle entité
+                    appartiennent certains codes. Cela facilite la gestion de la circulation, optimise la lutte contre
+                    la fraude et anticipe les adaptations futures nécessaires dans la pratique diplomatique mondiale.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-semibold mb-3">Questions fréquentes</h3>
+                  <div className="bg-gray-50 p-6 rounded-lg">
+                    <div className="mb-6">
+                      <h4 className="font-semibold mb-2">
+                        Comment identifier l'origine d'une plaque diplomatique verte ?
+                      </h4>
+                      <p className="text-gray-700 mb-2">
+                        Pour trouver l'origine d'une <strong>plaque diplomatique verte</strong>, il faut analyser le{" "}
+                        <strong>code de deux lettres</strong> situé généralement à la fin de la plaque.
+                      </p>
+                      <ul className="list-disc pl-6 mb-3 space-y-1 text-gray-700">
+                        <li>
+                          Lire attentivement toutes les parties de la plaque : <strong>préfixe</strong>,{" "}
+                          <strong>numéro individuel</strong>, <strong>suffixe pays/organisation</strong>.
+                        </li>
+                        <li>
+                          Comparer le code vu avec des <strong>listes officielles</strong> publiées par les autorités
+                          compétentes.
+                        </li>
+                      </ul>
+                      <div className="overflow-x-auto">
+                        <table className="min-w-full border border-gray-300">
+                          <thead>
+                            <tr className="bg-gray-100">
+                              <th className="border border-gray-300 px-4 py-2 text-left">Code</th>
+                              <th className="border border-gray-300 px-4 py-2 text-left">Signification</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td className="border border-gray-300 px-4 py-2">CD</td>
+                              <td className="border border-gray-300 px-4 py-2">Corps Diplomatique</td>
+                            </tr>
+                            <tr>
+                              <td className="border border-gray-300 px-4 py-2">C</td>
+                              <td className="border border-gray-300 px-4 py-2">Corps consulaire</td>
+                            </tr>
+                            <tr>
+                              <td className="border border-gray-300 px-4 py-2">E</td>
+                              <td className="border border-gray-300 px-4 py-2">OCDE</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+
+                  <p className="text-gray-700 mt-4">
+                    <strong>À retenir :</strong> Pour rester informé des évolutions concernant les{" "}
+                    <strong>codes diplomatiques</strong> et l'<strong>immatriculation</strong> des véhicules officiels,
+                    il est recommandé de consulter régulièrement les listes officielles éditées par les autorités
+                    nationales compétentes.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </section>
         {/* Structure Overview */}
         <section className="mb-12">
           <Card>
@@ -193,7 +433,7 @@ export default function FrenchDiplomaticGuidePage() {
                         </div>
                       </div>
                       <p className="text-xs text-orange-700 mt-2">
-                        Exemple : <span className="font-mono">E 5 CD 123</span> = Allemagne à l'OCDE
+                        Exemple : <span className="font-mono">E 5 CD 123</span> = Allemagne rattaché à l'OCDE
                       </p>
                     </div>
                   </div>
@@ -239,7 +479,6 @@ export default function FrenchDiplomaticGuidePage() {
             </CardContent>
           </Card>
         </section>
-
         {/* Status Codes */}
         <section className="mb-12">
           <Card>
@@ -305,25 +544,37 @@ export default function FrenchDiplomaticGuidePage() {
                       Consuls généraux et chefs de poste consulaire de rang élevé.
                     </p>
                   </div>
+
+                  <div className="p-4 bg-red-50 rounded-lg border-l-4 border-red-500">
+                    <div className="flex items-center justify-between mb-2">
+                      <Badge variant="secondary" className="text-lg px-3 py-1">
+                        K
+                      </Badge>
+                      <span className="text-sm text-gray-600">Technique</span>
+                    </div>
+                    <h3 className="font-semibold text-lg text-gray-900">Personnel technique</h3>
+                    <p className="text-gray-700 text-sm">Personnel technique ou administratif non diplomatique</p>
+                  </div>
                 </div>
               </div>
 
               <div className="bg-gray-50 p-6 rounded-lg">
                 <h3 className="text-lg font-semibold mb-3 text-gray-900">Hiérarchie diplomatique</h3>
                 <div className="flex flex-wrap gap-2">
-                  <Badge className="bg-purple-600">CMD (Ambassadeur)</Badge>
+                  <Badge className="bg-purple-600">CMD</Badge>
                   <ArrowRight className="h-4 w-4 text-gray-400 mt-1" />
-                  <Badge className="bg-blue-600">CD (Personnel diplomatique)</Badge>
+                  <Badge className="bg-blue-600">CD</Badge>
                   <ArrowRight className="h-4 w-4 text-gray-400 mt-1" />
-                  <Badge className="bg-amber-600">CC (Chef consulaire)</Badge>
+                  <Badge className="bg-amber-600">CC</Badge>
                   <ArrowRight className="h-4 w-4 text-gray-400 mt-1" />
-                  <Badge className="bg-green-600">C (Personnel consulaire)</Badge>
+                  <Badge className="bg-green-600">C</Badge>
+                  <ArrowRight className="h-4 w-4 text-gray-400 mt-1" />
+                  <Badge className="bg-red-600">K</Badge>
                 </div>
               </div>
             </CardContent>
           </Card>
         </section>
-
         {/* Country Codes */}
         <section className="mb-12">
           <Card>
@@ -405,7 +656,6 @@ export default function FrenchDiplomaticGuidePage() {
             </CardContent>
           </Card>
         </section>
-
         {/* Double Codes System */}
         <section className="mb-12">
           <Card>
@@ -521,284 +771,357 @@ export default function FrenchDiplomaticGuidePage() {
             </CardContent>
           </Card>
         </section>
-
         {/* Prefixes and Suffixes */}
         <section className="mb-12">
+          {" "}
           <Card>
+            {" "}
             <CardHeader>
+              {" "}
               <CardTitle className="flex items-center text-2xl">
-                <Globe className="mr-3 h-6 w-6 text-orange-600" />
-                Préfixes et suffixes spéciaux
-              </CardTitle>
-            </CardHeader>
+                {" "}
+                <Globe className="mr-3 h-6 w-6 text-orange-600" /> Préfixes et suffixes spéciaux{" "}
+              </CardTitle>{" "}
+            </CardHeader>{" "}
             <CardContent className="space-y-6">
+              {" "}
               <div className="grid md:grid-cols-2 gap-8">
+                {" "}
                 <div className="space-y-6">
+                  {" "}
                   <div className="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-500">
-                    <h3 className="font-semibold text-orange-900 mb-4 text-xl">Préfixes organisationnels</h3>
+                    {" "}
+                    <h3 className="font-semibold text-orange-900 mb-4 text-xl">Préfixes organisationnels</h3>{" "}
                     <p className="text-orange-800 mb-4 text-sm">
+                      {" "}
                       Certaines plaques portent un préfixe indiquant l'appartenance à une organisation internationale
-                      basée en France.
-                    </p>
-
+                      basée en France.{" "}
+                    </p>{" "}
                     <div className="space-y-4">
+                      {" "}
                       <div className="bg-white p-4 rounded-lg border border-orange-200">
+                        {" "}
                         <div className="flex items-center justify-between mb-2">
-                          <span className="font-mono text-2xl font-bold text-orange-600">E</span>
-                          <Badge className="bg-orange-600">OCDE</Badge>
-                        </div>
+                          {" "}
+                          <span className="font-mono text-2xl font-bold text-orange-600">E</span>{" "}
+                          <Badge className="bg-orange-600">OCDE</Badge>{" "}
+                        </div>{" "}
                         <h4 className="font-semibold text-gray-900">
-                          Organisation de Coopération et de Développement Économiques
-                        </h4>
-                        <p className="text-sm text-gray-600 mt-1">Siège : Paris, 16ème arrondissement</p>
+                          {" "}
+                          Organisation de Coopération et de Développement Économiques{" "}
+                        </h4>{" "}
+                        <p className="text-sm text-gray-600 mt-1">Siège : Paris, 16ème arrondissement</p>{" "}
                         <p className="text-xs text-orange-700 mt-2 font-mono bg-orange-100 p-2 rounded">
-                          Exemple : E 5 CD 123 = Personnel allemand à l'OCDE
-                        </p>
-                      </div>
-
+                          {" "}
+                          Exemple : E 5 CD 123 = Personnel allemand à l'OCDE{" "}
+                        </p>{" "}
+                      </div>{" "}
                       <div className="bg-white p-4 rounded-lg border border-orange-200">
+                        {" "}
                         <div className="flex items-center justify-between mb-2">
-                          <span className="font-mono text-2xl font-bold text-orange-600">U</span>
-                          <Badge className="bg-orange-600">UNESCO</Badge>
-                        </div>
-                        <h4 className="font-semibold text-gray-900">Organisation des Nations Unies pour l'Éducation</h4>
-                        <p className="text-sm text-gray-600 mt-1">Siège : Paris, 7ème arrondissement</p>
+                          {" "}
+                          <span className="font-mono text-2xl font-bold text-orange-600">U</span>{" "}
+                          <Badge className="bg-orange-600">UNESCO</Badge>{" "}
+                        </div>{" "}
+                        <h4 className="font-semibold text-gray-900">Organisation des Nations Unies pour l'Éducation</h4>{" "}
+                        <p className="text-sm text-gray-600 mt-1">Siège : Paris, 7ème arrondissement</p>{" "}
                         <p className="text-xs text-orange-700 mt-2 font-mono bg-orange-100 p-2 rounded">
-                          Exemple : U 104 CMD 7 = Ambassadeur suédois à l'UNESCO
-                        </p>
-                      </div>
-
+                          {" "}
+                          Exemple : U 104 CMD 7 = Ambassadeur suédois à l'UNESCO{" "}
+                        </p>{" "}
+                      </div>{" "}
                       <div className="bg-white p-4 rounded-lg border border-orange-200">
+                        {" "}
                         <div className="flex items-center justify-between mb-2">
-                          <span className="font-mono text-2xl font-bold text-orange-600">S</span>
-                          <Badge className="bg-orange-600">Conseil UE</Badge>
-                        </div>
-                        <h4 className="font-semibold text-gray-900">Conseil de l'Europe</h4>
-                        <p className="text-sm text-gray-600 mt-1">Bureau de liaison à Paris</p>
+                          {" "}
+                          <span className="font-mono text-2xl font-bold text-orange-600">S</span>{" "}
+                          <Badge className="bg-orange-600">Conseil UE</Badge>{" "}
+                        </div>{" "}
+                        <h4 className="font-semibold text-gray-900">Conseil de l'Europe</h4>{" "}
+                        <p className="text-sm text-gray-600 mt-1">Bureau de liaison à Paris</p>{" "}
                         <p className="text-xs text-orange-700 mt-2 font-mono bg-orange-100 p-2 rounded">
-                          Exemple : S 60 CD 89 = Personnel italien au Conseil
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
+                          {" "}
+                          Exemple : S 60 CD 89 = Personnel italien au Conseil{" "}
+                        </p>{" "}
+                      </div>{" "}
+                    </div>{" "}
+                  </div>{" "}
+                </div>{" "}
                 <div className="space-y-6">
+                  {" "}
                   <div className="bg-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500">
-                    <h3 className="font-semibold text-indigo-900 mb-4 text-xl">Suffixes fiscaux</h3>
+                    {" "}
+                    <h3 className="font-semibold text-indigo-900 mb-4 text-xl">Suffixes fiscaux</h3>{" "}
                     <p className="text-indigo-800 mb-4 text-sm">
-                      Les suffixes indiquent le statut fiscal du véhicule concernant les taxes françaises.
-                    </p>
-
+                      {" "}
+                      Les suffixes indiquent le statut fiscal du véhicule concernant les taxes françaises.{" "}
+                    </p>{" "}
                     <div className="space-y-4">
+                      {" "}
                       <div className="bg-white p-4 rounded-lg border border-indigo-200">
+                        {" "}
                         <div className="flex items-center justify-between mb-2">
-                          <span className="font-mono text-2xl font-bold text-indigo-600">Z</span>
-                          <Badge className="bg-green-600">Exonéré</Badge>
-                        </div>
-                        <h4 className="font-semibold text-gray-900">Exonération fiscale totale</h4>
+                          {" "}
+                          <span className="font-mono text-2xl font-bold text-indigo-600">Z</span>{" "}
+                          <Badge className="bg-green-600">Exonéré</Badge>{" "}
+                        </div>{" "}
+                        <h4 className="font-semibold text-gray-900">Exonération fiscale totale</h4>{" "}
                         <ul className="text-sm text-gray-600 mt-2 space-y-1">
-                          <li>• Pas de TVA sur l'achat</li>
-                          <li>• Exonération de taxe sur les carburants</li>
-                          <li>• Statut diplomatique complet</li>
-                        </ul>
+                          {" "}
+                          <li>• Pas de TVA sur l'achat</li> <li>• Exonération de taxe sur les carburants</li>{" "}
+                          <li>• Statut diplomatique complet</li>{" "}
+                        </ul>{" "}
                         <p className="text-xs text-indigo-700 mt-2 font-mono bg-indigo-100 p-2 rounded">
-                          Exemple : 1 CMD 001 Z = Ambassadeur US exonéré
-                        </p>
-                      </div>
-
+                          {" "}
+                          Exemple : 1 CMD 001 Z = Ambassadeur US exonéré{" "}
+                        </p>{" "}
+                      </div>{" "}
                       <div className="bg-white p-4 rounded-lg border border-indigo-200">
+                        {" "}
                         <div className="flex items-center justify-between mb-2">
-                          <span className="font-mono text-2xl font-bold text-indigo-600">X</span>
-                          <Badge className="bg-red-600">Non exonéré</Badge>
-                        </div>
-                        <h4 className="font-semibold text-gray-900">Soumis aux taxes françaises</h4>
+                          {" "}
+                          <span className="font-mono text-2xl font-bold text-indigo-600">X</span>{" "}
+                          <Badge className="bg-red-600">Non exonéré</Badge>{" "}
+                        </div>{" "}
+                        <h4 className="font-semibold text-gray-900">Soumis aux taxes françaises</h4>{" "}
                         <ul className="text-sm text-gray-600 mt-2 space-y-1">
-                          <li>• TVA applicable</li>
-                          <li>• Taxes sur carburants dues</li>
-                          <li>• Personnel technique/administratif</li>
-                        </ul>
+                          {" "}
+                          <li>• TVA applicable</li> <li>• Taxes sur carburants dues</li>{" "}
+                          <li>• Personnel technique/administratif</li>{" "}
+                        </ul>{" "}
                         <p className="text-xs text-indigo-700 mt-2 font-mono bg-indigo-100 p-2 rounded">
-                          Exemple : 5 K 234 X = Personnel technique allemand
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
+                          {" "}
+                          Exemple : 5 K 234 X = Personnel technique allemand{" "}
+                        </p>{" "}
+                      </div>{" "}
+                    </div>{" "}
+                  </div>{" "}
                   <div className="bg-gray-50 p-4 rounded-lg">
-                    <h4 className="font-semibold text-gray-900 mb-2">💡 Bon à savoir</h4>
+                    {" "}
+                    <h4 className="font-semibold text-gray-900 mb-2">💡 Bon à savoir</h4>{" "}
                     <ul className="text-sm text-gray-700 space-y-1">
-                      <li>• Les suffixes ne sont pas toujours présents</li>
-                      <li>• L'absence de suffixe = statut standard</li>
-                      <li>• Les préfixes sont rares (organisations spéciales)</li>
-                      <li>• Combinaisons possibles : préfixe + code + statut + numéro + suffixe</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
+                      {" "}
+                      <li>• Les suffixes ne sont pas toujours présents</li>{" "}
+                      <li>• L'absence de suffixe = statut standard</li>{" "}
+                      <li>• Les préfixes sont rares (organisations spéciales)</li>{" "}
+                      <li>• Combinaisons possibles : préfixe + code + statut + numéro + suffixe</li>{" "}
+                    </ul>{" "}
+                  </div>{" "}
+                </div>{" "}
+              </div>{" "}
               <div className="bg-gradient-to-r from-orange-100 to-indigo-100 p-6 rounded-lg">
+                {" "}
                 <h3 className="font-semibold text-gray-900 mb-4 text-xl">
-                  Exemples complets avec préfixes et suffixes
-                </h3>
+                  {" "}
+                  Exemples complets avec préfixes et suffixes{" "}
+                </h3>{" "}
                 <div className="grid md:grid-cols-2 gap-4">
+                  {" "}
                   <div className="bg-white p-4 rounded-lg shadow-sm">
+                    {" "}
                     <div className="text-center mb-3">
+                      {" "}
                       <div className="bg-green-600 text-orange-400 p-3 rounded font-mono text-2xl font-bold inline-block">
-                        E 205 CD 456 Z
-                      </div>
-                    </div>
+                        {" "}
+                        E 205 CD 456 Z{" "}
+                      </div>{" "}
+                    </div>{" "}
                     <div className="text-sm space-y-1">
+                      {" "}
                       <p>
-                        <strong>E</strong> = OCDE
-                      </p>
+                        {" "}
+                        <strong>E</strong> = OCDE{" "}
+                      </p>{" "}
                       <p>
-                        <strong>205</strong> = Allemagne (code moderne)
-                      </p>
+                        {" "}
+                        <strong>205</strong> = Allemagne (code moderne){" "}
+                      </p>{" "}
                       <p>
-                        <strong>CD</strong> = Corps Diplomatique
-                      </p>
+                        {" "}
+                        <strong>CD</strong> = Corps Diplomatique{" "}
+                      </p>{" "}
                       <p>
-                        <strong>456</strong> = Véhicule n°456
-                      </p>
+                        {" "}
+                        <strong>456</strong> = Véhicule n°456{" "}
+                      </p>{" "}
                       <p>
-                        <strong>Z</strong> = Exonéré de taxes
-                      </p>
-                    </div>
+                        {" "}
+                        <strong>Z</strong> = Exonéré de taxes{" "}
+                      </p>{" "}
+                    </div>{" "}
                     <p className="text-xs text-gray-600 mt-2 italic">
-                      Diplomate allemand à l'OCDE avec exonération fiscale
-                    </p>
-                  </div>
-
+                      {" "}
+                      Diplomate allemand à l'OCDE avec exonération fiscale{" "}
+                    </p>{" "}
+                  </div>{" "}
                   <div className="bg-white p-4 rounded-lg shadow-sm">
+                    {" "}
                     <div className="text-center mb-3">
+                      {" "}
                       <div className="bg-green-600 text-orange-400 p-3 rounded font-mono text-2xl font-bold inline-block">
-                        U 304 CMD 7
-                      </div>
-                    </div>
+                        {" "}
+                        U 304 CMD 7{" "}
+                      </div>{" "}
+                    </div>{" "}
                     <div className="text-sm space-y-1">
+                      {" "}
                       <p>
-                        <strong>U</strong> = UNESCO
-                      </p>
+                        {" "}
+                        <strong>U</strong> = UNESCO{" "}
+                      </p>{" "}
                       <p>
-                        <strong>304</strong> = Suède (code moderne)
-                      </p>
+                        {" "}
+                        <strong>304</strong> = Suède (code moderne){" "}
+                      </p>{" "}
                       <p>
-                        <strong>CMD</strong> = Chef de Mission
-                      </p>
+                        {" "}
+                        <strong>CMD</strong> = Chef de Mission{" "}
+                      </p>{" "}
                       <p>
-                        <strong>7</strong> = Véhicule n°7
-                      </p>
+                        {" "}
+                        <strong>7</strong> = Véhicule n°7{" "}
+                      </p>{" "}
                       <p>
-                        <em>Pas de suffixe</em> = Statut standard
-                      </p>
-                    </div>
-                    <p className="text-xs text-gray-600 mt-2 italic">Ambassadeur suédois à l'UNESCO</p>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </section>
-
-        {/* Practical Examples */}
+                        {" "}
+                        <em>Pas de suffixe</em> = Statut standard{" "}
+                      </p>{" "}
+                    </div>{" "}
+                    <p className="text-xs text-gray-600 mt-2 italic">Ambassadeur suédois à l'UNESCO</p>{" "}
+                  </div>{" "}
+                </div>{" "}
+              </div>{" "}
+            </CardContent>{" "}
+          </Card>{" "}
+        </section>{" "}
+        {/* Practical Examples */}{" "}
         <section className="mb-12">
+          {" "}
           <Card>
+            {" "}
             <CardHeader>
+              {" "}
               <CardTitle className="flex items-center text-2xl">
-                <Info className="mr-3 h-6 w-6 text-amber-600" />
-                Exemples pratiques de déchiffrage
-              </CardTitle>
-            </CardHeader>
+                {" "}
+                <Info className="mr-3 h-6 w-6 text-amber-600" /> Exemples pratiques de déchiffrage{" "}
+              </CardTitle>{" "}
+            </CardHeader>{" "}
             <CardContent className="space-y-8">
+              {" "}
               <div className="space-y-6">
+                {" "}
                 <div className="p-6 bg-gradient-to-r from-green-600 to-green-700 rounded-lg">
+                  {" "}
                   <div className="text-center mb-4">
+                    {" "}
                     <div className="bg-green-600 text-orange-400 p-4 rounded font-mono text-3xl font-bold inline-block shadow-lg">
-                      1 CMD 001
-                    </div>
-                  </div>
+                      {" "}
+                      1 CMD 001{" "}
+                    </div>{" "}
+                  </div>{" "}
                   <div className="bg-white p-4 rounded-lg">
-                    <h3 className="font-semibold text-lg mb-3 text-gray-900">Déchiffrage :</h3>
+                    {" "}
+                    <h3 className="font-semibold text-lg mb-3 text-gray-900">Déchiffrage :</h3>{" "}
                     <ul className="space-y-2 text-gray-700">
+                      {" "}
                       <li>
-                        <strong>1</strong> = États-Unis d'Amérique
-                      </li>
+                        {" "}
+                        <strong>1</strong> = États-Unis d'Amérique{" "}
+                      </li>{" "}
                       <li>
-                        <strong>CMD</strong> = Chef de Mission Diplomatique (Ambassadeur)
-                      </li>
+                        {" "}
+                        <strong>CMD</strong> = Chef de Mission Diplomatique (Ambassadeur){" "}
+                      </li>{" "}
                       <li>
-                        <strong>001</strong> = Premier véhicule de l'ambassadeur américain
-                      </li>
-                    </ul>
+                        {" "}
+                        <strong>001</strong> = Premier véhicule de l'ambassadeur américain{" "}
+                      </li>{" "}
+                    </ul>{" "}
                     <p className="mt-3 text-sm text-gray-600 italic">
+                      {" "}
                       Cette plaque appartient très probablement au véhicule officiel de l'Ambassadeur des États-Unis en
-                      France.
-                    </p>
-                  </div>
-                </div>
-
+                      France.{" "}
+                    </p>{" "}
+                  </div>{" "}
+                </div>{" "}
                 <div className="p-6 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg">
+                  {" "}
                   <div className="text-center mb-4">
+                    {" "}
                     <div className="bg-green-600 text-orange-400 p-4 rounded font-mono text-3xl font-bold inline-block shadow-lg">
-                      15 CD 2847
-                    </div>
-                  </div>
+                      {" "}
+                      15 CD 2847{" "}
+                    </div>{" "}
+                  </div>{" "}
                   <div className="bg-white p-4 rounded-lg">
-                    <h3 className="font-semibold text-lg mb-3 text-gray-900">Déchiffrage :</h3>
+                    {" "}
+                    <h3 className="font-semibold text-lg mb-3 text-gray-900">Déchiffrage :</h3>{" "}
                     <ul className="space-y-2 text-gray-700">
+                      {" "}
                       <li>
-                        <strong>15</strong> = Japon
-                      </li>
+                        {" "}
+                        <strong>15</strong> = Japon{" "}
+                      </li>{" "}
                       <li>
-                        <strong>CD</strong> = Corps Diplomatique
-                      </li>
+                        {" "}
+                        <strong>CD</strong> = Corps Diplomatique{" "}
+                      </li>{" "}
                       <li>
-                        <strong>2847</strong> = Véhicule n°2847 de l'ambassade
-                      </li>
-                    </ul>
+                        {" "}
+                        <strong>2847</strong> = Véhicule n°2847 de l'ambassade{" "}
+                      </li>{" "}
+                    </ul>{" "}
                     <p className="mt-3 text-sm text-gray-600 italic">
-                      Véhicule du personnel diplomatique de l'Ambassade du Japon en France.
-                    </p>
-                  </div>
-                </div>
-
+                      {" "}
+                      Véhicule du personnel diplomatique de l'Ambassade du Japon en France.{" "}
+                    </p>{" "}
+                  </div>{" "}
+                </div>{" "}
                 <div className="p-6 bg-gradient-to-r from-purple-600 to-purple-700 rounded-lg">
+                  {" "}
                   <div className="text-center mb-4">
+                    {" "}
                     <div className="bg-green-600 text-orange-400 p-4 rounded font-mono text-3xl font-bold inline-block shadow-lg">
-                      E 205 CD 89 Z
-                    </div>
-                  </div>
+                      {" "}
+                      E 205 CD 89 Z{" "}
+                    </div>{" "}
+                  </div>{" "}
                   <div className="bg-white p-4 rounded-lg">
-                    <h3 className="font-semibold text-lg mb-3 text-gray-900">Déchiffrage complet :</h3>
+                    {" "}
+                    <h3 className="font-semibold text-lg mb-3 text-gray-900">Déchiffrage complet :</h3>{" "}
                     <ul className="space-y-2 text-gray-700">
+                      {" "}
                       <li>
-                        <strong>E</strong> = Organisation OCDE
-                      </li>
+                        {" "}
+                        <strong>E</strong> = Organisation OCDE{" "}
+                      </li>{" "}
                       <li>
-                        <strong>205</strong> = Allemagne (code moderne, équivalent au code 5)
-                      </li>
+                        {" "}
+                        <strong>205</strong> = Allemagne (code moderne, équivalent au code 5){" "}
+                      </li>{" "}
                       <li>
-                        <strong>CD</strong> = Corps Diplomatique
-                      </li>
+                        {" "}
+                        <strong>CD</strong> = Corps Diplomatique{" "}
+                      </li>{" "}
                       <li>
-                        <strong>89</strong> = Véhicule n°89
-                      </li>
+                        {" "}
+                        <strong>89</strong> = Véhicule n°89{" "}
+                      </li>{" "}
                       <li>
-                        <strong>Z</strong> = Exonéré de taxes françaises
-                      </li>
-                    </ul>
+                        {" "}
+                        <strong>Z</strong> = Exonéré de taxes françaises{" "}
+                      </li>{" "}
+                    </ul>{" "}
                     <p className="mt-3 text-sm text-gray-600 italic">
+                      {" "}
                       Véhicule du personnel diplomatique allemand travaillant à l'OCDE à Paris, avec exonération fiscale
-                      complète.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+                      complète.{" "}
+                    </p>{" "}
+                  </div>{" "}
+                </div>{" "}
+              </div>{" "}
+            </CardContent>{" "}
+          </Card>{" "}
         </section>
-
         {/* Tips Section */}
         <section className="mb-12">
           <Card>
@@ -873,7 +1196,6 @@ export default function FrenchDiplomaticGuidePage() {
             </CardContent>
           </Card>
         </section>
-
         {/* CTA Section */}
         <section className="mb-12">
           <Card className="bg-gradient-to-r from-green-600 to-teal-700 text-white">
@@ -902,7 +1224,6 @@ export default function FrenchDiplomaticGuidePage() {
             </CardContent>
           </Card>
         </section>
-
         {/* Related Links */}
         <section>
           <Card>

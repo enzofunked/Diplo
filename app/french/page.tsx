@@ -95,7 +95,7 @@ export default function FrenchPage() {
         <div className="text-center mb-8 pt-8">
           <div className="flex items-center justify-center gap-2 mb-2">
             <div className="text-3xl">🌍</div>
-            <h1 className="text-3xl font-bold text-blue-900">Diplo Scanner</h1>
+            <p className="text-3xl font-bold text-blue-900">Diplo Scanner</p>
           </div>
           <p className="text-blue-700">Plaques diplomatiques France & Suisse</p>
         </div>
@@ -109,7 +109,7 @@ export default function FrenchPage() {
             </Link>
             <div className="flex items-center gap-2">
               <span className="text-2xl">🇫🇷</span>
-              <h2 className="text-lg font-semibold">Identifier plaque française</h2>
+              <h1 className="text-lg font-semibold">Plaque diplomatique france</h1>
             </div>
           </div>
 

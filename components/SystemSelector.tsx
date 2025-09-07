@@ -57,9 +57,9 @@ export default function SystemSelector({ onSelectSystem }: SystemSelectorProps) 
   return (
     <div id="system-selector" className="space-y-6">
       <div id="system-selector-header" className="text-center">
-        <h2 id="system-selector-title" className="text-2xl font-bold text-gray-900 mb-2">
+        <h1 id="system-selector-title" className="text-2xl font-bold text-gray-900 mb-2">
           Scanner de plaques diplomatiques françaises et suisses
-        </h2>
+        </h1>
         <p id="system-selector-subtitle" className="text-gray-600">
           Sélectionnez le type de plaque diplomatique à identifier
         </p>
@@ -73,15 +73,15 @@ export default function SystemSelector({ onSelectSystem }: SystemSelectorProps) 
           >
             <CardContent id="french-system-content" className="p-6">
               <div className="flex-1">
-                <h3 id="french-system-title" className="text-xl font-bold text-green-800 flex items-center gap-3 mb-1">
+                <h2 id="french-system-title" className="text-xl font-bold text-green-800 flex items-center gap-3 mb-1">
                   <span id="french-flag" className="text-2xl">
                     🇫🇷
                   </span>
-                  Plaques CD françaises
+                  Plaque diplomatique france
+                </h2>
+                <h3 id="french-system-description" className="text-sm text-green-600 mb-3">
+                  Plaque diplomatique verte
                 </h3>
-                <p id="french-system-description" className="text-sm text-green-600 mb-3">
-                  Plaques vertes avec codes numériques
-                </p>
                 <div id="french-examples" className="space-y-3 bg-green-50 p-3 rounded-lg">
                   <div id="french-example-1" className="flex items-center gap-3">
                     <PlateExample text="6 CMD 1" type="french" />
@@ -107,15 +107,15 @@ export default function SystemSelector({ onSelectSystem }: SystemSelectorProps) 
           >
             <CardContent id="swiss-system-content" className="p-6">
               <div className="flex-1">
-                <h3 id="swiss-system-title" className="text-xl font-bold text-red-800 flex items-center gap-3 mb-1">
+                <h2 id="swiss-system-title" className="text-xl font-bold text-red-800 flex items-center gap-3 mb-1">
                   <span id="swiss-flag" className="text-2xl">
                     🇨🇭
                   </span>
-                  Plaques CD suisses
+                  Plaque diplomatique suisse
+                </h2>
+                <h3 id="swiss-system-description" className="text-sm text-red-600 mb-3">
+                  CD plaque suisse
                 </h3>
-                <p id="swiss-system-description" className="text-sm text-red-600 mb-3">
-                  Plaques avec statuts et blasons cantonaux
-                </p>
                 <div id="swiss-examples" className="space-y-3 bg-red-50 p-3 rounded-lg">
                   <div id="swiss-example-1" className="flex items-center gap-3">
                     <PlateExample text="9 • 1" type="swiss" canton="BE" status="CD" />
