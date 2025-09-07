@@ -2346,7 +2346,7 @@ export const frenchDiplomaticCodes: FrenchDiplomaticCode[] = [
     code: "451",
     countryName: "Commission européenne",
     countryCode: "EC",
-    flagEmoji: "🇪������",
+    flagEmoji: "🇪��������",
     capital: "Bruxelles-Luxembourg",
     region: "International",
     status: "active",

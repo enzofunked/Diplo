@@ -182,7 +182,7 @@ export default function PrivilegesImmunitesPage() {
             </div>
 
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-              Les privilèges et immunités liés aux plaques diplomatiques
+              Immunité diplomatique
             </h1>
 
             <p className="text-xl text-gray-600 mb-8 leading-relaxed max-w-3xl mx-auto">
@@ -256,14 +256,14 @@ export default function PrivilegesImmunitesPage() {
                     <h3 className="text-2xl font-bold text-gray-900 mb-4">
                       Immunité diplomatique : définition et fondements
                     </h3>
-                    <p className="mb-6">
+                    <p className="text-xl mb-6">
                       Reconnaître à certains étrangers un niveau de <strong>protection élevé</strong> fait partie des
                       traditions internationales depuis plusieurs siècles. L'<strong>immunité diplomatique</strong>{" "}
                       trouve ses racines dans la nécessité de préserver la mission, la sécurité et la liberté d'action
                       du personnel diplomatique étranger, sans risquer de subir des pressions injustifiées ou des
                       poursuites judiciaires arbitraires.
                     </p>
-                    <p className="mb-6">
+                    <p className="text-xl mb-6">
                       En France comme ailleurs, ces <strong>privilèges et immunités</strong> prennent leur source
                       principale dans la <strong>convention de Vienne de 1961</strong>, pierre angulaire du droit
                       international en matière de relations diplomatiques. Ce texte codifie le{" "}
@@ -275,7 +275,7 @@ export default function PrivilegesImmunitesPage() {
                     <h3 className="text-2xl font-bold text-gray-900 mb-4">
                       Le champ d'application et les limites de l'immunité diplomatique
                     </h3>
-                    <p className="mb-6">
+                    <p className="text-xl mb-6">
                       <strong>L'immunité diplomatique</strong> n'est pas une permission générale de contourner les lois
                       locales. Elle s'applique avant tout au personnel des ambassades, à leur famille proche et à
                       certaines <strong>missions diplomatiques</strong> spécifiques. Cette protection concerne à la fois{" "}
@@ -283,7 +283,7 @@ export default function PrivilegesImmunitesPage() {
                       l'arrêter ou de le détenir – et l'exemption de juridiction pénale, civile et administrative locale
                       sous certaines conditions.
                     </p>
-                    <p className="mb-6">
+                    <p className="text-xl mb-6">
                       Des restrictions existent néanmoins pour encadrer cette exemption. Un diplomate peut voir sa{" "}
                       <strong>protection levée</strong> si son comportement déborde gravement les bornes fixées par la
                       convention ou si l'État qu'il représente renonce explicitement à certains{" "}
@@ -298,7 +298,7 @@ export default function PrivilegesImmunitesPage() {
                     <h4 className="text-xl font-semibold text-gray-800 mb-3">
                       Comment s'organise la protection des diplomates en France ?
                     </h4>
-                    <p className="mb-6">
+                    <p className="text-xl mb-6">
                       Lorsqu'un diplomate, son conjoint ou ses enfants résident sur le sol français, leur quotidien est
                       protégé par cette <strong>bulle réglementaire</strong>. Les forces de l'ordre n'ont pas le droit
                       d'entrer dans leur domicile officiel ni de fouiller leur véhicule sans autorisation expresse. Ce
@@ -306,7 +306,7 @@ export default function PrivilegesImmunitesPage() {
                       Au sein des ambassades ou consulats, <strong>l'inviolabilité</strong> s'étend également aux
                       locaux, documents officiels et moyens de communication.
                     </p>
-                    <p className="mb-6">
+                    <p className="text-xl mb-6">
                       Cette faveur « extraterritoriale » doit cependant être utilisée avec discernement. En
                       contrepartie, la France attend de chaque représentation diplomatique ou consulaire le respect
                       scrupuleux des lois et réglementations nationales. Les autorités françaises disposent d'ailleurs
@@ -317,13 +317,13 @@ export default function PrivilegesImmunitesPage() {
                     <h4 className="text-xl font-semibold text-gray-800 mb-3">
                       Quelles sont les obligations réciproques et comment opère la levée de l'immunité ?
                     </h4>
-                    <p className="mb-6">
+                    <p className="text-xl mb-6">
                       <strong>L'immunité diplomatique</strong> fonctionne toujours selon un équilibre. Si un acte commis
                       par un diplomate franchit le seuil du tolérable, son pays d'origine peut accepter que la France
                       engage une action judiciaire. C'est ce que l'on appelle la <strong>levée de l'immunité</strong>,
                       généralement réservée aux infractions graves.
                     </p>
-                    <p className="mb-6">
+                    <p className="text-xl mb-6">
                       L'État accréditant peut aussi rappeler son agent fautif, mettant fin immédiatement à ses{" "}
                       <strong>protections liées à la mission officielle</strong>. Le diplomate redevenu simple citoyen
                       redevient pleinement justiciable devant les tribunaux français. Ces mécanismes de contrôle sont
