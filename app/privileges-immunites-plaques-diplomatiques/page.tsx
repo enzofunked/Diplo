@@ -174,7 +174,7 @@ export default function PrivilegesImmunitesPage() {
         </header>
 
         {/* Hero Section */}
-        <section className="py-8 px-4">
+        <section className="py-0 px-4">
           <div className="container mx-auto max-w-4xl text-center">
             <div className="inline-flex items-center space-x-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
               <Shield className="w-4 h-4" />
@@ -193,7 +193,7 @@ export default function PrivilegesImmunitesPage() {
         </section>
 
         {/* CTA Banner */}
-        <section className="py-8 px-4">
+        <section className="py-0 px-4">
           <div className="container mx-auto max-w-4xl">
             <Card className="bg-gradient-to-r from-blue-600 to-green-600 text-white border-0">
               <CardContent className="p-8">
