@@ -140,16 +140,12 @@ export default function FrenchDiplomaticGuidePage() {
 
         {/* Premier texte */}
         <section className="mb-12">
+          <div className="flex items-center text-2xl font-bold text-gray-900 mb-6">
+            <Globe className="mr-3 h-6 w-6 text-orange-600" />
+            <h1>Comprendre les plaques d'immatriculation vertes : comment rechercher un code diplomatique</h1>
+          </div>
           <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center text-2xl">
-                <Globe className="mr-3 h-6 w-6 text-orange-600" />
-                Comprendre les plaques d'immatriculation vertes
-              </CardTitle>
-            </CardHeader>
-
             <CardContent className="prose prose-orange max-w-none">
-              <h1>Comprendre les plaques d'immatriculation vertes : comment rechercher un code diplomatique</h1>
               <p>
                 Les <strong>plaques d'immatriculation vertes</strong> suscitent souvent la curiosité auprès des
                 automobilistes et professionnels de la route. Inhabituelles sur nos routes, elles signalent pourtant un{" "}
