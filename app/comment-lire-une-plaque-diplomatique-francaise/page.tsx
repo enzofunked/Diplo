@@ -147,198 +147,228 @@ export default function FrenchDiplomaticGuidePage() {
                 Comprendre les plaques d'immatriculation vertes
               </CardTitle>
             </CardHeader>
-
             <CardContent className="space-y-6">
-              <h3 className="text-xl font-bold text-gray-900">
-                Comprendre les plaques d'immatriculation vertes : comment rechercher un code diplomatique
-              </h3>
-              <p>
-                Les <strong>plaques d'immatriculation vertes</strong> suscitent souvent la curiosité auprès des
-                automobilistes et professionnels de la route. Inhabituelles sur nos routes, elles signalent pourtant un{" "}
-                <strong>statut précis</strong> et confèrent à leur détenteur des <strong>privilèges singuliers</strong>.
-                Pour toute personne amenée à croiser ou identifier ce type de plaque, bien comprendre son codage et sa
-                signification représente un véritable atout, notamment lorsqu'il s'agit de{" "}
-                <strong>rechercher un code diplomatique</strong> associé à un véhicule.
-              </p>
-              <p>
-                Voyons quels sont les <strong>codes visibles</strong> sur ces plaques, quelles informations ils livrent
-                sur l'origine du véhicule et ses utilisateurs, ainsi que les avantages liés à ce type d'immatriculation.
-                Ce guide vous aidera à reconnaître facilement une <strong>plaque diplomatique</strong> et à décoder ses
-                éléments clés lors d'une recherche.
-              </p>
+              <div className="space-y-4">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                  Comprendre les plaques d'immatriculation vertes : comment rechercher un code diplomatique
+                </h3>
+                <p>
+                  Les <strong>plaques d'immatriculation vertes</strong> suscitent souvent la curiosité auprès des
+                  automobilistes et professionnels de la route. Inhabituelles sur nos routes, elles signalent pourtant
+                  un <strong>statut précis</strong> et confèrent à leur détenteur des{" "}
+                  <strong>privilèges singuliers</strong>. Pour toute personne amenée à croiser ou identifier ce type de
+                  plaque, bien comprendre son codage et sa signification représente un véritable atout, notamment
+                  lorsqu'il s'agit de <strong>rechercher un code diplomatique</strong> associé à un véhicule.
+                </p>
+                <p>
+                  Voyons quels sont les <strong>codes visibles</strong> sur ces plaques, quelles informations ils
+                  livrent sur l'origine du véhicule et ses utilisateurs, ainsi que les avantages liés à ce type
+                  d'immatriculation. Ce guide vous aidera à reconnaître facilement une{" "}
+                  <strong>plaque diplomatique</strong> et à décoder ses éléments clés lors d'une recherche.
+                </p>
+              </div>
 
-              <h3 className="text-xl font-bold text-gray-900">Caractéristiques des plaques diplomatiques vertes</h3>
-              <p>
-                Les <strong>plaques d'immatriculation vertes</strong> sont principalement réservées aux véhicules
-                utilisés dans le cadre <strong>diplomatique</strong> ou <strong>consulaire</strong>. Ce format
-                particulier permet aux autorités comme au grand public de distinguer rapidement ce type de voiture des
-                autres grâce à une couleur spécifique et à des inscriptions distinctives.
-              </p>
-              <p>
-                En France, par exemple, la couleur <strong>verte jaspe</strong> est associée aux véhicules engageant une{" "}
-                <strong>représentation internationale</strong>. Les inscriptions varient selon le statut du propriétaire
-                : <strong>lettres orange</strong> pour les membres du <strong>corps diplomatique</strong>,{" "}
-                <strong>lettres blanches</strong> pour les membres du personnel consulaire ou administratif. Ce
-                contraste facilite une identification efficace en toutes circonstances.
-              </p>
+              <div className="space-y-4">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Caractéristiques des plaques diplomatiques vertes</h3>
+                <p>
+                  Les <strong>plaques d'immatriculation vertes</strong> sont principalement réservées aux véhicules
+                  utilisés dans le cadre <strong>diplomatique</strong> ou <strong>consulaire</strong>. Ce format
+                  particulier permet aux autorités comme au grand public de distinguer rapidement ce type de voiture
+                  des autres grâce à une couleur spécifique et à des inscriptions distinctives.
+                </p>
+                <p>
+                  En France, par exemple, la couleur <strong>verte jaspe</strong> est associée aux véhicules engageant
+                  une <strong>représentation internationale</strong>. Les inscriptions varient selon le statut du
+                  propriétaire : <strong>lettres orange</strong> pour les membres du{" "}
+                  <strong>corps diplomatique</strong>, <strong>lettres blanches</strong> pour les membres du personnel
+                  consulaire ou administratif. Ce contraste facilite une identification efficace en toutes
+                  circonstances.
+                </p>
+              </div>
 
-              <h3 className="text-xl font-bold text-gray-900">Organisation et signification des codes</h3>
-              <p>
-                Chaque <strong>plaque verte</strong> comporte une <strong>structure normalisée</strong>, pensée pour
-                délivrer plusieurs types d'informations essentielles. Apprendre à lire cette composition constitue la
-                base pour retrouver un <strong>code pays</strong> ou distinguer le <strong>statut exact</strong> du
-                porteur de la plaque.
-              </p>
-              <p>La plupart des plaques comprennent trois parties essentielles :</p>
-              <ul>
-                <li>
-                  <strong>Un préfixe</strong> indiquant la nature du <strong>statut diplomatique</strong> (par exemple :
-                  CD pour Corps Diplomatique, C pour Consulaire, CMD pour Chef de Mission Diplomatique).
-                </li>
-                <li>
-                  <strong>Un code pays</strong> composé généralement de deux lettres désignant l'État ou l'
-                  <strong>organisation internationale</strong> représenté.
-                </li>
-                <li>
-                  <strong>Un numéro séquentiel</strong> attribué individuellement à chaque véhicule.
-                </li>
-              </ul>
+              <div className="space-y-4">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Organisation et signification des codes</h3>
+                <p>
+                  Chaque <strong>plaque verte</strong> comporte une <strong>structure normalisée</strong>, pensée pour
+                  délivrer plusieurs types d'informations essentielles. Apprendre à lire cette composition constitue la
+                  base pour retrouver un <strong>code pays</strong> ou distinguer le{" "}
+                  <strong>statut exact</strong> du porteur de la plaque.
+                </p>
+                <p>La plupart des plaques comprennent trois parties essentielles :</p>
+                <ul className="list-disc list-inside space-y-1 ml-4">
+                  <li>
+                    <strong>Un préfixe</strong> indiquant la nature du <strong>statut diplomatique</strong> (par
+                    exemple : CD pour Corps Diplomatique, C pour Consulaire, CMD pour Chef de Mission Diplomatique).
+                  </li>
+                  <li>
+                    <strong>Un code pays</strong> composé généralement de deux lettres désignant l'État ou l'
+                    <strong>organisation internationale</strong> représenté.
+                  </li>
+                  <li>
+                    <strong>Un numéro séquentiel</strong> attribué individuellement à chaque véhicule.
+                  </li>
+                </ul>
+              </div>
 
-              <h4 className="text-lg font-semibold text-gray-900">Variations et exemples courants</h4>
-              <p>
-                Il existe plusieurs dérivés selon la mission ou la fonction du titulaire. Par exemple, la lettre{" "}
-                <strong>K</strong> indique un membre du <strong>personnel technique</strong>, tandis que des codes
-                spécifiques comme <strong>E</strong>, <strong>N</strong>, <strong>S</strong> ou <strong>U</strong>{" "}
-                informent sur l'appartenance à une <strong>organisation internationale</strong> (OCDE, OTAN, Conseil de
-                l'Europe ou UNESCO).
-              </p>
-              <p>
-                Voici une configuration typique : « <strong>1234 CD XX</strong> ». Ici, 1234 fait référence au pays
-                accréditant,
-                <strong>CD</strong> évoque le Corps Diplomatique, <strong>XX</strong> identifie le véhicule. Un autre
-                exemple : « 5 CMD 789 Z », le{" "}
-                <Link
-                  href="https://www.diplo-scanner.com/liste-codes-pays-plaques-diplomatiques-francaises"
-                  className="text-green-600 underline hover:text-blue-800"
-                >
-                  code diplomatique
-                </Link>{" "}
-                <strong>5</strong> signifie que le véhicule est rattaché à l'Allemagne. Le <strong>CMD</strong> marque
-                le chef de mission diplomatique (ambassadeur), 789 correspond à l'identification individuelle du
-                véhicule et <strong>Z</strong> précise une exonération fiscale.
-              </p>
+              <div className="space-y-4">
+                <h4 className="text-lg font-semibold text-gray-900 mb-2">Variations et exemples courants</h4>
+                <p>
+                  Il existe plusieurs dérivés selon la mission ou la fonction du titulaire. Par exemple, la lettre{" "}
+                  <strong>K</strong> indique un membre du <strong>personnel technique</strong>, tandis que des codes
+                  spécifiques comme <strong>E</strong>, <strong>N</strong>, <strong>S</strong> ou <strong>U</strong>{" "}
+                  informent sur l'appartenance à une <strong>organisation internationale</strong> (OCDE, OTAN, Conseil de
+                  l'Europe ou UNESCO).
+                </p>
+                <p>
+                  Voici une configuration typique : « <strong>1234 CD XX</strong> ». Ici, 1234 fait référence au pays
+                  accréditant, <strong>CD</strong> évoque le Corps Diplomatique, <strong>XX</strong> identifie le
+                  véhicule. Un autre exemple : « 5 CMD 789 Z », le{" "}
+                  <Link
+                    href="https://www.diplo-scanner.com/liste-codes-pays-plaques-diplomatiques-francaises"
+                    className="text-green-600 underline hover:text-blue-800"
+                  >
+                    code diplomatique
+                  </Link>{" "}
+                  <strong>5</strong> signifie que le véhicule est rattaché à l'Allemagne. Le <strong>CMD</strong> marque
+                  le chef de mission diplomatique (ambassadeur), 789 correspond à l'identification individuelle du
+                  véhicule et <strong>Z</strong> précise une exonération fiscale.
+                </p>
+              </div>
 
-              <h4 className="text-lg font-semibold text-gray-900">Différences avec d'autres systèmes de plaques</h4>
-              <p>
-                Contrairement aux <strong>plaques blanches classiques</strong>, qui n'indiquent ni fonction ni
-                provenance spécifique, les <strong>plaques vertes</strong> transmettent systématiquement ces deux
-                informations. Elles se démarquent aussi des <strong>plaques rouges</strong> (véhicules étrangers
-                temporaires) ou des nouvelles plaques dédiées aux <strong>voitures électriques</strong>, désormais
-                répandues dans certains pays européens.
-              </p>
-              <p>
-                Cette structuration spécialisée participe à la <strong>sécurité</strong> et à la{" "}
-                <strong>transparence</strong> des déplacements internationaux sur le territoire hôte, tout en
-                garantissant certains droits liés à la mission confiée.
-              </p>
+              <div className="space-y-4">
+                <h4 className="text-lg font-semibold text-gray-900 mb-2">Différences avec d'autres systèmes de plaques</h4>
+                <p>
+                  Contrairement aux <strong>plaques blanches classiques</strong>, qui n'indiquent ni fonction ni
+                  provenance spécifique, les <strong>plaques vertes</strong> transmettent systématiquement ces deux
+                  informations. Elles se démarquent aussi des <strong>plaques rouges</strong> (véhicules étrangers
+                  temporaires) ou des nouvelles plaques dédiées aux <strong>voitures électriques</strong>, désormais
+                  répandues dans certains pays européens.
+                </p>
+                <p>
+                  Cette structuration spécialisée participe à la <strong>sécurité</strong> et à la{" "}
+                  <strong>transparence</strong> des déplacements internationaux sur le territoire hôte, tout en
+                  garantissant certains droits liés à la mission confiée.
+                </p>
+              </div>
 
-              <h3 className="text-xl font-bold text-gray-900">Démarches et intérêts pratiques de la recherche d'un code diplomatique</h3>
-              <p>
-                Rechercher à qui appartient une <strong>plaque verte</strong> implique généralement d'identifier le{" "}
-                <strong>code pays</strong> ou l'<strong>organisme international</strong> lié au véhicule. Cette étape
-                s'avère essentielle pour les <strong>agents de sécurité</strong> ou les professionnels du stationnement,
-                mais elle intéresse aussi le citoyen curieux ou l'étudiant en droit international.
-              </p>
-              <p>
-                L'identification commence toujours par la lecture attentive du <strong>préfixe</strong>, puis du{" "}
-                <strong>code géographique/isopays</strong> figurant à la fin de la combinaison alphanumérique. Plusieurs
-                listes officielles, mises à jour par le <strong>Ministère des Affaires étrangères</strong>, répertorient
-                la correspondance complète entre les lettres présentes sur la plaque et les États ou organismes
-                concernés.
-              </p>
+              <div className="space-y-4">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                  Démarches et intérêts pratiques de la recherche d'un code diplomatique
+                </h3>
+                <p>
+                  Rechercher à qui appartient une <strong>plaque verte</strong> implique généralement d'identifier le{" "}
+                  <strong>code pays</strong> ou l'<strong>organisme international</strong> lié au véhicule. Cette étape
+                  s'avère essentielle pour les <strong>agents de sécurité</strong> ou les professionnels du
+                  stationnement, mais elle intéresse aussi le citoyen curieux ou l'étudiant en droit international.
+                </p>
+                <p>
+                  L'identification commence toujours par la lecture attentive du <strong>préfixe</strong>, puis du{" "}
+                  <strong>code géographique/isopays</strong> figurant à la fin de la combinaison alphanumérique.
+                  Plusieurs listes officielles, mises à jour par le <strong>Ministère des Affaires étrangères</strong>,
+                  répertorient la correspondance complète entre les lettres présentes sur la plaque et les États ou
+                  organismes concernés.
+                </p>
+              </div>
 
-              <h4 className="text-lg font-semibold text-gray-900">Bénéfices liés au statut diplomatique</h4>
-              <ul>
-                <li>
-                  <strong>L'immunité diplomatique</strong> limitant la juridiction locale sur le véhicule.
-                </li>
-                <li>
-                  <strong>L'exemption de certaines taxes</strong>, dont la TVA et les droits d'importation.
-                </li>
-                <li>
-                  <strong>La reconnaissance instantanée</strong> par les forces de l'ordre lors de contrôles.
-                </li>
-              </ul>
-              <p>
-                Néanmoins, ces privilèges peuvent être suspendus ou retirés en cas de non-respect des règles, de vol,
-                d'accidents graves ou de transfert de véhicule hors du cercle consulaire ou diplomatique autorisé.
-              </p>
+              <div className="space-y-4">
+                <h4 className="text-lg font-semibold text-gray-900 mb-2">Bénéfices liés au statut diplomatique</h4>
+                <ul className="list-disc list-inside space-y-1 ml-4">
+                  <li>
+                    <strong>L'immunité diplomatique</strong> limitant la juridiction locale sur le véhicule.
+                  </li>
+                  <li>
+                    <strong>L'exemption de certaines taxes</strong>, dont la TVA et les droits d'importation.
+                  </li>
+                  <li>
+                    <strong>La reconnaissance instantanée</strong> par les forces de l'ordre lors de contrôles.
+                  </li>
+                </ul>
+                <p>
+                  Néanmoins, ces privilèges peuvent être suspendus ou retirés en cas de non-respect des règles, de vol,
+                  d'accidents graves ou de transfert de véhicule hors du cercle consulaire ou diplomatique autorisé.
+                </p>
+              </div>
 
-              <h4 className="text-lg font-semibold text-gray-900">Qui peut obtenir ce type de plaque ?</h4>
-              <p>
-                Outre les <strong>ambassadeurs</strong> et les <strong>diplomates traditionnels</strong>, les membres de
-                délégations permanentes auprès d'organisations internationales, des personnels administratifs attachés
-                et parfois des <strong>organisations non gouvernementales</strong> dotées de missions officielles ont
-                accès à ces plaques. Le processus d'enregistrement mobilise obligatoirement le{" "}
-                <strong>Ministère des Affaires étrangères</strong> afin d'assurer la validité du statut.
-              </p>
-              <p>
-                Dans certains cas, des véhicules liés à des activités <strong>commerciales internationales</strong>{" "}
-                peuvent également y prétendre, à condition que leur usage principal soit reconnu conforme à la mission
-                diplomatique définie.
-              </p>
+              <div className="space-y-4">
+                <h4 className="text-lg font-semibold text-gray-900 mb-2">Qui peut obtenir ce type de plaque ?</h4>
+                <p>
+                  Outre les <strong>ambassadeurs</strong> et les <strong>diplomates traditionnels</strong>, les membres
+                  de délégations permanentes auprès d'organisations internationales, des personnels administratifs
+                  attachés et parfois des <strong>organisations non gouvernementales</strong> dotées de missions
+                  officielles ont accès à ces plaques. Le processus d'enregistrement mobilise obligatoirement le{" "}
+                  <strong>Ministère des Affaires étrangères</strong> afin d'assurer la validité du statut.
+                </p>
+                <p>
+                  Dans certains cas, des véhicules liés à des activités{" "}
+                  <strong>commerciales internationales</strong> peuvent également y prétendre, à condition que leur
+                  usage principal soit reconnu conforme à la mission diplomatique définie.
+                </p>
+              </div>
 
-              <h3 className="text-xl font-bold text-gray-900">Évolution, innovations et tendances récentes</h3>
-              <p>
-                Le système d'attribution des <strong>plaques vertes</strong> connaît des évolutions régulières. À mesure
-                que la <strong>mobilité internationale</strong> se complexifie et que la sécurité doit s'adapter à de
-                nouveaux risques, le <strong>codage des plaques</strong> devient plus réfléchi. On observe l'émergence
-                de <strong>nouveaux préfixes</strong>, notamment pour mieux distinguer des institutions internationales
-                en expansion.
-              </p>
-              <p>
-                Avec le développement des <strong>technologies numériques</strong>, il est de plus en plus courant
-                d'utiliser des outils ou bases de données en ligne pour vérifier instantanément à quelle entité
-                appartiennent certains codes. Cela facilite la gestion de la circulation, optimise la lutte contre la
-                fraude et anticipe les adaptations futures nécessaires dans la pratique diplomatique mondiale.
-              </p>
+              <div className="space-y-4">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Évolution, innovations et tendances récentes</h3>
+                <p>
+                  Le système d'attribution des <strong>plaques vertes</strong> connaît des évolutions régulières. À
+                  mesure que la <strong>mobilité internationale</strong> se complexifie et que la sécurité doit
+                  s'adapter à de nouveaux risques, le <strong>codage des plaques</strong> devient plus réfléchi. On
+                  observe l'émergence de <strong>nouveaux préfixes</strong>, notamment pour mieux distinguer des
+                  institutions internationales en expansion.
+                </p>
+                <p>
+                  Avec le développement des <strong>technologies numériques</strong>, il est de plus en plus courant
+                  d'utiliser des outils ou bases de données en ligne pour vérifier instantanément à quelle entité
+                  appartiennent certains codes. Cela facilite la gestion de la circulation, optimise la lutte contre la
+                  fraude et anticipe les adaptations futures nécessaires dans la pratique diplomatique mondiale.
+                </p>
+              </div>
 
-              <h3 className="text-xl font-bold text-gray-900">Questions fréquentes</h3>
-              <div itemScope itemType="https://schema.org/FAQPage">
-                <div itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
-                  <h4 itemProp="name">Comment identifier l'origine d'une plaque diplomatique verte ?</h4>
-                  <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
-                    <div itemProp="text">
-                      Pour trouver l'origine d'une <strong>plaque diplomatique verte</strong>, il faut analyser le{" "}
-                      <strong>code de deux lettres</strong> situé généralement à la fin de la plaque.
-                      <ul>
-                        <li>
-                          Lire attentivement toutes les parties de la plaque : <strong>préfixe</strong>,{" "}
-                          <strong>numéro individuel</strong>, <strong>suffixe pays/organisation</strong>.
-                        </li>
-                        <li>
-                          Comparer le code vu avec des <strong>listes officielles</strong> publiées par les autorités
-                          compétentes.
-                        </li>
-                      </ul>
-                      <table>
-                        <tr>
-                          <th>Code</th>
-                          <th>Signification</th>
-                        </tr>
-                        <tr>
-                          <td>CD</td>
-                          <td>Corps Diplomatique</td>
-                        </tr>
-                        <tr>
-                          <td>C</td>
-                          <td>Corps consulaire</td>
-                        </tr>
-                        <tr>
-                          <td>E</td>
-                          <td>OCDE</td>
-                        </tr>
-                      </table>
+              <div className="space-y-4">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Questions fréquentes</h3>
+                <div itemScope itemType="https://schema.org/FAQPage" className="space-y-4">
+                  <div itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                    <h4 itemProp="name" className="font-semibold text-lg text-gray-900 mb-2">
+                      Comment identifier l'origine d'une plaque diplomatique verte ?
+                    </h4>
+                    <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
+                      <div itemProp="text">
+                        <p className="mb-2">
+                          Pour trouver l'origine d'une <strong>plaque diplomatique verte</strong>, il faut analyser le{" "}
+                          <strong>code de deux lettres</strong> situé généralement à la fin de la plaque.
+                        </p>
+                        <ul className="list-disc list-inside space-y-1 ml-4 mb-2">
+                          <li>
+                            Lire attentivement toutes les parties de la plaque : <strong>préfixe</strong>,{" "}
+                            <strong>numéro individuel</strong>,{" "}
+                            <strong>suffixe pays/organisation</strong>.
+                          </li>
+                          <li>
+                            Comparer le code vu avec des <strong>listes officielles</strong> publiées par les
+                            autorités compétentes.
+                          </li>
+                        </ul>
+                        <table className="mt-4 w-full">
+                          <thead className="border-b">
+                            <tr>
+                              <th className="text-left py-2">Code</th>
+                              <th className="text-left py-2">Signification</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr className="border-b">
+                              <td className="py-2">CD</td>
+                              <td className="py-2">Corps Diplomatique</td>
+                            </tr>
+                            <tr className="border-b">
+                              <td className="py-2">C</td>
+                              <td className="py-2">Corps consulaire</td>
+                            </tr>
+                            <tr>
+                              <td className="py-2">E</td>
+                              <td className="py-2">OCDE</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
                   </div>
                 </div>
