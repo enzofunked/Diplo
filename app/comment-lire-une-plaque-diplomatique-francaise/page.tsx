@@ -171,8 +171,8 @@ export default function FrenchDiplomaticGuidePage() {
       <p>La plupart des plaques comprennent trois parties essentielles :</p>
       <ul>
         <li><strong>Un préfixe</strong> indiquant la nature du <strong>statut diplomatique</strong> (par exemple : CD pour Corps Diplomatique, C pour Consulaire, CMD pour Chef de Mission Diplomatique).</li>
-        <li><strong>Un numéro séquentiel</strong> attribué individuellement à chaque véhicule.</li>
         <li><strong>Un code pays</strong> composé généralement de deux lettres désignant l’État ou l’<strong>organisation internationale</strong> représenté.</li>
+        <li><strong>Un numéro séquentiel</strong> attribué individuellement à chaque véhicule.</li>
       </ul>
 
       <h3>Variations et exemples courants</h3>
@@ -180,8 +180,16 @@ export default function FrenchDiplomaticGuidePage() {
         Il existe plusieurs dérivés selon la mission ou la fonction du titulaire. Par exemple, la lettre <strong>K</strong> indique un membre du <strong>personnel technique</strong>, tandis que des codes spécifiques comme <strong>E</strong>, <strong>N</strong>, <strong>S</strong> ou <strong>U</strong> informent sur l’appartenance à une <strong>organisation internationale</strong> (OCDE, OTAN, Conseil de l’Europe ou UNESCO).
       </p>
       <p>
-        Voici une configuration typique : « <strong>1234 CD XX</strong> ». Ici, 1234 identifie le véhicule, <strong>CD</strong> évoque le Corps Diplomatique, <strong>XX</strong> fait référence au pays accréditant. Un autre exemple : « 5 CMD 789 Z », où <strong>CMD</strong> marque le chef de mission diplomatique, 789 correspond à l’identification individuelle et <strong>Z</strong> précise une exonération fiscale.
-      </p>
+  Voici une configuration typique : « <strong>1234 CD XX</strong> ». Ici, 1234 fait référence au pays accréditant, 
+  <strong>CD</strong> évoque le Corps Diplomatique, <strong>XX</strong> identifie le véhicule. 
+  Un autre exemple : « 5 CMD 789 Z », le&nbsp;    
+   <a href="https://www.diplo-scanner.com/liste-codes-pays-plaques-diplomatiques-francaises" class="text-green-600 underline hover:text-blue-800">
+      code diplomatique 
+  </a> 
+  <strong> 5</strong> signifie que le véhicule est rattaché à l'Allemagne. 
+  Le <strong>CMD</strong> marque le chef de mission diplomatique (ambassadeur), 
+  789 correspond à l’identification individuelle du véhicule et <strong>Z</strong> précise une exonération fiscale.
+</p>
 
       <h3>Différences avec d’autres systèmes de plaques</h3>
       <p>
