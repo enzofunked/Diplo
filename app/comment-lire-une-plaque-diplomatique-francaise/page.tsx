@@ -140,10 +140,10 @@ export default function FrenchDiplomaticGuidePage() {
 
         {/* Premier texte */}
         <section className="mb-12">
-          <div className="flex items-center text-2xl font-bold text-gray-900 mb-6">
+          <h2 className="flex items-center text-3xl font-bold text-gray-900 mb-6">
             <Globe className="mr-3 h-6 w-6 text-orange-600" />
-            <h1>Comprendre les plaques d'immatriculation vertes : comment rechercher un code diplomatique</h1>
-          </div>
+            Comprendre les plaques d'immatriculation vertes : comment rechercher un code diplomatique
+          </h2>
           <Card>
             <CardContent className="prose prose-orange max-w-none">
               <p>
@@ -161,7 +161,7 @@ export default function FrenchDiplomaticGuidePage() {
                 éléments clés lors d'une recherche.
               </p>
 
-              <h2>Caractéristiques des plaques diplomatiques vertes</h2>
+              <h3>Caractéristiques des plaques diplomatiques vertes</h3>
               <p>
                 Les <strong>plaques d'immatriculation vertes</strong> sont principalement réservées aux véhicules
                 utilisés dans le cadre <strong>diplomatique</strong> ou <strong>consulaire</strong>. Ce format
@@ -176,7 +176,7 @@ export default function FrenchDiplomaticGuidePage() {
                 contraste facilite une identification efficace en toutes circonstances.
               </p>
 
-              <h2>Organisation et signification des codes</h2>
+              <h3>Organisation et signification des codes</h3>
               <p>
                 Chaque <strong>plaque verte</strong> comporte une <strong>structure normalisée</strong>, pensée pour
                 délivrer plusieurs types d'informations essentielles. Apprendre à lire cette composition constitue la
@@ -198,7 +198,7 @@ export default function FrenchDiplomaticGuidePage() {
                 </li>
               </ul>
 
-              <h3>Variations et exemples courants</h3>
+              <h4>Variations et exemples courants</h4>
               <p>
                 Il existe plusieurs dérivés selon la mission ou la fonction du titulaire. Par exemple, la lettre{" "}
                 <strong>K</strong> indique un membre du <strong>personnel technique</strong>, tandis que des codes
@@ -222,7 +222,7 @@ export default function FrenchDiplomaticGuidePage() {
                 véhicule et <strong>Z</strong> précise une exonération fiscale.
               </p>
 
-              <h3>Différences avec d'autres systèmes de plaques</h3>
+              <h4>Différences avec d'autres systèmes de plaques</h4>
               <p>
                 Contrairement aux <strong>plaques blanches classiques</strong>, qui n'indiquent ni fonction ni
                 provenance spécifique, les <strong>plaques vertes</strong> transmettent systématiquement ces deux
@@ -236,7 +236,7 @@ export default function FrenchDiplomaticGuidePage() {
                 garantissant certains droits liés à la mission confiée.
               </p>
 
-              <h2>Démarches et intérêts pratiques de la recherche d'un code diplomatique</h2>
+              <h3>Démarches et intérêts pratiques de la recherche d'un code diplomatique</h3>
               <p>
                 Rechercher à qui appartient une <strong>plaque verte</strong> implique généralement d'identifier le{" "}
                 <strong>code pays</strong> ou l'<strong>organisme international</strong> lié au véhicule. Cette étape
@@ -251,7 +251,7 @@ export default function FrenchDiplomaticGuidePage() {
                 concernés.
               </p>
 
-              <h3>Bénéfices liés au statut diplomatique</h3>
+              <h4>Bénéfices liés au statut diplomatique</h4>
               <ul>
                 <li>
                   <strong>L'immunité diplomatique</strong> limitant la juridiction locale sur le véhicule.
@@ -268,7 +268,7 @@ export default function FrenchDiplomaticGuidePage() {
                 d'accidents graves ou de transfert de véhicule hors du cercle consulaire ou diplomatique autorisé.
               </p>
 
-              <h3>Qui peut obtenir ce type de plaque ?</h3>
+              <h4>Qui peut obtenir ce type de plaque ?</h4>
               <p>
                 Outre les <strong>ambassadeurs</strong> et les <strong>diplomates traditionnels</strong>, les membres de
                 délégations permanentes auprès d'organisations internationales, des personnels administratifs attachés
@@ -282,7 +282,7 @@ export default function FrenchDiplomaticGuidePage() {
                 diplomatique définie.
               </p>
 
-              <h2>Évolution, innovations et tendances récentes</h2>
+              <h3>Évolution, innovations et tendances récentes</h3>
               <p>
                 Le système d'attribution des <strong>plaques vertes</strong> connaît des évolutions régulières. À mesure
                 que la <strong>mobilité internationale</strong> se complexifie et que la sécurité doit s'adapter à de
@@ -297,10 +297,10 @@ export default function FrenchDiplomaticGuidePage() {
                 fraude et anticipe les adaptations futures nécessaires dans la pratique diplomatique mondiale.
               </p>
 
-              <h2>Questions fréquentes</h2>
+              <h3>Questions fréquentes</h3>
               <div itemScope itemType="https://schema.org/FAQPage">
                 <div itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
-                  <h3 itemProp="name">Comment identifier l'origine d'une plaque diplomatique verte ?</h3>
+                  <h4 itemProp="name">Comment identifier l'origine d'une plaque diplomatique verte ?</h4>
                   <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
                     <div itemProp="text">
                       Pour trouver l'origine d'une <strong>plaque diplomatique verte</strong>, il faut analyser le{" "}
@@ -774,7 +774,7 @@ export default function FrenchDiplomaticGuidePage() {
                         </h4>
                         <p className="text-sm text-gray-600 mt-1">Siège : Paris, 16ème arrondissement</p>
                         <p className="text-xs text-orange-700 mt-2 font-mono bg-orange-100 p-2 rounded">
-                          Exemple : E 5 CD 123 = Personnel allemand à l'OCDE
+                          Exemple : E 5 CD 123 = Allemagne rattaché à l'OCDE
                         </p>
                       </div>
                       <div className="bg-white p-4 rounded-lg border border-orange-200">
@@ -1103,6 +1103,7 @@ export default function FrenchDiplomaticGuidePage() {
                   <Button size="lg" variant="secondary" className="w-full sm:w-auto">
                     <Search className="mr-2 h-5 w-5" />
                     Tester le scanner
+                    <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
                 <Link href="/french/guide">
