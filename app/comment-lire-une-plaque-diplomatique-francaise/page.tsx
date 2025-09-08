@@ -140,12 +140,18 @@ export default function FrenchDiplomaticGuidePage() {
 
         {/* Premier texte */}
         <section className="mb-12">
-          <h2 className="flex items-center text-3xl font-bold text-gray-900 mb-6">
-            <Globe className="mr-3 h-6 w-6 text-orange-600" />
-            Comprendre les plaques d'immatriculation vertes : comment rechercher un code diplomatique
-          </h2>
           <Card>
-            <CardContent className="prose prose-orange max-w-none">
+            <CardHeader>
+              <CardTitle className="flex items-center text-2xl">
+                <Globe className="mr-3 h-6 w-6 text-orange-600" />
+                Comprendre les plaques d'immatriculation vertes
+              </CardTitle>
+            </CardHeader>
+
+            <CardContent className="space-y-6">
+              <h3 className="text-xl font-bold text-gray-900">
+                Comprendre les plaques d'immatriculation vertes : comment rechercher un code diplomatique
+              </h3>
               <p>
                 Les <strong>plaques d'immatriculation vertes</strong> suscitent souvent la curiosité auprès des
                 automobilistes et professionnels de la route. Inhabituelles sur nos routes, elles signalent pourtant un{" "}
@@ -161,7 +167,7 @@ export default function FrenchDiplomaticGuidePage() {
                 éléments clés lors d'une recherche.
               </p>
 
-              <h3>Caractéristiques des plaques diplomatiques vertes</h3>
+              <h3 className="text-xl font-bold text-gray-900">Caractéristiques des plaques diplomatiques vertes</h3>
               <p>
                 Les <strong>plaques d'immatriculation vertes</strong> sont principalement réservées aux véhicules
                 utilisés dans le cadre <strong>diplomatique</strong> ou <strong>consulaire</strong>. Ce format
@@ -176,7 +182,7 @@ export default function FrenchDiplomaticGuidePage() {
                 contraste facilite une identification efficace en toutes circonstances.
               </p>
 
-              <h3>Organisation et signification des codes</h3>
+              <h3 className="text-xl font-bold text-gray-900">Organisation et signification des codes</h3>
               <p>
                 Chaque <strong>plaque verte</strong> comporte une <strong>structure normalisée</strong>, pensée pour
                 délivrer plusieurs types d'informations essentielles. Apprendre à lire cette composition constitue la
@@ -198,7 +204,7 @@ export default function FrenchDiplomaticGuidePage() {
                 </li>
               </ul>
 
-              <h4>Variations et exemples courants</h4>
+              <h4 className="text-lg font-semibold text-gray-900">Variations et exemples courants</h4>
               <p>
                 Il existe plusieurs dérivés selon la mission ou la fonction du titulaire. Par exemple, la lettre{" "}
                 <strong>K</strong> indique un membre du <strong>personnel technique</strong>, tandis que des codes
@@ -222,7 +228,7 @@ export default function FrenchDiplomaticGuidePage() {
                 véhicule et <strong>Z</strong> précise une exonération fiscale.
               </p>
 
-              <h4>Différences avec d'autres systèmes de plaques</h4>
+              <h4 className="text-lg font-semibold text-gray-900">Différences avec d'autres systèmes de plaques</h4>
               <p>
                 Contrairement aux <strong>plaques blanches classiques</strong>, qui n'indiquent ni fonction ni
                 provenance spécifique, les <strong>plaques vertes</strong> transmettent systématiquement ces deux
@@ -236,7 +242,7 @@ export default function FrenchDiplomaticGuidePage() {
                 garantissant certains droits liés à la mission confiée.
               </p>
 
-              <h3>Démarches et intérêts pratiques de la recherche d'un code diplomatique</h3>
+              <h3 className="text-xl font-bold text-gray-900">Démarches et intérêts pratiques de la recherche d'un code diplomatique</h3>
               <p>
                 Rechercher à qui appartient une <strong>plaque verte</strong> implique généralement d'identifier le{" "}
                 <strong>code pays</strong> ou l'<strong>organisme international</strong> lié au véhicule. Cette étape
@@ -251,7 +257,7 @@ export default function FrenchDiplomaticGuidePage() {
                 concernés.
               </p>
 
-              <h4>Bénéfices liés au statut diplomatique</h4>
+              <h4 className="text-lg font-semibold text-gray-900">Bénéfices liés au statut diplomatique</h4>
               <ul>
                 <li>
                   <strong>L'immunité diplomatique</strong> limitant la juridiction locale sur le véhicule.
@@ -268,7 +274,7 @@ export default function FrenchDiplomaticGuidePage() {
                 d'accidents graves ou de transfert de véhicule hors du cercle consulaire ou diplomatique autorisé.
               </p>
 
-              <h4>Qui peut obtenir ce type de plaque ?</h4>
+              <h4 className="text-lg font-semibold text-gray-900">Qui peut obtenir ce type de plaque ?</h4>
               <p>
                 Outre les <strong>ambassadeurs</strong> et les <strong>diplomates traditionnels</strong>, les membres de
                 délégations permanentes auprès d'organisations internationales, des personnels administratifs attachés
@@ -282,7 +288,7 @@ export default function FrenchDiplomaticGuidePage() {
                 diplomatique définie.
               </p>
 
-              <h3>Évolution, innovations et tendances récentes</h3>
+              <h3 className="text-xl font-bold text-gray-900">Évolution, innovations et tendances récentes</h3>
               <p>
                 Le système d'attribution des <strong>plaques vertes</strong> connaît des évolutions régulières. À mesure
                 que la <strong>mobilité internationale</strong> se complexifie et que la sécurité doit s'adapter à de
@@ -297,7 +303,7 @@ export default function FrenchDiplomaticGuidePage() {
                 fraude et anticipe les adaptations futures nécessaires dans la pratique diplomatique mondiale.
               </p>
 
-              <h3>Questions fréquentes</h3>
+              <h3 className="text-xl font-bold text-gray-900">Questions fréquentes</h3>
               <div itemScope itemType="https://schema.org/FAQPage">
                 <div itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
                   <h4 itemProp="name">Comment identifier l'origine d'une plaque diplomatique verte ?</h4>
