@@ -4,27 +4,46 @@ export async function GET() {
   const baseUrl = "https://diplo-scanner.com"
 
   const urls = [
+    // Page d'accueil et pages principales
     { url: baseUrl, priority: 1.0, changefreq: "daily" },
     { url: `${baseUrl}/french`, priority: 0.9, changefreq: "weekly" },
     { url: `${baseUrl}/swiss`, priority: 0.9, changefreq: "weekly" },
+
+    // Pages de contenu SEO principales
     { url: `${baseUrl}/qu-est-ce-qu-une-plaque-diplomatique`, priority: 0.8, changefreq: "monthly" },
     { url: `${baseUrl}/comment-lire-une-plaque-diplomatique-francaise`, priority: 0.8, changefreq: "monthly" },
     { url: `${baseUrl}/comment-lire-une-plaque-diplomatique-suisse`, priority: 0.8, changefreq: "monthly" },
+
+    // Listes de codes et pages informatives
     { url: `${baseUrl}/liste-codes-pays-plaques-diplomatiques-francaises`, priority: 0.7, changefreq: "monthly" },
     { url: `${baseUrl}/codes-diplomatiques-suisses`, priority: 0.7, changefreq: "monthly" },
     { url: `${baseUrl}/plaque-immatriculation-verte`, priority: 0.7, changefreq: "monthly" },
     { url: `${baseUrl}/plaque-verte-et-orange`, priority: 0.7, changefreq: "monthly" },
+
+    // Pages FAQ et informatives
     { url: `${baseUrl}/privileges-immunites-plaques-diplomatiques`, priority: 0.6, changefreq: "monthly" },
     { url: `${baseUrl}/faq-plaques-diplomatiques`, priority: 0.6, changefreq: "monthly" },
     { url: `${baseUrl}/couleur-des-plaques-diplomatiques`, priority: 0.6, changefreq: "monthly" },
     { url: `${baseUrl}/plaques-diplomatiques-liste-complete`, priority: 0.6, changefreq: "monthly" },
+
+    // Pages utilitaires et fonctionnelles
     { url: `${baseUrl}/history`, priority: 0.4, changefreq: "never" },
     { url: `${baseUrl}/help`, priority: 0.5, changefreq: "monthly" },
     { url: `${baseUrl}/about`, priority: 0.4, changefreq: "yearly" },
     { url: `${baseUrl}/sources`, priority: 0.4, changefreq: "yearly" },
+    { url: `${baseUrl}/submit-urls`, priority: 0.3, changefreq: "yearly" },
+
+    // Pages légales
     { url: `${baseUrl}/terms`, priority: 0.3, changefreq: "yearly" },
     { url: `${baseUrl}/cookies`, priority: 0.3, changefreq: "yearly" },
-    // Pages supprimées du sitemap : /french/guide, /french/codes, /swiss/guide, /swiss/codes
+
+    // Sous-pages French (gardées pour compatibilité)
+    { url: `${baseUrl}/french/guide`, priority: 0.5, changefreq: "monthly" },
+    { url: `${baseUrl}/french/codes`, priority: 0.5, changefreq: "monthly" },
+
+    // Sous-pages Swiss (gardées pour compatibilité)
+    { url: `${baseUrl}/swiss/guide`, priority: 0.5, changefreq: "monthly" },
+    { url: `${baseUrl}/swiss/codes`, priority: 0.5, changefreq: "monthly" },
   ]
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

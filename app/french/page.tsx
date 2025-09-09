@@ -1,11 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import { ArrowLeft, BookOpen, Palette, Flag, Building, Shield } from "lucide-react"
+import { ArrowLeft, BookOpen, Palette, Flag, Building, Shield, Camera } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
+import Image from "next/image"
 import { validateDiplomaticPlate } from "../../utils/plateValidator"
 import FrenchPlateResult from "../../components/FrenchPlateResult"
 import type { FrenchPlateMatch } from "../../utils/french-plate-validator"
@@ -260,6 +261,121 @@ export default function FrenchPage() {
               </CardContent>
             </Card>
           </div>
+
+          {/* Exemples de plaques diplomatiques */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Camera className="w-5 h-5 text-green-600" />
+                Exemples de plaques diplomatiques françaises
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-sm text-gray-600">
+                Découvrez des exemples réels de plaques diplomatiques françaises photographiées sur le terrain.
+              </p>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-2">
+                  <div className="relative aspect-square rounded-lg overflow-hidden">
+                    <Image
+                      src="/images/plaque-454-k.jpg"
+                      alt="Plaque diplomatique 454 K"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <p className="text-xs text-center font-mono font-bold text-green-700">454 K</p>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="relative aspect-square rounded-lg overflow-hidden">
+                    <Image
+                      src="/images/plaque-454-k-bmw.jpg"
+                      alt="Plaque diplomatique 454 K sur BMW"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <p className="text-xs text-center font-mono font-bold text-green-700">454 K</p>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="relative aspect-square rounded-lg overflow-hidden">
+                    <Image
+                      src="/images/plaque-u-344-cd.jpg"
+                      alt="Plaque diplomatique U 344 CD"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <p className="text-xs text-center font-mono font-bold text-green-700">U 344 CD</p>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="relative aspect-square rounded-lg overflow-hidden">
+                    <Image
+                      src="/images/plaque-500-cd.jpg"
+                      alt="Plaque diplomatique 500 CD"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <p className="text-xs text-center font-mono font-bold text-green-700">500 CD</p>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="relative aspect-square rounded-lg overflow-hidden">
+                    <Image
+                      src="/images/plaque-691-cd.jpg"
+                      alt="Plaque diplomatique 691 CD"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <p className="text-xs text-center font-mono font-bold text-green-700">431 CD</p>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="relative aspect-square rounded-lg overflow-hidden">
+                    <Image
+                      src="/images/plaque-u315-k.jpg"
+                      alt="Plaque diplomatique U315 K"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <p className="text-xs text-center font-mono font-bold text-green-700">U 315 K</p>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="relative aspect-square rounded-lg overflow-hidden">
+                    <Image src="/images/plaque-3-cd.jpg" alt="Plaque diplomatique 3 CD" fill className="object-cover" />
+                  </div>
+                  <p className="text-xs text-center font-mono font-bold text-green-700">8 CD</p>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="relative aspect-square rounded-lg overflow-hidden">
+                    <Image
+                      src="/images/plaque-401-cd.jpg"
+                      alt="Plaque diplomatique 401 CD"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <p className="text-xs text-center font-mono font-bold text-green-700">401 CD</p>
+                </div>
+              </div>
+
+              <div className="bg-green-50 p-3 rounded-lg">
+                <p className="text-xs text-green-800">
+                  <strong>Note :</strong> Ces photos montrent la diversité des formats et des véhicules utilisés par les pays pour leurs
+                  missions diplomatiques en France.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
 
           {/* Codes Section - Tous les codes */}
           <Card>
