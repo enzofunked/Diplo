@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import {
   ArrowLeft,
   ExternalLink,
@@ -350,9 +351,7 @@ export default function FrenchDiplomaticCodesListPageClient() {
                     <strong>Z</strong> = Exonération fiscale totale
                   </div>
                 </div>
-                <div className="text-green-700 font-medium mt-3 text-sm border-t border-green-200 pt-2">
-                  → Représentant allemand à l'OCDE avec statut diplomatique
-                </div>
+                
               </div>
 
               <div className="border border-blue-200 rounded-lg p-4 bg-blue-50">
@@ -373,63 +372,161 @@ export default function FrenchDiplomaticCodesListPageClient() {
                     <strong>X</strong> = Soumis aux taxes françaises
                   </div>
                 </div>
-                <div className="text-blue-700 font-medium mt-3 text-sm border-t border-blue-200 pt-2">
-                  → Personnel administratif de l'ambassade d'Allemagne
-                </div>
+                
               </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* Conseils d'utilisation */}
+        {/* Exemples photographiques réels */}
         <Card className="mb-8 border-blue-100">
           <CardHeader className="bg-blue-50">
             <CardTitle className="flex items-center gap-2 text-blue-700">
-              <AlertTriangle className="w-5 h-5" />
-              Guide d'utilisation
+              <Flag className="w-5 h-5" />
+              Exemples photographiques réels de plaques diplomatiques
             </CardTitle>
+            <CardDescription>
+              Découvrez des exemples concrets de plaques diplomatiques françaises avec analyse détaillée des codes pays
+            </CardDescription>
           </CardHeader>
           <CardContent className="pt-6">
-            <div className="grid md:grid-cols-3 gap-4">
-              <div>
-                <h4 className="font-semibold text-green-600 mb-2 flex items-center gap-1">
-                  <CheckCircle className="w-4 h-4" />
-                  Équivalences
-                </h4>
-                <ul className="text-sm space-y-1 text-green-700">
-                  <li>• 5 = 205 (Allemagne)</li>
-                  <li>• 1 = 201 (États-Unis)</li>
-                  <li>• 45 = 245 (Royaume-Uni)</li>
-                  <li>• Code + 200 = équivalent</li>
-                </ul>
+            <div className="grid gap-8">
+              {/* Plaque 31 CD */}
+              <div className="border rounded-lg p-6 bg-gray-50">
+                <div className="grid md:grid-cols-2 gap-6 items-center">
+                  <div className="relative h-64 md:h-80">
+                    <Image
+                      src="/images/plaque-31-cd-renault-liste.jpg"
+                      alt="Plaque diplomatique 31 CD sur Renault - Exemple code pays système traditionnel"
+                      fill
+                      className="object-cover rounded-lg"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-4 text-green-800">
+                      Plaque diplomatique <span className="bg-green-100 px-2 py-1 rounded font-mono">31 CD X</span>
+                    </h3>
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2">
+                        <Badge className="bg-blue-100 text-blue-800">31</Badge>
+                        <span className="text-gray-700">Code de la Corée du Sud 🇰🇷</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Badge className="bg-red-100 text-red-800">CD</Badge>
+                        <span className="text-gray-700">Corps Diplomatique - Personnel diplomatique</span>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div>
-                <h4 className="font-semibold text-blue-600 mb-2 flex items-center gap-1">
-                  <Info className="w-4 h-4" />
-                  Préfixes rares
-                </h4>
-                <ul className="text-sm space-y-1 text-blue-700">
-                  <li>• E = OCDE (très rare)</li>
-                  <li>• U = UNESCO (rare)</li>
-                  <li>• S = Conseil Europe (rare)</li>
-                  <li>• Toujours avant le code pays</li>
-                </ul>
+
+              {/* Plaque 115 CD */}
+              <div className="border rounded-lg p-6 bg-gray-50">
+                <div className="grid md:grid-cols-2 gap-6 items-center">
+                  <div className="relative h-64 md:h-80">
+                    <Image
+                      src="/images/plaque-115-cd-bmw-liste.jpg"
+                      alt="Plaque diplomatique 115 CD sur BMW - Exemple nocturne système traditionnel"
+                      fill
+                      className="object-cover rounded-lg"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-4 text-green-800">
+                      Plaque diplomatique <span className="bg-green-100 px-2 py-1 rounded font-mono">115 CD X</span>
+                    </h3>
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2">
+                        <Badge className="bg-blue-100 text-blue-800">115</Badge>
+                        <span className="text-gray-700">Code de la Russie 🇷🇺</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Badge className="bg-red-100 text-red-800">CD</Badge>
+                        <span className="text-gray-700">Corps Diplomatique</span>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div>
-                <h4 className="font-semibold text-red-600 mb-2 flex items-center gap-1">
-                  <AlertTriangle className="w-4 h-4" />
-                  Points d'attention
-                </h4>
-                <ul className="text-sm space-y-1 text-red-700">
-                  <li>• Z = Zéro taxe (diplomates)</li>
-                  <li>• X = eXception (taxes dues)</li>
-                  <li>• Codes obsolètes = pays disparus</li>
-                  <li>• 400+ = organisations internationales</li>
-                </ul>
+
+              {/* Plaque 96 X */}
+              <div className="border rounded-lg p-6 bg-gray-50">
+                <div className="grid md:grid-cols-2 gap-6 items-center">
+                  <div className="relative h-64 md:h-80">
+                    <Image
+                      src="/images/plaque-96-x-bmw-liste.jpg"
+                      alt="Plaque diplomatique 96 X sur BMW - Exemple personnel administratif"
+                      fill
+                      className="object-cover rounded-lg"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-4 text-green-800">
+                      Plaque diplomatique <span className="bg-green-100 px-2 py-1 rounded font-mono">96 K X</span>
+                    </h3>
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2">
+                        <Badge className="bg-blue-100 text-blue-800">96</Badge>
+                        <span className="text-gray-700">Roumanie 🇷🇴</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Badge className="bg-gray-100 text-gray-800">K</Badge>
+                        <span className="text-gray-700">Personnel technique ou administratif non diplomatique</span>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
               </div>
+
+              {/* Plaque 1919 CD */}
+              <div className="border rounded-lg p-6 bg-gray-50">
+                <div className="grid md:grid-cols-2 gap-6 items-center">
+                  <div className="relative h-64 md:h-80">
+                    <Image
+                      src="/images/plaque-1919-cd-mercedes-liste.jpg"
+                      alt="Plaque diplomatique 1919 CD sur Mercedes - Exemple nouveau système 4 chiffres"
+                      fill
+                      className="object-cover rounded-lg"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-4 text-green-800">
+                      Plaque diplomatique <span className="bg-green-100 px-2 py-1 rounded font-mono">U 319 CD X</span>
+                    </h3>
+                    <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                        <Badge className="bg-blue-100 text-blue-800">U</Badge>
+                        <span className="text-gray-700">UNESCO</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Badge className="bg-green-100 text-green-800">319</Badge>
+                        <span className="text-gray-700">Yémen 🇾🇪</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Badge className="bg-red-100 text-red-800">CD</Badge>
+                        <span className="text-gray-700">Corps Diplomatique</span>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Analyse générale */}
+              
             </div>
           </CardContent>
         </Card>
+
+        {/* Conseils d'utilisation */}
+        
 
         {/* CTA */}
         <Card className="mb-8 border-blue-200 bg-gradient-to-br from-blue-50 to-blue-100">

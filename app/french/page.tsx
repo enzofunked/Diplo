@@ -285,7 +285,13 @@ export default function FrenchPage() {
                       className="object-cover"
                     />
                   </div>
-                  <p className="text-xs text-center font-mono font-bold text-green-700">454 K</p>
+                  <p className="text-xs text-center font-mono font-bold text-green-700">454 K = {" "}
+                  <Link
+                    href="https://fr.wikipedia.org/wiki/ITER"
+                    className="text-green-600 underline hover:text-blue-800"
+                  >
+                    ITER ⚛️
+                  </Link>{" "}</p>
                 </div>
 
                 <div className="space-y-2">
@@ -297,7 +303,13 @@ export default function FrenchPage() {
                       className="object-cover"
                     />
                   </div>
-                  <p className="text-xs text-center font-mono font-bold text-green-700">454 K</p>
+                  <p className="text-xs text-center font-mono font-bold text-green-700">454 K = {" "}
+                  <Link
+                    href="https://fr.wikipedia.org/wiki/ITER"
+                    className="text-green-600 underline hover:text-blue-800"
+                  >
+                    ITER ⚛️
+                  </Link>{" "}</p>
                 </div>
 
                 <div className="space-y-2">
@@ -309,7 +321,7 @@ export default function FrenchPage() {
                       className="object-cover"
                     />
                   </div>
-                  <p className="text-xs text-center font-mono font-bold text-green-700">U 344 CD</p>
+                  <p className="text-xs text-center font-mono font-bold text-green-700">U 344 CD = Sainte-Lucie 🇱🇨</p>
                 </div>
 
                 <div className="space-y-2">
@@ -321,7 +333,13 @@ export default function FrenchPage() {
                       className="object-cover"
                     />
                   </div>
-                  <p className="text-xs text-center font-mono font-bold text-green-700">500 CD</p>
+                  <p className="text-xs text-center font-mono font-bold text-green-700">500 CD = {" "}
+                  <Link
+                    href="https://fr.wikipedia.org/wiki/Ambassadeur_de_bonne_volont%C3%A9_aupr%C3%A8s_du_Haut_Commissariat_des_Nations_unies_pour_les_r%C3%A9fugi%C3%A9s"
+                    className="text-green-600 underline hover:text-blue-800"
+                  >
+                    Hautes person 👑
+                  </Link>{" "}</p>
                 </div>
 
                 <div className="space-y-2">
@@ -333,7 +351,13 @@ export default function FrenchPage() {
                       className="object-cover"
                     />
                   </div>
-                  <p className="text-xs text-center font-mono font-bold text-green-700">431 CD</p>
+                  <p className="text-xs text-center font-mono font-bold text-green-700">431 CD = {" "}
+                  <Link
+                    href="https://fr.wikipedia.org/wiki/Organisation_europ%C3%A9enne_pour_la_recherche_nucl%C3%A9aire"
+                    className="text-green-600 underline hover:text-blue-800"
+                  >
+                    CERN ⚛️
+                  </Link>{" "}</p>
                 </div>
 
                 <div className="space-y-2">
@@ -345,14 +369,14 @@ export default function FrenchPage() {
                       className="object-cover"
                     />
                   </div>
-                  <p className="text-xs text-center font-mono font-bold text-green-700">U 315 K</p>
+                  <p className="text-xs text-center font-mono font-bold text-green-700">U 315 K = Russie 🇷🇺</p>
                 </div>
 
                 <div className="space-y-2">
                   <div className="relative aspect-square rounded-lg overflow-hidden">
                     <Image src="/images/plaque-3-cd.jpg" alt="Plaque diplomatique 3 CD" fill className="object-cover" />
                   </div>
-                  <p className="text-xs text-center font-mono font-bold text-green-700">8 CD</p>
+                  <p className="text-xs text-center font-mono font-bold text-green-700">8 CD = Arabie Saoudite 🇸🇦</p>
                 </div>
 
                 <div className="space-y-2">
@@ -364,7 +388,13 @@ export default function FrenchPage() {
                       className="object-cover"
                     />
                   </div>
-                  <p className="text-xs text-center font-mono font-bold text-green-700">401 CD</p>
+                  <p className="text-xs text-center font-mono font-bold text-green-700">401 CD = {" "}
+                  <Link
+                    href="https://fr.wikipedia.org/wiki/Organisation_des_Nations_unies_pour_l%27%C3%A9ducation,_la_science_et_la_culture"
+                    className="text-green-600 underline hover:text-blue-800"
+                  >
+                    UNESCO 🏛️
+                  </Link>{" "}</p>
                 </div>
               </div>
 

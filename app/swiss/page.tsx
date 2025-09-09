@@ -185,17 +185,14 @@ export default function SwissPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                
                 <div className="grid grid-cols-2 gap-3">
                   <div className="p-3 bg-blue-50 rounded-lg text-center">
                     <div className="font-mono text-lg font-bold text-blue-600">GE</div>
                     <p className="text-sm font-medium">Genève</p>
-                    
                   </div>
                   <div className="p-3 bg-green-50 rounded-lg text-center">
                     <div className="font-mono text-lg font-bold text-green-600">BE</div>
                     <p className="text-sm font-medium">Berne</p>
-                    
                   </div>
                 </div>
               </CardContent>
@@ -306,6 +303,57 @@ export default function SwissPage() {
               </p>
             </div>
           </div>
+
+          {/* Exemples de plaques Section */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Flag className="w-5 h-5 text-red-600" />
+                Exemples de plaques diplomatiques suisses
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <p className="text-sm text-gray-600">
+                  Voici des exemples réels de plaques diplomatiques suisses photographiées dans les rues de Genève.
+                </p>
+
+                <div className="grid grid-cols-1 gap-4">
+                  <div className="bg-white rounded-lg border p-4">
+                    <img
+                      src="/images/plaque-cd-ge-02.jpg"
+                      alt="Plaque diplomatique suisse CD GE 02"
+                      className="w-full rounded-lg mb-3"
+                    />
+                    <div className="text-center">
+                      <div className="font-mono text-lg font-bold text-red-600 mb-1">CD GE X⸱02 = {" "}
+                  <Link
+                    href="https://fr.wikipedia.org/wiki/Organisation_internationale_du_travail"
+                    className="text-red-600 underline hover:text-red-800"
+                  >
+                    OIT 🏢
+                  </Link>{" "}</div>
+                      <p className="text-sm text-gray-600">Corps Diplomatique - Genève</p>
+                    </div>
+                  </div>
+
+                  <div className="bg-white rounded-lg border p-4">
+                    <img
+                      src="/images/plaque-cd-ge-74.jpg"
+                      alt="Plaque diplomatique suisse CD GE 74"
+                      className="w-full rounded-lg mb-3"
+                    />
+                    <div className="text-center">
+                      <div className="font-mono text-lg font-bold text-red-600 mb-1">CD GE X⸱74 = Luxembourg 🇱🇺</div>
+                      <p className="text-sm text-gray-600">Corps Diplomatique - Genève</p>
+                    </div>
+                  </div>
+                </div>
+
+                
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
 

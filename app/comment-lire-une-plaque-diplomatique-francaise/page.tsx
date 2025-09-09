@@ -4,7 +4,7 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowRight, Eye, Globe, Info, MapPin, Search, Users } from "lucide-react"
+import { ArrowRight, Eye, Globe, Info, MapPin, Search, Users, Camera } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "Comment lire une plaque diplomatique française ? | Guide détaillé 2024",
@@ -169,20 +169,21 @@ export default function FrenchDiplomaticGuidePage() {
               </div>
 
               <div className="space-y-4">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Caractéristiques des plaques diplomatiques vertes</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">
+                  Caractéristiques des plaques diplomatiques vertes
+                </h3>
                 <p>
                   Les <strong>plaques d'immatriculation vertes</strong> sont principalement réservées aux véhicules
                   utilisés dans le cadre <strong>diplomatique</strong> ou <strong>consulaire</strong>. Ce format
-                  particulier permet aux autorités comme au grand public de distinguer rapidement ce type de voiture
-                  des autres grâce à une couleur spécifique et à des inscriptions distinctives.
+                  particulier permet aux autorités comme au grand public de distinguer rapidement ce type de voiture des
+                  autres grâce à une couleur spécifique et à des inscriptions distinctives.
                 </p>
                 <p>
                   En France, par exemple, la couleur <strong>verte jaspe</strong> est associée aux véhicules engageant
                   une <strong>représentation internationale</strong>. Les inscriptions varient selon le statut du
-                  propriétaire : <strong>lettres orange</strong> pour les membres du{" "}
-                  <strong>corps diplomatique</strong>, <strong>lettres blanches</strong> pour les membres du personnel
-                  consulaire ou administratif. Ce contraste facilite une identification efficace en toutes
-                  circonstances.
+                  propriétaire : <strong>lettres orange</strong> pour les membres du <strong>corps diplomatique</strong>
+                  , <strong>lettres blanches</strong> pour les membres du personnel consulaire ou administratif. Ce
+                  contraste facilite une identification efficace en toutes circonstances.
                 </p>
               </div>
 
@@ -191,14 +192,14 @@ export default function FrenchDiplomaticGuidePage() {
                 <p>
                   Chaque <strong>plaque verte</strong> comporte une <strong>structure normalisée</strong>, pensée pour
                   délivrer plusieurs types d'informations essentielles. Apprendre à lire cette composition constitue la
-                  base pour retrouver un <strong>code pays</strong> ou distinguer le{" "}
-                  <strong>statut exact</strong> du porteur de la plaque.
+                  base pour retrouver un <strong>code pays</strong> ou distinguer le <strong>statut exact</strong> du
+                  porteur de la plaque.
                 </p>
                 <p>La plupart des plaques comprennent trois parties essentielles :</p>
                 <ul className="list-disc list-inside space-y-1 ml-4">
                   <li>
-                    <strong>Un préfixe</strong> indiquant la nature du <strong>statut diplomatique</strong> (par
-                    exemple : CD pour Corps Diplomatique, C pour Consulaire, CMD pour Chef de Mission Diplomatique).
+                    <strong>Un préfixe</strong> indiquant la nature du <strong>statut diplomatique</strong> (par exemple
+                    : CD pour Corps Diplomatique, C pour Consulaire, CMD pour Chef de Mission Diplomatique).
                   </li>
                   <li>
                     <strong>Un code pays</strong> composé généralement de deux lettres désignant l'État ou l'
@@ -216,8 +217,8 @@ export default function FrenchDiplomaticGuidePage() {
                   Il existe plusieurs dérivés selon la mission ou la fonction du titulaire. Par exemple, la lettre{" "}
                   <strong>K</strong> indique un membre du <strong>personnel technique</strong>, tandis que des codes
                   spécifiques comme <strong>E</strong>, <strong>N</strong>, <strong>S</strong> ou <strong>U</strong>{" "}
-                  informent sur l'appartenance à une <strong>organisation internationale</strong> (OCDE, OTAN, Conseil de
-                  l'Europe ou UNESCO).
+                  informent sur l'appartenance à une <strong>organisation internationale</strong> (OCDE, OTAN, Conseil
+                  de l'Europe ou UNESCO).
                 </p>
                 <p>
                   Voici une configuration typique : « <strong>1234 CD XX</strong> ». Ici, 1234 fait référence au pays
@@ -236,7 +237,9 @@ export default function FrenchDiplomaticGuidePage() {
               </div>
 
               <div className="space-y-4">
-                <h4 className="text-lg font-semibold text-gray-900 mb-2">Différences avec d'autres systèmes de plaques</h4>
+                <h4 className="text-lg font-semibold text-gray-900 mb-2">
+                  Différences avec d'autres systèmes de plaques
+                </h4>
                 <p>
                   Contrairement aux <strong>plaques blanches classiques</strong>, qui n'indiquent ni fonction ni
                   provenance spécifique, les <strong>plaques vertes</strong> transmettent systématiquement ces deux
@@ -299,9 +302,9 @@ export default function FrenchDiplomaticGuidePage() {
                   <strong>Ministère des Affaires étrangères</strong> afin d'assurer la validité du statut.
                 </p>
                 <p>
-                  Dans certains cas, des véhicules liés à des activités{" "}
-                  <strong>commerciales internationales</strong> peuvent également y prétendre, à condition que leur
-                  usage principal soit reconnu conforme à la mission diplomatique définie.
+                  Dans certains cas, des véhicules liés à des activités <strong>commerciales internationales</strong>{" "}
+                  peuvent également y prétendre, à condition que leur usage principal soit reconnu conforme à la mission
+                  diplomatique définie.
                 </p>
               </div>
 
@@ -338,12 +341,11 @@ export default function FrenchDiplomaticGuidePage() {
                         <ul className="list-disc list-inside space-y-1 ml-4 mb-2">
                           <li>
                             Lire attentivement toutes les parties de la plaque : <strong>préfixe</strong>,{" "}
-                            <strong>numéro individuel</strong>,{" "}
-                            <strong>suffixe pays/organisation</strong>.
+                            <strong>numéro individuel</strong>, <strong>suffixe pays/organisation</strong>.
                           </li>
                           <li>
-                            Comparer le code vu avec des <strong>listes officielles</strong> publiées par les
-                            autorités compétentes.
+                            Comparer le code vu avec des <strong>listes officielles</strong> publiées par les autorités
+                            compétentes.
                           </li>
                         </ul>
                         <table className="mt-4 w-full">
@@ -1122,6 +1124,129 @@ export default function FrenchDiplomaticGuidePage() {
                   </ul>
                 </div>
               </div>
+            </CardContent>
+          </Card>
+        </section>
+
+        {/* Exemples photographiques réels */}
+        <section className="mb-12">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center text-2xl">
+                <Camera className="mr-3 h-6 w-6 text-green-600" />
+                Exemples photographiques réels
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <p className="text-gray-600">
+                Découvrez des exemples concrets de plaques diplomatiques françaises photographiées sur le terrain avec
+                leurs analyses détaillées.
+              </p>
+
+              <div className="grid md:grid-cols-1 gap-8">
+                <div className="bg-white border rounded-lg p-6 shadow-sm">
+                  <div className="mb-4">
+                    <Image
+                      src="/images/plaque-u358-cmd-guide.jpg"
+                      alt="Plaque diplomatique française U 358 CMD sur Mercedes S500"
+                      width={800}
+                      height={600}
+                      className="w-full rounded-lg"
+                    />
+                  </div>
+                  <div className="space-y-3">
+                    <div className="text-center">
+                      <div className="bg-green-600 text-orange-400 p-3 rounded font-mono text-2xl font-bold inline-block mb-2">
+                        U 358 CMD X
+                      </div>
+                    </div>
+                    <div className="grid md:grid-cols-3 gap-4 text-sm">
+                      <div className="bg-orange-50 p-3 rounded">
+                        <strong className="text-orange-700">U</strong> = UNESCO
+                        <p className="text-xs text-orange-600">Organisation internationale</p>
+                      </div>
+                      <div className="bg-blue-50 p-3 rounded">
+                        <strong className="text-blue-700">358</strong> = Grenade 🇬🇩
+                        <p className="text-xs text-blue-600">Mission diplomatique</p>
+                      </div>
+                      <div className="bg-purple-50 p-3 rounded">
+                        <strong className="text-purple-700">CMD</strong> = Chef de Mission
+                        <p className="text-xs text-purple-600">Ambassadeur</p>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+
+                <div className="bg-white border rounded-lg p-6 shadow-sm">
+                  <div className="mb-4">
+                    <Image
+                      src="/images/plaque-91-cd-guide.jpg"
+                      alt="Plaque diplomatique française 91 CD sur Peugeot"
+                      width={800}
+                      height={600}
+                      className="w-full rounded-lg"
+                    />
+                  </div>
+                  <div className="space-y-3">
+                    <div className="text-center">
+                      <div className="bg-green-600 text-orange-400 p-3 rounded font-mono text-2xl font-bold inline-block mb-2">
+                        91 CD X
+                      </div>
+                    </div>
+                    <div className="grid md:grid-cols-2 gap-4 text-sm">
+                      <div className="bg-blue-50 p-3 rounded">
+                        <strong className="text-blue-700">91</strong> = Pérou 🇵🇪
+                        <p className="text-xs text-blue-600">Mission diplomatique</p>
+                      </div>
+                      <div className="bg-green-50 p-3 rounded">
+                        <strong className="text-green-700">CD</strong> = Corps Diplomatique
+                        <p className="text-xs text-green-600">Personnel diplomatique</p>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+
+                <div className="bg-white border rounded-lg p-6 shadow-sm">
+                  <div className="mb-4">
+                    <Image
+                      src="/images/plaque-691-cd-guide.jpg"
+                      alt="Plaque diplomatique française 691 CD sur Mercedes"
+                      width={800}
+                      height={600}
+                      className="w-full rounded-lg"
+                    />
+                  </div>
+                  <div className="space-y-3">
+                    <div className="text-center">
+                      <div className="bg-green-600 text-orange-400 p-3 rounded font-mono text-2xl font-bold inline-block mb-2">
+                        431 CD X
+                      </div>
+                    </div>
+                    <div className="grid md:grid-cols-2 gap-4 text-sm">
+                      <div className="bg-blue-50 p-3 rounded">
+                        <strong className="text-blue-700">431</strong> = {" "}
+                  <Link
+                    href="https://fr.wikipedia.org/wiki/ITER"
+                    className="text-blue-600 underline hover:text-blue-800"
+                  >
+                    CERN ⚛️
+                  </Link>{" "}
+
+                        <p className="text-xs text-blue-600">Système 200+ (431 = 231 + 200)</p>
+                      </div>
+                      <div className="bg-green-50 p-3 rounded">
+                        <strong className="text-green-700">CD</strong> = Corps Diplomatique
+                        <p className="text-xs text-green-600">Personnel diplomatique</p>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+
+              
             </CardContent>
           </Card>
         </section>
