@@ -2,10 +2,10 @@ User-agent: *
 Allow: /
 
 # Pages non-indexées
-Disallow: /french/guide
-Disallow: /french/codes
-Disallow: /swiss/guide
-Disallow: /swiss/codes
+# Disallow: /french/guide
+# Disallow: /french/codes
+# Disallow: /swiss/guide
+# Disallow: /swiss/codes
 
 # Fichiers système
 Disallow: /api/
