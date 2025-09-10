@@ -342,44 +342,35 @@ export default function SwissCodesPageClient() {
           </CardHeader>
           <CardContent className="pt-6">
             <div className="grid md:grid-cols-2 gap-4">
-              <div className="border border-blue-200 rounded-lg p-4 bg-blue-50">
-                <div className="text-center mb-3">
-                  <div className="text-xl font-bold text-blue-600 font-mono">GE 400-123</div>
-                </div>
-                <div className="text-sm space-y-1">
-                  <div>
-                    <strong>GE</strong> = Genève (Canton)
-                  </div>
-                  <div>
-                    <strong>400</strong> = Organisation internationale (ONU)
-                  </div>
-                  <div>
-                    <strong>123</strong> = Numéro séquentiel
-                  </div>
-                </div>
-                <div className="text-blue-700 font-medium mt-3 text-sm border-t border-blue-200 pt-2">
-                  → Véhicule d'une organisation internationale à Genève
+              <div className="relative">
+                <img
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ve%CC%81hicule%20diplomatique%20suisse%20.jpg-catq09QMBxj1qE39QIzkFeKFQxNIat.jpeg"
+                  alt="Plaque diplomatique suisse CD GE 18 sur BMW noire à Genève"
+                  className="w-full rounded-lg border border-red-200 shadow-sm"
+                />
+                <div className="absolute top-2 right-2 bg-red-600 text-white px-2 py-1 rounded text-xs font-medium">
+                  CD GE X·18
                 </div>
               </div>
-
-              <div className="border border-purple-200 rounded-lg p-4 bg-purple-50">
-                <div className="text-center mb-3">
-                  <div className="text-xl font-bold text-purple-600 font-mono">BE 5-456</div>
-                </div>
-                <div className="text-sm space-y-1">
-                  <div>
-                    <strong>BE</strong> = Berne (Canton)
+              <div className="space-y-4">
+                <div className="border border-red-200 rounded-lg p-4 bg-red-50">
+                  <h5 className="font-semibold text-red-700 mb-3">Analyse de la plaque CD GE 18</h5>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex items-center gap-2">
+                      <Badge className="bg-red-600 text-white">CD</Badge>
+                      <span className="text-red-700">Corps Diplomatique</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Badge className="bg-orange-600 text-white">GE</Badge>
+                      <span className="text-orange-700">Canton de Genève</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Badge className="bg-blue-600 text-white">18</Badge>
+                      <span className="text-blue-700">Code pays : Égypte 🇪🇬</span>
+                    </div>
                   </div>
-                  <div>
-                    <strong>5</strong> = Allemagne (Code pays)
-                  </div>
-                  <div>
-                    <strong>456</strong> = Numéro séquentiel
-                  </div>
                 </div>
-                <div className="text-purple-700 font-medium mt-3 text-sm border-t border-purple-200 pt-2">
-                  → Véhicule de l'ambassade d'Allemagne à Berne
-                </div>
+                
               </div>
             </div>
           </CardContent>
@@ -387,52 +378,8 @@ export default function SwissCodesPageClient() {
 
         {/* Guide d'utilisation */}
         <Card className="mb-8 border-red-100">
-          <CardHeader className="bg-red-50">
-            <CardTitle className="flex items-center gap-2 text-red-700">
-              <AlertTriangle className="w-5 h-5" />
-              Guide de lecture des plaques suisses
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="pt-6">
-            <div className="grid md:grid-cols-3 gap-4">
-              <div>
-                <h4 className="font-semibold text-green-600 mb-2 flex items-center gap-1">
-                  <CheckCircle className="w-4 h-4" />
-                  Format standard
-                </h4>
-                <ul className="text-sm space-y-1 text-green-700">
-                  <li>• [Canton] [Code]-[Numéro]</li>
-                  <li>• GE = Genève</li>
-                  <li>• BE = Berne</li>
-                  <li>• ZH = Zurich (consulats)</li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-semibold text-blue-600 mb-2 flex items-center gap-1">
-                  <Info className="w-4 h-4" />
-                  Codes spéciaux
-                </h4>
-                <ul className="text-sm space-y-1 text-blue-700">
-                  <li>• 400+ = ONU et agences</li>
-                  <li>• 500+ = Autres organisations</li>
-                  <li>• 1-199 = Pays (ordre alphabétique)</li>
-                  <li>• 200+ = Consulats</li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-semibold text-red-600 mb-2 flex items-center gap-1">
-                  <Shield className="w-4 h-4" />
-                  Privilèges
-                </h4>
-                <ul className="text-sm space-y-1 text-red-700">
-                  <li>• Immunité diplomatique</li>
-                  <li>• Exemption fiscale</li>
-                  <li>• Stationnement privilégié</li>
-                  <li>• Passage frontières facilité</li>
-                </ul>
-              </div>
-            </div>
-          </CardContent>
+          
+          
         </Card>
 
         {/* CTA */}

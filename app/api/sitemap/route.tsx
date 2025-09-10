@@ -31,19 +31,10 @@ export async function GET() {
     { url: `${baseUrl}/help`, priority: 0.5, changefreq: "monthly" },
     { url: `${baseUrl}/about`, priority: 0.4, changefreq: "yearly" },
     { url: `${baseUrl}/sources`, priority: 0.4, changefreq: "yearly" },
-    { url: `${baseUrl}/submit-urls`, priority: 0.3, changefreq: "yearly" },
 
     // Pages légales
     { url: `${baseUrl}/terms`, priority: 0.3, changefreq: "yearly" },
     { url: `${baseUrl}/cookies`, priority: 0.3, changefreq: "yearly" },
-
-    // Sous-pages French (gardées pour compatibilité)
-    { url: `${baseUrl}/french/guide`, priority: 0.5, changefreq: "monthly" },
-    { url: `${baseUrl}/french/codes`, priority: 0.5, changefreq: "monthly" },
-
-    // Sous-pages Swiss (gardées pour compatibilité)
-    { url: `${baseUrl}/swiss/guide`, priority: 0.5, changefreq: "monthly" },
-    { url: `${baseUrl}/swiss/codes`, priority: 0.5, changefreq: "monthly" },
   ]
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

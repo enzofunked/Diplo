@@ -3,21 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import {
-  ArrowLeft,
-  ExternalLink,
-  Camera,
-  Flag,
-  Users,
-  Building2,
-  Globe,
-  AlertTriangle,
-  CheckCircle,
-  Info,
-  Hash,
-  Search,
-  X,
-} from "lucide-react"
+import { ArrowLeft, ExternalLink, Camera, Flag, Users, Building2, Globe, Info, Hash, Search, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -351,28 +337,35 @@ export default function FrenchDiplomaticCodesListPageClient() {
                     <strong>Z</strong> = Exonération fiscale totale
                   </div>
                 </div>
-                
               </div>
 
               <div className="border border-blue-200 rounded-lg p-4 bg-blue-50">
-                <div className="text-center mb-3">
-                  <div className="text-xl font-bold text-blue-600 font-mono">5 CD 75 X</div>
+                <div className="grid md:grid-cols-2 gap-6 items-center">
+                  <div className="relative h-64 md:h-80">
+                    <Image
+                      src="/images/plaque-31-cd-renault-liste.jpg"
+                      alt="Plaque diplomatique 31 CD sur Renault - Exemple code pays système traditionnel"
+                      fill
+                      className="object-cover rounded-lg"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-4 text-green-800">
+                      Plaque diplomatique <span className="bg-green-100 px-2 py-1 rounded font-mono">31 CD X</span>
+                    </h3>
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2">
+                        <Badge className="bg-blue-100 text-blue-800">31</Badge>
+                        <span className="text-gray-700">Code de la Corée du Sud 🇰🇷</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Badge className="bg-red-100 text-red-800">CD</Badge>
+                        <span className="text-gray-700">Corps Diplomatique - Personnel diplomatique</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="text-sm space-y-1">
-                  <div>
-                    <strong>5</strong> = Allemagne (Code original)
-                  </div>
-                  <div>
-                    <strong>CD</strong> = Corps Diplomatique
-                  </div>
-                  <div>
-                    <strong>75</strong> = Paris (Département)
-                  </div>
-                  <div>
-                    <strong>X</strong> = Soumis aux taxes françaises
-                  </div>
-                </div>
-                
               </div>
             </div>
           </CardContent>
@@ -414,9 +407,8 @@ export default function FrenchDiplomaticCodesListPageClient() {
                       </div>
                       <div className="flex items-center gap-2">
                         <Badge className="bg-red-100 text-red-800">CD</Badge>
-                        <span className="text-gray-700">Corps Diplomatique - Personnel diplomatique</span>
+                        <span className="text-gray-700">Corps Diplomatique</span>
                       </div>
-                      
                     </div>
                   </div>
                 </div>
@@ -447,7 +439,6 @@ export default function FrenchDiplomaticCodesListPageClient() {
                         <Badge className="bg-red-100 text-red-800">CD</Badge>
                         <span className="text-gray-700">Corps Diplomatique</span>
                       </div>
-                      
                     </div>
                   </div>
                 </div>
@@ -478,7 +469,6 @@ export default function FrenchDiplomaticCodesListPageClient() {
                         <Badge className="bg-gray-100 text-gray-800">K</Badge>
                         <span className="text-gray-700">Personnel technique ou administratif non diplomatique</span>
                       </div>
-                      
                     </div>
                   </div>
                 </div>
@@ -497,11 +487,11 @@ export default function FrenchDiplomaticCodesListPageClient() {
                     />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold mb-4 text-green-800">
-                      Plaque diplomatique <span className="bg-green-100 px-2 py-1 rounded font-mono">U 319 CD X</span>
+                    <h3 className="text-xl font-semibold mb-4 text-red-800">
+                      Plaque diplomatique <span className="bg-red-100 px-2 py-1 rounded font-mono">U 319 CD X</span>
                     </h3>
                     <div className="space-y-3">
-                    <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2">
                         <Badge className="bg-blue-100 text-blue-800">U</Badge>
                         <span className="text-gray-700">UNESCO</span>
                       </div>
@@ -513,20 +503,98 @@ export default function FrenchDiplomaticCodesListPageClient() {
                         <Badge className="bg-red-100 text-red-800">CD</Badge>
                         <span className="text-gray-700">Corps Diplomatique</span>
                       </div>
-                      
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Analyse générale */}
-              
+              {/* Plaque CD GE 18 - Comparaison système suisse */}
+              <div className="border rounded-lg p-6 bg-gray-50">
+                <div className="grid md:grid-cols-2 gap-6 items-center">
+                  <div className="relative h-64 md:h-80">
+                    <Image
+                      src="/images/plaque-cd-ge-18-bmw-suisse.jpg"
+                      alt="Plaque diplomatique suisse CD GE 18 sur BMW - Comparaison avec système français"
+                      fill
+                      className="object-cover rounded-lg"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-4 text-red-800">
+                      Plaque diplomatique suisse{" "}
+                      <span className="bg-red-100 px-2 py-1 rounded font-mono">CD GE 18</span>
+                    </h3>
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2">
+                        <Badge className="bg-red-100 text-red-800">CD</Badge>
+                        <span className="text-gray-700">Corps Diplomatique (système suisse)</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Badge className="bg-orange-100 text-orange-800">GE</Badge>
+                        <span className="text-gray-700">Genève (canton suisse)</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Badge className="bg-blue-100 text-blue-800">18</Badge>
+                        <span className="text-gray-700">Numéro séquentiel</span>
+                      </div>
+                      <div className="bg-red-50 p-3 rounded-lg">
+                        <p className="text-sm text-red-800">
+                          <strong>Comparaison :</strong> Contrairement au système français avec codes pays numériques,
+                          la Suisse utilise les abréviations cantonales (GE = Genève) suivies d'un numéro séquentiel.
+                          Cette BMW diplomatique illustre parfaitement les différences entre les deux systèmes
+                          européens.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* New Plaque */}
+              <div className="border rounded-lg p-6 bg-gray-50">
+                <div className="grid md:grid-cols-2 gap-6 items-center">
+                  <div className="relative h-64 md:h-80">
+                    <Image
+                      src="/images/new-plaque.jpg"
+                      alt="New Plaque Diplomatique"
+                      fill
+                      className="object-cover rounded-lg"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-4 text-red-800">
+                      New Plaque Diplomatique <span className="bg-red-100 px-2 py-1 rounded font-mono">NEW CODE</span>
+                    </h3>
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2">
+                        <Badge className="bg-red-100 text-red-800">NEW</Badge>
+                        <span className="text-gray-700">New Organization</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Badge className="bg-orange-100 text-orange-800">CODE</Badge>
+                        <span className="text-gray-700">New Code Description</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Badge className="bg-blue-100 text-blue-800">123</Badge>
+                        <span className="text-gray-700">New Sequential Number</span>
+                      </div>
+                      <div className="bg-red-50 p-3 rounded-lg">
+                        <p className="text-sm text-red-800">
+                          <strong>Comparaison :</strong> Description of the new plaque and its comparison to the French
+                          system.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </CardContent>
         </Card>
 
         {/* Conseils d'utilisation */}
-        
 
         {/* CTA */}
         <Card className="mb-8 border-blue-200 bg-gradient-to-br from-blue-50 to-blue-100">
