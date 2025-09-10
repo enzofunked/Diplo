@@ -29,7 +29,7 @@ export default function SourcesPage() {
         <div className="pb-8">
           <div className="space-y-6">
             <div className="flex items-center gap-2">
-              <Link href="/about">
+              <Link href="/">
                 <Button variant="ghost" size="sm">
                   <ArrowLeft className="w-4 h-4" />
                 </Button>
