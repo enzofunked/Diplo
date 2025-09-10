@@ -97,12 +97,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://diplo-scanner.com/about</loc>
-    <lastmod>2024-01-09</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.4</priority>
-  </url>
-  <url>
     <loc>https://diplo-scanner.com/sources</loc>
     <lastmod>2024-01-09</lastmod>
     <changefreq>yearly</changefreq>

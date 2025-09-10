@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Info, History, BookOpen, ArrowLeft, Star } from "lucide-react"
+import { Info, History, BookOpen, ArrowLeft, Star, Globe, Users, Shield } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import EnhancedFrenchScanner from "../components/EnhancedFrenchScanner"
 import FrenchPlateResult from "../components/FrenchPlateResult"
@@ -21,6 +21,7 @@ import SwissSystemInfo from "../components/SwissSystemInfo"
 import SwissCodeList from "../components/SwissCodeList"
 import FrenchCodeList from "../components/FrenchCodeList"
 import Link from "next/link"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 type AppState =
   | "home"
@@ -241,20 +242,7 @@ export default function DiploScanner() {
             </div>
 
             {/* Section principale avec contenu SEO optimisé */}
-            <div className="mt-6 px-4 py-4 bg-white/80 rounded-lg border border-blue-200">
-              <p className="text-lg font-semibold text-blue-900 mb-3 text-center">
-                Scanner de Plaque Diplomatique France & Suisse
-              </p>
-              <p className="text-sm text-gray-700 leading-relaxed text-center mb-4">
-                <strong>Identifiez instantanément les plaques diplomatiques françaises et suisses</strong> avec notre
-                scanner gratuit. Découvrez le pays d'origine, le code diplomatique et les informations détaillées de
-                chaque plaque CD. Notre outil reconnaît automatiquement les{" "}
-                <strong>plaques diplomatiques françaises</strong> (format CD + numéro) et les{" "}
-                <strong>plaques diplomatiques suisses</strong> de Genève et Berne. Scanner plaque diplomatique en ligne,
-                identification pays plaque CD, décodage plaque corps diplomatique - tout en un seul clic ! Fonctionne
-                sans internet une fois chargé.
-              </p>
-            </div>
+            
 
             {/* Nouveau paragraphe SEO optimisé */}
             <div className="mt-4 px-4 py-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg border border-green-200">
@@ -274,6 +262,133 @@ export default function DiploScanner() {
                 <strong> plaques diplomatiques genevoises</strong>. Essayez dès maintenant notre
                 <strong> scanner gratuit plaque diplomatique</strong> - aucune inscription requise !
               </p>
+            </div>
+
+            {/* Section À propos intégrée */}
+            <div className="mt-8 space-y-4">
+              <div className="text-center">
+                <h2 className="text-xl font-semibold text-blue-900 mb-4">À propos de Diplo Scanner</h2>
+              </div>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Info className="w-5 h-5 text-blue-600" />
+                    Notre mission
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <p className="text-sm">
+                    Diplo Scanner est une application gratuite conçue pour aider à identifier les plaques
+                    d'immatriculation diplomatiques françaises et suisses.
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    Notre objectif est de rendre accessible l'information sur les codes diplomatiques et de faciliter la
+                    compréhension du système d'immatriculation des véhicules officiels.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Globe className="w-5 h-5 text-green-600" />
+                    Fonctionnalités
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <span className="text-green-600">✓</span>
+                      <span className="text-sm">Identification des plaques françaises</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-green-600">✓</span>
+                      <span className="text-sm">Identification des plaques suisses</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-green-600">✓</span>
+                      <span className="text-sm">Base de données complète des codes</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-green-600">✓</span>
+                      <span className="text-sm">Historique des recherches</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-green-600">✓</span>
+                      <span className="text-sm">Guides détaillés par système</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-green-600">✓</span>
+                      <span className="text-sm">Application web progressive (PWA)</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Users className="w-5 h-5 text-purple-600" />
+                    Qui peut l'utiliser ?
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="space-y-2">
+                    <p className="text-sm">
+                      <strong>Professionnels :</strong> Agents de sécurité, personnel d'accueil, journalistes
+                    </p>
+                    <p className="text-sm">
+                      <strong>Étudiants :</strong> Relations internationales, droit diplomatique
+                    </p>
+                    <p className="text-sm">
+                      <strong>Curieux :</strong> Toute personne intéressée par la diplomatie
+                    </p>
+                    <p className="text-sm">
+                      <strong>Résidents :</strong> Habitants des zones diplomatiques
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Shield className="w-5 h-5 text-orange-600" />
+                    Confidentialité et sécurité
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="space-y-2">
+                    <p className="text-sm">🔒 Aucune donnée personnelle collectée</p>
+                    <p className="text-sm">🏠 Historique stocké localement sur votre appareil</p>
+                    <p className="text-sm">🚫 Aucun tracking de véhicule diplomatique </p>
+                    <p className="text-sm">⚡ Fonctionne hors ligne après la première visite</p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Version et mises à jour</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  <p className="text-sm">
+                    Version actuelle : <strong>3.2.0</strong>
+                  </p>
+                  <p className="text-sm text-muted-foreground">Dernière mise à jour : Septembre 2025</p>
+                  <p className="text-sm text-muted-foreground">
+                    Les mises à jour sont automatiques et incluent de nouveaux codes diplomatiques et améliorations.
+                  </p>
+                  <div className="pt-2 border-t border-gray-200">
+                    <Link href="/sources">
+                      <button className="text-sm text-blue-600 hover:text-blue-800 transition-colors underline">
+                        📚 Consulter nos sources et références
+                      </button>
+                    </Link>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         )
@@ -430,7 +545,7 @@ export default function DiploScanner() {
                 aria-label="Suivez-nous sur Instagram"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.073-1.689-.073-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225 1.664 4.771 4.919 4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.69-.073 4.948-.073 3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                 </svg>
               </a>
             </span>
@@ -445,12 +560,7 @@ export default function DiploScanner() {
               </button>
             </Link>
             <Link href="/about">
-              <button
-                id="footer-about-link"
-                className="text-xs text-gray-500 hover:text-gray-700 transition-colors underline"
-              >
-                À propos
-              </button>
+              
             </Link>
             <Link href="/help">
               <button
