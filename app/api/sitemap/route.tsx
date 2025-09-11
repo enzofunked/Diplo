@@ -13,6 +13,9 @@ export async function GET() {
     { url: `${baseUrl}/qu-est-ce-qu-une-plaque-diplomatique`, priority: 0.8, changefreq: "monthly" },
     { url: `${baseUrl}/comment-lire-une-plaque-diplomatique-francaise`, priority: 0.8, changefreq: "monthly" },
     { url: `${baseUrl}/comment-lire-une-plaque-diplomatique-suisse`, priority: 0.8, changefreq: "monthly" },
+    { url: `${baseUrl}/legislation-conventions-vienne-plaques-diplomatiques`, priority: 0.8, changefreq: "monthly" },
+    { url: `${baseUrl}/plaques-organisations-internationales-onu-otan`, priority: 0.8, changefreq: "monthly" },
+    { url: `${baseUrl}/histoire-plaques-diplomatiques-evolution-mondiale`, priority: 0.8, changefreq: "monthly" },
 
     // Listes de codes et pages informatives
     { url: `${baseUrl}/liste-codes-pays-plaques-diplomatiques-francaises`, priority: 0.7, changefreq: "monthly" },
@@ -25,6 +28,7 @@ export async function GET() {
     { url: `${baseUrl}/faq-plaques-diplomatiques`, priority: 0.6, changefreq: "monthly" },
     { url: `${baseUrl}/couleur-des-plaques-diplomatiques`, priority: 0.6, changefreq: "monthly" },
     { url: `${baseUrl}/plaques-diplomatiques-liste-complete`, priority: 0.6, changefreq: "monthly" },
+    { url: `${baseUrl}/differences-plaques-consulaires-diplomatiques`, priority: 0.6, changefreq: "monthly" },
 
     // Pages utilitaires et fonctionnelles
     { url: `${baseUrl}/history`, priority: 0.4, changefreq: "never" },
