@@ -94,7 +94,13 @@ export default function PlaquesOrganisationsInternationalesPage() {
             <p>
               Elles ne se limitent pas à des distinctions visuelles. La possession de telles plaques accorde bien plus
               qu'un simple marquage spécifique. Détentrices de véritables{" "}
-              <strong>privilèges et immunités issus d'accords internationaux</strong>, ces plaques contribuent à assurer
+              <strong>{" "}
+                  <Link
+                    href="https://diplo-scanner.com/privileges-immunites-plaques-diplomatiques"
+                    className="text-green-600 underline hover:text-blue-800"
+                  >
+                    privilèges et immunités
+                  </Link>{" "} issus d'accords internationaux</strong>, ces plaques contribuent à assurer
               la <strong>mobilité et la sécurité des acteurs engagés dans la coopération internationale</strong>.
             </p>
           </CardContent>

@@ -95,7 +95,14 @@ export default function HistoirePlaquesDiplomatiquesPage() {
           </CardHeader>
           <CardContent className="space-y-4">
             <p>
-              L'apparition des <strong>plaques diplomatiques</strong> coïncide avec la montée en puissance de la{" "}
+              L'apparition des <strong>plaques diplomatiques {" "}
+                  <Link
+                    href="https://www.diplo-scanner.com/comment-lire-une-plaque-diplomatique-francaise"
+                    className="text-green-600 underline hover:text-blue-800"
+                  >
+                    plaques diplomatiques
+                  </Link>{" "}
+</strong> coïncide avec la montée en puissance de la{" "}
               <strong>diplomatie moderne au XXe siècle</strong>. Avant leur mise en place, l'identification officielle
               des véhicules affectés aux missions étrangères était sommaire, voire inexistante. Ce n'est que dans
               l'entre-deux-guerres qu'a émergé le besoin d'un <strong>système uniforme</strong> pour signaler la
@@ -122,7 +129,13 @@ export default function HistoirePlaquesDiplomatiquesPage() {
           </CardHeader>
           <CardContent className="space-y-4">
             <p>
-              Les <strong>caractéristiques des plaques diplomatiques</strong> répondent à divers impératifs. Visibles
+              Les <strong>{" "}
+                  <Link
+                    href="https://www.diplo-scanner.com/comment-lire-une-plaque-diplomatique-francaise"
+                    className="text-green-600 underline hover:text-blue-800"
+                  >
+                    caractéristiques des plaques diplomatiques
+                  </Link>{" "} </strong> répondent à divers impératifs. Visibles
               grâce à des teintes distinctives ou à des caractères particuliers, elles se distinguent nettement des
               plaques ordinaires. Ce choix garantit non seulement une <strong>identification rapide</strong>, mais
               contribue aussi à renforcer la <strong>sécurité</strong> et la protection des personnes bénéficiant de ce
@@ -131,7 +144,14 @@ export default function HistoirePlaquesDiplomatiquesPage() {
             <p>
               La dimension symbolique est également importante. Porter une plaque spécifique incarne le privilège d'un
               statut reconnu par la communauté internationale. Cependant, ce marquage implique aussi le respect des{" "}
-              <strong>règles</strong>, des <strong>avantages et privilèges</strong> associés, comme l'exonération de
+              <strong>règles</strong>, des <strong>{" "}
+                  <Link
+                    href="https://diplo-scanner.com/privileges-immunites-plaques-diplomatiques"
+                    className="text-green-600 underline hover:text-blue-800"
+                  >
+                    avantages et privilèges
+                  </Link>{" "}
+</strong> associés, comme l'exonération de
               certaines taxes ou l'accès facilité à des espaces contrôlés.
             </p>
           </CardContent>
@@ -148,7 +168,13 @@ export default function HistoirePlaquesDiplomatiquesPage() {
           <CardContent className="space-y-4">
             <p>
               Derrière chaque <strong>plaque diplomatique</strong> se cache tout un système de{" "}
-              <strong>codification</strong>. Selon le pays, cette codification peut indiquer la{" "}
+              <strong>{" "}
+                  <Link
+                    href="https://www.diplo-scanner.com/liste-codes-pays-plaques-diplomatiques-francaises"
+                    className="text-green-600 underline hover:text-blue-800"
+                  >
+                    codification
+                  </Link>{" "} </strong>. Selon le pays, cette codification peut indiquer la{" "}
               <strong>nationalité</strong> du diplomate, le rang de la fonction ou l'organisme représenté. Par exemple,
               une série de chiffres ou de lettres fait référence soit au pays d'origine, soit à une{" "}
               <strong>organisation internationale</strong> précise.
