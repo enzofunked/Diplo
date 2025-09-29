@@ -1,593 +1,300 @@
-"use client"
-
-import { useState } from "react"
-import { Info, History, BookOpen, ArrowLeft, Star, Globe, Users, Shield } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import EnhancedFrenchScanner from "../components/EnhancedFrenchScanner"
-import FrenchPlateResult from "../components/FrenchPlateResult"
-import FrenchSystemInfo from "../components/FrenchSystemInfo"
-import TermsOfService from "../components/TermsOfService"
-import type { FrenchPlateMatch } from "../utils/french-plate-validator"
-import HistoryView from "../components/HistoryView"
-import FavoritesView from "../components/FavoritesView"
-import { useHistory, type HistoryEntry } from "../hooks/useHistory"
-import { useFavorites, type FavoriteEntry } from "../hooks/useFavorites"
-import SwissScanner from "../components/SwissScanner"
-import SwissPlateResult from "../components/SwissPlateResult"
-import SystemSelector from "../components/SystemSelector"
-import { validateDiplomaticPlate, isSwissPlate } from "../utils/plateValidator"
-import type { SwissPlateMatch } from "../utils/swiss-plate-validator"
-import SwissSystemInfo from "../components/SwissSystemInfo"
-import SwissCodeList from "../components/SwissCodeList"
-import FrenchCodeList from "../components/FrenchCodeList"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Building2, Store, Hotel, Home, Phone, Mail, CheckCircle, Shield, Clock } from "lucide-react"
 import Link from "next/link"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import Image from "next/image"
 
-type AppState =
-  | "home"
-  | "french"
-  | "swiss"
-  | "result"
-  | "about"
-  | "system-info"
-  | "history"
-  | "favorites"
-  | "terms"
-  | "swiss-system-info"
-  | "swiss-codes"
-  | "french-codes"
+export default function HomePage() {
+  return (
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <header className="border-b border-border bg-card backdrop-blur-sm sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Image src="/images/uct-azur-logo.png" alt="UCT Azur Logo" width={32} height={32} className="h-8 w-8" />
+            <h1 className="text-2xl font-bold text-foreground">UCT Azur</h1>
+          </div>
+          <nav className="hidden md:flex items-center gap-6">
+            <Link href="/" className="text-foreground hover:text-primary transition-colors">
+              Accueil
+            </Link>
+            <Link href="/devis" className="text-foreground hover:text-primary transition-colors">
+              Estimation
+            </Link>
+            <Button asChild>
+              <Link href="/devis">Devis Gratuit</Link>
+            </Button>
+          </nav>
+        </div>
+      </header>
 
-// Fonction pour envoyer des événements à Google Tag Manager
-const sendGTMEvent = (eventName: string, parameters: Record<string, any> = {}) => {
-  if (typeof window !== "undefined" && window.dataLayer) {
-    window.dataLayer.push({
-      event: eventName,
-      ...parameters,
-    })
-  }
-}
-
-export default function DiploScanner() {
-  const [currentState, setCurrentState] = useState<AppState>("home")
-  const [selectedSystem, setSelectedSystem] = useState<"french" | "swiss" | null>(null)
-  const [scanResult, setScanResult] = useState<FrenchPlateMatch | SwissPlateMatch | null>(null)
-  const [scannedPlate, setScannedPlate] = useState("")
-  const [isScanning, setIsScanning] = useState(false)
-  const { addToHistory } = useHistory()
-  const { favorites } = useFavorites()
-
-  const handleSystemSelect = (system: "french" | "swiss") => {
-    setSelectedSystem(system)
-    setCurrentState(system)
-
-    // Envoyer événement GTM
-    sendGTMEvent("system_selected", {
-      system_type: system,
-      timestamp: new Date().toISOString(),
-    })
-  }
-
-  const handleScan = async (plateText: string) => {
-    if (!selectedSystem) return
-    setIsScanning(true)
-    setScannedPlate(plateText)
-
-    // Envoyer événement GTM pour le scan
-    sendGTMEvent("plate_scan_attempt", {
-      system_type: selectedSystem,
-      plate_text: plateText,
-      timestamp: new Date().toISOString(),
-    })
-
-    try {
-      // @ts-ignore
-      const result = validateDiplomaticPlate(plateText, selectedSystem)
-
-      if (result) {
-        setScanResult(result)
-        setCurrentState("result")
-        addToHistory(plateText, result, selectedSystem)
-
-        // Envoyer événement GTM pour le succès
-        sendGTMEvent("plate_scan_success", {
-          system_type: selectedSystem,
-          plate_text: plateText,
-          country_code: result.country?.code,
-          country_name: result.country?.name,
-          timestamp: new Date().toISOString(),
-        })
-      } else {
-        alert(`Plaque non reconnue: "${plateText}"\n\nVérifiez le format.`)
-        addToHistory(plateText, null, selectedSystem)
-
-        // Envoyer événement GTM pour l'échec
-        sendGTMEvent("plate_scan_failure", {
-          system_type: selectedSystem,
-          plate_text: plateText,
-          error_type: "not_recognized",
-          timestamp: new Date().toISOString(),
-        })
-      }
-    } catch (error) {
-      console.error("Erreur validation:", error)
-      alert("Erreur lors de l'analyse. Réessayez.")
-
-      // Envoyer événement GTM pour l'erreur
-      sendGTMEvent("plate_scan_error", {
-        system_type: selectedSystem,
-        plate_text: plateText,
-        error_type: "validation_error",
-        error_message: error instanceof Error ? error.message : "Unknown error",
-        timestamp: new Date().toISOString(),
-      })
-    } finally {
-      setIsScanning(false)
-    }
-  }
-
-  const handleBack = () => {
-    const previousState = currentState
-
-    if (
-      [
-        "about",
-        "system-info",
-        "history",
-        "favorites",
-        "terms",
-        "swiss-system-info",
-        "swiss-codes",
-        "french-codes",
-      ].includes(currentState) &&
-      selectedSystem
-    ) {
-      setCurrentState(selectedSystem)
-    } else if (currentState === "result" && selectedSystem) {
-      setCurrentState(selectedSystem)
-    } else {
-      setCurrentState("home")
-      setSelectedSystem(null)
-    }
-    setScanResult(null)
-    setScannedPlate("")
-
-    // Envoyer événement GTM pour la navigation
-    sendGTMEvent("navigation_back", {
-      from_state: previousState,
-      to_state: selectedSystem || "home",
-      timestamp: new Date().toISOString(),
-    })
-  }
-
-  const handleHistoryEntrySelect = (entry: HistoryEntry) => {
-    if (entry.result) {
-      setScanResult(entry.result)
-      setScannedPlate(entry.plateText)
-      setSelectedSystem(entry.system)
-      setCurrentState("result")
-
-      // Envoyer événement GTM
-      sendGTMEvent("history_entry_selected", {
-        system_type: entry.system,
-        plate_text: entry.plateText,
-        timestamp: new Date().toISOString(),
-      })
-    } else {
-      alert(`La plaque "${entry.plateText}" n'a pas été reconnue.`)
-    }
-  }
-
-  const handleFavoriteEntrySelect = (entry: FavoriteEntry) => {
-    setScanResult(entry.result)
-    setScannedPlate(entry.plateText)
-    setSelectedSystem(entry.system)
-    setCurrentState("result")
-
-    // Envoyer événement GTM
-    sendGTMEvent("favorite_entry_selected", {
-      system_type: entry.system,
-      plate_text: entry.plateText,
-      timestamp: new Date().toISOString(),
-    })
-  }
-
-  const handleStateChange = (newState: AppState) => {
-    const previousState = currentState
-    setCurrentState(newState)
-
-    // Envoyer événement GTM pour le changement d'état
-    sendGTMEvent("state_change", {
-      from_state: previousState,
-      to_state: newState,
-      system_type: selectedSystem,
-      timestamp: new Date().toISOString(),
-    })
-  }
-
-  const renderContent = () => {
-    switch (currentState) {
-      case "home":
-        return (
-          <div id="home-container" className="space-y-6">
-            <SystemSelector onSelectSystem={handleSystemSelect} />
-
-            <div id="navigation-buttons" className="grid grid-cols-2 gap-3">
-              <Link href="/history">
-                <Button
-                  id="history-button"
-                  variant="outline"
-                  className="w-full flex items-center justify-center gap-2 border-gray-300 hover:bg-gray-100 bg-white"
-                >
-                  <History className="w-4 h-4" />
-                  Historique
-                </Button>
+      {/* Hero Section */}
+      <section className="relative py-5 px-4 bg-gradient-to-br from-muted/30 to-background">
+        <div className="container mx-auto text-center">
+          <Badge className="mb-6 bg-teal-100 text-teal-800 border-teal-200">Côte d'Azur</Badge>
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-balance">
+            Votre partenaire propreté sur la <span className="text-primary">Côte d'Azur</span>
+          </h1>
+          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto text-pretty">
+            Services de nettoyage professionnel pour entreprises, commerces, hôtels et copropriétés. Qualité, fiabilité
+            et respect de l'environnement.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button asChild size="lg" className="text-lg px-8">
+              <Link href="/devis">Estimer mon besoin</Link>
+            </Button>
+            <Button asChild variant="outline" size="lg" className="text-lg px-8 bg-transparent">
+              <Link href="#contact">
+                <Phone className="mr-2 h-5 w-5" />
+                Nous contacter
               </Link>
-              <Button
-                id="favorites-button"
-                variant="outline"
-                onClick={() => handleStateChange("favorites")}
-                className="w-full flex items-center justify-center gap-2 border-yellow-300 hover:bg-yellow-50 bg-white"
-              >
-                <Star className="w-4 h-4" />
-                Favoris
-              </Button>
-            </div>
-            <div id="offline-indicator" className="text-center">
-              <div
-                id="offline-badge"
-                className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-100 border border-blue-300 rounded-md text-sm text-blue-800"
-              >
-                📱 Fonctionne sans internet
-              </div>
-            </div>
+            </Button>
+          </div>
+        </div>
+      </section>
 
-            {/* Section principale avec contenu SEO optimisé */}
-            
+      {/* Services Section */}
+      <section className="py-10 px-4">
+        <div className="container mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Nos Services</h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Des solutions de nettoyage adaptées à tous vos besoins professionnels
+            </p>
+          </div>
 
-            {/* Nouveau paragraphe SEO optimisé */}
-            <div className="mt-4 px-4 py-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg border border-green-200">
-              <h4 className="text-md font-semibold text-green-900 mb-3 text-center">
-                🔍 Le Meilleur Scanner de Plaque Diplomatique Gratuit
-              </h4>
-              <p className="text-sm text-gray-700 leading-relaxed text-justify">
-                Vous cherchez un <strong>scanner de plaque diplomatique française</strong> fiable et gratuit ? Diplo
-                Scanner est l'outil de référence pour <strong>identifier les plaques CD françaises</strong> et
-                <strong> décoder les plaques diplomatiques suisses</strong>. Notre{" "}
-                <strong>scanner plaque diplomatique en ligne </strong>
-                reconnaît instantanément plus de 200 codes diplomatiques officiels. Que vous soyez professionnel de la
-                sécurité, étudiant en relations internationales, ou simple curieux, notre{" "}
-                <strong className="font-bold">outil d'identification plaque diplomatique </strong>
-                vous permet de <strong>scanner une plaque CD</strong> en quelques secondes. Compatible avec les
-                <strong> plaques vertes françaises</strong>, les <strong> plaques orange CMD</strong>, et les
-                <strong> plaques diplomatiques genevoises</strong>. Essayez dès maintenant notre
-                <strong> scanner gratuit plaque diplomatique</strong> - aucune inscription requise !
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <Card className="text-center hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <Building2 className="h-12 w-12 text-primary mx-auto mb-4" />
+                <CardTitle>Bureaux</CardTitle>
+                <CardDescription>Nettoyage quotidien ou périodique de vos espaces de travail</CardDescription>
+              </CardHeader>
+            </Card>
+
+            <Card className="text-center hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <Store className="h-12 w-12 text-primary mx-auto mb-4" />
+                <CardTitle>Commerces</CardTitle>
+                <CardDescription>Entretien de boutiques, magasins et espaces commerciaux</CardDescription>
+              </CardHeader>
+            </Card>
+
+            <Card className="text-center hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <Hotel className="h-12 w-12 text-primary mx-auto mb-4" />
+                <CardTitle>Hôtels & Restaurants</CardTitle>
+                <CardDescription>Services spécialisés pour l'hôtellerie et la restauration</CardDescription>
+              </CardHeader>
+            </Card>
+
+            <Card className="text-center hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <Home className="h-12 w-12 text-primary mx-auto mb-4" />
+                <CardTitle>Copropriétés</CardTitle>
+                <CardDescription>Entretien des parties communes et espaces collectifs</CardDescription>
+              </CardHeader>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Advantages Section */}
+      <section className="py-20 px-4 bg-muted/30">
+        <div className="container mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Pourquoi Choisir UCT Azur ?</h2>
+            <p className="text-xl text-muted-foreground">Notre engagement pour votre satisfaction et l'environnement</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <CheckCircle className="h-16 w-16 text-secondary mx-auto mb-6" />
+              <h3 className="text-xl font-semibold mb-4">Qualité Garantie</h3>
+              <p className="text-muted-foreground">
+                Équipes formées et matériel professionnel pour un résultat impeccable
               </p>
             </div>
 
-            {/* Section À propos intégrée */}
-            <div className="mt-8 space-y-4">
-              <div className="text-center">
-                <h2 className="text-xl font-semibold text-blue-900 mb-4">À propos de Diplo Scanner</h2>
+            <div className="text-center">
+              <Shield className="h-16 w-16 text-secondary mx-auto mb-6" />
+              <h3 className="text-xl font-semibold mb-4">Produits Éco-responsables</h3>
+              <p className="text-muted-foreground">
+                Utilisation de produits respectueux de l'environnement et de la santé
+              </p>
+            </div>
+
+            <div className="text-center">
+              <Clock className="h-16 w-16 text-secondary mx-auto mb-6" />
+              <h3 className="text-xl font-semibold mb-4">Fiabilité</h3>
+              <p className="text-muted-foreground">Interventions ponctuelles et respect des horaires convenus</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-20 px-4">
+        <div className="container mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Témoignages Clients</h2>
+            <p className="text-xl text-muted-foreground">La satisfaction de nos clients est notre priorité</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card>
+              <CardContent className="pt-6">
+                <p className="text-muted-foreground mb-4">
+                  "Service impeccable depuis 2 ans. Équipe professionnelle et ponctuelle. Nos bureaux n'ont jamais été
+                  aussi propres !"
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center">
+                    <span className="text-primary font-semibold">MH</span>
+                  </div>
+                  <div>
+                    <p className="font-semibold">Marie Hernandez</p>
+                    <p className="text-sm text-muted-foreground">Cabinet dentaire</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent className="pt-6">
+                <p className="text-muted-foreground mb-4">
+                  "Excellent rapport qualité-prix. L'utilisation de produits écologiques correspond parfaitement à nos
+                  valeurs d'entreprise."
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center">
+                    <span className="text-primary font-semibold">JD</span>
+                  </div>
+                  <div>
+                    <p className="font-semibold">Jean Dupont</p>
+                    <p className="text-sm text-muted-foreground">Hôtellerie</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardContent className="pt-6">
+                <p className="text-muted-foreground mb-4">
+                  "Intervention rapide et efficace. Le devis était clair et sans surprise. Je recommande vivement UCT
+                  Azur !"
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center">
+                    <span className="text-primary font-semibold">SL</span>
+                  </div>
+                  <div>
+                    <p className="font-semibold">Sophie Laurent</p>
+                    <p className="text-sm text-muted-foreground">Syndic de Copropriété</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 px-4 bg-primary/5">
+        <div className="container mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">Prêt à découvrir nos services ?</h2>
+          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+            Obtenez une estimation personnalisée en quelques clics ou contactez-nous directement
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button asChild size="lg" className="text-lg px-8">
+              <Link href="/devis">Estimer mon besoin</Link>
+            </Button>
+            <Button variant="outline" size="lg" className="text-lg px-8 bg-transparent">
+              Devis sur mesure
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-20 px-4">
+        <div className="container mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Contactez-nous</h2>
+            <p className="text-xl text-muted-foreground">Notre équipe est à votre disposition</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+            <div className="space-y-6">
+              <div className="flex items-center gap-4">
+                <Phone className="h-6 w-6 text-primary" />
+                <div>
+                  <p className="font-semibold">Téléphone</p>
+                  <p className="text-muted-foreground">07 69 57 46 74</p>
+                </div>
               </div>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Info className="w-5 h-5 text-blue-600" />
-                    Notre mission
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <p className="text-sm">
-                    Diplo Scanner est une application gratuite conçue pour aider à identifier les plaques
-                    d'immatriculation diplomatiques françaises et suisses.
+              <div className="flex items-center gap-4">
+                <Mail className="h-6 w-6 text-primary" />
+                <div>
+                  <p className="font-semibold">Email</p>
+                  <p className="text-muted-foreground">contact@uct-azur.fr</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4">
+                <Building2 className="h-6 w-6 text-primary mt-1" />
+                <div>
+                  <p className="font-semibold">Zone d'intervention</p>
+                  <p className="text-muted-foreground">
+                    Alpes-Maritimes, Monaco, Var
+                    <br />
+                    Côte d'Azur et arrière-pays
                   </p>
-                  <p className="text-sm text-muted-foreground">
-                    Notre objectif est de rendre accessible l'information sur les codes diplomatiques et de faciliter la
-                    compréhension du système d'immatriculation des véhicules officiels.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Globe className="w-5 h-5 text-green-600" />
-                    Fonctionnalités
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2">
-                      <span className="text-green-600">✓</span>
-                      <span className="text-sm">Identification des plaques françaises</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-green-600">✓</span>
-                      <span className="text-sm">Identification des plaques suisses</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-green-600">✓</span>
-                      <span className="text-sm">Base de données complète des codes</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-green-600">✓</span>
-                      <span className="text-sm">Historique des recherches</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-green-600">✓</span>
-                      <span className="text-sm">Guides détaillés par système</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-green-600">✓</span>
-                      <span className="text-sm">Application web progressive (PWA)</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Users className="w-5 h-5 text-purple-600" />
-                    Qui peut l'utiliser ?
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="space-y-2">
-                    <p className="text-sm">
-                      <strong>Professionnels :</strong> Agents de sécurité, personnel d'accueil, journalistes
-                    </p>
-                    <p className="text-sm">
-                      <strong>Étudiants :</strong> Relations internationales, droit diplomatique
-                    </p>
-                    <p className="text-sm">
-                      <strong>Curieux :</strong> Toute personne intéressée par la diplomatie
-                    </p>
-                    <p className="text-sm">
-                      <strong>Résidents :</strong> Habitants des zones diplomatiques
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Shield className="w-5 h-5 text-orange-600" />
-                    Confidentialité et sécurité
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="space-y-2">
-                    <p className="text-sm">🔒 Aucune donnée personnelle collectée</p>
-                    <p className="text-sm">🏠 Historique stocké localement sur votre appareil</p>
-                    <p className="text-sm">🚫 Aucun tracking de véhicule diplomatique </p>
-                    <p className="text-sm">⚡ Fonctionne hors ligne après la première visite</p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Version et mises à jour</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-2">
-                  <p className="text-sm">
-                    Version actuelle : <strong>3.2.0</strong>
-                  </p>
-                  <p className="text-sm text-muted-foreground">Dernière mise à jour : Septembre 2025</p>
-                  <p className="text-sm text-muted-foreground">
-                    Les mises à jour sont automatiques et incluent de nouveaux codes diplomatiques et améliorations.
-                  </p>
-                  <div className="pt-2 border-t border-gray-200">
-                    <Link href="/sources">
-                      <button className="text-sm text-blue-600 hover:text-blue-800 transition-colors underline">
-                        📚 Consulter nos sources et références
-                      </button>
-                    </Link>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        )
-
-      case "french":
-        return (
-          <div id="french-scanner-container" className="space-y-6">
-            <div id="french-header" className="flex items-center gap-2">
-              <Button id="french-back-button" variant="ghost" size="sm" onClick={handleBack}>
-                <ArrowLeft className="w-4 h-4" />
-              </Button>
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">🇫🇷</span>
-                <h2 id="french-title" className="text-lg font-semibold">
-                  Scanner français
-                </h2>
+                </div>
               </div>
             </div>
-            <EnhancedFrenchScanner onScan={handleScan} isScanning={isScanning} />
-            <div id="french-actions" className="grid grid-cols-2 gap-3">
-              <Button
-                id="french-decode-button"
-                variant="outline"
-                onClick={() => handleStateChange("system-info")}
-                className="flex items-center gap-2 border-green-200 hover:bg-green-50"
-              >
-                <Info className="w-4 h-4" /> Décoder les plaques
-              </Button>
-              <Button
-                id="french-codes-button"
-                variant="outline"
-                onClick={() => handleStateChange("french-codes")}
-                className="flex items-center gap-2 border-green-200 hover:bg-green-50"
-              >
-                <BookOpen className="w-4 h-4" /> Tous les codes
-              </Button>
-            </div>
-          </div>
-        )
 
-      case "swiss":
-        return (
-          <div id="swiss-scanner-container" className="space-y-6">
-            <div id="swiss-header" className="flex items-center gap-2">
-              <Button id="swiss-back-button" variant="ghost" size="sm" onClick={handleBack}>
-                <ArrowLeft className="w-4 h-4" />
-              </Button>
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">🇨🇭</span>
-                <h2 id="swiss-title" className="text-lg font-semibold">
-                  Scanner suisse
-                </h2>
-              </div>
-            </div>
-            <SwissScanner onScan={handleScan} isScanning={isScanning} />
-            <div id="swiss-actions" className="grid grid-cols-2 gap-3">
-              <Button
-                id="swiss-decode-button"
-                variant="outline"
-                onClick={() => handleStateChange("swiss-system-info")}
-                className="flex items-center gap-2 border-red-200 hover:bg-red-50"
-              >
-                <Info className="w-4 h-4" /> Décoder les plaques
-              </Button>
-              <Button
-                id="swiss-codes-button"
-                variant="outline"
-                onClick={() => handleStateChange("swiss-codes")}
-                className="flex items-center gap-2 border-red-200 hover:bg-red-50"
-              >
-                <BookOpen className="w-4 h-4" /> Tous les codes
-              </Button>
-            </div>
+            <Card>
+              <CardHeader>
+                <CardTitle>Horaires d'ouverture</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <div className="flex justify-between">
+                  <span>Lundi - Samedi</span>
+                  <span className="text-muted-foreground">8h30 - 18h00</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Dimanche</span>
+                  <span className="text-muted-foreground">Fermé</span>
+                </div>
+                <div className="pt-4 border-t">
+                  <p className="text-sm text-muted-foreground">Interventions d'urgence possibles sur demande</p>
+                </div>
+              </CardContent>
+            </Card>
           </div>
-        )
-      case "result":
-        return scanResult ? (
-          <div id="result-container">
-            {isSwissPlate(scanResult) ? (
-              <SwissPlateResult result={scanResult} scannedPlate={scannedPlate} onBack={handleBack} />
-            ) : (
-              <FrenchPlateResult
-                result={scanResult as FrenchPlateMatch}
-                scannedPlate={scannedPlate}
-                onBack={handleBack}
-              />
-            )}
-          </div>
-        ) : null
-      case "system-info":
-        return <FrenchSystemInfo onBack={handleBack} />
-      case "swiss-system-info":
-        return <SwissSystemInfo onBack={handleBack} />
-      case "swiss-codes":
-        return <SwissCodeList onBack={handleBack} />
-      case "french-codes":
-        return <FrenchCodeList onBack={handleBack} />
-      case "terms":
-        return <TermsOfService onBack={handleBack} />
-      case "about":
-        return <FrenchCodeList onBack={handleBack} />
-      case "history":
-        return <HistoryView onBack={handleBack} onSelectEntry={handleHistoryEntrySelect} />
-      case "favorites":
-        return <FavoritesView onBack={handleBack} onSelectEntry={handleFavoriteEntrySelect} />
+        </div>
+      </section>
 
-      default:
-        return null
-    }
-  }
-
-  return (
-    <div id="app-container" className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div id="main-container" className="container max-w-md mx-auto p-4">
-        <div id="header" className="text-center mb-8 pt-8">
-          <div id="logo-container" className="flex items-center justify-center gap-2 mb-2">
-            <div id="logo-icon" className="text-3xl">
-              🌍
+      {/* Footer */}
+      <footer className="bg-card border-t border-border py-12 px-4">
+        <div className="container mx-auto">
+          <div className="flex flex-col md:flex-row items-center justify-between">
+            <div className="flex items-center gap-2 mb-4 md:mb-0">
+              <Image src="/images/uct-azur-logo.png" alt="UCT Azur Logo" width={24} height={24} className="h-6 w-6" />
+              <span className="text-lg font-semibold">UCT Azur</span>
             </div>
-            <p id="app-title" className="text-3xl font-bold text-blue-900">
-              Diplo Scanner
+            <p className="text-muted-foreground text-center md:text-right">
+              © 2024 UCT Azur. Tous droits réservés.
+              <br />
+              Services de nettoyage professionnel - Côte d'Azur
             </p>
-          </div>
-          <p id="app-subtitle" className="text-blue-700">
-            Plaques diplomatiques France & Suisse
-          </p>
-        </div>
-        <div id="content-container" className="pb-8">
-          {renderContent()}
-        </div>
-      </div>
-
-      <footer id="footer" className="bg-white/60 border-t border-gray-200 py-4 mt-auto">
-        <div id="footer-content" className="text-center space-y-2">
-          <p id="footer-tagline" className="text-xs text-gray-500 flex items-center justify-center gap-3">
-            Fait avec ❤️
-            <span className="flex items-center gap-2">
-              <a
-                href="https://www.tiktok.com/@diploscanner"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-500 hover:text-gray-700 transition-colors"
-                aria-label="Suivez-nous sur TikTok"
-              >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
-                </svg>
-              </a>
-              <a
-                href="https://www.instagram.com/diplo.scanner/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-500 hover:text-gray-700 transition-colors"
-                aria-label="Suivez-nous sur Instagram"
-              >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225 1.664 4.771 4.919 4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.69-.073 4.948-.073 3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                </svg>
-              </a>
-            </span>
-          </p>
-          <div id="footer-links" className="flex justify-center gap-4">
-            <Link href="/terms">
-              <button
-                id="footer-terms-link"
-                className="text-xs text-gray-500 hover:text-gray-700 transition-colors underline"
-              >
-                Conditions d'Utilisation
-              </button>
-            </Link>
-            <Link href="/about">
-              
-            </Link>
-            <Link href="/help">
-              <button
-                id="footer-help-link"
-                className="text-xs text-gray-500 hover:text-gray-700 transition-colors underline"
-              >
-                Aide
-              </button>
-            </Link>
-            <Link href="/faq-plaques-diplomatiques">
-              <button
-                id="footer-faq-link"
-                className="text-xs text-gray-500 hover:text-gray-700 transition-colors underline"
-              >
-                FAQ
-              </button>
-            </Link>
           </div>
         </div>
       </footer>
     </div>
   )
-}
-
-// Déclaration TypeScript pour window.dataLayer
-declare global {
-  interface Window {
-    dataLayer: any[]
-  }
 }
