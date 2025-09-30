@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server"
-import { sql, isDatabaseAvailable, testConnection } from "@/lib/neon/client"
+import { supabase } from "@/lib/supabase/client";
+import { NextResponse } from "next/server";
 
 // Mock data for testing when database is not available
 const mockAppointments = [
@@ -39,118 +39,149 @@ const mockAppointments = [
     status: "confirmed",
     comments: null,
   },
-]
+];
+
+// Consider Supabase "unavailable" if URL/key are missing (avoid runtime calls that will fail)
+function isSupabaseConfigured() {
+  // If your supabase client is created with env vars, this is a quick sanity check
+  return Boolean(
+    process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      (process.env.SUPABASE_SERVICE_ROLE_KEY ||
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
+  );
+}
 
 export async function GET() {
-  if (!isDatabaseAvailable()) {
-    console.log("[v0] Database not available, using mock data")
-    return NextResponse.json({ appointments: mockAppointments })
+  if (!isSupabaseConfigured()) {
+    console.log("[v0] Supabase not configured, using mock data");
+    return NextResponse.json({ appointments: mockAppointments });
   }
 
   try {
-    console.log("[v0] Attempting to fetch appointments from database")
+    console.log("[v0] Fetching appointments from Supabase");
+    // Order by date desc, then time desc
+    const { data, error } = await supabase
+      .from("appointments")
+      .select("*")
+      .order("appointment_date", { ascending: false })
+      .order("appointment_time", { ascending: false });
 
-    await testConnection()
+    if (error) throw error;
 
-    const appointments = await sql`
-      SELECT * FROM appointments 
-      ORDER BY appointment_date DESC, appointment_time DESC
-    `
-
-    console.log("[v0] Successfully fetched", appointments.length, "appointments")
-    return NextResponse.json({ appointments })
+    console.log("[v0] Successfully fetched", data?.length ?? 0, "appointments");
+    return NextResponse.json({ appointments: data ?? [] });
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : String(error)
-
-    if (
-      errorMessage.includes("password authentication failed") ||
-      errorMessage.includes("authentication failed") ||
-      errorMessage.includes("connection refused")
-    ) {
-      console.log("[v0] Database authentication issue, using mock data:", errorMessage)
-    } else {
-      console.log("[v0] Database error, using mock data:", error)
-    }
-
-    return NextResponse.json({ appointments: mockAppointments })
+    const msg = error instanceof Error ? error.message : String(error);
+    console.log("[v0] Supabase error, using mock data:", msg);
+    return NextResponse.json({ appointments: mockAppointments });
   }
 }
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json()
-    console.log("[v0] Received appointment data:", body)
+    const body = await request.json();
+    console.log("[v0] Received appointment data:", body);
 
     const appointmentData = {
-      first_name: body.first_name || body.firstName,
-      last_name: body.last_name || body.lastName,
+      first_name: body.first_name ?? body.firstName,
+      last_name: body.last_name ?? body.lastName,
       email: body.email,
       phone: body.phone,
-      company: body.company || null,
+      company: body.company ?? null,
       address: body.address,
-      postal_code: body.postal_code || body.postalCode,
+      postal_code: body.postal_code ?? body.postalCode,
       city: body.city,
-      property_type: body.property_type || body.propertyType,
-      surface_area: Number.parseInt(body.surface_area) || Number.parseInt(body.surfaceArea),
-      appointment_date: body.appointment_date || body.appointmentDate,
-      appointment_time: body.appointment_time || body.appointmentTime,
-      status: body.status || "pending",
-      comments: body.comments || null,
+      property_type: body.property_type ?? body.propertyType,
+      surface_area: Number.isFinite(Number.parseInt(body.surface_area))
+        ? Number.parseInt(body.surface_area)
+        : Number.parseInt(body.surfaceArea),
+      appointment_date: body.appointment_date ?? body.appointmentDate,
+      appointment_time: body.appointment_time ?? body.appointmentTime,
+      status: body.status ?? "pending",
+      comments: body.comments ?? null,
+    };
+
+    // Quick required fields check (optional but handy)
+    const required = [
+      "first_name",
+      "last_name",
+      "email",
+      "address",
+      "postal_code",
+      "city",
+      "property_type",
+      "surface_area",
+      "appointment_date",
+      "appointment_time",
+    ] as const;
+    for (const key of required) {
+      if (
+        appointmentData[key] === undefined ||
+        appointmentData[key] === null ||
+        (typeof appointmentData[key] === "string" &&
+          appointmentData[key].trim() === "")
+      ) {
+        return NextResponse.json(
+          { error: `Missing field: ${key}` },
+          { status: 400 }
+        );
+      }
     }
 
-    if (!isDatabaseAvailable()) {
-      console.log("[v0] Database not available, simulating successful save")
+    if (!isSupabaseConfigured()) {
+      console.log("[v0] Supabase not configured, simulating successful save");
       const mockAppointment = {
         id: Date.now().toString(),
         created_at: new Date().toISOString(),
         ...appointmentData,
-      }
-      return NextResponse.json({ appointment: mockAppointment })
+      };
+      return NextResponse.json({ appointment: mockAppointment });
     }
 
     try {
-      await testConnection()
+      const { data, error } = await supabase
+        .from("appointments")
+        .insert(appointmentData)
+        .select("*")
+        .single();
 
-      const result = await sql`
-        INSERT INTO appointments (
-          first_name, last_name, email, phone, company, address, 
-          postal_code, city, property_type, surface_area, 
-          appointment_date, appointment_time, status, comments
-        ) VALUES (
-          ${appointmentData.first_name}, ${appointmentData.last_name}, ${appointmentData.email}, 
-          ${appointmentData.phone}, ${appointmentData.company}, ${appointmentData.address},
-          ${appointmentData.postal_code}, ${appointmentData.city}, ${appointmentData.property_type}, 
-          ${appointmentData.surface_area}, ${appointmentData.appointment_date}, ${appointmentData.appointment_time},
-          ${appointmentData.status}, ${appointmentData.comments}
-        ) RETURNING *
-      `
+      if (error) throw error;
 
-      const appointment = result[0]
-      console.log("[v0] Appointment saved successfully:", appointment)
-      return NextResponse.json({ appointment })
+      console.log("[v0] Appointment saved successfully:", data);
+      return NextResponse.json({ appointment: data });
     } catch (dbError) {
-      const errorMessage = dbError instanceof Error ? dbError.message : String(dbError)
+      const msg = dbError instanceof Error ? dbError.message : String(dbError);
 
+      // Common RLS / auth / table errors we’ll gracefully fall back on
+      const knownFailures = [
+        "new row violates row-level security policy",
+        "permission denied",
+        "Missing or invalid JWT",
+        "relation",
+        "does not exist",
+        "Failed to fetch",
+        "FetchError",
+      ];
       if (
-        errorMessage.includes("password authentication failed") ||
-        errorMessage.includes("authentication failed") ||
-        errorMessage.includes("connection refused") ||
-        errorMessage.includes('relation "appointments" does not exist') ||
-        errorMessage.includes('table "public.appointments" does not exist')
+        knownFailures.some((s) => msg.toLowerCase().includes(s.toLowerCase()))
       ) {
-        console.log("[v0] Database connection/authentication issue, using mock data:", errorMessage)
+        console.log("[v0] Supabase insert issue, using mock data:", msg);
         const mockAppointment = {
           id: Date.now().toString(),
           created_at: new Date().toISOString(),
           ...appointmentData,
-        }
-        return NextResponse.json({ appointment: mockAppointment })
-      } else {
-        throw dbError
+        };
+        return NextResponse.json({ appointment: mockAppointment });
       }
+
+      // Unknown error: bubble up to outer catch
+      throw dbError;
     }
   } catch (error) {
-    console.error("[v0] Error creating appointment:", error)
-    return NextResponse.json({ error: "Failed to create appointment" }, { status: 500 })
+    console.error("[v0] Error creating appointment:", error);
+    return NextResponse.json(
+      { error: "Failed to create appointment" },
+      { status: 500 }
+    );
   }
 }

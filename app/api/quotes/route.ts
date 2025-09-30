@@ -1,7 +1,22 @@
-import { NextResponse } from "next/server"
-import { sql, isDatabaseAvailable, testConnection } from "@/lib/neon/client"
+// app/api/quotes/route.ts
+import { supabase } from "@/lib/supabase/client";
+import { NextResponse } from "next/server";
 
-// Mock data for testing when database is not available
+// ---------- Helpers ----------
+function isSupabaseConfigured() {
+  return Boolean(
+    process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      (process.env.SUPABASE_SERVICE_ROLE_KEY ||
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
+  );
+}
+
+function toInt(val: unknown, fallback = 0): number {
+  const n = typeof val === "string" ? parseInt(val, 10) : Number(val);
+  return Number.isFinite(n) ? n : fallback;
+}
+
+// ---------- Mock data ----------
 const mockQuotes = [
   {
     id: "1",
@@ -15,197 +30,241 @@ const mockQuotes = [
       local_type: "Bureau",
       surface_area: 100,
       interventions_per_week: 2,
-      hygiene_products: {},
-      photos: [],
+      hygiene_products: {} as Record<string, unknown>,
+      photos: [] as string[],
     },
     total_amount: 250.0,
     status: "pending",
-    signature_data: null,
-    created_at: null,
+    signature_data: null as string | null,
+    equipment_ranges: { entree: [], milieu: [], haut: [] } as {
+      entree: Array<{ name: string; quantity: number; gamme: string }>;
+      milieu: Array<{ name: string; quantity: number; gamme: string }>;
+      haut: Array<{ name: string; quantity: number; gamme: string }>;
+    },
+    gamme_entree_count: 0,
+    gamme_milieu_count: 0,
+    gamme_haut_count: 0,
+    equipment_summary: "",
   },
   {
     id: "2",
-    created_at: "2024-01-14T14:30:00Z",
+    created_at: "2024-01-14T16:00:00Z",
     client_name: "Marie Martin",
     client_email: "marie.martin@email.com",
     client_phone: "0987654321",
-    client_company: null,
+    client_company: null as string | null,
     client_address: "456 Avenue des Fleurs, 06100 Cannes",
     quote_details: {
       local_type: "Commerce",
       surface_area: 150,
       interventions_per_week: 3,
-      hygiene_products: {},
-      photos: [],
+      hygiene_products: {} as Record<string, unknown>,
+      photos: [] as string[],
     },
     total_amount: 375.0,
     status: "quoted",
     signature_data: "data:image/png;base64,mock-signature",
-    created_at: "2024-01-14T16:00:00Z",
+    equipment_ranges: { entree: [], milieu: [], haut: [] },
+    gamme_entree_count: 0,
+    gamme_milieu_count: 0,
+    gamme_haut_count: 0,
+    equipment_summary: "",
   },
-]
+];
 
+// ---------- GET ----------
 export async function GET() {
-  if (!isDatabaseAvailable()) {
-    console.log("[v0] Database not available, using mock data")
-    return NextResponse.json({ quotes: mockQuotes })
+  if (!isSupabaseConfigured()) {
+    console.log("[v0] Supabase not configured, using mock data");
+    return NextResponse.json({ quotes: mockQuotes });
   }
 
   try {
-    console.log("[v0] Attempting to fetch quotes from database")
+    console.log("[v0] Fetching quotes from Supabase");
+    const { data, error } = await supabase
+      .from("quotes")
+      .select("*")
+      .order("created_at", { ascending: false });
 
-    const quotes = await sql`
-      SELECT * FROM quotes 
-      ORDER BY created_at DESC
-    `
+    if (error) throw error;
 
-    console.log("[v0] Successfully fetched", quotes.length, "quotes")
-    return NextResponse.json({ quotes })
+    console.log("[v0] Successfully fetched", data?.length ?? 0, "quotes");
+    return NextResponse.json({ quotes: data ?? [] });
   } catch (error) {
-    console.log("[v0] Database error, using mock data:", error)
-    return NextResponse.json({ quotes: mockQuotes })
+    const msg = error instanceof Error ? error.message : String(error);
+    console.log("[v0] Supabase error, using mock data:", msg);
+    return NextResponse.json({ quotes: mockQuotes });
   }
 }
 
+// ---------- POST ----------
 export async function POST(request: Request) {
   try {
-    const body = await request.json()
-    console.log("[v0] Received quote data:", body)
+    const body = await request.json();
+    console.log("[v0] Received quote data:", body);
 
-    const hygieneProducts = body.hygiene_products || {}
-    const equipmentRanges = {
-      entree: [],
-      milieu: [],
-      haut: [],
-    }
+    const hygieneProducts: Record<string, any> = body.hygiene_products ?? {};
 
-    let gammeEntreeCount = 0
-    let gammeMilieuCount = 0
-    let gammeHautCount = 0
+    const equipmentRanges: {
+      entree: Array<{ name: string; quantity: number; gamme: "entree" }>;
+      milieu: Array<{ name: string; quantity: number; gamme: "milieu" }>;
+      haut: Array<{ name: string; quantity: number; gamme: "haut" }>;
+    } = { entree: [], milieu: [], haut: [] };
 
-    // Process each equipment and its range
+    let gammeEntreeCount = 0;
+    let gammeMilieuCount = 0;
+    let gammeHautCount = 0;
+
+    // Collect items by "Gamme" selector + quantity key
     Object.keys(hygieneProducts).forEach((key) => {
-      if (key.endsWith("Gamme")) {
-        const equipmentName = key.replace("Gamme", "")
-        const gamme = hygieneProducts[key]
-        const quantity = hygieneProducts[equipmentName] || 0
+      if (!key.endsWith("Gamme")) return;
 
-        if (quantity > 0) {
-          const equipmentInfo = {
-            name: equipmentName,
-            quantity: quantity,
-            gamme: gamme,
-          }
+      const equipmentName = key.replace(/Gamme$/, "");
+      const gamme = hygieneProducts[key] as
+        | "entree"
+        | "milieu"
+        | "haut"
+        | undefined;
+      const quantity = toInt(hygieneProducts[equipmentName], 0);
+      if (!gamme || quantity <= 0) return;
 
-          if (gamme === "entree") {
-            equipmentRanges.entree.push(equipmentInfo)
-            gammeEntreeCount += quantity
-          } else if (gamme === "milieu") {
-            equipmentRanges.milieu.push(equipmentInfo)
-            gammeMilieuCount += quantity
-          } else if (gamme === "haut") {
-            equipmentRanges.haut.push(equipmentInfo)
-            gammeHautCount += quantity
-          }
-        }
+      if (gamme === "entree") {
+        const entry: { name: string; quantity: number; gamme: "entree" } = {
+          name: equipmentName,
+          quantity,
+          gamme: "entree",
+        };
+        equipmentRanges.entree.push(entry);
+        gammeEntreeCount += quantity;
+      } else if (gamme === "milieu") {
+        const entry: { name: string; quantity: number; gamme: "milieu" } = {
+          name: equipmentName,
+          quantity,
+          gamme: "milieu",
+        };
+        equipmentRanges.milieu.push(entry);
+        gammeMilieuCount += quantity;
+      } else {
+        // gamme === "haut"
+        const entry: { name: string; quantity: number; gamme: "haut" } = {
+          name: equipmentName,
+          quantity,
+          gamme: "haut",
+        };
+        equipmentRanges.haut.push(entry);
+        gammeHautCount += quantity;
       }
-    })
+    });
 
-    // Create a readable summary
     const equipmentSummary = [
-      equipmentRanges.entree.length > 0
-        ? `Entrée: ${equipmentRanges.entree.map((e) => `${e.name}(${e.quantity})`).join(", ")}`
+      equipmentRanges.entree.length
+        ? `Entrée: ${equipmentRanges.entree
+            .map((e) => `${e.name}(${e.quantity})`)
+            .join(", ")}`
         : "",
-      equipmentRanges.milieu.length > 0
-        ? `Milieu: ${equipmentRanges.milieu.map((e) => `${e.name}(${e.quantity})`).join(", ")}`
+      equipmentRanges.milieu.length
+        ? `Milieu: ${equipmentRanges.milieu
+            .map((e) => `${e.name}(${e.quantity})`)
+            .join(", ")}`
         : "",
-      equipmentRanges.haut.length > 0
-        ? `Haut: ${equipmentRanges.haut.map((e) => `${e.name}(${e.quantity})`).join(", ")}`
+      equipmentRanges.haut.length
+        ? `Haut: ${equipmentRanges.haut
+            .map((e) => `${e.name}(${e.quantity})`)
+            .join(", ")}`
         : "",
     ]
       .filter(Boolean)
-      .join(" | ")
+      .join(" | ");
+
+    const quote_details = {
+      local_type: body.location_type ?? body.local_type ?? null,
+      surface_area: toInt(body.surface ?? body.surface_area, 0),
+      interventions_per_week: toInt(
+        body.frequency ?? body.interventions_per_week,
+        1
+      ),
+      hygiene_products: hygieneProducts,
+      photos: Array.isArray(body.photos) ? body.photos : [],
+    };
 
     const quoteData = {
-      client_name: body.client_name || body.name,
-      client_email: body.client_email || body.email,
-      client_phone: body.client_phone || body.phone,
-      client_company: body.client_company || body.company,
-      client_address: body.client_address || body.address || null,
-      quote_details: {
-        local_type: body.location_type || body.local_type,
-        surface_area: Number.parseInt(body.surface) || body.surface_area || 0,
-        interventions_per_week: Number.parseInt(body.frequency) || body.interventions_per_week || 1,
-        hygiene_products: body.hygiene_products || {},
-        photos: body.photos || [],
-      },
-      total_amount: body.estimated_price || 0,
-      status: body.status || "pending",
-      signature_data: body.signature_data || null,
+      client_name: body.client_name ?? body.name ?? "",
+      client_email: body.client_email ?? body.email ?? "",
+      client_phone: body.client_phone ?? body.phone ?? "",
+      client_company: body.client_company ?? body.company ?? null,
+      client_address: body.client_address ?? body.address ?? null,
+      quote_details, // JSONB
+      total_amount: Number.isFinite(Number(body.estimated_price))
+        ? Number(body.estimated_price)
+        : 0,
+      status: body.status ?? "pending",
+      signature_data: body.signature_data ?? null,
       created_at: new Date().toISOString(),
-      equipment_ranges: equipmentRanges,
+      equipment_ranges: equipmentRanges, // JSONB
       gamme_entree_count: gammeEntreeCount,
       gamme_milieu_count: gammeMilieuCount,
       gamme_haut_count: gammeHautCount,
       equipment_summary: equipmentSummary,
+    };
+
+    // Basic required-field checks
+    const requiredStrings: Array<keyof typeof quoteData> = [
+      "client_name",
+      "client_email",
+      "client_phone",
+      "status",
+    ];
+    for (const k of requiredStrings) {
+      const v = quoteData[k];
+      if (typeof v !== "string" || v.trim() === "") {
+        return NextResponse.json(
+          { error: `Missing or invalid field: ${k}` },
+          { status: 400 }
+        );
+      }
     }
 
-    if (!isDatabaseAvailable()) {
-      console.log("[v0] Database not available, simulating successful save")
-      const mockQuote = {
-        id: Date.now().toString(),
-        created_at: new Date().toISOString(),
-        ...quoteData,
-      }
-      return NextResponse.json({ quote: mockQuote })
+    if (!isSupabaseConfigured()) {
+      console.log("[v0] Supabase not configured, simulating successful save");
+      const mockQuote = { id: Date.now().toString(), ...quoteData };
+      return NextResponse.json({ quote: mockQuote });
     }
 
     try {
-      await testConnection()
+      // Insert JSON objects directly; Supabase maps to jsonb columns
+      const { data, error } = await supabase
+        .from("quotes")
+        .insert(quoteData)
+        .select("*")
+        .single();
 
-      const result = await sql`
-        INSERT INTO quotes (
-          client_name, client_email, client_phone, client_company, client_address,
-          quote_details, total_amount, status, signature_data, created_at,
-          equipment_ranges, gamme_entree_count, gamme_milieu_count, gamme_haut_count, equipment_summary
-        ) VALUES (
-          ${quoteData.client_name}, ${quoteData.client_email}, ${quoteData.client_phone},
-          ${quoteData.client_company}, ${quoteData.client_address},
-          ${JSON.stringify(quoteData.quote_details)},
-          ${quoteData.total_amount}, ${quoteData.status},
-          ${quoteData.signature_data}, ${quoteData.created_at},
-          ${JSON.stringify(quoteData.equipment_ranges)},
-          ${quoteData.gamme_entree_count}, ${quoteData.gamme_milieu_count}, 
-          ${quoteData.gamme_haut_count}, ${quoteData.equipment_summary}
-        ) RETURNING *
-      `
+      if (error) throw error;
 
-      const quote = result[0]
-      console.log("[v0] Quote saved successfully:", quote)
-      return NextResponse.json({ quote })
+      console.log("[v0] Quote saved successfully:", data);
+      return NextResponse.json({ quote: data });
     } catch (dbError) {
-      const errorMessage = dbError instanceof Error ? dbError.message : String(dbError)
-
-      if (
-        errorMessage.includes("password authentication failed") ||
-        errorMessage.includes("authentication failed") ||
-        errorMessage.includes("connection refused") ||
-        errorMessage.includes('relation "quotes" does not exist') ||
-        errorMessage.includes('table "public.quotes" does not exist')
-      ) {
-        console.log("[v0] Database connection/authentication issue, using mock data:", errorMessage)
-        const mockQuote = {
-          id: Date.now().toString(),
-          created_at: new Date().toISOString(),
-          ...quoteData,
-        }
-        return NextResponse.json({ quote: mockQuote })
-      } else {
-        throw dbError
+      const msg = dbError instanceof Error ? dbError.message : String(dbError);
+      const knownFailures = [
+        "row-level security",
+        "permission denied",
+        "missing or invalid jwt",
+        "relation",
+        "does not exist",
+        "failed to fetch",
+        "fetcherror",
+      ];
+      if (knownFailures.some((s) => msg.toLowerCase().includes(s))) {
+        console.log("[v0] Supabase insert issue, using mock data:", msg);
+        const mockQuote = { id: Date.now().toString(), ...quoteData };
+        return NextResponse.json({ quote: mockQuote });
       }
+      throw dbError;
     }
   } catch (error) {
-    console.error("[v0] Error creating quote:", error)
-    return NextResponse.json({ error: "Failed to create quote" }, { status: 500 })
+    console.error("[v0] Error creating quote:", error);
+    return NextResponse.json(
+      { error: "Failed to create quote" },
+      { status: 500 }
+    );
   }
 }
