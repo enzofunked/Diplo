@@ -598,196 +598,196 @@ export default function AdminPage() {
                                   {Object.values(quote.quote_details?.hygiene_products || {}).some(
                                     (v: any) => v > 0,
                                   ) && (
-                                    <div>
-                                      <h4 className="font-semibold mb-3">Équipements d'hygiène sanitaire</h4>
-                                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        {(quote.quote_details?.hygiene_products?.distributeurSavon > 0 ||
-                                          quote.quote_details?.hygiene_products?.distributeurServiette > 0 ||
-                                          quote.quote_details?.hygiene_products?.diffuseurParfum > 0) && (
-                                          <div className="space-y-2">
-                                            <h5 className="font-medium text-sm text-gray-700">Distributeurs</h5>
-                                            <div className="space-y-1 text-sm">
-                                              {quote.quote_details?.hygiene_products?.distributeurSavon > 0 && (
-                                                <div className="flex justify-between">
-                                                  <span>Distributeur savon:</span>
-                                                  <span className="font-medium">
-                                                    {quote.quote_details.hygiene_products.distributeurSavon}
-                                                  </span>
+                                      <div>
+                                        <h4 className="font-semibold mb-3">Équipements d'hygiène sanitaire</h4>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                          {(quote.quote_details?.hygiene_products?.distributeurSavon > 0 ||
+                                            quote.quote_details?.hygiene_products?.distributeurServiette > 0 ||
+                                            quote.quote_details?.hygiene_products?.diffuseurParfum > 0) && (
+                                              <div className="space-y-2">
+                                                <h5 className="font-medium text-sm text-gray-700">Distributeurs</h5>
+                                                <div className="space-y-1 text-sm">
+                                                  {quote.quote_details?.hygiene_products?.distributeurSavon > 0 && (
+                                                    <div className="flex justify-between">
+                                                      <span>Distributeur savon:</span>
+                                                      <span className="font-medium">
+                                                        {quote.quote_details.hygiene_products.distributeurSavon}
+                                                      </span>
+                                                    </div>
+                                                  )}
+                                                  {quote.quote_details?.hygiene_products?.distributeurSavonGamme &&
+                                                    quote.quote_details?.hygiene_products?.distributeurSavon > 0 && (
+                                                      <div className="flex justify-between">
+                                                        <span>Gamme distributeur savon:</span>
+                                                        <span className="font-medium capitalize">
+                                                          {quote.quote_details.hygiene_products.distributeurSavonGamme}
+                                                        </span>
+                                                      </div>
+                                                    )}
+                                                  {quote.quote_details?.hygiene_products?.distributeurServiette > 0 && (
+                                                    <div className="flex justify-between">
+                                                      <span>Distributeur serviette:</span>
+                                                      <span className="font-medium">
+                                                        {quote.quote_details.hygiene_products.distributeurServiette}
+                                                      </span>
+                                                    </div>
+                                                  )}
+                                                  {quote.quote_details?.hygiene_products?.distributeurServietteGamme &&
+                                                    quote.quote_details?.hygiene_products?.distributeurServiette > 0 && (
+                                                      <div className="flex justify-between">
+                                                        <span>Gamme distributeur serviette:</span>
+                                                        <span className="font-medium capitalize">
+                                                          {quote.quote_details.hygiene_products.distributeurServietteGamme}
+                                                        </span>
+                                                      </div>
+                                                    )}
+                                                  {quote.quote_details?.hygiene_products?.diffuseurParfum > 0 && (
+                                                    <div className="flex justify-between">
+                                                      <span>Diffuseur parfum:</span>
+                                                      <span className="font-medium">
+                                                        {quote.quote_details.hygiene_products.diffuseurParfum}
+                                                      </span>
+                                                    </div>
+                                                  )}
+                                                  {quote.quote_details?.hygiene_products?.diffuseurParfumGamme &&
+                                                    quote.quote_details?.hygiene_products?.diffuseurParfum > 0 && (
+                                                      <div className="flex justify-between">
+                                                        <span>Gamme diffuseur:</span>
+                                                        <span className="font-medium capitalize">
+                                                          {quote.quote_details.hygiene_products.diffuseurParfumGamme}
+                                                        </span>
+                                                      </div>
+                                                    )}
                                                 </div>
-                                              )}
-                                              {quote.quote_details?.hygiene_products?.distributeurSavonGamme &&
-                                                quote.quote_details?.hygiene_products?.distributeurSavon > 0 && (
-                                                  <div className="flex justify-between">
-                                                    <span>Gamme distributeur savon:</span>
-                                                    <span className="font-medium capitalize">
-                                                      {quote.quote_details.hygiene_products.distributeurSavonGamme}
-                                                    </span>
-                                                  </div>
-                                                )}
-                                              {quote.quote_details?.hygiene_products?.distributeurServiette > 0 && (
-                                                <div className="flex justify-between">
-                                                  <span>Distributeur serviette:</span>
-                                                  <span className="font-medium">
-                                                    {quote.quote_details.hygiene_products.distributeurServiette}
-                                                  </span>
-                                                </div>
-                                              )}
-                                              {quote.quote_details?.hygiene_products?.distributeurServietteGamme &&
-                                                quote.quote_details?.hygiene_products?.distributeurServiette > 0 && (
-                                                  <div className="flex justify-between">
-                                                    <span>Gamme distributeur serviette:</span>
-                                                    <span className="font-medium capitalize">
-                                                      {quote.quote_details.hygiene_products.distributeurServietteGamme}
-                                                    </span>
-                                                  </div>
-                                                )}
-                                              {quote.quote_details?.hygiene_products?.diffuseurParfum > 0 && (
-                                                <div className="flex justify-between">
-                                                  <span>Diffuseur parfum:</span>
-                                                  <span className="font-medium">
-                                                    {quote.quote_details.hygiene_products.diffuseurParfum}
-                                                  </span>
-                                                </div>
-                                              )}
-                                              {quote.quote_details?.hygiene_products?.diffuseurParfumGamme &&
-                                                quote.quote_details?.hygiene_products?.diffuseurParfum > 0 && (
-                                                  <div className="flex justify-between">
-                                                    <span>Gamme diffuseur:</span>
-                                                    <span className="font-medium capitalize">
-                                                      {quote.quote_details.hygiene_products.diffuseurParfumGamme}
-                                                    </span>
-                                                  </div>
-                                                )}
-                                            </div>
-                                          </div>
-                                        )}
+                                              </div>
+                                            )}
 
-                                        {(quote.quote_details?.hygiene_products?.secheMains > 0 ||
-                                          quote.quote_details?.hygiene_products?.secheServiette > 0) && (
-                                          <div className="space-y-2">
-                                            <h5 className="font-medium text-sm text-gray-700">
-                                              Équipements de séchage
-                                            </h5>
-                                            <div className="space-y-1 text-sm">
-                                              {quote.quote_details?.hygiene_products?.secheMains > 0 && (
-                                                <div className="flex justify-between">
-                                                  <span>Sèche-mains:</span>
-                                                  <span className="font-medium">
-                                                    {quote.quote_details.hygiene_products.secheMains}
-                                                  </span>
+                                          {(quote.quote_details?.hygiene_products?.secheMains > 0 ||
+                                            quote.quote_details?.hygiene_products?.secheServiette > 0) && (
+                                              <div className="space-y-2">
+                                                <h5 className="font-medium text-sm text-gray-700">
+                                                  Équipements de séchage
+                                                </h5>
+                                                <div className="space-y-1 text-sm">
+                                                  {quote.quote_details?.hygiene_products?.secheMains > 0 && (
+                                                    <div className="flex justify-between">
+                                                      <span>Sèche-mains:</span>
+                                                      <span className="font-medium">
+                                                        {quote.quote_details.hygiene_products.secheMains}
+                                                      </span>
+                                                    </div>
+                                                  )}
+                                                  {quote.quote_details?.hygiene_products?.secheMainsGamme &&
+                                                    quote.quote_details?.hygiene_products?.secheMains > 0 && (
+                                                      <div className="flex justify-between">
+                                                        <span>Gamme sèche-mains:</span>
+                                                        <span className="font-medium capitalize">
+                                                          {quote.quote_details.hygiene_products.secheMainsGamme}
+                                                        </span>
+                                                      </div>
+                                                    )}
+                                                  {quote.quote_details?.hygiene_products?.secheServiette > 0 && (
+                                                    <div className="flex justify-between">
+                                                      <span>Sèche-serviette:</span>
+                                                      <span className="font-medium">
+                                                        {quote.quote_details.hygiene_products.secheServiette}
+                                                      </span>
+                                                    </div>
+                                                  )}
                                                 </div>
-                                              )}
-                                              {quote.quote_details?.hygiene_products?.secheMainsGamme &&
-                                                quote.quote_details?.hygiene_products?.secheMains > 0 && (
-                                                  <div className="flex justify-between">
-                                                    <span>Gamme sèche-mains:</span>
-                                                    <span className="font-medium capitalize">
-                                                      {quote.quote_details.hygiene_products.secheMainsGamme}
-                                                    </span>
-                                                  </div>
-                                                )}
-                                              {quote.quote_details?.hygiene_products?.secheServiette > 0 && (
-                                                <div className="flex justify-between">
-                                                  <span>Sèche-serviette:</span>
-                                                  <span className="font-medium">
-                                                    {quote.quote_details.hygiene_products.secheServiette}
-                                                  </span>
-                                                </div>
-                                              )}
-                                            </div>
-                                          </div>
-                                        )}
+                                              </div>
+                                            )}
 
-                                        {(quote.quote_details?.hygiene_products?.savons > 0 ||
-                                          quote.quote_details?.hygiene_products?.papierToilettes > 0 ||
-                                          quote.quote_details?.hygiene_products?.serviettePapier > 0) && (
-                                          <div className="space-y-2">
-                                            <h5 className="font-medium text-sm text-gray-700">Consommables</h5>
-                                            <div className="space-y-1 text-sm">
-                                              {quote.quote_details?.hygiene_products?.savons > 0 && (
-                                                <div className="flex justify-between">
-                                                  <span>Savons:</span>
-                                                  <span className="font-medium">
-                                                    {quote.quote_details.hygiene_products.savons}
-                                                  </span>
+                                          {(quote.quote_details?.hygiene_products?.savons > 0 ||
+                                            quote.quote_details?.hygiene_products?.papierToilettes > 0 ||
+                                            quote.quote_details?.hygiene_products?.serviettePapier > 0) && (
+                                              <div className="space-y-2">
+                                                <h5 className="font-medium text-sm text-gray-700">Consommables</h5>
+                                                <div className="space-y-1 text-sm">
+                                                  {quote.quote_details?.hygiene_products?.savons > 0 && (
+                                                    <div className="flex justify-between">
+                                                      <span>Savons:</span>
+                                                      <span className="font-medium">
+                                                        {quote.quote_details.hygiene_products.savons}
+                                                      </span>
+                                                    </div>
+                                                  )}
+                                                  {quote.quote_details?.hygiene_products?.papierToilettes > 0 && (
+                                                    <div className="flex justify-between">
+                                                      <span>Papier toilettes:</span>
+                                                      <span className="font-medium">
+                                                        {quote.quote_details.hygiene_products.papierToilettes}
+                                                      </span>
+                                                    </div>
+                                                  )}
+                                                  {quote.quote_details?.hygiene_products?.serviettePapier > 0 && (
+                                                    <div className="flex justify-between">
+                                                      <span>Serviette papier:</span>
+                                                      <span className="font-medium">
+                                                        {quote.quote_details.hygiene_products.serviettePapier}
+                                                      </span>
+                                                    </div>
+                                                  )}
                                                 </div>
-                                              )}
-                                              {quote.quote_details?.hygiene_products?.papierToilettes > 0 && (
-                                                <div className="flex justify-between">
-                                                  <span>Papier toilettes:</span>
-                                                  <span className="font-medium">
-                                                    {quote.quote_details.hygiene_products.papierToilettes}
-                                                  </span>
-                                                </div>
-                                              )}
-                                              {quote.quote_details?.hygiene_products?.serviettePapier > 0 && (
-                                                <div className="flex justify-between">
-                                                  <span>Serviette papier:</span>
-                                                  <span className="font-medium">
-                                                    {quote.quote_details.hygiene_products.serviettePapier}
-                                                  </span>
-                                                </div>
-                                              )}
-                                            </div>
-                                          </div>
-                                        )}
+                                              </div>
+                                            )}
 
-                                        {Object.entries(quote.quote_details?.hygiene_products || {}).filter(
-                                          ([key, value]) =>
-                                            ![
-                                              "distributeurSavon",
-                                              "distributeurSavonGamme",
-                                              "distributeurServiette",
-                                              "distributeurServietteGamme",
-                                              "diffuseurParfum",
-                                              "diffuseurParfumGamme",
-                                              "secheMains",
-                                              "secheMainsGamme",
-                                              "secheServiette",
-                                              "savons",
-                                              "papierToilettes",
-                                              "serviettePapier",
-                                            ].includes(key) &&
-                                            typeof value === "number" &&
-                                            value > 0,
-                                        ).length > 0 && (
-                                          <div className="space-y-2">
-                                            <h5 className="font-medium text-sm text-gray-700">Autres équipements</h5>
-                                            <div className="space-y-1 text-sm">
-                                              {Object.entries(quote.quote_details?.hygiene_products || {})
-                                                .filter(
-                                                  ([key, value]) =>
-                                                    ![
-                                                      "distributeurSavon",
-                                                      "distributeurSavonGamme",
-                                                      "distributeurServiette",
-                                                      "distributeurServietteGamme",
-                                                      "diffuseurParfum",
-                                                      "diffuseurParfumGamme",
-                                                      "secheMains",
-                                                      "secheMainsGamme",
-                                                      "secheServiette",
-                                                      "savons",
-                                                      "papierToilettes",
-                                                      "serviettePapier",
-                                                    ].includes(key) &&
-                                                    typeof value === "number" &&
-                                                    value > 0,
-                                                )
-                                                .map(([key, value]) => (
-                                                  <div key={key} className="flex justify-between">
-                                                    <span className="capitalize">
-                                                      {key.replace(/([A-Z])/g, " $1").toLowerCase()}:
-                                                    </span>
-                                                    <span className="font-medium">{value as number}</span>
-                                                  </div>
-                                                ))}
-                                            </div>
-                                          </div>
-                                        )}
+                                          {Object.entries(quote.quote_details?.hygiene_products || {}).filter(
+                                            ([key, value]) =>
+                                              ![
+                                                "distributeurSavon",
+                                                "distributeurSavonGamme",
+                                                "distributeurServiette",
+                                                "distributeurServietteGamme",
+                                                "diffuseurParfum",
+                                                "diffuseurParfumGamme",
+                                                "secheMains",
+                                                "secheMainsGamme",
+                                                "secheServiette",
+                                                "savons",
+                                                "papierToilettes",
+                                                "serviettePapier",
+                                              ].includes(key) &&
+                                              typeof value === "number" &&
+                                              value > 0,
+                                          ).length > 0 && (
+                                              <div className="space-y-2">
+                                                <h5 className="font-medium text-sm text-gray-700">Autres équipements</h5>
+                                                <div className="space-y-1 text-sm">
+                                                  {Object.entries(quote.quote_details?.hygiene_products || {})
+                                                    .filter(
+                                                      ([key, value]) =>
+                                                        ![
+                                                          "distributeurSavon",
+                                                          "distributeurSavonGamme",
+                                                          "distributeurServiette",
+                                                          "distributeurServietteGamme",
+                                                          "diffuseurParfum",
+                                                          "diffuseurParfumGamme",
+                                                          "secheMains",
+                                                          "secheMainsGamme",
+                                                          "secheServiette",
+                                                          "savons",
+                                                          "papierToilettes",
+                                                          "serviettePapier",
+                                                        ].includes(key) &&
+                                                        typeof value === "number" &&
+                                                        value > 0,
+                                                    )
+                                                    .map(([key, value]) => (
+                                                      <div key={key} className="flex justify-between">
+                                                        <span className="capitalize">
+                                                          {key.replace(/([A-Z])/g, " $1").toLowerCase()}:
+                                                        </span>
+                                                        <span className="font-medium">{value as number}</span>
+                                                      </div>
+                                                    ))}
+                                                </div>
+                                              </div>
+                                            )}
+                                        </div>
                                       </div>
-                                    </div>
-                                  )}
+                                    )}
                                 </div>
                               </DialogContent>
                             </Dialog>

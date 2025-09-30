@@ -1,7 +1,14 @@
 // app/api/quotes/route.ts
-import { supabase } from "@/lib/supabase/client";
+import { supabaseAdmin } from "@/lib/supabase/admin";
 import { NextResponse } from "next/server";
 
+/**
+ * If you have a server-side admin client, prefer:
+ * import { createClient } from "@supabase/supabase-js";
+ * const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
+ */
+
+const supabase = supabaseAdmin;
 // ---------- Helpers ----------
 function isSupabaseConfigured() {
   return Boolean(
@@ -16,59 +23,59 @@ function toInt(val: unknown, fallback = 0): number {
   return Number.isFinite(n) ? n : fallback;
 }
 
-// ---------- Mock data ----------
+function toBool(val: unknown, fallback = false): boolean {
+  if (typeof val === "boolean") return val;
+  if (typeof val === "string") {
+    const v = val.trim().toLowerCase();
+    if (["true", "1", "yes", "on"].includes(v)) return true;
+    if (["false", "0", "no", "off"].includes(v)) return false;
+  }
+  return fallback;
+}
+
+// ---------- Mock data (matches NEW schema) ----------
 const mockQuotes = [
   {
     id: "1",
     created_at: "2024-01-15T10:00:00Z",
+    quote_type: "auto",
+    cgv_accepted: true,
     client_name: "Jean Dupont",
     client_email: "jean.dupont@email.com",
     client_phone: "0123456789",
     client_company: "Entreprise ABC",
     client_address: "123 Rue de la Paix, 06000 Nice",
-    quote_details: {
-      local_type: "Bureau",
-      surface_area: 100,
-      interventions_per_week: 2,
-      hygiene_products: {} as Record<string, unknown>,
-      photos: [] as string[],
-    },
-    total_amount: 250.0,
+    location_type: "bureaux",
+    surface_m2: 100,
+    interventions_per_week: 2,
+    hygiene_products: {} as Record<string, unknown>,
+    photo_urls: [] as string[],
+    estimated_price_cents: 25000,
+    currency: "EUR",
     status: "pending",
-    signature_data: null as string | null,
-    equipment_ranges: { entree: [], milieu: [], haut: [] } as {
-      entree: Array<{ name: string; quantity: number; gamme: string }>;
-      milieu: Array<{ name: string; quantity: number; gamme: string }>;
-      haut: Array<{ name: string; quantity: number; gamme: string }>;
-    },
-    gamme_entree_count: 0,
-    gamme_milieu_count: 0,
-    gamme_haut_count: 0,
-    equipment_summary: "",
+    signed_at: null as string | null,
+    meta: {},
   },
   {
     id: "2",
     created_at: "2024-01-14T16:00:00Z",
+    quote_type: "detailed",
+    cgv_accepted: true,
     client_name: "Marie Martin",
     client_email: "marie.martin@email.com",
     client_phone: "0987654321",
     client_company: null as string | null,
     client_address: "456 Avenue des Fleurs, 06100 Cannes",
-    quote_details: {
-      local_type: "Commerce",
-      surface_area: 150,
-      interventions_per_week: 3,
-      hygiene_products: {} as Record<string, unknown>,
-      photos: [] as string[],
-    },
-    total_amount: 375.0,
-    status: "quoted",
-    signature_data: "data:image/png;base64,mock-signature",
-    equipment_ranges: { entree: [], milieu: [], haut: [] },
-    gamme_entree_count: 0,
-    gamme_milieu_count: 0,
-    gamme_haut_count: 0,
-    equipment_summary: "",
+    location_type: "commerces",
+    surface_m2: 150,
+    interventions_per_week: 3,
+    hygiene_products: {} as Record<string, unknown>,
+    photo_urls: [] as string[],
+    estimated_price_cents: 37500,
+    currency: "EUR",
+    status: "signed",
+    signed_at: "2024-01-15T12:00:00Z",
+    meta: {},
   },
 ];
 
@@ -103,138 +110,157 @@ export async function POST(request: Request) {
     const body = await request.json();
     console.log("[v0] Received quote data:", body);
 
-    const hygieneProducts: Record<string, any> = body.hygiene_products ?? {};
+    // --- Normalize/Back-compat mappings ---
+    const quote_type: "auto" | "detailed" =
+      body.quote_type ??
+      body.type ??
+      body.quoteType ??
+      (body?.params?.type === "detailed" ? "detailed" : "auto");
 
-    const equipmentRanges: {
-      entree: Array<{ name: string; quantity: number; gamme: "entree" }>;
-      milieu: Array<{ name: string; quantity: number; gamme: "milieu" }>;
-      haut: Array<{ name: string; quantity: number; gamme: "haut" }>;
-    } = { entree: [], milieu: [], haut: [] };
+    const cgv_accepted: boolean =
+      toBool(body.cgv_accepted, false) || toBool(body.cgvAccepted, false); // checkbox in UI
 
-    let gammeEntreeCount = 0;
-    let gammeMilieuCount = 0;
-    let gammeHautCount = 0;
+    const client_name: string = body.client_name ?? body.name ?? "";
+    const client_email: string = body.client_email ?? body.email ?? "";
+    const client_phone: string = body.client_phone ?? body.phone ?? "";
+    const client_company: string | null =
+      body.client_company ?? body.company ?? null;
+    const client_address: string =
+      body.client_address ?? body.address ?? "" ?? "";
 
-    // Collect items by "Gamme" selector + quantity key
-    Object.keys(hygieneProducts).forEach((key) => {
-      if (!key.endsWith("Gamme")) return;
+    const location_type: string =
+      body.location_type ??
+      body.local_type ??
+      body?.quote_details?.local_type ??
+      ""; // 'bureaux','commerces','sante','hotels','coproprietes'
 
-      const equipmentName = key.replace(/Gamme$/, "");
-      const gamme = hygieneProducts[key] as
-        | "entree"
-        | "milieu"
-        | "haut"
-        | undefined;
-      const quantity = toInt(hygieneProducts[equipmentName], 0);
-      if (!gamme || quantity <= 0) return;
+    const surface_m2: number = toInt(
+      body.surface_m2 ?? body.surface ?? body?.quote_details?.surface_area,
+      0
+    );
 
-      if (gamme === "entree") {
-        const entry: { name: string; quantity: number; gamme: "entree" } = {
-          name: equipmentName,
-          quantity,
-          gamme: "entree",
-        };
-        equipmentRanges.entree.push(entry);
-        gammeEntreeCount += quantity;
-      } else if (gamme === "milieu") {
-        const entry: { name: string; quantity: number; gamme: "milieu" } = {
-          name: equipmentName,
-          quantity,
-          gamme: "milieu",
-        };
-        equipmentRanges.milieu.push(entry);
-        gammeMilieuCount += quantity;
-      } else {
-        // gamme === "haut"
-        const entry: { name: string; quantity: number; gamme: "haut" } = {
-          name: equipmentName,
-          quantity,
-          gamme: "haut",
-        };
-        equipmentRanges.haut.push(entry);
-        gammeHautCount += quantity;
-      }
-    });
+    const interventions_per_week: number = toInt(
+      body.interventions_per_week ??
+        body.frequency ??
+        body?.quote_details?.interventions_per_week,
+      1
+    );
 
-    const equipmentSummary = [
-      equipmentRanges.entree.length
-        ? `Entrée: ${equipmentRanges.entree
-            .map((e) => `${e.name}(${e.quantity})`)
-            .join(", ")}`
-        : "",
-      equipmentRanges.milieu.length
-        ? `Milieu: ${equipmentRanges.milieu
-            .map((e) => `${e.name}(${e.quantity})`)
-            .join(", ")}`
-        : "",
-      equipmentRanges.haut.length
-        ? `Haut: ${equipmentRanges.haut
-            .map((e) => `${e.name}(${e.quantity})`)
-            .join(", ")}`
-        : "",
-    ]
-      .filter(Boolean)
-      .join(" | ");
+    const hygiene_products: Record<string, unknown> =
+      body.hygiene_products ??
+      body.hygienProducts ??
+      body?.quote_details?.hygiene_products ??
+      {};
 
-    const quote_details = {
-      local_type: body.location_type ?? body.local_type ?? null,
-      surface_area: toInt(body.surface ?? body.surface_area, 0),
-      interventions_per_week: toInt(
-        body.frequency ?? body.interventions_per_week,
-        1
-      ),
-      hygiene_products: hygieneProducts,
-      photos: Array.isArray(body.photos) ? body.photos : [],
-    };
+    const photo_urls: string[] = Array.isArray(body.photo_urls)
+      ? body.photo_urls
+      : Array.isArray(body.photoUrls)
+      ? body.photoUrls
+      : Array.isArray(body.photos)
+      ? body.photos
+      : Array.isArray(body?.quote_details?.photos)
+      ? body.quote_details.photos
+      : [];
 
-    const quoteData = {
-      client_name: body.client_name ?? body.name ?? "",
-      client_email: body.client_email ?? body.email ?? "",
-      client_phone: body.client_phone ?? body.phone ?? "",
-      client_company: body.client_company ?? body.company ?? null,
-      client_address: body.client_address ?? body.address ?? null,
-      quote_details, // JSONB
-      total_amount: Number.isFinite(Number(body.estimated_price))
-        ? Number(body.estimated_price)
-        : 0,
-      status: body.status ?? "pending",
-      signature_data: body.signature_data ?? null,
+    // Price normalization: prefer cents if provided; else derive from euros
+    const estimated_price_cents: number = toInt(
+      body.estimated_price_cents,
+      Math.round(
+        Number.isFinite(Number(body.estimated_price))
+          ? Number(body.estimated_price) * 100
+          : 0
+      )
+    );
+
+    const currency: string = body.currency ?? "EUR";
+    const status: "pending" | "signed" | "rejected" | "cancelled" =
+      body.status ?? "pending";
+
+    // Optional
+    const signed_at: string | null = body.signed_at ?? null;
+    const meta: Record<string, unknown> = body.meta ?? {};
+
+    // --- Basic required-field checks (server guard) ---
+    const requiredString = (v: unknown) =>
+      typeof v === "string" && v.trim().length > 0;
+
+    if (!requiredString(client_name))
+      return NextResponse.json(
+        { error: "Missing or invalid field: client_name" },
+        { status: 400 }
+      );
+    if (!requiredString(client_email))
+      return NextResponse.json(
+        { error: "Missing or invalid field: client_email" },
+        { status: 400 }
+      );
+    if (!requiredString(client_phone))
+      return NextResponse.json(
+        { error: "Missing or invalid field: client_phone" },
+        { status: 400 }
+      );
+    if (!requiredString(client_address))
+      return NextResponse.json(
+        { error: "Missing or invalid field: client_address" },
+        { status: 400 }
+      );
+    if (!requiredString(location_type))
+      return NextResponse.json(
+        { error: "Missing or invalid field: location_type" },
+        { status: 400 }
+      );
+    if (!Number.isFinite(surface_m2) || surface_m2 < 0)
+      return NextResponse.json(
+        { error: "Missing or invalid field: surface_m2" },
+        { status: 400 }
+      );
+    if (
+      !Number.isFinite(interventions_per_week) ||
+      interventions_per_week < 1 ||
+      interventions_per_week > 6
+    )
+      return NextResponse.json(
+        { error: "Missing or invalid field: interventions_per_week" },
+        { status: 400 }
+      );
+    if (!Number.isFinite(estimated_price_cents) || estimated_price_cents < 0)
+      return NextResponse.json(
+        { error: "Missing or invalid field: estimated_price_cents" },
+        { status: 400 }
+      );
+
+    // --- Build the row exactly as the DB expects ---
+    const row = {
+      quote_type,
+      cgv_accepted,
+      client_name,
+      client_email,
+      client_phone,
+      client_company,
+      client_address,
+      location_type,
+      surface_m2,
+      interventions_per_week,
+      hygiene_products, // jsonb
+      photo_urls, // text[]
+      estimated_price_cents,
+      currency,
+      status,
+      signed_at,
+      meta,
       created_at: new Date().toISOString(),
-      equipment_ranges: equipmentRanges, // JSONB
-      gamme_entree_count: gammeEntreeCount,
-      gamme_milieu_count: gammeMilieuCount,
-      gamme_haut_count: gammeHautCount,
-      equipment_summary: equipmentSummary,
     };
-
-    // Basic required-field checks
-    const requiredStrings: Array<keyof typeof quoteData> = [
-      "client_name",
-      "client_email",
-      "client_phone",
-      "status",
-    ];
-    for (const k of requiredStrings) {
-      const v = quoteData[k];
-      if (typeof v !== "string" || v.trim() === "") {
-        return NextResponse.json(
-          { error: `Missing or invalid field: ${k}` },
-          { status: 400 }
-        );
-      }
-    }
 
     if (!isSupabaseConfigured()) {
       console.log("[v0] Supabase not configured, simulating successful save");
-      const mockQuote = { id: Date.now().toString(), ...quoteData };
-      return NextResponse.json({ quote: mockQuote });
+      const mock = { id: Date.now().toString(), ...row };
+      return NextResponse.json({ quote: mock });
     }
 
     try {
-      // Insert JSON objects directly; Supabase maps to jsonb columns
       const { data, error } = await supabase
         .from("quotes")
-        .insert(quoteData)
+        .insert(row)
         .select("*")
         .single();
 
@@ -255,8 +281,8 @@ export async function POST(request: Request) {
       ];
       if (knownFailures.some((s) => msg.toLowerCase().includes(s))) {
         console.log("[v0] Supabase insert issue, using mock data:", msg);
-        const mockQuote = { id: Date.now().toString(), ...quoteData };
-        return NextResponse.json({ quote: mockQuote });
+        const mock = { id: Date.now().toString(), ...row };
+        return NextResponse.json({ quote: mock });
       }
       throw dbError;
     }

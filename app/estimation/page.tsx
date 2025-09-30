@@ -147,7 +147,7 @@ export default function EstimationPage() {
         if (product === "diffuseurParfum") {
           const price =
             diffuseurParfumPrices[
-              estimation.hygienProducts.diffuseurParfumGamme as keyof typeof diffuseurParfumPrices
+            estimation.hygienProducts.diffuseurParfumGamme as keyof typeof diffuseurParfumPrices
             ] || 5
           basePrice += quantity * price
         } else if (product === "secheMains") {
@@ -157,13 +157,13 @@ export default function EstimationPage() {
         } else if (product === "distributeurSavon") {
           const price =
             distributeurSavonPrices[
-              estimation.hygienProducts.distributeurSavonGamme as keyof typeof distributeurSavonPrices
+            estimation.hygienProducts.distributeurSavonGamme as keyof typeof distributeurSavonPrices
             ] || 2
           basePrice += quantity * price
         } else if (product === "distributeurServiette") {
           const price =
             distributeurServettePrices[
-              estimation.hygienProducts.distributeurServietteGamme as keyof typeof distributeurServettePrices
+            estimation.hygienProducts.distributeurServietteGamme as keyof typeof distributeurServettePrices
             ] || 2.5
           basePrice += quantity * price
         } else if (
@@ -276,19 +276,33 @@ export default function EstimationPage() {
       console.log("[v0] Address is truthy:", !!estimation.contactInfo.address)
 
       const requestData = {
+        // form context
+        quote_type: quoteType,                            // 'auto' | 'detailed'
+        cgv_accepted: cgvAccepted,                        // boolean
+
+        // client
         client_name: estimation.contactInfo.name,
         client_email: estimation.contactInfo.email,
         client_phone: estimation.contactInfo.phone,
         client_company: estimation.contactInfo.company || null,
-        client_address: estimation.contactInfo.address || null,
+        client_address: estimation.contactInfo.address,
+
+        // site & frequency
         location_type: estimation.locationType,
-        surface: Number.parseInt(estimation.surface) || 0,
-        frequency: Number.parseInt(estimation.frequency) || 1,
-        hygiene_products: estimation.hygienProducts,
-        photos: photoUrls,
-        estimated_price: estimatedPrice,
-        status: "pending",
-      }
+        surface_m2: Number(estimation.surface) || 0,      // rename: surface -> surface_m2
+        interventions_per_week: Number(estimation.frequency) || 1, // rename: frequency -> interventions_per_week
+
+        // extras
+        hygiene_products: estimation.hygienProducts,      // rename: hygienProducts -> hygiene_products (jsonb)
+        photo_urls: photoUrls,                            // rename: photos -> photo_urls (string[] of URLs)
+
+        // pricing
+        estimated_price_cents: Math.round((estimatedPrice ?? 0) * 100), // store in cents (int)
+        currency: 'EUR',
+
+        // lifecycle
+        status: 'pending'
+      };
 
       console.log("[v0] Request data being sent:", requestData)
       console.log("[v0] client_address in request:", requestData.client_address)

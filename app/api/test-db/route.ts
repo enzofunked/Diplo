@@ -52,21 +52,23 @@ export async function GET() {
 
     // 3) Insert a test quote
     const testPayload = {
-      client_name: "Test Client",
-      client_email: "test@example.com",
-      client_phone: "0123456789",
-      client_company: null,
-      client_address: null,
-      quote_details: { test: true }, // jsonb
-      total_amount: 100.0,
-      status: "pending",
-      signature_data: null,
+      full_name: "Test Client",
+      email: "test@example.com",
+      phone: "0123456789",
+      company: "Test Company",
+      address: "123 Demo Street",
+      surface_area: 100, // integer
+      frequency: "weekly", // text
+      premises_type: "office", // text
+      quote_number: "Q-TEST-001", // text
+      client_address: "Client HQ",
+      // created_at will auto default to now()
     };
 
     const { data: inserted, error: insertError } = await supabase
       .from("quotes")
       .insert(testPayload)
-      .select("id, client_name, created_at")
+      .select("id, full_name, created_at")
       .single();
 
     if (insertError) throw insertError;
