@@ -1,10 +1,17 @@
+"use client"
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Clock, Calendar, CheckCircle, Zap, Users, FileText, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import { useEffect } from "react"
 
 export default function DevisChoicePage() {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}

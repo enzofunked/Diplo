@@ -34,6 +34,12 @@ export default function HomePage() {
             <Link href="/devis" className="text-foreground hover:text-primary transition-colors">
               Estimation
             </Link>
+            <Link href="/qualite" className="text-foreground hover:text-primary transition-colors">
+              Qualité
+            </Link>
+            <Link href="/carriere" className="text-foreground hover:text-primary transition-colors">
+              Carrière
+            </Link>
             <Button asChild>
               <Link href="/devis">Devis Gratuit</Link>
             </Button>
@@ -77,37 +83,45 @@ export default function HomePage() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="text-center hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <Building2 className="h-12 w-12 text-primary mx-auto mb-4" />
-                <CardTitle>Bureaux</CardTitle>
-                <CardDescription>Nettoyage quotidien ou périodique de vos espaces de travail</CardDescription>
-              </CardHeader>
-            </Card>
+            <Link href="/nettoyage-bureaux" className="block">
+              <Card className="text-center hover:shadow-lg transition-shadow h-full">
+                <CardHeader>
+                  <Building2 className="h-12 w-12 text-primary mx-auto mb-4" />
+                  <CardTitle>Bureaux</CardTitle>
+                  <CardDescription>Nettoyage quotidien ou périodique de vos espaces de travail</CardDescription>
+                </CardHeader>
+              </Card>
+            </Link>
 
-            <Card className="text-center hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <Store className="h-12 w-12 text-primary mx-auto mb-4" />
-                <CardTitle>Commerces</CardTitle>
-                <CardDescription>Entretien de boutiques, magasins et espaces commerciaux</CardDescription>
-              </CardHeader>
-            </Card>
+            <Link href="/nettoyage-commerces" className="block">
+              <Card className="text-center hover:shadow-lg transition-shadow h-full">
+                <CardHeader>
+                  <Store className="h-12 w-12 text-primary mx-auto mb-4" />
+                  <CardTitle>Commerces</CardTitle>
+                  <CardDescription>Entretien de boutiques, magasins et espaces commerciaux</CardDescription>
+                </CardHeader>
+              </Card>
+            </Link>
 
-            <Card className="text-center hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <Hotel className="h-12 w-12 text-primary mx-auto mb-4" />
-                <CardTitle>Hôtels & Restaurants</CardTitle>
-                <CardDescription>Services spécialisés pour l'hôtellerie et la restauration</CardDescription>
-              </CardHeader>
-            </Card>
+            <Link href="/nettoyage-hotels-restaurants" className="block">
+              <Card className="text-center hover:shadow-lg transition-shadow h-full">
+                <CardHeader>
+                  <Hotel className="h-12 w-12 text-primary mx-auto mb-4" />
+                  <CardTitle>Hôtels & Restaurants</CardTitle>
+                  <CardDescription>Services spécialisés pour l'hôtellerie et la restauration</CardDescription>
+                </CardHeader>
+              </Card>
+            </Link>
 
-            <Card className="text-center hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <Home className="h-12 w-12 text-primary mx-auto mb-4" />
-                <CardTitle>Copropriétés</CardTitle>
-                <CardDescription>Entretien des parties communes et espaces collectifs</CardDescription>
-              </CardHeader>
-            </Card>
+            <Link href="/nettoyage-coproprietes" className="block">
+              <Card className="text-center hover:shadow-lg transition-shadow h-full">
+                <CardHeader>
+                  <Home className="h-12 w-12 text-primary mx-auto mb-4" />
+                  <CardTitle>Copropriétés</CardTitle>
+                  <CardDescription>Entretien des parties communes et espaces collectifs</CardDescription>
+                </CardHeader>
+              </Card>
+            </Link>
           </div>
         </div>
       </section>
@@ -240,11 +254,18 @@ export default function HomePage() {
 
           <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
             <div className="space-y-6">
-              <div className="flex items-center gap-4">
-                <Phone className="h-6 w-6 text-primary" />
-                <div>
+              <div className="flex items-start gap-4">
+                <Phone className="h-6 w-6 text-primary mt-1" />
+                <div className="space-y-3">
                   <p className="font-semibold">Téléphone</p>
-                  <p className="text-muted-foreground">07 69 57 46 74</p>
+                  <div>
+                    <p className="text-muted-foreground">07 69 57 46 74</p>
+                    <p className="text-sm text-muted-foreground/80">Mr Saidi (Président)</p>
+                  </div>
+                  <div>
+                    <p className="text-muted-foreground">06 35 40 25 04</p>
+                    <p className="text-sm text-muted-foreground/80">Mr FUNKE (Directeur général)</p>
+                  </div>
                 </div>
               </div>
 
