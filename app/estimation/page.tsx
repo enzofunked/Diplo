@@ -185,26 +185,56 @@ export default function EstimationPage() {
   }, [estimation.locationType, estimation.surface, estimation.frequency, estimation.hygienProducts])
 
   const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files || [])
+    const files = Array.from(e.target.files || []);
+    if (!files.length) return;
 
-    for (const file of files) {
-      try {
-        // Create a local URL for preview
-        const localUrl = URL.createObjectURL(file)
+    // 1) add local previews and remember where they start
+    const localUrls = files.map((f) => URL.createObjectURL(f));
+    let startIndex = -1;
+    setPhotoUrls((prev) => {
+      startIndex = prev.length;               // index of first new preview
+      return [...prev, ...localUrls];
+    });
+    setEstimation((prev) => ({ ...prev, photos: [...prev.photos, ...files] }));
 
-        // Add to state
-        setEstimation((prev) => ({
-          ...prev,
-          photos: [...prev.photos, file],
-        }))
+    try {
+      await Promise.all(
+        files.map(async (file, i) => {
+          const ext = (file.name.split(".").pop() || file.type.split("/")[1] || "png").toLowerCase();
 
-        setPhotoUrls((prev) => [...prev, localUrl])
-      } catch (error) {
-        console.error("Error processing photo:", error)
-        alert(`Erreur lors du traitement de ${file.name}`)
-      }
+          // 2) get signed PUT + public URL
+          const suRes = await fetch("/api/sign-upload", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              bucket: "photos",                         // make sure this bucket exists
+              filename: `photo-${Date.now()}-${i}.${ext}`,
+            }),
+          });
+          if (!suRes.ok) throw new Error("Could not get signed upload URL");
+          const { uploadUrl, publicUrl } = await suRes.json();
+
+          // 3) upload the file
+          const put = await fetch(uploadUrl, {
+            method: "PUT",
+            headers: {
+              "Content-Type": file.type || "application/octet-stream",
+              "x-upsert": "true",
+            },
+            body: file,
+          });
+          if (!put.ok) throw new Error(`Upload failed: ${put.status}`);
+        })
+      );
+    } catch (err) {
+      console.error("Error uploading photo(s):", err);
+      alert("Erreur lors de l’upload des photos. Veuillez réessayer.");
+      // don’t revoke previews on failure so the user still sees them
+    } finally {
+      if (e.target) e.target.value = "";
     }
-  }
+  };
+
 
   const updateProductQuantity = (product: keyof typeof estimation.hygienProducts, delta: number) => {
     setEstimation((prev) => ({
@@ -215,6 +245,83 @@ export default function EstimationPage() {
       },
     }))
   }
+
+  async function uploadViaSignedUrl(uploadUrl: string, file: Blob | File, contentType: string) {
+    const res = await fetch(uploadUrl, {
+      method: "PUT",
+      headers: {
+        "Content-Type": contentType,
+        "x-upsert": "true",
+      },
+      body: file,
+    })
+    if (!res.ok) {
+      const txt = await res.text().catch(() => "")
+      throw new Error(`Signed upload failed: ${res.status} ${txt}`)
+    }
+  }
+
+  // Call this when you have the signature Blob (PNG) from your signature pad / PDF step
+  const handleSignatureAndSaveQuote = async (signatureBlob: Blob) => {
+    try {
+      setIsSubmitting(true)
+
+      // 1) Get signed upload URL (no auth needed)
+      const suRes = await fetch("/api/sign-upload", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ bucket: "quotes", filename: `signature-${Date.now()}.png` }),
+      })
+      if (!suRes.ok) throw new Error("Could not get signed upload URL")
+      const { uploadUrl, publicUrl } = await suRes.json()
+
+      // 2) Upload the signature
+      await uploadViaSignedUrl(uploadUrl, signatureBlob, "image/png")
+
+      // 3) Build your existing quote payload + signature_url
+      const requestData = {
+        quote_type: quoteType,
+        cgv_accepted: cgvAccepted,
+
+        client_name: estimation.contactInfo.name,
+        client_email: estimation.contactInfo.email,
+        client_phone: estimation.contactInfo.phone,
+        client_company: estimation.contactInfo.company || null,
+        client_address: estimation.contactInfo.address,
+
+        location_type: estimation.locationType,
+        surface_m2: Number(estimation.surface) || 0,
+        interventions_per_week: Number(estimation.frequency) || 1,
+
+        hygiene_products: estimation.hygienProducts,
+        photo_urls: photoUrls,
+
+        estimated_price_cents: Math.round((estimatedPrice ?? 0) * 100),
+        currency: "EUR",
+        status: "pending",
+
+        // NEW
+        signature_url: publicUrl,
+      }
+
+      // 4) Save the quote
+      const response = await fetch("/api/quotes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(requestData),
+      })
+      if (!response.ok) throw new Error("Failed to save quote")
+
+      await response.json()
+      handleQuoteSaved()
+    } catch (err) {
+      console.error(err)
+      alert("Erreur lors de l’envoi de la signature ou de l’enregistrement du devis.")
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
 
   const handleQuoteSaved = () => {
     // Reset form after successful submission
@@ -1278,6 +1385,7 @@ export default function EstimationPage() {
                       estimation={estimation}
                       estimatedPrice={estimatedPrice}
                       onQuoteSaved={handleQuoteSaved}
+                      onSignatureReady={handleSignatureAndSaveQuote}  // << add this
                     />
                   </CardContent>
                 </Card>

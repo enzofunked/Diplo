@@ -37,9 +37,26 @@ interface PDFGeneratorProps {
   estimation: EstimationData
   estimatedPrice: number
   onQuoteSaved?: () => void
+  /** NEW: called with a PNG Blob of the signature */
+  onSignatureReady?: (signatureBlob: Blob) => Promise<void> | void
+}
+function dataURLtoBlob(dataUrl: string): Blob {
+  const [header, data] = dataUrl.split(",")
+  const isBase64 = header.includes(";base64")
+  const mime = header.substring(header.indexOf(":") + 1, header.indexOf(";"))
+  if (isBase64) {
+    const binary = atob(data)
+    const len = binary.length
+    const bytes = new Uint8Array(len)
+    for (let i = 0; i < len; i++) bytes[i] = binary.charCodeAt(i)
+    return new Blob([bytes], { type: mime || "image/png" })
+  }
+  // data URL without base64
+  return new Blob([decodeURIComponent(data)], { type: mime || "image/png" })
 }
 
-export default function PDFGenerator({ estimation, estimatedPrice, onQuoteSaved }: PDFGeneratorProps) {
+
+export default function PDFGenerator({ estimation, estimatedPrice, onQuoteSaved, onSignatureReady }: PDFGeneratorProps) {
   const [isGenerating, setIsGenerating] = useState(false)
   const [signatureDataUrl, setSignatureDataUrl] = useState<string | null>(null)
   const [showSignature, setShowSignature] = useState(false)
@@ -52,11 +69,17 @@ export default function PDFGenerator({ estimation, estimatedPrice, onQuoteSaved 
     setStep("complete")
 
     try {
+      // NEW: if parent provided a handler, give them a PNG Blob to upload & save
+      if (typeof onSignatureReady === "function") {
+        const blob = dataURLtoBlob(dataUrl)
+        await onSignatureReady(blob)
+        return // parent handles upload + quote save
+      }
+
+      // --- Fallback (keeps your existing behavior if no onSignatureReady is passed) ---
       const response = await fetch("/api/quotes", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           client_name: estimation.contactInfo.name,
           client_email: estimation.contactInfo.email,
@@ -68,21 +91,19 @@ export default function PDFGenerator({ estimation, estimatedPrice, onQuoteSaved 
           frequency: estimation.frequency,
           estimated_price: estimatedPrice,
           hygiene_products: estimation.hygienProducts,
-          signature_data: dataUrl,
+          signature_data: dataUrl, // still supported on server if you want to keep it
           status: "signed",
         }),
       })
 
-      if (!response.ok) {
-        throw new Error("Failed to save quote")
-      }
-
-      console.log("Quote saved successfully")
+      if (!response.ok) throw new Error("Failed to save quote")
+      console.log("Quote saved successfully (fallback path)")
     } catch (error) {
       console.error("Error saving quote:", error)
       // Don't block the user flow if saving fails
     }
   }
+
 
   const handleSignatureClear = () => {
     setSignatureDataUrl(null)

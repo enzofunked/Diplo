@@ -9,6 +9,7 @@ import { NextResponse } from "next/server";
  */
 
 const supabase = supabaseAdmin;
+
 // ---------- Helpers ----------
 function isSupabaseConfigured() {
   return Boolean(
@@ -54,6 +55,7 @@ const mockQuotes = [
     currency: "EUR",
     status: "pending",
     signed_at: null as string | null,
+    signature_url: null as string | null, // NEW in mock
     meta: {},
   },
   {
@@ -75,6 +77,7 @@ const mockQuotes = [
     currency: "EUR",
     status: "signed",
     signed_at: "2024-01-15T12:00:00Z",
+    signature_url: "https://example.com/sigs/abc.png", // NEW in mock
     meta: {},
   },
 ];
@@ -177,8 +180,22 @@ export async function POST(request: Request) {
       body.status ?? "pending";
 
     // Optional
-    const signed_at: string | null = body.signed_at ?? null;
+    let signed_at: string | null = body.signed_at ?? null;
     const meta: Record<string, unknown> = body.meta ?? {};
+
+    // --- NEW: signature fields ---
+    // Public URL when bucket is public (recommended for this flow)
+    const signature_url: string | null =
+      body.signature_url ?? body.signatureUrl ?? body.signatureURL ?? null;
+
+    // If you keep bucket private, you might prefer to store the object key instead of a public URL:
+    const signature_object_path: string | null =
+      body.signature_object_path ?? body.signatureObjectPath ?? null;
+
+    // If the quote is CGV-accepted and we DO have a signature URL but no signed_at, set it.
+    if (!signed_at && cgv_accepted && signature_url) {
+      signed_at = new Date().toISOString();
+    }
 
     // --- Basic required-field checks (server guard) ---
     const requiredString = (v: unknown) =>
@@ -247,6 +264,9 @@ export async function POST(request: Request) {
       currency,
       status,
       signed_at,
+      signature_url, // <-- NEW: persist the uploaded signature's public URL
+      // If you also want to keep the object key when bucket is private:
+      // signature_object_path,
       meta,
       created_at: new Date().toISOString(),
     };

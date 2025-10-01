@@ -104,6 +104,7 @@ interface Quote {
   // optional extras if backend provides later
   pdf_url?: string
   signature_data?: string
+  signature_url?: string
 }
 
 interface Appointment {
@@ -433,7 +434,11 @@ export default function AdminPage() {
                                   <DialogTitle>Détails du devis</DialogTitle>
                                   <DialogDescription>Devis créé le {new Date(quote.created_at).toLocaleDateString("fr-FR")}</DialogDescription>
                                 </DialogHeader>
-                                <div className="space-y-6">
+                                <div className="space-y-6 max-h-[85vh] overflow-y-auto">
+                                  <div>
+                                    <h4 className="font-semibold">Signature du client</h4>
+                                    <img src={quote.signature_url} className="w-2xs" />
+                                  </div>
                                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
                                       <h4 className="font-semibold">Informations client</h4>
