@@ -147,7 +147,7 @@ export default function EstimationPage() {
         if (product === "diffuseurParfum") {
           const price =
             diffuseurParfumPrices[
-            estimation.hygienProducts.diffuseurParfumGamme as keyof typeof diffuseurParfumPrices
+              estimation.hygienProducts.diffuseurParfumGamme as keyof typeof diffuseurParfumPrices
             ] || 5
           basePrice += quantity * price
         } else if (product === "secheMains") {
@@ -157,13 +157,13 @@ export default function EstimationPage() {
         } else if (product === "distributeurSavon") {
           const price =
             distributeurSavonPrices[
-            estimation.hygienProducts.distributeurSavonGamme as keyof typeof distributeurSavonPrices
+              estimation.hygienProducts.distributeurSavonGamme as keyof typeof distributeurSavonPrices
             ] || 2
           basePrice += quantity * price
         } else if (product === "distributeurServiette") {
           const price =
             distributeurServettePrices[
-            estimation.hygienProducts.distributeurServietteGamme as keyof typeof distributeurServettePrices
+              estimation.hygienProducts.distributeurServietteGamme as keyof typeof distributeurServettePrices
             ] || 2.5
           basePrice += quantity * price
         } else if (
@@ -185,34 +185,34 @@ export default function EstimationPage() {
   }, [estimation.locationType, estimation.surface, estimation.frequency, estimation.hygienProducts])
 
   const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files || []);
-    if (!files.length) return;
+    const files = Array.from(e.target.files || [])
+    if (!files.length) return
 
     // 1) add local previews and remember where they start
-    const localUrls = files.map((f) => URL.createObjectURL(f));
-    let startIndex = -1;
+    const localUrls = files.map((f) => URL.createObjectURL(f))
+    let startIndex = -1
     setPhotoUrls((prev) => {
-      startIndex = prev.length;               // index of first new preview
-      return [...prev, ...localUrls];
-    });
-    setEstimation((prev) => ({ ...prev, photos: [...prev.photos, ...files] }));
+      startIndex = prev.length // index of first new preview
+      return [...prev, ...localUrls]
+    })
+    setEstimation((prev) => ({ ...prev, photos: [...prev.photos, ...files] }))
 
     try {
       await Promise.all(
         files.map(async (file, i) => {
-          const ext = (file.name.split(".").pop() || file.type.split("/")[1] || "png").toLowerCase();
+          const ext = (file.name.split(".").pop() || file.type.split("/")[1] || "png").toLowerCase()
 
           // 2) get signed PUT + public URL
           const suRes = await fetch("/api/sign-upload", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-              bucket: "photos",                         // make sure this bucket exists
+              bucket: "photos", // make sure this bucket exists
               filename: `photo-${Date.now()}-${i}.${ext}`,
             }),
-          });
-          if (!suRes.ok) throw new Error("Could not get signed upload URL");
-          const { uploadUrl, publicUrl } = await suRes.json();
+          })
+          if (!suRes.ok) throw new Error("Could not get signed upload URL")
+          const { uploadUrl, publicUrl } = await suRes.json()
 
           // 3) upload the file
           const put = await fetch(uploadUrl, {
@@ -222,19 +222,18 @@ export default function EstimationPage() {
               "x-upsert": "true",
             },
             body: file,
-          });
-          if (!put.ok) throw new Error(`Upload failed: ${put.status}`);
-        })
-      );
+          })
+          if (!put.ok) throw new Error(`Upload failed: ${put.status}`)
+        }),
+      )
     } catch (err) {
-      console.error("Error uploading photo(s):", err);
-      alert("Erreur lors de l’upload des photos. Veuillez réessayer.");
+      console.error("Error uploading photo(s):", err)
+      alert("Erreur lors de l’upload des photos. Veuillez réessayer.")
       // don’t revoke previews on failure so the user still sees them
     } finally {
-      if (e.target) e.target.value = "";
+      if (e.target) e.target.value = ""
     }
-  };
-
+  }
 
   const updateProductQuantity = (product: keyof typeof estimation.hygienProducts, delta: number) => {
     setEstimation((prev) => ({
@@ -313,15 +312,15 @@ export default function EstimationPage() {
       if (!response.ok) throw new Error("Failed to save quote")
 
       await response.json()
+
       handleQuoteSaved()
     } catch (err) {
       console.error(err)
-      alert("Erreur lors de l’envoi de la signature ou de l’enregistrement du devis.")
+      alert("Erreur lors de l'envoi de la signature ou de l'enregistrement du devis.")
     } finally {
       setIsSubmitting(false)
     }
   }
-
 
   const handleQuoteSaved = () => {
     // Reset form after successful submission
@@ -358,9 +357,6 @@ export default function EstimationPage() {
     setShowPdfSection(false)
     setShowPdfCard(false)
     setCgvAccepted(false)
-
-    // Show success message
-    alert("Votre devis a été signé et sauvegardé avec succès ! Nous vous contacterons rapidement.")
   }
 
   const handleSubmitQuote = async () => {
@@ -384,8 +380,8 @@ export default function EstimationPage() {
 
       const requestData = {
         // form context
-        quote_type: quoteType,                            // 'auto' | 'detailed'
-        cgv_accepted: cgvAccepted,                        // boolean
+        quote_type: quoteType, // 'auto' | 'detailed'
+        cgv_accepted: cgvAccepted, // boolean
 
         // client
         client_name: estimation.contactInfo.name,
@@ -396,20 +392,20 @@ export default function EstimationPage() {
 
         // site & frequency
         location_type: estimation.locationType,
-        surface_m2: Number(estimation.surface) || 0,      // rename: surface -> surface_m2
+        surface_m2: Number(estimation.surface) || 0, // rename: surface -> surface_m2
         interventions_per_week: Number(estimation.frequency) || 1, // rename: frequency -> interventions_per_week
 
         // extras
-        hygiene_products: estimation.hygienProducts,      // rename: hygienProducts -> hygiene_products (jsonb)
-        photo_urls: photoUrls,                            // rename: photos -> photo_urls (string[] of URLs)
+        hygiene_products: estimation.hygienProducts, // rename: hygienProducts -> hygiene_products (jsonb)
+        photo_urls: photoUrls, // rename: photos -> photo_urls (string[] of URLs)
 
         // pricing
         estimated_price_cents: Math.round((estimatedPrice ?? 0) * 100), // store in cents (int)
-        currency: 'EUR',
+        currency: "EUR",
 
         // lifecycle
-        status: 'pending'
-      };
+        status: "pending",
+      }
 
       console.log("[v0] Request data being sent:", requestData)
       console.log("[v0] client_address in request:", requestData.client_address)
@@ -1385,7 +1381,7 @@ export default function EstimationPage() {
                       estimation={estimation}
                       estimatedPrice={estimatedPrice}
                       onQuoteSaved={handleQuoteSaved}
-                      onSignatureReady={handleSignatureAndSaveQuote}  // << add this
+                      onSignatureReady={handleSignatureAndSaveQuote} // << add this
                     />
                   </CardContent>
                 </Card>
