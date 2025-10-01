@@ -260,7 +260,7 @@ export default function HomePage() {
                   <p className="font-semibold">Téléphone</p>
                   <div>
                     <p className="text-muted-foreground">07 69 57 46 74</p>
-                    <p className="text-sm text-muted-foreground/80">Mr Saidi (Président)</p>
+                    <p className="text-sm text-muted-foreground/80">Mr SAIDI (Président)</p>
                   </div>
                   <div>
                     <p className="text-muted-foreground">06 35 40 25 04</p>
