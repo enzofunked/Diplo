@@ -1,7 +1,19 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Building2, Store, Hotel, Home, Phone, Mail, CheckCircle, Shield, Clock } from "lucide-react"
+import {
+  Building2,
+  Store,
+  Hotel,
+  Home,
+  Phone,
+  Mail,
+  CheckCircle,
+  Shield,
+  Clock,
+  Instagram,
+  Linkedin,
+} from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 
@@ -287,8 +299,28 @@ export default function HomePage() {
               <Image src="/images/uct-azur-logo.png" alt="UCT Azur Logo" width={24} height={24} className="h-6 w-6" />
               <span className="text-lg font-semibold">UCT Azur</span>
             </div>
+            <div className="flex items-center gap-4 mb-4 md:mb-0">
+              <a
+                href="https://www.instagram.com/uct_azur/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary transition-colors"
+                aria-label="Instagram"
+              >
+                <Instagram className="h-5 w-5" />
+              </a>
+              <a
+                href="https://www.linkedin.com/company/uct-azur/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary transition-colors"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="h-5 w-5" />
+              </a>
+            </div>
             <p className="text-muted-foreground text-center md:text-right">
-              © 2024 UCT Azur. Tous droits réservés.
+              © 2025 UCT Azur. Tous droits réservés.
               <br />
               Services de nettoyage professionnel - Côte d'Azur
             </p>
