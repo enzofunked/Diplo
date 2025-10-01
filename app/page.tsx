@@ -31,7 +31,7 @@ export default function HomePage() {
             <Link href="/" className="text-foreground hover:text-primary transition-colors">
               Accueil
             </Link>
-            <Link href="/devis" className="text-foreground hover:text-primary transition-colors">
+            <Link href="/devis" scroll={true} className="text-foreground hover:text-primary transition-colors">
               Estimation
             </Link>
             <Link href="/qualite" className="text-foreground hover:text-primary transition-colors">
@@ -41,7 +41,9 @@ export default function HomePage() {
               Carrière
             </Link>
             <Button asChild>
-              <Link href="/devis">Devis Gratuit</Link>
+              <Link href="/devis" scroll={true}>
+                Devis Gratuit
+              </Link>
             </Button>
           </nav>
         </div>
@@ -60,7 +62,9 @@ export default function HomePage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="text-lg px-8">
-              <Link href="/devis">Estimer mon besoin</Link>
+              <Link href="/devis" scroll={true}>
+                Estimer mon besoin
+              </Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="text-lg px-8 bg-transparent">
               <Link href="#contact">
@@ -235,10 +239,14 @@ export default function HomePage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="text-lg px-8">
-              <Link href="/devis">Estimer mon besoin</Link>
+              <Link href="/devis" scroll={true}>
+                Estimer mon besoin
+              </Link>
             </Button>
-            <Button variant="outline" size="lg" className="text-lg px-8 bg-transparent">
-              Devis sur mesure
+            <Button asChild variant="outline" size="lg" className="text-lg px-8 bg-transparent">
+              <Link href="/estimation?type=detailed" scroll={true}>
+                Devis sur mesure
+              </Link>
             </Button>
           </div>
         </div>

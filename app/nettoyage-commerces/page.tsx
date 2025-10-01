@@ -32,7 +32,7 @@ export default function NettoyageCommercesPage() {
             <Link href="/" className="text-foreground hover:text-primary transition-colors">
               Accueil
             </Link>
-            <Link href="/devis" className="text-foreground hover:text-primary transition-colors">
+            <Link href="/devis" scroll={true} className="text-foreground hover:text-primary transition-colors">
               Estimation
             </Link>
             <Link href="/qualite" className="text-foreground hover:text-primary transition-colors">
@@ -42,7 +42,9 @@ export default function NettoyageCommercesPage() {
               Carrière
             </Link>
             <Button asChild>
-              <Link href="/devis">Devis Gratuit</Link>
+              <Link href="/devis" scroll={true}>
+                Devis Gratuit
+              </Link>
             </Button>
           </nav>
         </div>
@@ -223,7 +225,9 @@ export default function NettoyageCommercesPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="text-lg px-8">
-              <Link href="/devis">Obtenir un devis pour mon magasin</Link>
+              <Link href="/devis" scroll={true}>
+                Obtenir un devis pour mon magasin
+              </Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="text-lg px-8 bg-background">
               <Link href="/#contact">
