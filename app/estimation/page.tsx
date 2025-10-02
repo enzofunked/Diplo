@@ -1595,11 +1595,29 @@ export default function EstimationPage() {
                 <p className="text-xs text-teal-100">Prix estimé</p>
                 <p className="text-2xl font-bold">{estimatedPrice}€ / mois HT</p>
               </div>
+              {/* CHANGE: Added debug logs and alternative scroll method for iPhone compatibility */}
               <button
                 onClick={() => {
+                  console.log("[v0] Voir le devis button clicked")
                   const element = estimationCardRef.current
+                  console.log("[v0] estimationCardRef.current:", element)
+
                   if (element) {
-                    element.scrollIntoView({ behavior: "smooth", block: "center" })
+                    console.log("[v0] Element found, attempting to scroll")
+
+                    // Try alternative scroll method for better iPhone compatibility
+                    const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
+                    const offsetPosition = elementPosition - 100 // Offset for fixed header
+
+                    console.log("[v0] Element position:", elementPosition)
+                    console.log("[v0] Offset position:", offsetPosition)
+
+                    window.scrollTo({
+                      top: offsetPosition,
+                      behavior: "smooth",
+                    })
+                  } else {
+                    console.log("[v0] Element not found!")
                   }
                 }}
                 className="bg-white text-teal-600 px-4 py-2 rounded-lg font-medium text-sm hover:bg-gray-100 transition-colors"
