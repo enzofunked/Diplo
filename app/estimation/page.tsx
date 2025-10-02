@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -80,6 +80,10 @@ export default function EstimationPage() {
   const [showConfirmation, setShowConfirmation] = useState(false)
   const [confirmedEstimation, setConfirmedEstimation] = useState<EstimationData | null>(null)
   const [confirmedPrice, setConfirmedPrice] = useState<number | null>(null)
+  const [showFloatingPrice, setShowFloatingPrice] = useState(false)
+  const [hasReachedEstimation, setHasReachedEstimation] = useState(false)
+  const estimationCardRef = useRef<HTMLDivElement>(null)
+  const pdfSectionRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
@@ -186,6 +190,50 @@ export default function EstimationPage() {
       setEstimatedPrice(null)
     }
   }, [estimation.locationType, estimation.surface, estimation.frequency, estimation.hygienProducts])
+
+  useEffect(() => {
+    const observers: IntersectionObserver[] = []
+
+    if (estimationCardRef.current) {
+      const estimationObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
+              setHasReachedEstimation(true)
+            }
+          })
+        },
+        {
+          threshold: 0.3,
+          rootMargin: "0px 0px -50px 0px",
+        },
+      )
+      estimationObserver.observe(estimationCardRef.current)
+      observers.push(estimationObserver)
+    }
+
+    if (pdfSectionRef.current && showPdfCard) {
+      const pdfObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && entry.intersectionRatio > 0.2) {
+              setHasReachedEstimation(true)
+            }
+          })
+        },
+        {
+          threshold: 0.2,
+          rootMargin: "0px 0px 0px 0px",
+        },
+      )
+      pdfObserver.observe(pdfSectionRef.current)
+      observers.push(pdfObserver)
+    }
+
+    return () => {
+      observers.forEach((observer) => observer.disconnect())
+    }
+  }, [showEstimation, showPdfCard])
 
   const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || [])
@@ -328,6 +376,7 @@ export default function EstimationPage() {
     setConfirmedEstimation({ ...estimation })
     setConfirmedPrice(estimatedPrice)
     setShowConfirmation(true)
+    setHasReachedEstimation(false)
 
     // Reset form after successful submission
     setEstimation({
@@ -1243,7 +1292,7 @@ export default function EstimationPage() {
                 </div>
 
                 <div className="lg:col-span-1">
-                  <Card className="bg-teal-600 text-white sticky top-8">
+                  <Card ref={estimationCardRef} className="bg-teal-600 text-white sticky top-8">
                     <CardContent className="p-6">
                       <div className="text-center">
                         <h3 className="text-xl font-semibold mb-4">Votre estimation</h3>
@@ -1514,7 +1563,7 @@ export default function EstimationPage() {
                       estimation.contactInfo.phone &&
                       estimation.contactInfo.address)) &&
                   estimatedPrice && (
-                    <Card id="pdf-download-section" className="mt-8 bg-white">
+                    <Card ref={pdfSectionRef} id="pdf-download-section" className="mt-8 bg-white">
                       <CardHeader>
                         <CardTitle className="text-xl">
                           {quoteType === "auto"
@@ -1542,6 +1591,30 @@ export default function EstimationPage() {
           </>
         )}
       </div>
+
+      {showEstimation && estimatedPrice && !hasReachedEstimation && (
+        <div className="fixed bottom-0 left-0 right-0 bg-teal-600 text-white shadow-lg z-40 md:hidden">
+          <div className="container mx-auto px-4 py-3">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-xs text-teal-100">Prix estimé</p>
+                <p className="text-2xl font-bold">{estimatedPrice}€ / mois HT</p>
+              </div>
+              <button
+                onClick={() => {
+                  const element = estimationCardRef.current
+                  if (element) {
+                    element.scrollIntoView({ behavior: "smooth", block: "center" })
+                  }
+                }}
+                className="bg-white text-teal-600 px-4 py-2 rounded-lg font-medium text-sm hover:bg-gray-100 transition-colors"
+              >
+                Voir le devis
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {showCgvModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
