@@ -1588,7 +1588,7 @@ export default function EstimationPage() {
       </div>
 
       {showEstimation && estimatedPrice && !hasReachedEstimation && (
-        <div className="fixed bottom-0 left-0 right-0 bg-teal-600 text-white shadow-lg z-40 md:hidden">
+        <div className="fixed top-0 left-0 right-0 bg-teal-600 text-white shadow-lg z-50 md:hidden">
           <div className="container mx-auto px-4 py-3">
             <div className="flex items-center justify-between">
               <div>
