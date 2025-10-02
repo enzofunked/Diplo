@@ -1595,33 +1595,12 @@ export default function EstimationPage() {
                 <p className="text-xs text-teal-100">Prix estimé</p>
                 <p className="text-2xl font-bold">{estimatedPrice}€ / mois HT</p>
               </div>
-              {/* CHANGE: Using simple scrollTo for better iPhone compatibility */}
-              <button
-                onClick={() => {
-                  console.log("[v0] Voir le devis button clicked")
-                  const element = estimationCardRef.current
-                  console.log("[v0] estimationCardRef.current:", element)
-
-                  if (element) {
-                    console.log("[v0] Element found, attempting to scroll")
-
-                    // Calculate position
-                    const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
-                    const offsetPosition = elementPosition - 100
-
-                    console.log("[v0] Element position:", elementPosition)
-                    console.log("[v0] Offset position:", offsetPosition)
-
-                    // Use simple scrollTo without options for better iOS compatibility
-                    window.scrollTo(0, offsetPosition)
-                  } else {
-                    console.log("[v0] Element not found!")
-                  }
-                }}
-                className="bg-white text-teal-600 px-4 py-2 rounded-lg font-medium text-sm hover:bg-gray-100 transition-colors"
-              >
-                Voir le devis
-              </button>
+              {/* CHANGE: Replaced button with simple text message */}
+              <div className="text-right">
+                <p className="text-sm text-teal-100">↓</p>
+                <p className="text-xs text-teal-100">Retrouvez votre</p>
+                <p className="text-xs text-teal-100">devis en bas</p>
+              </div>
             </div>
           </div>
         </div>
