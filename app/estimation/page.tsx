@@ -94,6 +94,43 @@ export default function EstimationPage() {
   }, [])
 
   useEffect(() => {
+    const handleScroll = () => {
+      if (hasReachedEstimation) return
+
+      const estimationCard = estimationCardRef.current
+      const pdfSection = pdfSectionRef.current
+
+      if (estimationCard) {
+        const rect = estimationCard.getBoundingClientRect()
+        const windowHeight = window.innerHeight
+
+        // Check if estimation card is visible in viewport
+        if (rect.top < windowHeight * 0.8) {
+          setHasReachedEstimation(true)
+          return
+        }
+      }
+
+      if (pdfSection && showPdfCard) {
+        const rect = pdfSection.getBoundingClientRect()
+        const windowHeight = window.innerHeight
+
+        // Check if PDF section is visible in viewport
+        if (rect.top < windowHeight * 0.8) {
+          setHasReachedEstimation(true)
+        }
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true })
+    handleScroll() // Check initial position
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [hasReachedEstimation, showPdfCard])
+
+  useEffect(() => {
     if (estimation.locationType && estimation.surface && estimation.frequency) {
       let basePrice = 0
       const surface = Number.parseInt(estimation.surface) || 0
@@ -191,49 +228,7 @@ export default function EstimationPage() {
     }
   }, [estimation.locationType, estimation.surface, estimation.frequency, estimation.hygienProducts])
 
-  useEffect(() => {
-    const observers: IntersectionObserver[] = []
-
-    if (estimationCardRef.current) {
-      const estimationObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
-              setHasReachedEstimation(true)
-            }
-          })
-        },
-        {
-          threshold: 0.3,
-          rootMargin: "0px 0px -50px 0px",
-        },
-      )
-      estimationObserver.observe(estimationCardRef.current)
-      observers.push(estimationObserver)
-    }
-
-    if (pdfSectionRef.current && showPdfCard) {
-      const pdfObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting && entry.intersectionRatio > 0.2) {
-              setHasReachedEstimation(true)
-            }
-          })
-        },
-        {
-          threshold: 0.2,
-          rootMargin: "0px 0px 0px 0px",
-        },
-      )
-      pdfObserver.observe(pdfSectionRef.current)
-      observers.push(pdfObserver)
-    }
-
-    return () => {
-      observers.forEach((observer) => observer.disconnect())
-    }
-  }, [showEstimation, showPdfCard])
+  // Removed the useEffect for IntersectionObserver as it's replaced by the scroll listener
 
   const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || [])
