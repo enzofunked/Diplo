@@ -535,47 +535,55 @@ export default function EstimationPage() {
       <div className="container mx-auto px-4 py-8">
         {showConfirmation && confirmedEstimation && confirmedPrice && (
           <Card className="mb-8 bg-gradient-to-r from-teal-50 to-green-50 border-teal-200">
-            <CardContent className="p-8">
-              <div className="flex items-start gap-4">
-                <CheckCircle className="h-12 w-12 text-teal-600 flex-shrink-0 mt-1" />
-                <div className="flex-1">
-                  <h2 className="text-2xl font-bold text-teal-800 mb-3">Merci, votre devis est envoyé à UCT Azur !</h2>
-                  <p className="text-teal-700 text-lg mb-6">Vous serez contacté dans les 24 heures.</p>
+            <CardContent className="p-4 md:p-8">
+              <div className="flex flex-col md:flex-row items-start gap-3 md:gap-4">
+                <CheckCircle className="h-8 w-8 md:h-12 md:w-12 text-teal-600 flex-shrink-0" />
+                <div className="flex-1 w-full">
+                  <h2 className="text-lg md:text-2xl font-bold text-teal-800 mb-2 md:mb-3 leading-tight">
+                    Merci, votre devis est envoyé à UCT Azur !
+                  </h2>
+                  <p className="text-teal-700 text-base md:text-lg mb-4 md:mb-6">
+                    Vous serez contacté dans les 24 heures.
+                  </p>
 
-                  <div className="bg-white rounded-lg p-6 shadow-sm">
-                    <h3 className="font-semibold text-lg text-gray-800 mb-4">Récapitulatif de votre demande :</h3>
+                  <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm">
+                    <h3 className="font-semibold text-base md:text-lg text-gray-800 mb-3 md:mb-4">
+                      Récapitulatif de votre demande :
+                    </h3>
 
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div className="space-y-3">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                      <div className="space-y-2 md:space-y-3">
                         <div>
-                          <span className="text-sm text-gray-600">Type de locaux :</span>
-                          <p className="font-medium text-gray-900">
+                          <span className="text-xs md:text-sm text-gray-600">Type de locaux :</span>
+                          <p className="font-medium text-sm md:text-base text-gray-900">
                             {getLocationTypeLabel(confirmedEstimation.locationType)}
                           </p>
                         </div>
 
                         <div>
-                          <span className="text-sm text-gray-600">Surface :</span>
-                          <p className="font-medium text-gray-900">{confirmedEstimation.surface} m²</p>
+                          <span className="text-xs md:text-sm text-gray-600">Surface :</span>
+                          <p className="font-medium text-sm md:text-base text-gray-900">
+                            {confirmedEstimation.surface} m²
+                          </p>
                         </div>
 
                         <div>
-                          <span className="text-sm text-gray-600">Fréquence :</span>
-                          <p className="font-medium text-gray-900">
+                          <span className="text-xs md:text-sm text-gray-600">Fréquence :</span>
+                          <p className="font-medium text-sm md:text-base text-gray-900">
                             {confirmedEstimation.frequency} interventions par semaine
                           </p>
                         </div>
 
                         <div>
-                          <span className="text-sm text-gray-600">Prix estimé :</span>
-                          <p className="font-bold text-teal-600 text-xl">{confirmedPrice}€ / mois HT</p>
+                          <span className="text-xs md:text-sm text-gray-600">Prix estimé :</span>
+                          <p className="font-bold text-teal-600 text-lg md:text-xl">{confirmedPrice}€ / mois HT</p>
                         </div>
                       </div>
 
-                      <div className="space-y-3">
+                      <div className="space-y-2 md:space-y-3">
                         <div>
-                          <span className="text-sm text-gray-600 block mb-2">Produits d'hygiène :</span>
-                          <div className="space-y-1 text-sm">
+                          <span className="text-xs md:text-sm text-gray-600 block mb-2">Produits d'hygiène :</span>
+                          <div className="space-y-1 text-xs md:text-sm">
                             {confirmedEstimation.hygienProducts.diffuseurParfum > 0 && (
                               <p className="text-gray-700">
                                 • Diffuseur parfum ({confirmedEstimation.hygienProducts.diffuseurParfumGamme}) :{" "}
@@ -622,8 +630,11 @@ export default function EstimationPage() {
                       </div>
                     </div>
 
-                    <div className="mt-6 pt-6 border-t border-gray-200">
-                      <Button onClick={() => setShowConfirmation(false)} className="bg-teal-600 hover:bg-teal-700">
+                    <div className="mt-4 md:mt-6 pt-4 md:pt-6 border-t border-gray-200">
+                      <Button
+                        onClick={() => setShowConfirmation(false)}
+                        className="w-full md:w-auto bg-teal-600 hover:bg-teal-700"
+                      >
                         Faire une nouvelle demande
                       </Button>
                     </div>
@@ -647,7 +658,7 @@ export default function EstimationPage() {
                   <div className="bg-teal-50 border border-teal-200 rounded-lg p-4 max-w-2xl mx-auto">
                     <h3 className="font-semibold text-teal-800 mb-2">Comment ça fonctionne :</h3>
                     <div className="text-sm text-teal-700 space-y-1">
-                      <p>1. Sélectionnez votre type de local et sa surface</p>
+                      <p>1. Sélectionnez votre type de locaux et sa surface</p>
                       <p>2. Choisissez la fréquence de nettoyage souhaitée</p>
                       <p>3. Renseignez vos coordonnées</p>
                       <p>4. Signez et téléchargez instantanément votre devis personnalisé</p>
