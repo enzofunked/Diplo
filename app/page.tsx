@@ -1,3 +1,5 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -13,11 +15,16 @@ import {
   Clock,
   Instagram,
   Linkedin,
+  Menu,
+  X,
 } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import { useState } from "react"
 
 export default function HomePage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -27,6 +34,7 @@ export default function HomePage() {
             <Image src="/images/uct-azur-logo.png" alt="UCT Azur Logo" width={32} height={32} className="h-8 w-8" />
             <h1 className="text-2xl font-bold text-foreground">UCT Azur</h1>
           </div>
+
           <nav className="hidden md:flex items-center gap-6">
             <Link href="/" className="text-foreground hover:text-primary transition-colors">
               Accueil
@@ -46,7 +54,56 @@ export default function HomePage() {
               </Link>
             </Button>
           </nav>
+
+          <button
+            className="md:hidden p-2 text-foreground hover:text-primary transition-colors"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
         </div>
+
+        {mobileMenuOpen && (
+          <div className="md:hidden border-t border-border bg-card">
+            <nav className="container mx-auto px-4 py-4 flex flex-col gap-4">
+              <Link
+                href="/"
+                className="text-foreground hover:text-primary transition-colors py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Accueil
+              </Link>
+              <Link
+                href="/devis"
+                scroll={true}
+                className="text-foreground hover:text-primary transition-colors py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Estimation
+              </Link>
+              <Link
+                href="/qualite"
+                className="text-foreground hover:text-primary transition-colors py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Qualité
+              </Link>
+              <Link
+                href="/carriere"
+                className="text-foreground hover:text-primary transition-colors py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Carrière
+              </Link>
+              <Button asChild className="w-full">
+                <Link href="/devis" scroll={true} onClick={() => setMobileMenuOpen(false)}>
+                  Devis Gratuit
+                </Link>
+              </Button>
+            </nav>
+          </div>
+        )}
       </header>
 
       {/* Hero Section */}

@@ -55,13 +55,18 @@ function dataURLtoBlob(dataUrl: string): Blob {
   return new Blob([decodeURIComponent(data)], { type: mime || "image/png" })
 }
 
-
-export default function PDFGenerator({ estimation, estimatedPrice, onQuoteSaved, onSignatureReady }: PDFGeneratorProps) {
+export default function PDFGenerator({
+  estimation,
+  estimatedPrice,
+  onQuoteSaved,
+  onSignatureReady,
+}: PDFGeneratorProps) {
   const [isGenerating, setIsGenerating] = useState(false)
   const [signatureDataUrl, setSignatureDataUrl] = useState<string | null>(null)
   const [showSignature, setShowSignature] = useState(false)
   const [showPreview, setShowPreview] = useState(false)
   const [step, setStep] = useState<"initial" | "preview" | "signature" | "complete">("initial")
+  const [isSending, setIsSending] = useState(false)
 
   const handleSignatureComplete = async (dataUrl: string) => {
     setSignatureDataUrl(dataUrl)
@@ -69,6 +74,8 @@ export default function PDFGenerator({ estimation, estimatedPrice, onQuoteSaved,
     setStep("complete")
 
     try {
+      setIsSending(true)
+
       // NEW: if parent provided a handler, give them a PNG Blob to upload & save
       if (typeof onSignatureReady === "function") {
         const blob = dataURLtoBlob(dataUrl)
@@ -91,7 +98,7 @@ export default function PDFGenerator({ estimation, estimatedPrice, onQuoteSaved,
           frequency: estimation.frequency,
           estimated_price: estimatedPrice,
           hygiene_products: estimation.hygienProducts,
-          signature_data: dataUrl, // still supported on server if you want to keep it
+          signature_data: dataUrl,
           status: "signed",
         }),
       })
@@ -100,10 +107,10 @@ export default function PDFGenerator({ estimation, estimatedPrice, onQuoteSaved,
       console.log("Quote saved successfully (fallback path)")
     } catch (error) {
       console.error("Error saving quote:", error)
-      // Don't block the user flow if saving fails
+      setIsSending(false)
+      alert("Erreur lors de l'envoi du devis. Veuillez réessayer.")
     }
   }
-
 
   const handleSignatureClear = () => {
     setSignatureDataUrl(null)
@@ -429,29 +436,19 @@ export default function PDFGenerator({ estimation, estimatedPrice, onQuoteSaved,
         </div>
       )}
 
-      {(step === "complete" || signatureDataUrl) && (
-        <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-              <span className="text-green-700 font-medium">Devis signé et sauvegardé</span>
-            </div>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => {
-                setSignatureDataUrl(null)
-                setShowSignature(true)
-                setStep("signature")
-              }}
-            >
-              Modifier la signature
-            </Button>
+      {(step === "complete" || signatureDataUrl) && isSending && (
+        <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
+          <div className="flex items-center justify-center gap-3">
+            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-teal-600"></div>
+            <span className="text-blue-700 font-medium text-lg">Envoi du devis...</span>
           </div>
+          <p className="text-center text-blue-600 text-sm mt-2">
+            Veuillez patienter pendant que nous traitons votre demande.
+          </p>
         </div>
       )}
 
-      {signatureDataUrl && (
+      {!isSending && (step === "complete" || signatureDataUrl) && (
         <div className="bg-white p-4 rounded-lg border">
           <h4 className="font-medium mb-3">3. Télécharger le devis signé</h4>
           <Button onClick={generatePDF} disabled={isGenerating} className="w-full bg-teal-600 hover:bg-teal-700">
@@ -462,9 +459,11 @@ export default function PDFGenerator({ estimation, estimatedPrice, onQuoteSaved,
       )}
 
       <div className="text-xs text-gray-500 text-center">
-        {signatureDataUrl
-          ? "Votre devis signé a été sauvegardé. Nous vous contacterons dans les 24h."
-          : "Prévisualisez votre devis avant de le signer numériquement."}
+        {isSending
+          ? "Votre devis est en cours d'envoi..."
+          : signatureDataUrl
+            ? "Votre devis signé a été sauvegardé. Nous vous contacterons dans les 24h."
+            : "Prévisualisez votre devis avant de le signer numériquement."}
       </div>
     </div>
   )
