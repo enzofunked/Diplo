@@ -1595,7 +1595,7 @@ export default function EstimationPage() {
                 <p className="text-xs text-teal-100">Prix estimé</p>
                 <p className="text-2xl font-bold">{estimatedPrice}€ / mois HT</p>
               </div>
-              {/* CHANGE: Added debug logs and alternative scroll method for iPhone compatibility */}
+              {/* CHANGE: Using simple scrollTo for better iPhone compatibility */}
               <button
                 onClick={() => {
                   console.log("[v0] Voir le devis button clicked")
@@ -1605,17 +1605,15 @@ export default function EstimationPage() {
                   if (element) {
                     console.log("[v0] Element found, attempting to scroll")
 
-                    // Try alternative scroll method for better iPhone compatibility
+                    // Calculate position
                     const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
-                    const offsetPosition = elementPosition - 100 // Offset for fixed header
+                    const offsetPosition = elementPosition - 100
 
                     console.log("[v0] Element position:", elementPosition)
                     console.log("[v0] Offset position:", offsetPosition)
 
-                    window.scrollTo({
-                      top: offsetPosition,
-                      behavior: "smooth",
-                    })
+                    // Use simple scrollTo without options for better iOS compatibility
+                    window.scrollTo(0, offsetPosition)
                   } else {
                     console.log("[v0] Element not found!")
                   }
