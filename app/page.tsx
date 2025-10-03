@@ -187,6 +187,25 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Nettoyage Fin de Chantier Section */}
+      <section className="py-10 px-4 bg-gradient-to-br from-primary/5 to-secondary/5">
+        <div className="container mx-auto">
+          <div className="max-w-3xl mx-auto text-center">
+            <Badge className="mb-3 bg-primary/10 text-primary border-primary/20">Service Spécialisé</Badge>
+            <h2 className="text-2xl md:text-3xl font-bold mb-3">Nettoyage Fin de Chantier</h2>
+            <p className="text-muted-foreground mb-6">
+              Un service professionnel pour rendre vos locaux impeccables après travaux. Élimination des poussières,
+              débris et résidus avec du matériel adapté.
+            </p>
+            <Button asChild size="lg">
+              <Link href="/devis?service=fin-chantier" scroll={true}>
+                Demander un devis
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
       {/* Advantages Section */}
       <section className="py-20 px-4 bg-muted/30">
         <div className="container mx-auto">
