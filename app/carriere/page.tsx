@@ -301,7 +301,7 @@ export default function CarrierePage() {
               <span className="text-lg font-semibold">UCT Azur</span>
             </Link>
             <p className="text-muted-foreground text-center md:text-right">
-              © 2025 UCT Azur. Tous droits réservés.
+              © 2025 UCT Azur. Tous droits r��servés.
               <br />
               Services de nettoyage professionnel - Côte d'Azur
             </p>

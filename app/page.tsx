@@ -107,7 +107,7 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative py-5 px-4 bg-gradient-to-br from-muted/30 to-background">
+      <section className="relative py-10 px-10 bg-gradient-to-br from-muted/30 to-background">
         <div className="container mx-auto text-center">
           <Badge className="mb-6 bg-teal-100 text-teal-800 border-teal-200">Alpes-Maritimes</Badge>
           <h1 className="text-4xl md:text-6xl font-bold mb-6 text-balance">
@@ -399,36 +399,160 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="bg-card border-t border-border py-12 px-4">
         <div className="container mx-auto">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="flex items-center gap-2 mb-4 md:mb-0">
-              <Image src="/images/uct-azur-logo.png" alt="UCT Azur Logo" width={24} height={24} className="h-6 w-6" />
-              <span className="text-lg font-semibold">UCT Azur</span>
+          <div className="grid md:grid-cols-4 gap-8 mb-12">
+            <div>
+              <h3 className="font-semibold text-lg mb-4">Nice</h3>
+              <ul className="space-y-2">
+                <li>
+                  <Link
+                    href="/nettoyage-bureaux-nice"
+                    className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                  >
+                    Nettoyage de bureaux
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/entretien-coproprietes-nice"
+                    className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                  >
+                    Entretien de copropriétés
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/nettoyage-vitrerie-nice"
+                    className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                  >
+                    Nettoyage de vitrerie
+                  </Link>
+                </li>
+              </ul>
             </div>
-            <div className="flex items-center gap-4 mb-4 md:mb-0">
-              <a
-                href="https://www.instagram.com/uct_azur/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors"
-                aria-label="Instagram"
-              >
-                <Instagram className="h-5 w-5" />
-              </a>
-              <a
-                href="https://www.linkedin.com/company/uct-azur/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="h-5 w-5" />
-              </a>
+
+            <div>
+              <h3 className="font-semibold text-lg mb-4">Cannes</h3>
+              <ul className="space-y-2">
+                <li>
+                  <Link
+                    href="/nettoyage-bureaux-cannes"
+                    className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                  >
+                    Nettoyage de bureaux
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/entretien-coproprietes-cannes"
+                    className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                  >
+                    Entretien de copropriétés
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/nettoyage-vitrerie-cannes"
+                    className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                  >
+                    Nettoyage de vitrerie
+                  </Link>
+                </li>
+              </ul>
             </div>
-            <p className="text-muted-foreground text-center md:text-right">
-              © 2025 UCT Azur. Tous droits réservés.
-              <br />
-              Services de nettoyage professionnel - Côte d'Azur
-            </p>
+
+            <div>
+              <h3 className="font-semibold text-lg mb-4">Menton</h3>
+              <ul className="space-y-2">
+                <li>
+                  <Link
+                    href="/nettoyage-bureaux-menton"
+                    className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                  >
+                    Nettoyage de bureaux
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/entretien-coproprietes-menton"
+                    className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                  >
+                    Entretien de copropriétés
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/nettoyage-vitrerie-menton"
+                    className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                  >
+                    Nettoyage de vitrerie
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-lg mb-4">Cagnes-sur-Mer</h3>
+              <ul className="space-y-2">
+                <li>
+                  <Link
+                    href="/nettoyage-bureaux-cagnes-sur-mer"
+                    className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                  >
+                    Nettoyage de bureaux
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/entretien-coproprietes-cagnes-sur-mer"
+                    className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                  >
+                    Entretien de copropriétés
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/nettoyage-vitrerie-cagnes-sur-mer"
+                    className="text-muted-foreground hover:text-primary transition-colors text-sm"
+                  >
+                    Nettoyage de vitrerie
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="border-t border-border pt-8">
+            <div className="flex flex-col md:flex-row items-center justify-between">
+              <div className="flex items-center gap-2 mb-4 md:mb-0">
+                <Image src="/images/uct-azur-logo.png" alt="UCT Azur Logo" width={24} height={24} className="h-6 w-6" />
+                <span className="text-lg font-semibold">UCT Azur</span>
+              </div>
+              <div className="flex items-center gap-4 mb-4 md:mb-0">
+                <a
+                  href="https://www.instagram.com/uct_azur/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="h-5 w-5" />
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/uct-azur/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin className="h-5 w-5" />
+                </a>
+              </div>
+              <p className="text-muted-foreground text-center md:text-right">
+                © 2025 UCT Azur. Tous droits réservés.
+                <br />
+                Services de nettoyage professionnel - Côte d'Azur
+              </p>
+            </div>
           </div>
         </div>
       </footer>
