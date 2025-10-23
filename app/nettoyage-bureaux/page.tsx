@@ -19,8 +19,55 @@ import Link from "next/link"
 import Image from "next/image"
 
 export default function NettoyageBureauxPage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Nettoyage de bureaux à Menton - UCT Azur",
+    description:
+      "Entreprise de nettoyage de bureaux à Menton et dans les Alpes-Maritimes. Désinfection des surfaces, gestion des déchets, entretien des sols et vitrerie pour des espaces de travail sains et productifs. Devis gratuit et interventions flexibles.",
+    provider: {
+      "@type": "LocalBusiness",
+      name: "UCT Azur",
+      url: "https://uct-azur.fr/",
+      logo: "https://uct-azur.fr/images/logo.png",
+      telephone: "+33769574674",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "28 Avenue de la Riviera",
+        addressLocality: "Menton",
+        postalCode: "06500",
+        addressRegion: "Alpes-Maritimes",
+        addressCountry: "FR",
+      },
+      sameAs: [
+        "https://www.linkedin.com/company/uct-azur/",
+        "https://www.instagram.com/uct_azur/",
+        "https://www.google.com/maps?cid=2446253044107690229",
+      ],
+    },
+    serviceType: "Nettoyage de bureaux",
+    category: "Services de nettoyage professionnels",
+    areaServed: [
+      { "@type": "City", name: "Menton, France" },
+      { "@type": "City", name: "Roquebrune-Cap-Martin, France" },
+      { "@type": "City", name: "Monaco, France" },
+      { "@type": "City", name: "Beaulieu-sur-Mer, France" },
+      { "@type": "City", name: "Nice, France" },
+      { "@type": "City", name: "Cagnes-sur-Mer, France" },
+    ],
+    offers: {
+      "@type": "Offer",
+      url: "https://uct-azur.fr/nettoyage-bureaux-menton",
+      priceCurrency: "EUR",
+      price: "Sur devis",
+      availability: "https://schema.org/InStock",
+    },
+  }
+
   return (
     <div className="min-h-screen bg-background">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+
       {/* Header */}
       <header className="border-b border-border bg-card backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
