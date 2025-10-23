@@ -59,7 +59,7 @@ export default function NettoyageVitrerieCannesPage() {
             </div>
             <div className="flex justify-center">
               <Image
-                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/2021-logo-cannes_400x400_400x400_300x300-cZ0FgTL501zgRd6zXgkObvVf6G9a3v.png"
+                src="/images/design-mode/2021-logo-cannes_400x400_400x400_300x300(1).png"
                 alt="Logo Ville de Cannes"
                 width={300}
                 height={300}
