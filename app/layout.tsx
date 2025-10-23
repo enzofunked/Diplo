@@ -92,7 +92,7 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": ["LocalBusiness",
+        "@type": "LocalBusiness",
         "@id": "https://uct-azur.fr/#localbusiness",
         name: "UCT Azur",
         url: "https://uct-azur.fr/",
