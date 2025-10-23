@@ -58,37 +58,58 @@ export default function NettoyageCommercesPage() {
       { "@type": "City", name: "Cannes, France" },
       { "@type": "City", name: "Nice, France" },
     ],
-    offers: {
-      "@type": "Offer",
-      url: "https://uct-azur.fr/nettoyage-commerces-menton",
-      priceCurrency: "EUR",
-      price: "Sur devis",
-      availability: "https://schema.org/InStock",
-    },
-    hasPart: [
+    offers: [
       {
-        "@type": "Service",
-        name: "Entretien des vitrines",
-        description:
-          "Nettoyage intérieur et extérieur des vitrines pour une transparence parfaite et une visibilité optimale.",
+        "@type": "Offer",
+        url: "https://uct-azur.fr/nettoyage-commerces-menton",
+        priceCurrency: "EUR",
+        price: "Sur devis",
+        availability: "https://schema.org/InStock",
+        itemOffered: {
+          "@type": "Service",
+          name: "Entretien des vitrines",
+          description:
+            "Nettoyage intérieur et extérieur des vitrines pour une transparence parfaite et une visibilité optimale.",
+        },
       },
       {
-        "@type": "Service",
-        name: "Nettoyage des sols spécifiques",
-        description: "Traitement et entretien de tous types de sols : carrelage, parquet, marbre, béton ciré.",
+        "@type": "Offer",
+        priceCurrency: "EUR",
+        price: "Sur devis",
+        availability: "https://schema.org/InStock",
+        itemOffered: {
+          "@type": "Service",
+          name: "Nettoyage des sols spécifiques",
+          description:
+            "Traitement et entretien de tous types de sols : carrelage, parquet, marbre, béton ciré.",
+        },
       },
       {
-        "@type": "Service",
-        name: "Gestion des vestiaires et sanitaires",
-        description: "Nettoyage et désinfection des espaces réservés au personnel et aux clients.",
+        "@type": "Offer",
+        priceCurrency: "EUR",
+        price: "Sur devis",
+        availability: "https://schema.org/InStock",
+        itemOffered: {
+          "@type": "Service",
+          name: "Gestion des vestiaires et sanitaires",
+          description:
+            "Nettoyage et désinfection des espaces réservés au personnel et aux clients.",
+        },
       },
       {
-        "@type": "Service",
-        name: "Désinfection des points de contact",
-        description: "Nettoyage régulier des poignées, comptoirs, caisses et zones à forte fréquentation.",
+        "@type": "Offer",
+        priceCurrency: "EUR",
+        price: "Sur devis",
+        availability: "https://schema.org/InStock",
+        itemOffered: {
+          "@type": "Service",
+          name: "Désinfection des points de contact",
+          description:
+            "Nettoyage régulier des poignées, comptoirs, caisses et zones à forte fréquentation.",
+        },
       },
     ],
-  }
+  };
 
   return (
     <div className="min-h-screen bg-background">

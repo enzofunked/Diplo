@@ -68,37 +68,55 @@ export default function NettoyageHotelsRestaurantsPage() {
               { "@type": "City", name: "Cannes, France" },
               { "@type": "City", name: "Antibes, France" },
             ],
-            offers: {
-              "@type": "Offer",
-              url: "https://uct-azur.fr/nettoyage-hotels-restaurants-menton",
-              priceCurrency: "EUR",
-              price: "Sur devis",
-              availability: "https://schema.org/InStock",
-            },
-            hasPart: [
+            offers: [
               {
-                "@type": "Service",
-                name: "Nettoyage des chambres et sanitaires",
-                description:
-                  "Désinfection complète des chambres, salles de bain et espaces privatifs selon les protocoles hôteliers.",
+                "@type": "Offer",
+                url: "https://uct-azur.fr/nettoyage-hotels-restaurants-menton",
+                priceCurrency: "EUR",
+                price: "Sur devis",
+                availability: "https://schema.org/InStock",
+                itemOffered: {
+                  "@type": "Service",
+                  name: "Nettoyage des chambres et sanitaires",
+                  description:
+                    "Désinfection complète des chambres, salles de bain et espaces privatifs selon les protocoles hôteliers.",
+                },
               },
               {
-                "@type": "Service",
-                name: "Nettoyage des cuisines professionnelles",
-                description:
-                  "Nettoyage et dégraissage complet des cuisines selon les normes HACCP, incluant plans de travail, équipements et sols.",
+                "@type": "Offer",
+                priceCurrency: "EUR",
+                price: "Sur devis",
+                availability: "https://schema.org/InStock",
+                itemOffered: {
+                  "@type": "Service",
+                  name: "Nettoyage des cuisines professionnelles",
+                  description:
+                    "Nettoyage et dégraissage complet des cuisines selon les normes HACCP, incluant plans de travail, équipements et sols.",
+                },
               },
               {
-                "@type": "Service",
-                name: "Entretien des espaces communs",
-                description:
-                  "Nettoyage des halls, salles de restaurant, salons et zones d'accueil pour une image impeccable auprès de la clientèle.",
+                "@type": "Offer",
+                priceCurrency: "EUR",
+                price: "Sur devis",
+                availability: "https://schema.org/InStock",
+                itemOffered: {
+                  "@type": "Service",
+                  name: "Entretien des espaces communs",
+                  description:
+                    "Nettoyage des halls, salles de restaurant, salons et zones d'accueil pour une image impeccable auprès de la clientèle.",
+                },
               },
               {
-                "@type": "Service",
-                name: "Gestion du linge hôtelier",
-                description:
-                  "Collecte, traitement et gestion du linge de maison (draps, serviettes, nappes) en partenariat avec des blanchisseries agréées.",
+                "@type": "Offer",
+                priceCurrency: "EUR",
+                price: "Sur devis",
+                availability: "https://schema.org/InStock",
+                itemOffered: {
+                  "@type": "Service",
+                  name: "Gestion du linge hôtelier",
+                  description:
+                    "Collecte, traitement et gestion du linge de maison (draps, serviettes, nappes) en partenariat avec des blanchisseries agréées.",
+                },
               },
             ],
           }),

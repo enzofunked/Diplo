@@ -68,37 +68,55 @@ export default function NettoyageCoproprietesPage() {
               { "@type": "City", name: "Cagnes-sur-Mer, France" },
               { "@type": "City", name: "Antibes, France" },
             ],
-            offers: {
-              "@type": "Offer",
-              url: "https://uct-azur.fr/nettoyage-coproprietes-menton",
-              priceCurrency: "EUR",
-              price: "Sur devis",
-              availability: "https://schema.org/InStock",
-            },
-            hasPart: [
+            offers: [
               {
-                "@type": "Service",
-                name: "Entretien des halls et paliers",
-                description:
-                  "Nettoyage hebdomadaire des entrées, couloirs, escaliers et paliers d'étage selon un planning défini avec le syndic.",
+                "@type": "Offer",
+                url: "https://uct-azur.fr/nettoyage-coproprietes-menton",
+                priceCurrency: "EUR",
+                price: "Sur devis",
+                availability: "https://schema.org/InStock",
+                itemOffered: {
+                  "@type": "Service",
+                  name: "Entretien des halls et paliers",
+                  description:
+                    "Nettoyage hebdomadaire des entrées, couloirs, escaliers et paliers d'étage selon un planning défini avec le syndic.",
+                },
               },
               {
-                "@type": "Service",
-                name: "Gestion des poubelles et locaux",
-                description:
-                  "Nettoyage et désinfection des locaux poubelles, sortie et rentrée des conteneurs selon le planning de collecte.",
+                "@type": "Offer",
+                priceCurrency: "EUR",
+                price: "Sur devis",
+                availability: "https://schema.org/InStock",
+                itemOffered: {
+                  "@type": "Service",
+                  name: "Gestion des poubelles et locaux",
+                  description:
+                    "Nettoyage et désinfection des locaux poubelles, sortie et rentrée des conteneurs selon le planning de collecte.",
+                },
               },
               {
-                "@type": "Service",
-                name: "Vitrerie des parties communes",
-                description:
-                  "Nettoyage régulier des vitres, portes vitrées et miroirs pour une luminosité optimale dans les espaces communs.",
+                "@type": "Offer",
+                priceCurrency: "EUR",
+                price: "Sur devis",
+                availability: "https://schema.org/InStock",
+                itemOffered: {
+                  "@type": "Service",
+                  name: "Vitrerie des parties communes",
+                  description:
+                    "Nettoyage régulier des vitres, portes vitrées et miroirs pour une luminosité optimale dans les espaces communs.",
+                },
               },
               {
-                "@type": "Service",
-                name: "Sortie et rentrée des conteneurs",
-                description:
-                  "Gestion complète des conteneurs d'immeubles : sortie, rentrée et nettoyage des bacs à ordures.",
+                "@type": "Offer",
+                priceCurrency: "EUR",
+                price: "Sur devis",
+                availability: "https://schema.org/InStock",
+                itemOffered: {
+                  "@type": "Service",
+                  name: "Sortie et rentrée des conteneurs",
+                  description:
+                    "Gestion complète des conteneurs d'immeubles : sortie, rentrée et nettoyage des bacs à ordures.",
+                },
               },
             ],
           }),
