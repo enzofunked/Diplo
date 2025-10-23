@@ -28,6 +28,83 @@ export default function NettoyageCoproprietesPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            name: "Nettoyage de copropriétés à Menton - UCT Azur",
+            description:
+              "UCT Azur, société de nettoyage de copropriétés à Menton et dans les Alpes-Maritimes, assure l'entretien des parties communes, la gestion des poubelles et la vitrerie. Prestations régulières et ponctuelles pour syndics et gestionnaires d'immeubles. Interventions fiables, transparentes et adaptées aux besoins de chaque résidence.",
+            provider: {
+              "@type": "LocalBusiness",
+              name: "UCT Azur",
+              url: "https://uct-azur.fr/",
+              logo: "https://uct-azur.fr/images/logo.png",
+              telephone: "+33769574674",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "28 Avenue de la Riviera",
+                addressLocality: "Menton",
+                postalCode: "06500",
+                addressRegion: "Alpes-Maritimes",
+                addressCountry: "FR",
+              },
+              sameAs: [
+                "https://www.linkedin.com/company/uct-azur/",
+                "https://www.instagram.com/uct_azur/",
+                "https://www.google.com/maps?cid=2446253044107690229",
+              ],
+            },
+            serviceType: "Nettoyage de copropriétés et immeubles",
+            category: "Services de nettoyage professionnels",
+            areaServed: [
+              { "@type": "City", name: "Menton, France" },
+              { "@type": "City", name: "Roquebrune-Cap-Martin, France" },
+              { "@type": "City", name: "Monaco, France" },
+              { "@type": "City", name: "Nice, France" },
+              { "@type": "City", name: "Beaulieu-sur-Mer, France" },
+              { "@type": "City", name: "Cagnes-sur-Mer, France" },
+              { "@type": "City", name: "Antibes, France" },
+            ],
+            offers: {
+              "@type": "Offer",
+              url: "https://uct-azur.fr/nettoyage-coproprietes-menton",
+              priceCurrency: "EUR",
+              price: "Sur devis",
+              availability: "https://schema.org/InStock",
+            },
+            hasPart: [
+              {
+                "@type": "Service",
+                name: "Entretien des halls et paliers",
+                description:
+                  "Nettoyage hebdomadaire des entrées, couloirs, escaliers et paliers d'étage selon un planning défini avec le syndic.",
+              },
+              {
+                "@type": "Service",
+                name: "Gestion des poubelles et locaux",
+                description:
+                  "Nettoyage et désinfection des locaux poubelles, sortie et rentrée des conteneurs selon le planning de collecte.",
+              },
+              {
+                "@type": "Service",
+                name: "Vitrerie des parties communes",
+                description:
+                  "Nettoyage régulier des vitres, portes vitrées et miroirs pour une luminosité optimale dans les espaces communs.",
+              },
+              {
+                "@type": "Service",
+                name: "Sortie et rentrée des conteneurs",
+                description:
+                  "Gestion complète des conteneurs d'immeubles : sortie, rentrée et nettoyage des bacs à ordures.",
+              },
+            ],
+          }),
+        }}
+      />
+
       {/* Header */}
       <header className="border-b border-border bg-card backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">

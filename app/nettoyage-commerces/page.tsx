@@ -19,8 +19,81 @@ import Link from "next/link"
 import Image from "next/image"
 
 export default function NettoyageCommercesPage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Nettoyage de commerces à Menton - UCT Azur",
+    description:
+      "Entreprise de nettoyage de commerces à Menton et dans les Alpes-Maritimes. Prestations sur mesure pour boutiques, magasins, showrooms et espaces de vente : entretien des vitrines, sols, sanitaires et désinfection des points de contact. Interventions rapides et adaptées aux horaires d'ouverture. Devis gratuit.",
+    provider: {
+      "@type": "LocalBusiness",
+      name: "UCT Azur",
+      url: "https://uct-azur.fr/",
+      logo: "https://uct-azur.fr/images/logo.png",
+      telephone: "+33769574674",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "28 Avenue de la Riviera",
+        addressLocality: "Menton",
+        postalCode: "06500",
+        addressRegion: "Alpes-Maritimes",
+        addressCountry: "FR",
+      },
+      sameAs: [
+        "https://www.linkedin.com/company/uct-azur/",
+        "https://www.instagram.com/uct_azur/",
+        "https://www.google.com/maps?cid=2446253044107690229",
+      ],
+    },
+    serviceType: "Nettoyage de commerces",
+    category: "Services de nettoyage professionnels",
+    areaServed: [
+      { "@type": "City", name: "Menton, France" },
+      { "@type": "City", name: "Roquebrune-Cap-Martin, France" },
+      { "@type": "City", name: "Monaco, France" },
+      { "@type": "City", name: "Beaulieu-sur-Mer, France" },
+      { "@type": "City", name: "Cap-d'Ail, France" },
+      { "@type": "City", name: "Antibes, France" },
+      { "@type": "City", name: "Cagnes-sur-Mer, France" },
+      { "@type": "City", name: "Cannes, France" },
+      { "@type": "City", name: "Nice, France" },
+    ],
+    offers: {
+      "@type": "Offer",
+      url: "https://uct-azur.fr/nettoyage-commerces-menton",
+      priceCurrency: "EUR",
+      price: "Sur devis",
+      availability: "https://schema.org/InStock",
+    },
+    hasPart: [
+      {
+        "@type": "Service",
+        name: "Entretien des vitrines",
+        description:
+          "Nettoyage intérieur et extérieur des vitrines pour une transparence parfaite et une visibilité optimale.",
+      },
+      {
+        "@type": "Service",
+        name: "Nettoyage des sols spécifiques",
+        description: "Traitement et entretien de tous types de sols : carrelage, parquet, marbre, béton ciré.",
+      },
+      {
+        "@type": "Service",
+        name: "Gestion des vestiaires et sanitaires",
+        description: "Nettoyage et désinfection des espaces réservés au personnel et aux clients.",
+      },
+      {
+        "@type": "Service",
+        name: "Désinfection des points de contact",
+        description: "Nettoyage régulier des poignées, comptoirs, caisses et zones à forte fréquentation.",
+      },
+    ],
+  }
+
   return (
     <div className="min-h-screen bg-background">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+
       {/* Header */}
       <header className="border-b border-border bg-card backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">

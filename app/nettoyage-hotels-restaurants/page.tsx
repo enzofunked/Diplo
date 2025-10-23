@@ -28,6 +28,83 @@ export default function NettoyageHotelsRestaurantsPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            name: "Nettoyage hôtels et restaurants à Menton - UCT Azur",
+            description:
+              "Entreprise spécialisée dans le nettoyage professionnel pour hôtels et restaurants à Menton et dans les Alpes-Maritimes. UCT Azur propose des prestations haut de gamme conformes aux normes HACCP : entretien des chambres, cuisines professionnelles, espaces communs et gestion du linge. Interventions discrètes, flexibles et adaptées au secteur HORECA.",
+            provider: {
+              "@type": "LocalBusiness",
+              name: "UCT Azur",
+              url: "https://uct-azur.fr/",
+              logo: "https://uct-azur.fr/images/logo.png",
+              telephone: "+33769574674",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "28 Avenue de la Riviera",
+                addressLocality: "Menton",
+                postalCode: "06500",
+                addressRegion: "Alpes-Maritimes",
+                addressCountry: "FR",
+              },
+              sameAs: [
+                "https://www.linkedin.com/company/uct-azur/",
+                "https://www.instagram.com/uct_azur/",
+                "https://www.google.com/maps?cid=2446253044107690229",
+              ],
+            },
+            serviceType: "Nettoyage hôtels et restaurants",
+            category: "Services de nettoyage HORECA",
+            areaServed: [
+              { "@type": "City", name: "Menton, France" },
+              { "@type": "City", name: "Roquebrune-Cap-Martin, France" },
+              { "@type": "City", name: "Monaco, France" },
+              { "@type": "City", name: "Beaulieu-sur-Mer, France" },
+              { "@type": "City", name: "Nice, France" },
+              { "@type": "City", name: "Cannes, France" },
+              { "@type": "City", name: "Antibes, France" },
+            ],
+            offers: {
+              "@type": "Offer",
+              url: "https://uct-azur.fr/nettoyage-hotels-restaurants-menton",
+              priceCurrency: "EUR",
+              price: "Sur devis",
+              availability: "https://schema.org/InStock",
+            },
+            hasPart: [
+              {
+                "@type": "Service",
+                name: "Nettoyage des chambres et sanitaires",
+                description:
+                  "Désinfection complète des chambres, salles de bain et espaces privatifs selon les protocoles hôteliers.",
+              },
+              {
+                "@type": "Service",
+                name: "Nettoyage des cuisines professionnelles",
+                description:
+                  "Nettoyage et dégraissage complet des cuisines selon les normes HACCP, incluant plans de travail, équipements et sols.",
+              },
+              {
+                "@type": "Service",
+                name: "Entretien des espaces communs",
+                description:
+                  "Nettoyage des halls, salles de restaurant, salons et zones d'accueil pour une image impeccable auprès de la clientèle.",
+              },
+              {
+                "@type": "Service",
+                name: "Gestion du linge hôtelier",
+                description:
+                  "Collecte, traitement et gestion du linge de maison (draps, serviettes, nappes) en partenariat avec des blanchisseries agréées.",
+              },
+            ],
+          }),
+        }}
+      />
+
       {/* Header */}
       <header className="border-b border-border bg-card backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
