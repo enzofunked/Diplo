@@ -301,6 +301,41 @@ export default function DevisChoicePage() {
         </div>
       </section>
 
+      {/* Explanation Section */}
+      <section className="py-10 px-4 bg-muted">
+        <div className="container mx-auto max-w-4xl">
+          <h2 className="text-xl font-semibold text-center mb-4">
+            Comprendre la différence entre nos deux types de devis
+          </h2>
+
+          <div className="space-y-4 text-base leading-relaxed text-muted-foreground">
+            <p>
+              Chez UCT Azur, nous mettons à disposition deux méthodes d'estimation selon vos besoins et votre façon de
+              travailler :
+            </p>
+
+            <ul className="space-y-3 ml-6">
+              <li className="list-disc">
+                <strong className="text-foreground">Le devis automatisé</strong> vous permet d'obtenir une estimation
+                immédiate en ligne, directement à partir de la surface et du type de local. Idéal pour les bureaux,
+                commerces ou copropriétés, il offre une estimation rapide et pratique sans rendez-vous.
+              </li>
+              <li className="list-disc">
+                <strong className="text-foreground">Le devis avec visite</strong>, quant à lui, s'adresse aux grandes
+                surfaces, ou tout simplement à ceux qui souhaitent une évaluation sur place avant de valider leur devis.
+                Un technicien UCT Azur se déplace pour vérifier les conditions réelles, analyser les besoins spécifiques
+                et vous fournir un devis personnalisé sous 48h.
+              </li>
+            </ul>
+
+            <p className="pt-2">
+              Ces deux approches sont complémentaires : le devis automatisé pour la rapidité, et la visite sur site pour
+              la tranquillité et la précision.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="bg-card border-t border-border py-12 px-4">
         <div className="container mx-auto">
