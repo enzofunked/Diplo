@@ -547,11 +547,16 @@ export default function HomePage() {
                   <Linkedin className="h-5 w-5" />
                 </a>
               </div>
-              <p className="text-muted-foreground text-center md:text-right">
-                © 2025 UCT Azur. Tous droits réservés.
-                <br />
-                Services de nettoyage professionnel - Côte d'Azur
-              </p>
+              <div className="text-muted-foreground text-center md:text-right">
+                <p>
+                  © 2025 UCT Azur. Tous droits réservés.
+                  <br />
+                  Services de nettoyage professionnel - Côte d'Azur
+                </p>
+                <Link href="/mentions-legales" className="text-sm hover:text-primary transition-colors underline">
+                  Mentions légales
+                </Link>
+              </div>
             </div>
           </div>
         </div>
