@@ -779,7 +779,7 @@ export default function EstimationPage() {
                                 onValueChange={(value) =>
                                   setEstimation((prev) => ({ ...prev, surface: value[0].toString() }))
                                 }
-                                max={950}
+                                max={500}
                                 min={0}
                                 step={1}
                                 className="w-full"
@@ -791,13 +791,13 @@ export default function EstimationPage() {
                                 value={estimation.surface}
                                 onChange={(e) => {
                                   const value = e.target.value
-                                  if (value === "" || (Number.parseInt(value) >= 0 && Number.parseInt(value) <= 950)) {
+                                  if (value === "" || (Number.parseInt(value) >= 0 && Number.parseInt(value) <= 500)) {
                                     setEstimation((prev) => ({ ...prev, surface: value }))
                                   }
                                 }}
                                 placeholder="0"
                                 min={0}
-                                max={950}
+                                max={500}
                                 className="text-center"
                               />
                             </div>
@@ -805,7 +805,7 @@ export default function EstimationPage() {
                           <div className="flex justify-between text-sm text-gray-500">
                             <span>0 m²</span>
                             <span className="font-medium text-teal-600 text-lg">{estimation.surface || 0} m²</span>
-                            <span>950 m²</span>
+                            <span>500 m²</span>
                           </div>
                         </div>
                       </div>

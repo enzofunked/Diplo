@@ -142,7 +142,7 @@ export default function DevisChoicePage() {
                     <ul className="space-y-2 text-sm">
                       <li className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4 text-green-600" />
-                        Bureaux standards (jusqu'à 950m²)
+                        Bureaux standards (jusqu'à 500m²)
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4 text-green-600" />
@@ -212,7 +212,7 @@ export default function DevisChoicePage() {
                     <ul className="space-y-2 text-sm">
                       <li className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4 text-green-600" />
-                        Grandes surfaces &gt; 950m²
+                        Grandes surfaces &gt; 500m²
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4 text-green-600" />
