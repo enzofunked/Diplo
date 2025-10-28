@@ -130,6 +130,39 @@ export default function EstimationPage() {
     }
   }, [hasReachedEstimation, showPdfCard])
 
+  const getSurfaceCoefficient = (locationType: string, surface: number): number => {
+    switch (locationType) {
+      case "bureaux":
+        if (surface <= 100) return 1.0
+        if (surface <= 300) return 0.95
+        if (surface <= 600) return 0.9
+        if (surface <= 1000) return 0.85
+        return 0.8
+
+      case "commerces":
+        if (surface <= 100) return 1.0
+        if (surface <= 300) return 0.95
+        if (surface <= 600) return 0.9
+        return 0.88
+
+      case "sante":
+        return 1.0 // No degression for healthcare facilities
+
+      case "hotels":
+        if (surface <= 300) return 1.0
+        if (surface <= 600) return 0.95
+        return 0.9
+
+      case "coproprietes":
+        if (surface <= 200) return 1.0
+        if (surface <= 500) return 0.9
+        return 0.85
+
+      default:
+        return 1.0
+    }
+  }
+
   useEffect(() => {
     if (estimation.locationType && estimation.surface && estimation.frequency) {
       let basePrice = 0
@@ -152,9 +185,12 @@ export default function EstimationPage() {
       } else if (interventions === 2) {
         basePrice *= 1.2 // +20% for twice per week
       } else if (interventions >= 5) {
-        basePrice *= 0.85 // -15% for daily cleaning (volume discount)
+        basePrice *= 0.9 // -10% for daily cleaning (volume discount)
       }
       // 3-4 interventions per week = standard pricing (no adjustment)
+
+      const surfaceCoefficient = getSurfaceCoefficient(estimation.locationType, surface)
+      basePrice *= surfaceCoefficient
 
       const productCosts = {
         secheServiette: 35,
@@ -743,7 +779,7 @@ export default function EstimationPage() {
                                 onValueChange={(value) =>
                                   setEstimation((prev) => ({ ...prev, surface: value[0].toString() }))
                                 }
-                                max={500}
+                                max={950}
                                 min={0}
                                 step={1}
                                 className="w-full"
@@ -755,13 +791,13 @@ export default function EstimationPage() {
                                 value={estimation.surface}
                                 onChange={(e) => {
                                   const value = e.target.value
-                                  if (value === "" || (Number.parseInt(value) >= 0 && Number.parseInt(value) <= 500)) {
+                                  if (value === "" || (Number.parseInt(value) >= 0 && Number.parseInt(value) <= 950)) {
                                     setEstimation((prev) => ({ ...prev, surface: value }))
                                   }
                                 }}
                                 placeholder="0"
                                 min={0}
-                                max={500}
+                                max={950}
                                 className="text-center"
                               />
                             </div>
@@ -769,7 +805,7 @@ export default function EstimationPage() {
                           <div className="flex justify-between text-sm text-gray-500">
                             <span>0 m²</span>
                             <span className="font-medium text-teal-600 text-lg">{estimation.surface || 0} m²</span>
-                            <span>500 m²</span>
+                            <span>950 m²</span>
                           </div>
                         </div>
                       </div>

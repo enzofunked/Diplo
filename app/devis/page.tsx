@@ -2,12 +2,15 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Clock, Calendar, CheckCircle, Zap, Users, FileText, ArrowRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Clock, Calendar, CheckCircle, Zap, Users, FileText, ArrowRight, Menu, X } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 export default function DevisChoicePage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
@@ -17,25 +20,80 @@ export default function DevisChoicePage() {
       {/* Header */}
       <header className="border-b border-border bg-card backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Image
-              src="/images/uct-azur-logo-new.png"
-              alt="UCT Azur Logo"
-              width={40}
-              height={40}
-              className="object-contain"
-            />
+          <div className="flex items-center gap-2">
+            <Image src="/images/uct-azur-logo.png" alt="UCT Azur Logo" width={32} height={32} className="h-8 w-8" />
             <h1 className="text-2xl font-bold text-foreground">UCT Azur</h1>
           </div>
+
           <nav className="hidden md:flex items-center gap-6">
             <Link href="/" className="text-foreground hover:text-primary transition-colors">
               Accueil
             </Link>
-            <Link href="/devis" className="text-primary font-medium">
-              Devis
+            <Link href="/devis" scroll={true} className="text-primary font-medium">
+              Estimation
             </Link>
+            <Link href="/qualite" className="text-foreground hover:text-primary transition-colors">
+              Qualité
+            </Link>
+            <Link href="/carriere" className="text-foreground hover:text-primary transition-colors">
+              Carrière
+            </Link>
+            <Button asChild>
+              <Link href="/devis" scroll={true}>
+                Devis Gratuit
+              </Link>
+            </Button>
           </nav>
+
+          <button
+            className="md:hidden p-2 text-foreground hover:text-primary transition-colors"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
         </div>
+
+        {mobileMenuOpen && (
+          <div className="md:hidden border-t border-border bg-card">
+            <nav className="container mx-auto px-4 py-4 flex flex-col gap-4">
+              <Link
+                href="/"
+                className="text-foreground hover:text-primary transition-colors py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Accueil
+              </Link>
+              <Link
+                href="/devis"
+                scroll={true}
+                className="text-primary font-medium py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Estimation
+              </Link>
+              <Link
+                href="/qualite"
+                className="text-foreground hover:text-primary transition-colors py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Qualité
+              </Link>
+              <Link
+                href="/carriere"
+                className="text-foreground hover:text-primary transition-colors py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Carrière
+              </Link>
+              <Button asChild className="w-full">
+                <Link href="/devis" scroll={true} onClick={() => setMobileMenuOpen(false)}>
+                  Devis Gratuit
+                </Link>
+              </Button>
+            </nav>
+          </div>
+        )}
       </header>
 
       {/* Hero Section */}
@@ -84,7 +142,7 @@ export default function DevisChoicePage() {
                     <ul className="space-y-2 text-sm">
                       <li className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4 text-green-600" />
-                        Bureaux standards (jusqu'à 500m²)
+                        Bureaux standards (jusqu'à 950m²)
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4 text-green-600" />
@@ -154,7 +212,7 @@ export default function DevisChoicePage() {
                     <ul className="space-y-2 text-sm">
                       <li className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4 text-green-600" />
-                        Grandes surfaces &gt;500m²
+                        Grandes surfaces &gt; 950m²
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4 text-green-600" />
@@ -248,13 +306,7 @@ export default function DevisChoicePage() {
         <div className="container mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="flex items-center gap-3 mb-4 md:mb-0">
-              <Image
-                src="/images/uct-azur-logo-new.png"
-                alt="UCT Azur Logo"
-                width={32}
-                height={32}
-                className="object-contain"
-              />
+              <Image src="/images/uct-azur-logo.png" alt="UCT Azur Logo" width={32} height={32} className="h-8 w-8" />
               <span className="text-lg font-semibold">UCT Azur</span>
             </div>
             <p className="text-muted-foreground text-center md:text-right">
