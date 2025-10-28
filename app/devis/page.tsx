@@ -345,7 +345,7 @@ export default function DevisChoicePage() {
               <span className="text-lg font-semibold">UCT Azur</span>
             </div>
             <p className="text-muted-foreground text-center md:text-right">
-              © 2024 UCT Azur. Tous droits réservés.
+              © 2025 UCT Azur. Tous droits réservés.
               <br />
               Services de nettoyage professionnel - Côte d'Azur
             </p>
