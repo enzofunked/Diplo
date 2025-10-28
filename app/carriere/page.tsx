@@ -1,11 +1,16 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Users, TrendingUp, Heart, Mail, CheckCircle, Briefcase, GraduationCap, Award } from "lucide-react"
+import { Users, TrendingUp, Heart, Mail, CheckCircle, Briefcase, GraduationCap, Award, Menu, X } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import { useState } from "react"
 
 export default function CarrierePage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -22,6 +27,9 @@ export default function CarrierePage() {
             <Link href="/devis" className="text-foreground hover:text-primary transition-colors">
               Estimation
             </Link>
+            <Link href="/qualite" className="text-foreground hover:text-primary transition-colors">
+              Qualité
+            </Link>
             <Link href="/carriere" className="text-primary font-medium">
               Carrière
             </Link>
@@ -29,7 +37,45 @@ export default function CarrierePage() {
               <Link href="/devis">Devis Gratuit</Link>
             </Button>
           </nav>
+          <button className="md:hidden p-2" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Toggle menu">
+            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
         </div>
+        {mobileMenuOpen && (
+          <div className="md:hidden border-t border-border bg-card">
+            <nav className="container mx-auto px-4 py-4 flex flex-col gap-4">
+              <Link
+                href="/"
+                className="text-foreground hover:text-primary transition-colors py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Accueil
+              </Link>
+              <Link
+                href="/devis"
+                className="text-foreground hover:text-primary transition-colors py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Estimation
+              </Link>
+              <Link
+                href="/qualite"
+                className="text-foreground hover:text-primary transition-colors py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Qualité
+              </Link>
+              <Link href="/carriere" className="text-primary font-medium py-2" onClick={() => setMobileMenuOpen(false)}>
+                Carrière
+              </Link>
+              <Button asChild className="w-full">
+                <Link href="/devis" onClick={() => setMobileMenuOpen(false)}>
+                  Devis Gratuit
+                </Link>
+              </Button>
+            </nav>
+          </div>
+        )}
       </header>
 
       {/* Hero Section */}
@@ -301,7 +347,7 @@ export default function CarrierePage() {
               <span className="text-lg font-semibold">UCT Azur</span>
             </Link>
             <p className="text-muted-foreground text-center md:text-right">
-              © 2025 UCT Azur. Tous droits r��servés.
+              © 2025 UCT Azur. Tous droits réservés.
               <br />
               Services de nettoyage professionnel - Côte d'Azur
             </p>

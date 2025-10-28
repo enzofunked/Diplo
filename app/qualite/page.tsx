@@ -1,11 +1,16 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ClipboardCheck, Users, Target, Handshake, CheckCircle, MapPin, ArrowRight } from "lucide-react"
+import { ClipboardCheck, Users, Target, Handshake, CheckCircle, MapPin, ArrowRight, Menu, X } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import { useState } from "react"
 
 export default function QualitePage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -32,7 +37,45 @@ export default function QualitePage() {
               <Link href="/devis">Devis Gratuit</Link>
             </Button>
           </nav>
+          <button className="md:hidden p-2" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Toggle menu">
+            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
         </div>
+        {mobileMenuOpen && (
+          <div className="md:hidden border-t border-border bg-card">
+            <nav className="container mx-auto px-4 py-4 flex flex-col gap-4">
+              <Link
+                href="/"
+                className="text-foreground hover:text-primary transition-colors py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Accueil
+              </Link>
+              <Link
+                href="/devis"
+                className="text-foreground hover:text-primary transition-colors py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Estimation
+              </Link>
+              <Link href="/qualite" className="text-primary font-medium py-2" onClick={() => setMobileMenuOpen(false)}>
+                Qualité
+              </Link>
+              <Link
+                href="/carriere"
+                className="text-foreground hover:text-primary transition-colors py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Carrière
+              </Link>
+              <Button asChild className="w-full">
+                <Link href="/devis" onClick={() => setMobileMenuOpen(false)}>
+                  Devis Gratuit
+                </Link>
+              </Button>
+            </nav>
+          </div>
+        )}
       </header>
 
       {/* Hero Section */}
@@ -231,7 +274,9 @@ export default function QualitePage() {
                 <div className="flex-1 text-center md:text-left">
                   <h3 className="text-2xl font-bold mb-3">Notre Engagement Local</h3>
                   <p className="text-muted-foreground text-lg mb-4">
-                    Entreprise basée sur la Côte d'Azur, nous intervenons principalement dans les Alpes-Maritimes (de Menton à Fréjus) et Monaco. Notre proximité nous permet d'être réactifs et à votre écoute pour garantir un service de qualité irréprochable.
+                    Entreprise basée sur la Côte d'Azur, nous intervenons principalement dans les Alpes-Maritimes (de
+                    Menton à Fréjus) et Monaco. Notre proximité nous permet d'être réactifs et à votre écoute pour
+                    garantir un service de qualité irréprochable.
                   </p>
                   <div className="flex flex-wrap gap-2 justify-center md:justify-start">
                     <Badge variant="secondary">Menton</Badge>
