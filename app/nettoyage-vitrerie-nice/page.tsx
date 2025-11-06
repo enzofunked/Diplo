@@ -7,13 +7,13 @@ import { Badge } from "@/components/ui/badge"
 export const metadata = {
   title: "Nettoyage de Vitres à Nice | UCT Azur - Expert Lavage de Vitres 06",
   description:
-    "Spécialiste du nettoyage de vitrerie à Nice et Alpes-Maritimes. UCT Azur intervient sur tous types de bâtiments avec des techniques adaptées au climat méditerranéen. Devis gratuit.",
+    "Spécialiste du nettoyage de vitres à Nice et Alpes-Maritimes. UCT Azur intervient sur tous types de bâtiments avec des techniques adaptées au climat méditerranéen. Devis gratuit.",
   keywords:
     "nettoyage vitres Nice, lavage vitres Nice, nettoyage baies vitrées Nice, vitrerie professionnelle 06, nettoyage façade vitrée Nice, UCT Azur",
   openGraph: {
     title: "Nettoyage de Vitres à Nice | UCT Azur",
     description:
-      "Expert en nettoyage de vitrerie à Nice. Solutions professionnelles adaptées aux embruns marins et au climat méditerranéen.",
+      "Expert en nettoyage de vitres à Nice. Solutions professionnelles adaptées aux embruns marins et au climat méditerranéen.",
     type: "website",
   },
 }

@@ -22,6 +22,7 @@ import {
 import Link from "next/link"
 import Image from "next/image"
 import { useState } from "react"
+import AboutSection from "@/components/about-section"
 
 export default function HomePage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -119,38 +120,58 @@ export default function HomePage() {
             et respect de l'environnement.
           </p>
           {/* Avis Google */}
-<div className="mt-4 flex flex-col items-center gap-1">
-  <div className="flex gap-0.5">
-    {Array.from({ length: 5 }).map((_, i) => (
-      <Star
-        key={i}
-        className="w-4 h-4 text-yellow-400 [&>path]:fill-yellow-400 [&>path]:stroke-yellow-400"
-      />
-    ))}
+          <div className="mt-4 flex flex-col items-center gap-1">
+            <div className="flex gap-0.5">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} className="w-4 h-4 text-yellow-400 [&>path]:fill-yellow-400 [&>path]:stroke-yellow-400" />
+              ))}
+            </div>
+
+            <a
+              href="https://www.google.com/maps?cid=2446253044107690229"
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+              className="text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              5,0 ★ sur Google
+            </a>
+          </div>
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-6 mt-8">
+  <div className="relative inline-block">
+    {/* Bouton principal */}
+    <Button asChild size="lg" className="text-lg px-8">
+      <Link href="/devis" scroll={true}>
+        Estimer mon besoin
+      </Link>
+    </Button>
+
+    {/* STICKER 30 sec (VERSION VIVID) */}
+    <div className="
+      absolute 
+      -right-3 
+      -top-3 
+      bg-amber-400 
+      text-amber-950 
+      text-[10px] 
+      font-semibold 
+      px-2.5 
+      py-[3px] 
+      rounded-full 
+      shadow-lg
+      border 
+      border-amber-500
+    ">
+      30 sec
+    </div>
   </div>
 
-  <a
-    href="https://www.google.com/maps?cid=2446253044107690229"
-    target="_blank"
-    rel="noopener noreferrer nofollow"
-    className="text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors"
-  >
-    5,0 ★ sur Google
-  </a>
+  <Button asChild variant="outline" size="lg" className="text-lg px-8 bg-transparent">
+    <Link href="#contact">
+      <Phone className="mr-2 h-5 w-5" />
+      Nous contacter
+    </Link>
+  </Button>
 </div>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-            <Button asChild size="lg" className="text-lg px-8">
-              <Link href="/devis" scroll={true}>
-                Estimer mon besoin
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="text-lg px-8 bg-transparent">
-              <Link href="#contact">
-                <Phone className="mr-2 h-5 w-5" />
-                Nous contacter
-              </Link>
-            </Button>
-          </div>
         </div>
       </section>
 
@@ -334,6 +355,19 @@ export default function HomePage() {
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
             Obtenez une estimation personnalisée en quelques clics ou contactez-nous directement
           </p>
+          {/* Trust Bar */}
+          <div className="mt-8 flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
+            {["Produits éco-labellisés", "Assurance RC Pro", "Réponse < 2h ouvrées"].map((label, i) => (
+              <div key={i} className="flex items-center gap-2 rounded-xl border bg-card px-4 py-3 shadow-sm">
+                <span className="inline-block h-3 w-3 rounded-full bg-primary/40" />
+                <span>{label}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Petit espace entre trust bar et boutons */}
+          <div className="mt-6" />
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" className="text-lg px-8">
               <Link href="/devis" scroll={true}>
@@ -416,6 +450,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* About Section */}
+      <AboutSection />
 
       {/* Footer */}
       <footer className="bg-card border-t border-border py-12 px-4">
@@ -544,9 +581,18 @@ export default function HomePage() {
 
           <div className="border-t border-border pt-8">
             <div className="flex flex-col md:flex-row items-center justify-between">
-              <div className="flex items-center gap-2 mb-4 md:mb-0">
-                <Image src="/images/uct-azur-logo.png" alt="UCT Azur Logo" width={24} height={24} className="h-6 w-6" />
-                <span className="text-lg font-semibold">UCT Azur</span>
+              <div className="flex flex-col items-center md:items-start gap-2 mb-4 md:mb-0">
+                <div className="flex items-center gap-2">
+                  <Image
+                    src="/images/uct-azur-logo.png"
+                    alt="UCT Azur Logo"
+                    width={24}
+                    height={24}
+                    className="h-6 w-6"
+                  />
+                  <span className="text-lg font-semibold">UCT Azur</span>
+                </div>
+                <p className="text-sm text-muted-foreground">28 Avenue Riviera, 06500 Menton</p>
               </div>
               <div className="flex items-center gap-4 mb-4 md:mb-0">
                 <a

@@ -125,16 +125,40 @@ export default function DevisChoicePage() {
                 </div>
 
                 <CardHeader className="pb-0">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="p-3 bg-primary/10 rounded-lg">
-                      <Clock className="h-8 w-8 text-primary" />
-                    </div>
-                    <div>
-                      <CardTitle className="text-2xl">Devis 100% Automatisé</CardTitle>
-                      <CardDescription className="text-lg">Disponible en 5 minutes</CardDescription>
-                    </div>
-                  </div>
-                </CardHeader>
+  <div className="relative flex items-center gap-3 mb-4">
+    
+    <div className="p-3 bg-primary/10 rounded-lg">
+      <Clock className="h-8 w-8 text-primary" />
+    </div>
+
+    <div>
+      <CardTitle className="text-2xl">Devis 100% Automatisé</CardTitle>
+      <CardDescription className="text-lg">Disponible en 30 secondes</CardDescription>
+    </div>
+
+    {/* ✅ Sticker 30 sec */}
+    <div
+      className="
+        absolute
+        -top-2
+        -right-2
+        bg-amber-400
+        text-amber-950
+        text-[10px]
+        font-semibold
+        px-2.5
+        py-[3px]
+        rounded-full
+        shadow-md
+        border
+        border-amber-500
+      "
+    >
+      30 sec
+    </div>
+
+  </div>
+</CardHeader>
 
                 <CardContent className="space-y-6">
                   <div className="bg-primary/5 p-4 rounded-lg">
@@ -179,7 +203,7 @@ export default function DevisChoicePage() {
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </div>
 
-                  <p className="text-xs text-muted-foreground text-center">⏱️ Temps estimé : 5 minutes</p>
+                  <p className="text-xs text-muted-foreground text-center">⏱️ Temps estimé : 1 minute</p>
                 </CardContent>
               </Card>
             </Link>
