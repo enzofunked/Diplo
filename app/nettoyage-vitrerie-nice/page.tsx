@@ -5,13 +5,13 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 
 export const metadata = {
-  title: "Nettoyage de Vitrerie à Nice | UCT Azur - Expert Lavage de Vitres 06",
+  title: "Nettoyage de Vitres à Nice | UCT Azur - Expert Lavage de Vitres 06",
   description:
     "Spécialiste du nettoyage de vitrerie à Nice et Alpes-Maritimes. UCT Azur intervient sur tous types de bâtiments avec des techniques adaptées au climat méditerranéen. Devis gratuit.",
   keywords:
-    "nettoyage vitrerie Nice, lavage vitres Nice, nettoyage baies vitrées Nice, vitrerie professionnelle 06, nettoyage façade vitrée Nice, UCT Azur",
+    "nettoyage vitres Nice, lavage vitres Nice, nettoyage baies vitrées Nice, vitrerie professionnelle 06, nettoyage façade vitrée Nice, UCT Azur",
   openGraph: {
-    title: "Nettoyage de Vitrerie à Nice | UCT Azur",
+    title: "Nettoyage de Vitres à Nice | UCT Azur",
     description:
       "Expert en nettoyage de vitrerie à Nice. Solutions professionnelles adaptées aux embruns marins et au climat méditerranéen.",
     type: "website",
@@ -42,11 +42,9 @@ export default function NettoyageVitrerieNice() {
         <div className="container mx-auto">
           <div className="max-w-4xl mx-auto text-center">
             <Badge className="mb-4 bg-teal-100 text-teal-700 hover:bg-teal-100">Expert Vitrerie Nice</Badge>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">Nettoyage de Vitrerie à Nice</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">Nettoyage de Vitres à Nice</h1>
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              UCT Azur, spécialiste du nettoyage de vitrerie dans les Alpes-Maritimes, vous garantit des vitres
-              impeccables toute l'année. Nos équipes maîtrisent les techniques adaptées au climat méditerranéen et aux
-              contraintes des embruns marins.
+              UCT Azur, spécialiste du nettoyage de vitres dans les Alpes-Maritimes, vous garantit des vitres impeccables toute l'année. Nos équipes maîtrisent les techniques adaptées au climat méditerranéen et aux contraintes des embruns marins.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
@@ -88,7 +86,7 @@ export default function NettoyageVitrerieNice() {
       <section className="py-16 px-4">
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-3xl font-bold mb-4 text-center text-gray-900">
-            Les Défis du Nettoyage de Vitrerie à Nice
+            Les Défis du Nettoyage de Vitres à Nice
           </h2>
           <p className="text-gray-600 text-center mb-12 max-w-3xl mx-auto">
             Le climat méditerranéen et la proximité de la mer imposent des contraintes spécifiques pour l'entretien des

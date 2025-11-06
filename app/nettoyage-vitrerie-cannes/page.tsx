@@ -5,11 +5,11 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 
 export const metadata = {
-  title: "Nettoyage de Vitrerie à Cannes | UCT Azur - Expert Vitres & Baies Vitrées",
+  title: "Nettoyage de Vitres à Cannes | UCT Azur - Expert Vitres & Baies Vitrées",
   description:
-    "Spécialiste du nettoyage de vitrerie à Cannes. Solutions professionnelles anti-embruns pour résidences de prestige, bureaux et commerces sur La Croisette. Devis gratuit.",
+    "Spécialiste du nettoyage de vitres à Cannes. Solutions professionnelles anti-embruns pour résidences de prestige, bureaux et commerces sur La Croisette. Devis gratuit.",
   keywords:
-    "nettoyage vitrerie Cannes, lavage vitres Cannes, nettoyage baies vitrées Cannes, vitrier Cannes, nettoyage vitres La Croisette, entretien vitres Cannes",
+    "nettoyage vitres Cannes, lavage vitres Cannes, nettoyage baies vitrées Cannes, vitrier Cannes, nettoyage vitres La Croisette, entretien vitres Cannes",
 }
 
 export default function NettoyageVitrerieCannesPage() {
@@ -37,7 +37,7 @@ export default function NettoyageVitrerieCannesPage() {
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
               <Badge className="mb-4 bg-teal-600">Cannes - Côte d'Azur</Badge>
-              <h1 className="text-3xl md:text-5xl font-bold mb-4 text-balance">Nettoyage de Vitrerie à Cannes</h1>
+              <h1 className="text-3xl md:text-5xl font-bold mb-4 text-balance">Nettoyage de Vitres à Cannes</h1>
               <p className="text-lg text-muted-foreground mb-6 text-pretty">
                 Expert en nettoyage de vitres et baies vitrées pour les résidences de prestige, bureaux et commerces
                 cannois. Solutions professionnelles anti-embruns adaptées au climat méditerranéen.
@@ -74,7 +74,7 @@ export default function NettoyageVitrerieCannesPage() {
       <section className="py-12 md:py-16 px-4">
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">
-            Les Défis du Nettoyage de Vitrerie à Cannes
+            Les Défis du Nettoyage de vitres à Cannes
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
             <Card>

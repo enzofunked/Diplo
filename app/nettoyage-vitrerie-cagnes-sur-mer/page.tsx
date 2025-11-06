@@ -6,11 +6,11 @@ import { Badge } from "@/components/ui/badge"
 import { Phone, Mail, Building2, CheckCircle, Clock, Droplets, Sparkles } from "lucide-react"
 
 export const metadata = {
-  title: "Nettoyage de Vitrerie à Cagnes-sur-Mer | UCT Azur - Expert Vitres Professionnelles",
+  title: "Nettoyage de Vitres à Cagnes-sur-Mer | UCT Azur - Expert Vitres Professionnelles",
   description:
-    "Service professionnel de nettoyage de vitrerie à Cagnes-sur-Mer. Solutions anti-sel pour le Cros-de-Cagnes, techniques adaptées au climat méditerranéen. Devis gratuit.",
+    "Service professionnel de nettoyage de vitres à Cagnes-sur-Mer. Solutions anti-sel pour le Cros-de-Cagnes, techniques adaptées au climat méditerranéen. Devis gratuit.",
   keywords:
-    "nettoyage vitrerie Cagnes-sur-Mer, lavage vitres Cros-de-Cagnes, nettoyage baies vitrées 06800, vitrier professionnel Cagnes, entretien vitres bord de mer",
+    "nettoyage vitres Cagnes-sur-Mer, lavage vitres Cros-de-Cagnes, nettoyage baies vitrées 06800, vitrier professionnel Cagnes, entretien vitres bord de mer",
 }
 
 export default function NettoyageVitrerieCagnesSurMer() {
@@ -46,7 +46,7 @@ export default function NettoyageVitrerieCagnesSurMer() {
             <div>
               <Badge className="mb-4 bg-teal-100 text-teal-700 hover:bg-teal-100">Cagnes-sur-Mer - 06800</Badge>
               <h1 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
-                Nettoyage de Vitrerie à Cagnes-sur-Mer
+                Nettoyage de Vitres à Cagnes-sur-Mer
               </h1>
               <p className="text-lg text-muted-foreground mb-8 text-pretty">
                 Expert en nettoyage de vitres professionnelles à Cagnes-sur-Mer. Solutions adaptées au climat
@@ -79,7 +79,7 @@ export default function NettoyageVitrerieCagnesSurMer() {
       <section className="py-16 px-4">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Les Défis du Nettoyage de Vitrerie à Cagnes-sur-Mer</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Les Défis du Nettoyage de Vitres à Cagnes-sur-Mer</h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
               Entre mer et collines, Cagnes-sur-Mer présente des enjeux spécifiques pour l'entretien des vitres
               professionnelles.

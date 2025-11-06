@@ -445,7 +445,7 @@ export default function HomePage() {
                     href="/nettoyage-vitrerie-nice"
                     className="text-muted-foreground hover:text-primary transition-colors text-sm"
                   >
-                    Nettoyage de vitrerie
+                    Nettoyage de vitres
                   </Link>
                 </li>
               </ul>
@@ -475,7 +475,7 @@ export default function HomePage() {
                     href="/nettoyage-vitrerie-cannes"
                     className="text-muted-foreground hover:text-primary transition-colors text-sm"
                   >
-                    Nettoyage de vitrerie
+                    Nettoyage de vitres
                   </Link>
                 </li>
               </ul>
@@ -505,7 +505,7 @@ export default function HomePage() {
                     href="/nettoyage-vitrerie-menton"
                     className="text-muted-foreground hover:text-primary transition-colors text-sm"
                   >
-                    Nettoyage de vitrerie
+                    Nettoyage de vitres
                   </Link>
                 </li>
               </ul>
@@ -535,7 +535,7 @@ export default function HomePage() {
                     href="/nettoyage-vitrerie-cagnes-sur-mer"
                     className="text-muted-foreground hover:text-primary transition-colors text-sm"
                   >
-                    Nettoyage de vitrerie
+                    Nettoyage de vitres
                   </Link>
                 </li>
               </ul>

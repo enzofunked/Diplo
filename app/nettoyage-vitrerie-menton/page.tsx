@@ -6,11 +6,11 @@ import { Badge } from "@/components/ui/badge"
 import { Phone, Mail, Building2, CheckCircle, Shield, Clock, Sparkles, Droplets } from "lucide-react"
 
 export const metadata = {
-  title: "Nettoyage de Vitrerie à Menton | UCT Azur - Expert Lavage de Vitres 06",
+  title: "Nettoyage de Vitres à Menton | UCT Azur - Expert Lavage de Vitres 06",
   description:
-    "Service professionnel de nettoyage de vitrerie à Menton. UCT Azur intervient sur toute la ville avec des solutions adaptées aux embruns marins et au climat méditerranéen. Devis gratuit.",
+    "Service professionnel de nettoyage de vitres à Menton. UCT Azur intervient sur toute la ville avec des solutions adaptées aux embruns marins et au climat méditerranéen. Devis gratuit.",
   keywords:
-    "nettoyage vitrerie Menton, lavage vitres Menton, nettoyage baies vitrées Menton, vitrier Menton, entretien vitres 06500, nettoyage vitres front de mer Menton",
+    "nettoyage vitres Menton, lavage vitres Menton, nettoyage baies vitrées Menton, vitrier Menton, entretien vitres 06500, nettoyage vitres front de mer Menton",
 }
 
 export default function NettoyageVitrerieMentonPage() {
@@ -46,10 +46,10 @@ export default function NettoyageVitrerieMentonPage() {
             <div>
               <Badge className="mb-4 bg-teal-600">Menton - 06500</Badge>
               <h1 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
-                Nettoyage de Vitrerie Professionnel à Menton
+                Nettoyage de Vitres Professionnel à Menton
               </h1>
               <p className="text-lg text-muted-foreground mb-8 text-pretty">
-                UCT Azur, expert en nettoyage de vitrerie à Menton, vous garantit des vitres impeccables toute l'année.
+                UCT Azur, expert en nettoyage de vitres à Menton, vous garantit des vitres impeccables toute l'année.
                 Solutions adaptées aux embruns marins et au climat méditerranéen de la Côte d'Azur.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -80,8 +80,8 @@ export default function NettoyageVitrerieMentonPage() {
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Les Défis du Nettoyage de Vitrerie à Menton</h2>
             <p className="text-lg text-muted-foreground text-pretty">
-              Ville frontalière entre la France et l'Italie, Menton présente des enjeux spécifiques pour l'entretien des
-              vitres et baies vitrées.
+              Située entre la France et l'Italie, Menton présente des enjeux spécifiques pour l'entretien des vitres et
+              baies vitrées.
             </p>
           </div>
 
