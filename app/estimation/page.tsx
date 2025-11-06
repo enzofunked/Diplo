@@ -598,7 +598,7 @@ export default function EstimationPage() {
                 Accueil
               </Link>
             </Button>
-            <div className="flex items-center gap-2">
+            <Link href="/" className="flex items-center gap-2">
               <Image
                 src="/images/uct-logo-estimation.png"
                 alt="UCT Azur Logo"
@@ -607,7 +607,7 @@ export default function EstimationPage() {
                 className="object-contain"
               />
               <span className="text-xl font-bold text-gray-800">UCT Azur</span>
-            </div>
+            </Link>
           </div>
         </div>
       </header>

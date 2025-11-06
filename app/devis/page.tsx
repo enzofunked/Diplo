@@ -20,10 +20,10 @@ export default function DevisChoicePage() {
       {/* Header */}
       <header className="border-b border-border bg-card backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2">
             <Image src="/images/uct-azur-logo.png" alt="UCT Azur Logo" width={32} height={32} className="h-8 w-8" />
             <h1 className="text-2xl font-bold text-foreground">UCT Azur</h1>
-          </div>
+          </Link>
 
           <nav className="hidden md:flex items-center gap-6">
             <Link href="/" className="text-foreground hover:text-primary transition-colors">
@@ -125,40 +125,36 @@ export default function DevisChoicePage() {
                 </div>
 
                 <CardHeader className="pb-0">
-  <div className="relative flex items-center gap-3 mb-4">
-    
-    <div className="p-3 bg-primary/10 rounded-lg">
-      <Clock className="h-8 w-8 text-primary" />
-    </div>
-
-    <div>
-      <CardTitle className="text-2xl">Devis 100% Automatisé</CardTitle>
-      <CardDescription className="text-lg">Disponible en 30 secondes</CardDescription>
-    </div>
-
-    {/* ✅ Sticker 30 sec */}
-    <div
-      className="
-        absolute
-        -top-2
-        -right-2
-        bg-amber-400
-        text-amber-950
-        text-[10px]
-        font-semibold
-        px-2.5
-        py-[3px]
-        rounded-full
-        shadow-md
-        border
-        border-amber-500
-      "
-    >
-      30 sec
-    </div>
-
-  </div>
-</CardHeader>
+                  <div className="relative flex items-center gap-3 mb-4">
+                    <div className="p-3 bg-primary/10 rounded-lg">
+                      <Clock className="h-8 w-8 text-primary" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-2xl">Devis 100% Automatisé</CardTitle>
+                      <CardDescription className="text-lg">Disponible en 30 secondes</CardDescription>
+                    </div>
+                    {/* ✅ Sticker 30 sec */}
+                    <div
+                      className="
+                        absolute
+                        -top-2
+                        -right-2
+                        bg-amber-400
+                        text-amber-950
+                        text-[10px]
+                        font-semibold
+                        px-2.5
+                        py-[3px]
+                        rounded-full
+                        shadow-md
+                        border
+                        border-amber-500
+                      "
+                    >
+                      30 sec
+                    </div>
+                  </div>
+                </CardHeader>
 
                 <CardContent className="space-y-6">
                   <div className="bg-primary/5 p-4 rounded-lg">
@@ -365,8 +361,10 @@ export default function DevisChoicePage() {
         <div className="container mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="flex items-center gap-3 mb-4 md:mb-0">
-              <Image src="/images/uct-azur-logo.png" alt="UCT Azur Logo" width={32} height={32} className="h-8 w-8" />
-              <span className="text-lg font-semibold">UCT Azur</span>
+              <Link href="/" className="flex items-center gap-2">
+                <Image src="/images/uct-azur-logo.png" alt="UCT Azur Logo" width={32} height={32} className="h-8 w-8" />
+                <span className="text-lg font-semibold">UCT Azur</span>
+              </Link>
             </div>
             <p className="text-muted-foreground text-center md:text-right">
               © 2025 UCT Azur. Tous droits réservés.

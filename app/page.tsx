@@ -32,10 +32,10 @@ export default function HomePage() {
       {/* Header */}
       <header className="border-b border-border bg-card backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2">
             <Image src="/images/uct-azur-logo.png" alt="UCT Azur Logo" width={32} height={32} className="h-8 w-8" />
             <h1 className="text-2xl font-bold text-foreground">UCT Azur</h1>
-          </div>
+          </Link>
 
           <nav className="hidden md:flex items-center gap-6">
             <Link href="/" className="text-foreground hover:text-primary transition-colors">
@@ -137,41 +137,43 @@ export default function HomePage() {
             </a>
           </div>
           <div className="flex flex-col sm:flex-row justify-center items-center gap-6 mt-8">
-  <div className="relative inline-block">
-    {/* Bouton principal */}
-    <Button asChild size="lg" className="text-lg px-8">
-      <Link href="/devis" scroll={true}>
-        Estimer mon besoin
-      </Link>
-    </Button>
+            <div className="relative inline-block">
+              {/* Bouton principal */}
+              <Button asChild size="lg" className="text-lg px-8">
+                <Link href="/devis" scroll={true}>
+                  Estimer mon besoin
+                </Link>
+              </Button>
 
-    {/* STICKER 30 sec (VERSION VIVID) */}
-    <div className="
-      absolute 
-      -right-3 
-      -top-3 
-      bg-amber-400 
-      text-amber-950 
-      text-[10px] 
-      font-semibold 
-      px-2.5 
-      py-[3px] 
-      rounded-full 
-      shadow-lg
-      border 
-      border-amber-500
-    ">
-      30 sec
-    </div>
-  </div>
+              {/* STICKER 30 sec (VERSION VIVID) */}
+              <div
+                className="
+                absolute 
+                -right-3 
+                -top-3 
+                bg-amber-400 
+                text-amber-950 
+                text-[10px] 
+                font-semibold 
+                px-2.5 
+                py-[3px] 
+                rounded-full 
+                shadow-lg
+                border 
+                border-amber-500
+              "
+              >
+                30 sec
+              </div>
+            </div>
 
-  <Button asChild variant="outline" size="lg" className="text-lg px-8 bg-transparent">
-    <Link href="#contact">
-      <Phone className="mr-2 h-5 w-5" />
-      Nous contacter
-    </Link>
-  </Button>
-</div>
+            <Button asChild variant="outline" size="lg" className="text-lg px-8 bg-transparent">
+              <Link href="#contact">
+                <Phone className="mr-2 h-5 w-5" />
+                Nous contacter
+              </Link>
+            </Button>
+          </div>
         </div>
       </section>
 
