@@ -205,7 +205,12 @@ export default function DevisChoicePage() {
             </Link>
 
             {/* Detailed Quote Card */}
-            <Link href="/planifier-rdv" className="block">
+            <a
+              href="https://calendly.com/uctazur/visite-de-vos-locaux"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block"
+            >
               <Card className="relative overflow-hidden border-2 hover:border-secondary/50 transition-all duration-300 hover:shadow-xl group bg-gradient-to-br from-secondary/5 to-secondary/10 cursor-pointer h-full">
                 <div className="absolute top-4 right-4">
                   <Badge className="bg-blue-100 text-blue-800 border-blue-200">
@@ -272,7 +277,7 @@ export default function DevisChoicePage() {
                   <p className="text-xs text-muted-foreground text-center">📅 Rendez-vous sous 24h • Devis sous 48h</p>
                 </CardContent>
               </Card>
-            </Link>
+            </a>
           </div>
         </div>
       </section>
