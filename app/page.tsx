@@ -17,6 +17,7 @@ import {
   Linkedin,
   Menu,
   X,
+  Star,
 } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
@@ -117,7 +118,27 @@ export default function HomePage() {
             Services de nettoyage professionnel pour entreprises, commerces, hôtels et copropriétés. Qualité, fiabilité
             et respect de l'environnement.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          {/* Avis Google */}
+<div className="mt-4 flex flex-col items-center gap-1">
+  <div className="flex gap-0.5">
+    {Array.from({ length: 5 }).map((_, i) => (
+      <Star
+        key={i}
+        className="w-4 h-4 text-yellow-400 [&>path]:fill-yellow-400 [&>path]:stroke-yellow-400"
+      />
+    ))}
+  </div>
+
+  <a
+    href="https://www.google.com/maps?cid=2446253044107690229"
+    target="_blank"
+    rel="noopener noreferrer nofollow"
+    className="text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors"
+  >
+    5,0 ★ sur Google
+  </a>
+</div>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
             <Button asChild size="lg" className="text-lg px-8">
               <Link href="/devis" scroll={true}>
                 Estimer mon besoin
