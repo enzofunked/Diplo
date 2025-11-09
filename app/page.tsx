@@ -322,7 +322,7 @@ export default function HomePage() {
                     <span className="text-primary font-semibold">JD</span>
                   </div>
                   <div>
-                    <p className="font-semibold">Jean Dupont</p>
+                    <p className="font-semibold">Jean D</p>
                     <p className="text-sm text-muted-foreground">Hôtellerie</p>
                   </div>
                 </div>
