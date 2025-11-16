@@ -730,7 +730,7 @@ export default function EstimationPage() {
             <div className="text-center mb-12">
               {quoteType === "auto" ? (
                 <>
-                  <h1 className="text-3xl font-bold text-gray-800 mb-4">Devis 100% automatique</h1>
+                  <h1 className="text-3xl font-bold text-gray-800 mb-4">Estimation 100% en ligne</h1>
                   <p className="text-gray-600 max-w-2xl mx-auto mb-6">
                     Obtenez votre devis de nettoyage en moins de 5 minutes ! Remplissez simplement les informations sur
                     votre local, et notre système calculera automatiquement le tarif adapté à vos besoins.

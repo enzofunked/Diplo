@@ -130,7 +130,7 @@ export default function DevisChoicePage() {
                       <Clock className="h-8 w-8 text-primary" />
                     </div>
                     <div>
-                      <CardTitle className="text-2xl">Devis 100% Automatisé</CardTitle>
+                      <CardTitle className="text-2xl">Estimation 100% en ligne</CardTitle>
                       <CardDescription className="text-lg">Disponible en 30 secondes</CardDescription>
                     </div>
                     {/* ✅ Sticker 30 sec */}
